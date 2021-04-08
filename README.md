@@ -1,4 +1,4 @@
-# **Zendy**
+# **Zendi**
 ## Authors
 - Trần Trí Thức (*Leader*) - 19522321
 - Phạm Võ Di Thiên - 19522267
