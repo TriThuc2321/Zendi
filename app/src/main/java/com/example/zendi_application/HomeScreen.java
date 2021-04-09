@@ -2,17 +2,22 @@ package com.example.zendi_application;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeScreen extends AppCompatActivity {
-
+    AppBarLayout appBarLayout;
+    MaterialToolbar mAppBarTop;
     BottomNavigationView mNavigationView;
     ViewPager mViewPager;
 
@@ -21,18 +26,32 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home_screen);
-
+        // Hooks
+        mAppBarTop = findViewById(R.id.topAppBar);
+        appBarLayout = findViewById(R.id.appbarlayout);
+        mAppBarTop.setTitle("DROPS"+ "");
         mNavigationView = findViewById(R.id.bottom_nav);
         mViewPager = findViewById(R.id.view_paper);
 
         setUpViewPager();
 
+        mAppBarTop.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.account) {
+                    Intent intent = new Intent(HomeScreen.this, Account_Activity.class);
+                    startActivity(intent);
+                }
+                return true;
+            }
+        });
         mNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.action_drops:
                         mViewPager.setCurrentItem(0);
+
                         break;
                     case R.id.action_search:
                         mViewPager.setCurrentItem(1);
@@ -64,15 +83,19 @@ public class HomeScreen extends AppCompatActivity {
                 switch (position){
                     case 0:
                         mNavigationView.getMenu().findItem(R.id.action_drops).setChecked(true);
+                        mAppBarTop.setTitle("DROPS"+ "");
                         break;
                     case 1:
                         mNavigationView.getMenu().findItem(R.id.action_search).setChecked(true);
+                        mAppBarTop.setTitle("SHOP"+ "");
                         break;
                     case 2:
                         mNavigationView.getMenu().findItem(R.id.action_wishlist).setChecked(true);
+                        mAppBarTop.setTitle("WISHLIST"+ "");
                         break;
                     case 3:
                         mNavigationView.getMenu().findItem(R.id.action_shop).setChecked(true);
+                        mAppBarTop.setTitle("SHOPPING BAG" + "");
                         break;
                 }
             }

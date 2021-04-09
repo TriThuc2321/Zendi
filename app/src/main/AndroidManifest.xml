@@ -9,10 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Zendi_Application">
-        <activity android:name=".HomeScreen"></activity>
+        <activity android:name=".Account_Activity"></activity>
+        <activity android:name=".HomeScreen" />
         <activity android:name=".Introduction">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
