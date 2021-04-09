@@ -41,6 +41,7 @@ public class HomeScreen extends AppCompatActivity {
                 if (item.getItemId() == R.id.account) {
                     Intent intent = new Intent(HomeScreen.this, Account_Activity.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
                 }
                 return true;
             }
