@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -39,6 +40,7 @@ public class HomeScreen extends AppCompatActivity {
         mAppBarTop.setTitle("DROPS"+ "");
         mNavigationView = findViewById(R.id.bottom_nav);
         mViewPager = findViewById(R.id.view_paper);
+        mNavigationView.setBackgroundColor(Color.WHITE);
 
         setUpViewPager();
 
