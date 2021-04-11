@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "678839678969",
+    "project_id": "zendi-1e684",
+    "storage_bucket": "zendi-1e684.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:678839678969:android:a2ee11d0e72149e0d46f28",
+        "android_client_info": {
+          "package_name": "com.example.zendi_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "678839678969-jdl77hhl8r6tpkph940kds36gvtggfkm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJeht8nJrgYRnv-7ePMksv7drLW4L0K4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "678839678969-jdl77hhl8r6tpkph940kds36gvtggfkm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
