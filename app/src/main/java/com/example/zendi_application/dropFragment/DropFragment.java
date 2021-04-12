@@ -29,6 +29,7 @@ public class DropFragment extends Fragment implements View.OnClickListener {
     Button btn_type2;
     private RecyclerView rcvCategory;
     private categoryAdapter CategoryAdapter;
+    LinearLayoutManager linearLayoutManager;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,8 +41,9 @@ public class DropFragment extends Fragment implements View.OnClickListener {
         //RecycleView Category Drop
         rcvCategory = view.findViewById(R.id.rcv_category);
         CategoryAdapter = new categoryAdapter(this.getContext());
+        rcvCategory.setHasFixedSize(true); // add to project make scroll smoothly
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(),RecyclerView.VERTICAL,false);
+        linearLayoutManager = new LinearLayoutManager(this.getContext(),RecyclerView.VERTICAL,false);
         rcvCategory.setLayoutManager(linearLayoutManager);
 
         CategoryAdapter.SetData(getListCategory());
@@ -51,6 +53,10 @@ public class DropFragment extends Fragment implements View.OnClickListener {
         btn_type.setOnClickListener(this::onClick);
         btn_type1.setOnClickListener(this::onClick);
         btn_type2.setOnClickListener(this::onClick);
+
+        ///
+
+
         return view;
     }
 
@@ -72,6 +78,12 @@ public class DropFragment extends Fragment implements View.OnClickListener {
         mcategoryList.add(new category(listDrop));
         mcategoryList.add(new category(listDrop));
         mcategoryList.add(new category(listDrop));
+        mcategoryList.add(new category(listDrop));
+        mcategoryList.add(new category(listDrop));
+        mcategoryList.add(new category(listDrop));
+        mcategoryList.add(new category(listDrop));
+        mcategoryList.add(new category(listDrop));
+        mcategoryList.add(new category(listDrop));
         return mcategoryList;
     }
     @Override
@@ -82,13 +94,17 @@ public class DropFragment extends Fragment implements View.OnClickListener {
         }
         if (v.getId() == R.id.btn_type1)
         {
-            Toast.makeText(this.getContext(),"CAI CC ME M",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(),"C",Toast.LENGTH_SHORT).show();
+            rcvCategory.smoothScrollToPosition(1);
+
 
 
         }
         if (v.getId() == R.id.btn_type2)
         {
             Toast.makeText(this.getContext(),"CAI CC ME M",Toast.LENGTH_SHORT).show();
+            rcvCategory.smoothScrollToPosition(2);
         }
     }
+
 }

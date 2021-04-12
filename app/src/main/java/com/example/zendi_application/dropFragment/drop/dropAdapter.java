@@ -1,16 +1,20 @@
 package com.example.zendi_application.dropFragment.drop;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.R;
+import com.example.zendi_application.dropFragment.collection_drop;
 
 import java.util.List;
 
@@ -42,9 +46,22 @@ public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolde
         holder.typeDrop.setText(dropp.getType());
         holder.shopbtnDrop.setText("SHOP NOW" + "");
 
+        holder.shopbtnDrop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), collection_drop.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("dropname",holder.captionDrop.getText().toString());
+                intent.putExtras(bundle);
+
+                v.getContext().startActivity(intent);
+            }
+        });
+
 
 
     }
+
 
     @Override
     public int getItemCount() {
