@@ -12,6 +12,7 @@
         android:theme="@style/Theme.Zendi_Application">
         <activity android:name=".SettingActivity"></activity>
         <activity android:name=".LoginActivity" />
+        <activity android:name=".dropFragment.collection_drop"></activity>
         <activity android:name=".Account_Activity" />
         <activity android:name=".HomeScreen" />
         <activity android:name=".Introduction">
