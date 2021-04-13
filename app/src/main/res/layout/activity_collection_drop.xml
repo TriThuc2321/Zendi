@@ -8,6 +8,7 @@
     android:orientation="vertical"
     tools:context=".dropFragment.collection_drop">
     <ImageView
+        android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:scaleType="centerCrop"

@@ -52,7 +52,10 @@ public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolde
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), collection_drop.class);
-
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("data", dropp);
+                intent.putExtras(bundle);
+               int a = 5;
                 v.getContext().startActivity(intent);
             }
         });

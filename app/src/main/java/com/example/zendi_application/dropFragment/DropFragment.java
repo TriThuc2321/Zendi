@@ -65,8 +65,8 @@ public class DropFragment extends Fragment implements View.OnClickListener {
         // Test product
         List<Integer> imglist = new ArrayList<>();
         imglist.add(R.drawable.categorytest);
-        imglist.add(R.drawable.categorytest);
-        imglist.add(R.drawable.categorytest);
+        imglist.add(R.drawable.categorytest1);
+        imglist.add(R.drawable.categorytest3);
 
         List<Integer> remainningAmount = new ArrayList<>();
         remainningAmount.add(5);
