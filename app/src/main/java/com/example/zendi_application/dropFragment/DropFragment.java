@@ -62,18 +62,36 @@ public class DropFragment extends Fragment implements View.OnClickListener {
 
     private List<category> getListCategory()
     {
+        // Test product
+        List<Integer> imglist = new ArrayList<>();
+        imglist.add(R.drawable.categorytest);
+        imglist.add(R.drawable.categorytest);
+        imglist.add(R.drawable.categorytest);
+
+        List<Integer> remainningAmount = new ArrayList<>();
+        remainningAmount.add(5);
+        remainningAmount.add(6);
+        remainningAmount.add(3);
+        remainningAmount.add(2);
+        remainningAmount.add(1);
+        List<product> productList = new ArrayList<>();
+        productList.add(new product("UIT123","ZX 2K BOOTS PURE SHOES",imglist,remainningAmount));
+        productList.add(new product("UIT122","ZX 3K BOOTS PURE SHOES",imglist,remainningAmount));
+        productList.add(new product("UIT121","ZX 4K BOOTS PURE SHOES",imglist,remainningAmount));
+        productList.add(new product("UIT120","ZX 5K BOOTS PURE SHOES",imglist,remainningAmount));
+        //
         List<category> mcategoryList = new ArrayList<>();
 
         List<drop> listDrop = new ArrayList<>();
-        listDrop.add(new drop(R.drawable.categorytest,"STAN SMITH, FOREVER"+"","JUST DROPPED","ORIGINALS"));
-        listDrop.add(new drop(R.drawable.categorytest1,"RUNNER, FASTER"+"","JUST DROPPED","SPORT"));
-        listDrop.add(new drop(R.drawable.categorytest3,"HYPEBEAST, BUMP"+"","JUST DROPPED","ORIGINALS"));
-        listDrop.add(new drop(R.drawable.categorytest2,"SNEAKER, FASHION"+"","JUST DROPPED","PARTY"));
+        listDrop.add(new drop(R.drawable.categorytest,"STAN SMITH, FOREVER"+"","JUST DROPPED","ORIGINALS",productList));
+        listDrop.add(new drop(R.drawable.categorytest1,"RUNNER, FASTER"+"","JUST DROPPED","SPORT",productList));
+        listDrop.add(new drop(R.drawable.categorytest3,"HYPEBEAST, BUMP"+"","JUST DROPPED","ORIGINALS",productList));
+        listDrop.add(new drop(R.drawable.categorytest2,"SNEAKER, FASHION"+"","JUST DROPPED","PARTY",productList));
 
-        listDrop.add(new drop(R.drawable.categorytest,"STAN SMITH, FOREVER1"+"","JUST DROPPED","ORIGINALS"));
-        listDrop.add(new drop(R.drawable.categorytest1,"RUNNER, FASTER1"+"","JUST DROPPED","SPORT"));
-        listDrop.add(new drop(R.drawable.categorytest3,"HYPEBEAST, BUMP1"+"","JUST DROPPED","ORIGINALS"));
-        listDrop.add(new drop(R.drawable.categorytest2,"SNEAKER, FASHION1"+"","JUST DROPPED","PARTY"));
+        listDrop.add(new drop(R.drawable.categorytest,"STAN SMITH, FOREVER1"+"","JUST DROPPED","ORIGINALS",productList));
+        listDrop.add(new drop(R.drawable.categorytest1,"RUNNER, FASTER1"+"","JUST DROPPED","SPORT",productList));
+        listDrop.add(new drop(R.drawable.categorytest3,"HYPEBEAST, BUMP1"+"","JUST DROPPED","ORIGINALS",productList));
+        listDrop.add(new drop(R.drawable.categorytest2,"SNEAKER, FASHION1"+"","JUST DROPPED","PARTY",productList));
 
         mcategoryList.add(new category(listDrop));
         mcategoryList.add(new category(listDrop));
@@ -96,8 +114,6 @@ public class DropFragment extends Fragment implements View.OnClickListener {
         {
             Toast.makeText(this.getContext(),"C",Toast.LENGTH_SHORT).show();
             rcvCategory.smoothScrollToPosition(1);
-
-
 
         }
         if (v.getId() == R.id.btn_type2)
