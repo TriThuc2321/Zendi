@@ -44,7 +44,7 @@ public class Account_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Account_Activity.this, LoginActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
+                //overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
             }
         });
 
