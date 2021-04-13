@@ -1,6 +1,5 @@
 package com.example.zendi_application.dropFragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +17,7 @@ import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.category_drop.category;
 import com.example.zendi_application.dropFragment.category_drop.categoryAdapter;
 import com.example.zendi_application.dropFragment.drop.drop;
+import com.example.zendi_application.dropFragment.product.product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,10 +74,10 @@ public class DropFragment extends Fragment implements View.OnClickListener {
         remainningAmount.add(2);
         remainningAmount.add(1);
         List<product> productList = new ArrayList<>();
-        productList.add(new product("UIT123","ZX 2K BOOTS PURE SHOES",imglist,remainningAmount));
-        productList.add(new product("UIT122","ZX 3K BOOTS PURE SHOES",imglist,remainningAmount));
-        productList.add(new product("UIT121","ZX 4K BOOTS PURE SHOES",imglist,remainningAmount));
-        productList.add(new product("UIT120","ZX 5K BOOTS PURE SHOES",imglist,remainningAmount));
+        productList.add(new product("UIT123","ZX 2K BOOTS PURE SHOES","1.400.000 VND",imglist,remainningAmount,1));
+        productList.add(new product("UIT122","ZX 3K BOOTS PURE SHOES","1.500.000 VND",imglist,remainningAmount,2));
+        productList.add(new product("UIT121","ZX 4K BOOTS PURE SHOES","2.000.000 VND",imglist,remainningAmount,3));
+        productList.add(new product("UIT120","ZX 5K BOOTS PURE SHOES","2.500.000 VND",imglist,remainningAmount,1));
         //
         List<category> mcategoryList = new ArrayList<>();
 

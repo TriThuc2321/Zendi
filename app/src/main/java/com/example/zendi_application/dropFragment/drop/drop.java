@@ -3,7 +3,7 @@ package com.example.zendi_application.dropFragment.drop;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.zendi_application.dropFragment.product;
+import com.example.zendi_application.dropFragment.product.product;
 
 import java.util.List;
 
