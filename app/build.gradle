@@ -50,7 +50,11 @@ dependencies {
 
     //facbook
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.firebase:firebase-auth'
 
+    //gmail
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

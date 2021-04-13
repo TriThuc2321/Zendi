@@ -1,17 +1,15 @@
-package com.example.zendi_application;
+package com.example.zendi_application.ActivityAccount;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 
-import com.google.android.material.appbar.AppBarLayout;
+import com.example.zendi_application.R;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class Account_Activity extends AppCompatActivity {

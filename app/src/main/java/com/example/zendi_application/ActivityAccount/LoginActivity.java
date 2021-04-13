@@ -1,34 +1,40 @@
-package com.example.zendi_application;
+package com.example.zendi_application.ActivityAccount;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DownloadManager;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.media.MediaScannerConnection;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zendi_application.R;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 
@@ -37,7 +43,10 @@ public class LoginActivity extends AppCompatActivity {
     private LoginButton loginButton;
     private TextView txtName;
     private TextView txtEmail;
+    private ImageView profilePic;
     private CallbackManager callbackManager;
+    private FirebaseAuth mAuth;
+    private static final String EMAIL = "email";
 
 
 
@@ -47,18 +56,25 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         callbackManager = CallbackManager.Factory.create();
-        txtName = findViewById(R.id.txtName);
-        txtEmail = findViewById(R.id.txtGmail);
         loginButton = findViewById(R.id.login_button);
+        mAuth = FirebaseAuth.getInstance();
 
+        loginButton.setReadPermissions(Arrays.asList(EMAIL));
 
-        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
 
         // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 // App code
+//                txtEmail.setText("User: "+ loginResult.getAccessToken().getUserId());
+//                txtName.setText("");
+//                loginResult.getAccessToken().getSource().name();
+//                Picasso.get().load("https://graph.facebook.com/"+loginResult.getAccessToken().getUserId()+"/picture?type=normal").into(profilePic);
+
+                handleFacebookAccessToken(loginResult.getAccessToken());
+
+//
             }
 
             @Override
@@ -73,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
+
     }
 
     @Override
@@ -81,21 +98,26 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-
-    AccessTokenTracker tokenTracker = new AccessTokenTracker() {
+ /*   AccessTokenTracker tokenTracker = new AccessTokenTracker() {
         @Override
         protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
             if(currentAccessToken==null){
-                txtEmail.setText("");
-                txtName.setText("");
+
                 Toast.makeText(LoginActivity.this, "User logged out", Toast.LENGTH_SHORT).show();
+                LoginManager.getInstance().logOut();
             }
-            else loadUserProfile(currentAccessToken);
+
         }
     };
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        tokenTracker.stopTracking();
+    }*/
+
     void loadUserProfile(AccessToken newAccessToken){
-        GraphRequest request = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
+        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
@@ -103,12 +125,11 @@ public class LoginActivity extends AppCompatActivity {
                     String last_name = object.getString("last_name");
                     String email = object.getString("email");
                     String id = object.getString("id");
-                    String image_url = "http://grap.facebook.com/"+id+"/picture?type=normal";
+
+                    Picasso.get().load("https://graph.facebook.com/"+id+"/picture?type=normal").into(profilePic);
 
                     txtEmail.setText(email);
                     txtName.setText(first_name+ " "+ last_name);
-
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -120,7 +141,42 @@ public class LoginActivity extends AppCompatActivity {
         parameters.putString("fields","first_name,last_name,email,id");
         request.setParameters(parameters);
         request.executeAsync();
+
     }
 
+    private void handleFacebookAccessToken(AccessToken token) {
 
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            //FirebaseUser user = mAuth.getCurrentUser();
+                            openProfile();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                });
+
+
+    }
+    private void openProfile(){
+        startActivity(new Intent(this, SettingActivity.class));
+        //finish();
+    }
+
+   /* @Override
+    protected void onStart() {
+        super.onStart();
+        if(mAuth.getCurrentUser() != null){
+            openProfile();
+        }
+    }*/
 }
