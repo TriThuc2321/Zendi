@@ -4,7 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.example.zendi_application.searchfragment.SearchFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
