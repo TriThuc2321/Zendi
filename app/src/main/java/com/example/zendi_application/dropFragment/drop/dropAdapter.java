@@ -50,9 +50,8 @@ public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolde
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), collection_drop.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("data", dropp);
+                bundle.putInt("data", dropp.getResourceId());
                 intent.putExtras(bundle);
-               int a = 5;
                 v.getContext().startActivity(intent);
             }
         });
