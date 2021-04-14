@@ -5,12 +5,17 @@ import android.os.Parcelable;
 
 import com.example.zendi_application.dropFragment.product.product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class drop implements Parcelable {
     private int ResourceId;
-    private String caption,satus,type;
+    private String caption, satus, type;
     private List<product> productList;
+
+    public drop() {
+
+    }
 
     public drop(int resourceId, String caption, String satus, String type, List<product> productList) {
         ResourceId = resourceId;
@@ -26,7 +31,13 @@ public class drop implements Parcelable {
         caption = in.readString();
         satus = in.readString();
         type = in.readString();
-        productList = in.readArrayList(product.class.getClassLoader());
+        if (in.readByte() == 0x01) {
+            productList = new ArrayList<product>();
+            //productList = in.readArrayList(product.class.getClassLoader());
+             in.readList(productList,product.class.getClassLoader());
+        } else {
+            productList = null;
+        }
     }
 
     @Override
@@ -35,7 +46,12 @@ public class drop implements Parcelable {
         dest.writeString(caption);
         dest.writeString(satus);
         dest.writeString(type);
-        dest.writeList(productList);
+        dest.writeTypedList(productList);
+//        for (int i = 0; i < productList.size();i++)
+//        {
+//            productList.get(i).writeToParcel(dest,flags);
+//        }
+
     }
 
     @Override

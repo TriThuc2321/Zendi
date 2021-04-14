@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.zendi_application.R;
+import com.example.zendi_application.dropFragment.category_drop.testclass;
 import com.example.zendi_application.dropFragment.drop.drop;
 import com.example.zendi_application.dropFragment.product.product;
 import com.example.zendi_application.dropFragment.product.productAdapter;
@@ -31,9 +32,9 @@ public class collection_drop extends AppCompatActivity {
         setContentView(R.layout.activity_collection_drop);
         // get bundle from drop
         Bundle bundle = getIntent().getExtras();
-        int dropp = bundle.getInt("data");
+        drop dropp = bundle.getParcelable("data");
         img = findViewById(R.id.img);
-        img.setImageResource(dropp);
+        //img.setImageResource();
 //
 //        rcv_collection = findViewById(R.id.rcv_collection);
 //        ProductAdapter = new productAdapter();

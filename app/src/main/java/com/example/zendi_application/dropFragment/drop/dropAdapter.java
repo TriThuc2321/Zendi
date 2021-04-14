@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.R;
+import com.example.zendi_application.dropFragment.category_drop.testclass;
 import com.example.zendi_application.dropFragment.collection_drop;
 
 import java.util.List;
@@ -50,7 +51,8 @@ public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolde
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), collection_drop.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("data", dropp.getResourceId());
+                //bundle.putInt("data", dropp.getResourceId());
+                bundle.putParcelable("data",dropp);
                 intent.putExtras(bundle);
                 v.getContext().startActivity(intent);
             }

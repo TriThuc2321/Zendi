@@ -73,7 +73,7 @@ public class DropFragment extends Fragment implements View.OnClickListener {
         remainningAmount.add(3);
         remainningAmount.add(2);
         remainningAmount.add(1);
-        List<product> productList = new ArrayList<>();
+        ArrayList<product> productList = new ArrayList<>();
         productList.add(new product("UIT123","ZX 2K BOOTS PURE SHOES","1.400.000 VND",imglist,remainningAmount,1));
         productList.add(new product("UIT122","ZX 3K BOOTS PURE SHOES","1.500.000 VND",imglist,remainningAmount,2));
         productList.add(new product("UIT121","ZX 4K BOOTS PURE SHOES","2.000.000 VND",imglist,remainningAmount,3));

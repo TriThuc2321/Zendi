@@ -3,21 +3,39 @@ package com.example.zendi_application.dropFragment.product;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class product implements Parcelable {
     private String productId,productName,productPrice;
     private List<Integer> ResourceID; // Image list of product
     private List<Integer> remainingAmount;
-    private int type;
+    private Integer type;
 
 
+    public product()
+    {
+
+    }
 
     protected product(Parcel in) {
         productId = in.readString();
         productName = in.readString();
-        ResourceID = in.readArrayList(Integer.class.getClassLoader());
-        remainingAmount = in.readArrayList(Integer.class.getClassLoader());
+        if (in.readByte() == 0x01) {
+            ResourceID = new ArrayList<Integer>();
+            in.readList(ResourceID, Integer.class.getClassLoader());
+        } else {
+            ResourceID = null;
+        }
+
+        if (in.readByte() == 0x01) {
+            remainingAmount = new ArrayList<Integer>();
+            in.readList(remainingAmount, Integer.class.getClassLoader());
+        } else {
+            remainingAmount = null;
+        }
+
+
         type = in.readInt();
         productPrice = in.readString();
     }
@@ -37,8 +55,18 @@ public class product implements Parcelable {
         dest.writeString(productId);
         dest.writeString(productName);
         dest.writeString(productPrice);
-        dest.writeList(ResourceID);
-        dest.writeList(remainingAmount);
+        if (ResourceID == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(ResourceID);
+        }
+        if (remainingAmount == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(remainingAmount);
+        }
         dest.writeInt(type);
     }
 
