@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView txtName;
     private TextView txtEmail;
     private ImageView profilePic;
+    private static final String TAG = "Thuc";
     private CallbackManager callbackManager;
     private FirebaseAuth mAuth;
     private static final String EMAIL = "email";
@@ -64,6 +65,8 @@ public class LoginActivity extends AppCompatActivity {
 
         // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+
+
             @Override
             public void onSuccess(LoginResult loginResult) {
                 // App code
@@ -85,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onError(FacebookException exception) {
                 // App code
+                Log.d(TAG,"onErrorL: "+ exception.getMessage());
             }
         });
 
@@ -154,6 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             //FirebaseUser user = mAuth.getCurrentUser();
+                            Log.d(TAG, "signInWithCredential: success");
                             openProfile();
 
                         } else {
@@ -172,11 +177,11 @@ public class LoginActivity extends AppCompatActivity {
         //finish();
     }
 
-   /* @Override
+    @Override
     protected void onStart() {
         super.onStart();
         if(mAuth.getCurrentUser() != null){
             openProfile();
         }
-    }*/
+    }
 }

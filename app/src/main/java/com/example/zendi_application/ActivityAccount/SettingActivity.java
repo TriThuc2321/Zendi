@@ -14,8 +14,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SettingActivity extends AppCompatActivity {
 
-    FirebaseAuth auth;
-    FirebaseUser user;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseUser user = auth.getCurrentUser();
     TextView email, name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +45,13 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
-    /*@Override
+    @Override
     protected void onStart() {
         super.onStart();
         if(user == null){
             openLogin();
         }
-    }*/
+    }
 
     private void openLogin() {
         startActivity(new Intent(this,SettingActivity.class));
