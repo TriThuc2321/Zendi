@@ -52,7 +52,6 @@ public class HomeScreen extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.action_drops:
                         mViewPager.setCurrentItem(0);
-
                         break;
                     case R.id.action_search:
                         mViewPager.setCurrentItem(1);

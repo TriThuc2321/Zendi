@@ -45,11 +45,11 @@ public class SearchFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tabLayout);
         viewPager = view.findViewById(R.id.viewPager);
 
-        ViewPageAdapterForTablayout viewPageAdapterForTablayout = new ViewPageAdapterForTablayout(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        ViewPageAdapterForTablayout viewPageAdapterForTablayout = new ViewPageAdapterForTablayout(getChildFragmentManager(),FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
-        viewPageAdapterForTablayout.addFragment(MenFragment.getInstance(),"Men");
-        viewPageAdapterForTablayout.addFragment(WomenFragment.getInstance(),"Women");
-        viewPageAdapterForTablayout.addFragment(KidsFragment.getInstance(),"Kids");
+        //viewPageAdapterForTablayout.addFragment(MenFragment.getInstance(),"Men");
+        //viewPageAdapterForTablayout.addFragment(WomenFragment.getInstance(),"Women");
+        //viewPageAdapterForTablayout.addFragment(KidsFragment.getInstance(),"Kids");
         viewPager.setAdapter(viewPageAdapterForTablayout);
         tabLayout.setupWithViewPager(viewPager);
 

@@ -14,13 +14,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
-import com.example.zendi_application.ViewPagerAdapter;
 import com.example.zendi_application.searchfragment.ElementOfRecycModel;
 import com.example.zendi_application.searchfragment.RecycleAdapter;
-import com.example.zendi_application.searchfragment.SearchFragment;
-import com.example.zendi_application.searchfragment.listnavigation.Fragment_for_list;
+import com.example.zendi_application.searchfragment.listnavigation.SearchListNavigationActivity;
 
 import java.util.ArrayList;
 
@@ -50,10 +47,17 @@ public class MenFragment extends Fragment {
         elementOfRecycModels.add(new ElementOfRecycModel(R.drawable.ic_baseline_face_24, "100.000","Áo nam","Originals"));
         elementOfRecycModels.add(new ElementOfRecycModel(R.drawable.ic_baseline_face_24, "100.000","Áo nam","Originals"));
         elementOfRecycModels.add(new ElementOfRecycModel(R.drawable.ic_baseline_face_24, "100.000","Áo nam","Originals"));
-
+        elementOfRecycModels.add(new ElementOfRecycModel(R.drawable.ic_baseline_face_24, "100.000","Áo nam","Originals"));
+        elementOfRecycModels.add(new ElementOfRecycModel(R.drawable.ic_baseline_face_24, "100.000","Áo nam","Originals"));
+        elementOfRecycModels.add(new ElementOfRecycModel(R.drawable.ic_baseline_face_24, "100.000","Áo nam","Originals"));
+        elementOfRecycModels.add(new ElementOfRecycModel(R.drawable.ic_baseline_face_24, "100.000","Áo nam","Originals"));
+        elementOfRecycModels.add(new ElementOfRecycModel(R.drawable.ic_baseline_face_24, "100.000","Áo nam","Originals"));
+        elementOfRecycModels.add(new ElementOfRecycModel(R.drawable.ic_baseline_face_24, "100.000","Áo nam","Originals"));
+        elementOfRecycModels.add(new ElementOfRecycModel(R.drawable.ic_baseline_face_24, "100.000","Áo nam","Originals"));
+        elementOfRecycModels.add(new ElementOfRecycModel(R.drawable.ic_baseline_face_24, "100.000","Áo nam","Originals"));
         recyclerView = view.findViewById(R.id.newArrivals_recyc);
         recyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false);
+        mLayoutManager = new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false);
         mAdapter = new RecycleAdapter(elementOfRecycModels);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
@@ -62,14 +66,10 @@ public class MenFragment extends Fragment {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(),new Fragment_for_list());
-                //((HomeScreen)getActivity()).mViewPager.setAdapter(viewPagerAdapter);
+                Intent intent = new Intent(view.getContext(), SearchListNavigationActivity.class);
+                startActivity(intent);
             }
         });
         return view;
-    }
-    public void nextview(View view)
-    {
-
     }
 }
