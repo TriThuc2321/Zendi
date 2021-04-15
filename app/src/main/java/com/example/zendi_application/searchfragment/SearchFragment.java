@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
 import com.example.zendi_application.searchfragment.kids_fragmet.KidsFragment;
 import com.example.zendi_application.searchfragment.men_fragment.MenFragment;
@@ -42,7 +44,9 @@ public class SearchFragment extends Fragment {
 
         tabLayout = view.findViewById(R.id.tabLayout);
         viewPager = view.findViewById(R.id.viewPager);
-        ViewPageAdapterForTablayout viewPageAdapterForTablayout = new ViewPageAdapterForTablayout(getActivity().getSupportFragmentManager());
+
+        ViewPageAdapterForTablayout viewPageAdapterForTablayout = new ViewPageAdapterForTablayout(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+
         viewPageAdapterForTablayout.addFragment(MenFragment.getInstance(),"Men");
         viewPageAdapterForTablayout.addFragment(WomenFragment.getInstance(),"Women");
         viewPageAdapterForTablayout.addFragment(KidsFragment.getInstance(),"Kids");
@@ -50,7 +54,7 @@ public class SearchFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
 
 
-
+        //((HomeScreen) getActivity()).mViewPager
         
 
         return view;

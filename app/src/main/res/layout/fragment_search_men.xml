@@ -121,7 +121,7 @@
             <Button
                 android:id="@+id/shopByBrand_button"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_for_bar"
+                android:layout_height="wrap_content"
                 android:background="@drawable/button_ripple"
                 android:backgroundTint="@color/black"
                 android:backgroundTintMode="multiply"

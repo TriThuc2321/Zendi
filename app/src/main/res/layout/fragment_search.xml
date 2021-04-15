@@ -20,24 +20,8 @@
         app:layout_constraintVertical_bias="0.0"
         app:tabIndicator="@drawable/indicator_for_tab"
         app:tabIndicatorColor="#000000"
-        app:tabIndicatorHeight="2sp"
-        app:tabTextColor="#000000">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MEN" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="WOMEN" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="KIDS" />
-    </com.google.android.material.tabs.TabLayout>
+        app:tabIndicatorHeight="1sp"
+        app:tabTextColor="#000000"/>
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
