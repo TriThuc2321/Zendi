@@ -27,12 +27,10 @@ public class SettingActivity extends AppCompatActivity {
 
         email = findViewById(R.id.email);
         name = findViewById(R.id.name);
-        profilePic = findViewById(R.id.profilePic);
 
         if(user!= null){
             name.setText(user.getDisplayName());
             email.setText(user.getEmail()+ "");
-            Picasso.get().load("https://graph.facebook.com/"+ user.getUid()+"/picture?type=normal").into(profilePic);
         }
         findViewById(R.id.btnLogout).setOnClickListener(new View.OnClickListener() {
             @Override

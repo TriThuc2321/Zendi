@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +60,19 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         loginButton = findViewById(R.id.login_button);
         mAuth = FirebaseAuth.getInstance();
+
+        findViewById(R.id.facebookBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginButton.callOnClick();
+            }
+        });
+        findViewById(R.id.facebookTxt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginButton.callOnClick();
+            }
+        });
 
         loginButton.setReadPermissions("public_profile", "email");
 
@@ -186,4 +200,6 @@ public class LoginActivity extends AppCompatActivity {
             openProfile();
         }
     }
+
+
 }

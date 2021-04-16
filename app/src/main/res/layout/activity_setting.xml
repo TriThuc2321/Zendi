@@ -34,9 +34,4 @@
         android:text="Logout"
  />
 
-   <ImageView
-       android:id="@+id/profilePic"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:src="@drawable/ic_launcher_background"/>
 </LinearLayout>
