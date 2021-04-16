@@ -8,13 +8,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.collection_drop;
+import com.example.zendi_application.dropFragment.product;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolder>{
@@ -49,9 +52,7 @@ public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolde
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), collection_drop.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("data", dropp.getResourceId());
-                intent.putExtras(bundle);
+
                 v.getContext().startActivity(intent);
             }
         });
