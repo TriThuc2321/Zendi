@@ -60,7 +60,9 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.login_button);
         mAuth = FirebaseAuth.getInstance();
 
-        loginButton.setReadPermissions(Arrays.asList(EMAIL));
+        loginButton.setReadPermissions("public_profile", "email");
+
+        //loginButton.setReadPermissions(Arrays.asList(EMAIL));
 
 
         // Callback registration
