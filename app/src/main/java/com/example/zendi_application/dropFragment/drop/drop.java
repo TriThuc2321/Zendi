@@ -1,10 +1,13 @@
 package com.example.zendi_application.dropFragment.drop;
 
-import com.example.zendi_application.dropFragment.product;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.example.zendi_application.dropFragment.product.product;
 
 import java.util.List;
 
-public class drop {
+public class drop implements Parcelable {
     private int ResourceId;
     private String caption,satus,type;
     private List<product> productList;
@@ -17,6 +20,40 @@ public class drop {
         this.productList = productList;
     }
 
+
+    protected drop(Parcel in) {
+        ResourceId = in.readInt();
+        caption = in.readString();
+        satus = in.readString();
+        type = in.readString();
+        productList = in.readArrayList(product.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(ResourceId);
+        dest.writeString(caption);
+        dest.writeString(satus);
+        dest.writeString(type);
+        dest.writeList(productList);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<drop> CREATOR = new Creator<drop>() {
+        @Override
+        public drop createFromParcel(Parcel in) {
+            return new drop(in);
+        }
+
+        @Override
+        public drop[] newArray(int size) {
+            return new drop[size];
+        }
+    };
 
     public int getResourceId() {
         return ResourceId;

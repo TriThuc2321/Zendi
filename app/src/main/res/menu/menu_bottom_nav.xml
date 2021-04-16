@@ -4,6 +4,7 @@
         android:id="@+id/action_drops"
         android:title=""
         android:icon="@drawable/ic_baseline_local_fire_department_24"
+        android:onClick=""
         />
     <item
         android:id="@+id/action_search"
