@@ -2,6 +2,9 @@ package com.example.zendi_application.ActivityAccount;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +14,10 @@ import android.view.WindowManager;
 
 import com.example.zendi_application.R;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Account_Activity extends AppCompatActivity {
-    MaterialToolbar mAppBarTop;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,41 +25,34 @@ public class Account_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_);
 
-        mAppBarTop = findViewById(R.id.topAppBar);
-
-
-        mAppBarTop.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId() == R.id.itemBack){
-                    OnBackPressed();
-                }
-                if(item.getItemId() == R.id.itemSetting){
-                    startSettingActivity();
-                }
-                return true;
-            }
-        });
-
-        findViewById(R.id.btnLogin).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Account_Activity.this, LoginActivity.class);
-                startActivity(intent);
-                //overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
-            }
-        });
-
-
+        mAuth = FirebaseAuth.getInstance();
+        addFragment(new LoginRegisterFragment());
     }
     private void OnBackPressed()
     {
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_from_left_account,R.anim.slide_to_right_account);
     }
-    private void startSettingActivity(){
-        Intent intent = new Intent(Account_Activity.this, SettingActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(mAuth.getCurrentUser() != null){
+
+        }
+    }
+
+    public void addFragment(Fragment fragment) {
+
+        FragmentManager fmgr = getSupportFragmentManager();
+
+        FragmentTransaction ft = fmgr.beginTransaction();
+
+        ft.add(R.id.mFragment, fragment);
+
+        ft.addToBackStack(fragment.getClass().getSimpleName());
+
+        ft.commit();
+
     }
 }

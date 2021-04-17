@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,6 +38,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 auth.signOut();
                 LoginManager.getInstance().logOut();
+                startActivity(new Intent(SettingActivity.this, HomeScreen.class));
+                finish();
             }
         });
 
@@ -64,6 +67,5 @@ public class SettingActivity extends AppCompatActivity {
     private void OnBackPressed()
     {
         super.onBackPressed();
-
     }
 }

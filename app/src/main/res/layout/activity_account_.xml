@@ -5,52 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActivityAccount.Account_Activity"
-    android:background="@drawable/background_account"
     >
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbarlayout"
+    <FrameLayout
+        android:id="@+id/mFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            app:menu="@menu/menu_account_top"
-            app:navigationIcon="@drawable/ic_baseline_perm_identity_24"
-            app:title=""
-            app:titleTextColor="@color/white"
-            android:backgroundTint="@color/black"
-            />
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
-
-        />
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:backgroundTint="@color/gold"
-        android:text="REGISTER                  "
-        android:textSize="20dp"
-
-        />
-
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/btnRegister"
-        android:backgroundTint="@color/white"
-        android:text="LOGIN                         "
-        android:textColor="@color/gold"
-        android:textSize="20dp" />
+        android:layout_height="match_parent"/>
 </RelativeLayout>

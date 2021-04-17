@@ -190,6 +190,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void openProfile(){
         startActivity(new Intent(this, SettingActivity.class));
+
         //finish();
     }
 
