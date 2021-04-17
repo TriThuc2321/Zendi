@@ -27,7 +27,6 @@ public class product implements Parcelable {
         } else {
             ResourceID = null;
         }
-
         if (in.readByte() == 0x01) {
             remainingAmount = new ArrayList<Integer>();
             in.readList(remainingAmount, Integer.class.getClassLoader());

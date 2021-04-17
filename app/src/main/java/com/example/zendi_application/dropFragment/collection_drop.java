@@ -33,8 +33,8 @@ public class collection_drop extends AppCompatActivity {
         // get bundle from drop
         Bundle bundle = getIntent().getExtras();
         drop dropp = bundle.getParcelable("data");
-        img = findViewById(R.id.img);
-        //img.setImageResource();
+//        img = findViewById(R.id.img);
+//        img.setImageResource();
 //
 //        rcv_collection = findViewById(R.id.rcv_collection);
 //        ProductAdapter = new productAdapter();

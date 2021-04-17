@@ -67,6 +67,11 @@ public class DropFragment extends Fragment implements View.OnClickListener {
         imglist.add(R.drawable.categorytest1);
         imglist.add(R.drawable.categorytest3);
 
+        List<Integer> imglist1 = new ArrayList<>();
+        imglist1.add(R.drawable.nike_collection);
+        imglist1.add(R.drawable.nikeshos1);
+        imglist1.add(R.drawable.categorytest3);
+
         List<Integer> remainningAmount = new ArrayList<>();
         remainningAmount.add(5);
         remainningAmount.add(6);
@@ -75,10 +80,10 @@ public class DropFragment extends Fragment implements View.OnClickListener {
         remainningAmount.add(1);
         ArrayList<product> productList = new ArrayList<>();
         productList.add(new product("UIT123","ZX 2K BOOTS PURE SHOES","1.400.000 VND",imglist,remainningAmount,1));
-        productList.add(new product("UIT122","ZX 3K BOOTS PURE SHOES","1.500.000 VND",imglist,remainningAmount,2));
+        productList.add(new product("UIT122","ZX 3K BOOTS PURE SHOES","1.500.000 VND",imglist1,remainningAmount,2));
         productList.add(new product("UIT121","ZX 4K BOOTS PURE SHOES","2.000.000 VND",imglist,remainningAmount,3));
-        productList.add(new product("UIT120","ZX 5K BOOTS PURE SHOES","2.500.000 VND",imglist,remainningAmount,1));
-        //
+        productList.add(new product("UIT120","ZX 5K BOOTS PURE SHOES","2.500.000 VND",imglist1,remainningAmount,1));
+        //1
         List<category> mcategoryList = new ArrayList<>();
 
         List<drop> listDrop = new ArrayList<>();

@@ -70,6 +70,7 @@ public class productAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         {
             productType2ViewHolder productType2ViewHolder = (productAdapter.productType2ViewHolder) holder;
             productType2ViewHolder.imgbig_type2.setImageResource(mproduct.getResourceID().get(1));
+            productType2ViewHolder.imgsmall_type2.setImageResource(mproduct.getResourceID().get(0));
             //productType1ViewHolder.background_type1.setBackgroundColor(#c1b378);
             productType2ViewHolder.nameproduct_type2.setText(mproduct.getProductName());
             productType2ViewHolder.priceproduct_type2.setText(mproduct.getProductPrice());
@@ -120,12 +121,13 @@ public class productAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public class productType2ViewHolder extends RecyclerView.ViewHolder{
-        ImageView imgbig_type2;
+        ImageView imgbig_type2,imgsmall_type2;
         TextView priceproduct_type2,nameproduct_type2;
         Button btn_type2;
         public productType2ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgbig_type2 = itemView.findViewById(R.id.img_collection_type2);
+            imgbig_type2 = itemView.findViewById(R.id.img_collection_type2_big);
+            imgsmall_type2 = itemView.findViewById(R.id.img_collection_type2_small);
             priceproduct_type2 = itemView.findViewById(R.id.price_collection_type2);
             nameproduct_type2 = itemView.findViewById(R.id.nameproduct_collection_type2);
             btn_type2 = itemView.findViewById(R.id.btn_collection_type2);

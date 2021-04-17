@@ -3,6 +3,7 @@ package com.example.zendi_application.dropFragment.drop;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.zendi_application.dropFragment.category_drop.category;
 import com.example.zendi_application.dropFragment.product.product;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class drop implements Parcelable {
     }
 
     public drop(int resourceId, String caption, String satus, String type, List<product> productList) {
-        ResourceId = resourceId;
+        this.ResourceId = resourceId;
         this.caption = caption;
         this.satus = satus;
         this.type = type;
@@ -34,7 +35,8 @@ public class drop implements Parcelable {
         if (in.readByte() == 0x01) {
             productList = new ArrayList<product>();
             //productList = in.readArrayList(product.class.getClassLoader());
-             in.readList(productList,product.class.getClassLoader());
+            // in.readList(productList,product.class.getClassLoader());
+            in.readParcelableList(productList, product.class.getClassLoader());
         } else {
             productList = null;
         }
@@ -46,11 +48,9 @@ public class drop implements Parcelable {
         dest.writeString(caption);
         dest.writeString(satus);
         dest.writeString(type);
-        dest.writeTypedList(productList);
-//        for (int i = 0; i < productList.size();i++)
-//        {
-//            productList.get(i).writeToParcel(dest,flags);
-//        }
+        if (productList != null)
+//        dest.writeList(productList);
+            dest.writeParcelableList(productList, flags);
 
     }
 
@@ -62,6 +62,21 @@ public class drop implements Parcelable {
     public static final Creator<drop> CREATOR = new Creator<drop>() {
         @Override
         public drop createFromParcel(Parcel in) {
+//            final drop dropp = new drop();
+//            dropp.setResourceId(in.readInt());
+//            dropp.setCaption(in.readString());
+//            dropp.setSatus(in.readString());
+//            dropp.setType(in.readString());
+//            List<product> myList = new ArrayList<>();
+//            if (in.readByte() == 0x01) {
+//                //productList = in.readArrayList(product.class.getClassLoader());
+//                in.readList(myList,product.class.getClassLoader());
+//            } else {
+//                myList = null;
+//            }
+//            dropp.setProductList(myList);
+//            return dropp;
+            //
             return new drop(in);
         }
 

@@ -3,15 +3,22 @@ package com.example.zendi_application;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 
+import com.example.zendi_application.dropFragment.DetailDropFragment;
+import com.example.zendi_application.dropFragment.drop.drop;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,10 +26,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeScreen extends AppCompatActivity {
-    AppBarLayout appBarLayout;
-    MaterialToolbar mAppBarTop;
-    BottomNavigationView mNavigationView;
+    public AppBarLayout appBarLayout;
+    public MaterialToolbar mAppBarTop;
+    public BottomNavigationView mNavigationView;
     ViewPager mViewPager;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.appBarLayout.setVisibility(View.VISIBLE);
+        Log.d("MainActivity Lifecycle", "===== onResume =====");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +51,7 @@ public class HomeScreen extends AppCompatActivity {
         // Hooks
         mAppBarTop = findViewById(R.id.topAppBar);
         appBarLayout = findViewById(R.id.appbarlayout);
+        this.appBarLayout.setVisibility(View.VISIBLE);
         mAppBarTop.setTitle("DROPS"+ "");
         mNavigationView = findViewById(R.id.bottom_nav);
         mViewPager = findViewById(R.id.view_paper);
@@ -61,7 +76,6 @@ public class HomeScreen extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.action_drops:
                         mViewPager.setCurrentItem(0);
-
                         break;
                     case R.id.action_search:
                         mViewPager.setCurrentItem(1);
@@ -115,5 +129,6 @@ public class HomeScreen extends AppCompatActivity {
 
             }
         });
+
     }
 }
