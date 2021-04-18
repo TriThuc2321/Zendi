@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +15,13 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.example.zendi_application.R;
+import com.example.zendi_application.ViewPagerAdapter;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Account_Activity extends AppCompatActivity {
+public class Account_Activity extends AppCompatActivity  {
     private FirebaseAuth mAuth;
+    ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +30,7 @@ public class Account_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_account_);
 
         mAuth = FirebaseAuth.getInstance();
-        addFragment(new LoginRegisterFragment());
+        addFragment(new LoginRegisterFragment(this), false);
     }
     private void OnBackPressed()
     {
@@ -42,7 +46,7 @@ public class Account_Activity extends AppCompatActivity {
         }
     }
 
-    public void addFragment(Fragment fragment) {
+    public void addFragment(Fragment fragment, boolean isBackStack) {
 
         FragmentManager fmgr = getSupportFragmentManager();
 
@@ -50,9 +54,12 @@ public class Account_Activity extends AppCompatActivity {
 
         ft.add(R.id.mFragment, fragment);
 
-        ft.addToBackStack(fragment.getClass().getSimpleName());
+        if(isBackStack) ft.addToBackStack(fragment.getClass().getSimpleName());
 
         ft.commit();
 
     }
+
+
+
 }

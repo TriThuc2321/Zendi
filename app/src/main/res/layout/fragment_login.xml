@@ -7,6 +7,8 @@
     tools:context=".ActivityAccount.LoginActivity"
     android:orientation="vertical"
     android:weightSum="300"
+    android:background="@color/white"
+    android:id="@+id/fragment_login"
     >
 
     <TextView
@@ -54,6 +56,12 @@
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:visibility="invisible"
+        android:layout_weight="1"
         />
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="240"
+        android:background="@color/black"
+        />
 </LinearLayout>

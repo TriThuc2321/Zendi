@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         callbackManager = CallbackManager.Factory.create();
-        loginButton = findViewById(R.id.login_button);
+        loginButton = findViewById(R.id.login_button1);
         mAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.facebookBtn).setOnClickListener(new View.OnClickListener() {
