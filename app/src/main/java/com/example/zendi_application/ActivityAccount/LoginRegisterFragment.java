@@ -36,7 +36,6 @@ public class LoginRegisterFragment extends Fragment {
 
         btnLogin = view.findViewById(R.id.btnLogin);
         btnLogin.setEnabled(true);
-
         mAuth = FirebaseAuth.getInstance();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
