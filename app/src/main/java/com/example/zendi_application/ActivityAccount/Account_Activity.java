@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Account_Activity extends AppCompatActivity  {
     private FirebaseAuth mAuth;
-    ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +41,7 @@ public class Account_Activity extends AppCompatActivity  {
     protected void onStart() {
         super.onStart();
         if(mAuth.getCurrentUser() != null){
-
+            addFragment(new SettingFragment(this),false);
         }
     }
 

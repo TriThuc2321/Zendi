@@ -3,6 +3,7 @@ package com.example.zendi_application.ActivityAccount;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.google.firebase.database.annotations.Nullable;
 
 public class LoginRegisterFragment extends Fragment {
 
+    private static final String TAG = "Thuc";
     Account_Activity parent;
     private FirebaseAuth mAuth;
     Button btnLogin;
@@ -40,6 +42,7 @@ public class LoginRegisterFragment extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG,"LoginFrament");
                 parent.addFragment(new LoginFragment(parent), true);
                 /*activityCallback.onButtonClick();
                 btnLogin.setEnabled(false);*/

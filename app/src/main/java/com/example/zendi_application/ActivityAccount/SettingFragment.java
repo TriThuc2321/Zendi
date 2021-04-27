@@ -14,10 +14,14 @@ import com.example.zendi_application.R;
 
 
 public class SettingFragment extends Fragment {
+    Account_Activity parent;
+    public SettingFragment(Account_Activity parent) {
+        this.parent = parent;
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_setting, container, false);
         return view;
     }
 }

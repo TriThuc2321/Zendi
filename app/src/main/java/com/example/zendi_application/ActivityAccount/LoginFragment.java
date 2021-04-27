@@ -1,6 +1,5 @@
 package com.example.zendi_application.ActivityAccount;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,8 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zendi_application.R;
@@ -49,9 +46,39 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-        callbackManager = CallbackManager.Factory.create();
+
+        //callbackManager = CallbackManager.Factory.create();
         loginButton = view.findViewById(R.id.login_button);
         mAuth = FirebaseAuth.getInstance();
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callbackManager = CallbackManager.Factory.create();
+                loginButton.setFragment(LoginFragment.this);
+                loginButton.setReadPermissions("email","public_profile");
+                Log.d(TAG,"aaaaaa");
+                loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        Log.d(TAG,"Success");
+                        handleFacebookAccessToken(loginResult.getAccessToken());
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Log.d(TAG,"Cancel");
+                        Toast.makeText(getContext(),"Is Cancelled",Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        Log.d(TAG,error.getMessage());
+                        Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
 
         view.findViewById(R.id.facebookBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,39 +93,10 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        loginButton.setReadPermissions("public_profile", "email");
-
         //loginButton.setReadPermissions(Arrays.asList(EMAIL));
 
 
         // Callback registration
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-
-
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-//                txtEmail.setText("User: "+ loginResult.getAccessToken().getUserId());
-//                txtName.setText("");
-//                loginResult.getAccessToken().getSource().name();
-//                Picasso.get().load("https://graph.facebook.com/"+loginResult.getAccessToken().getUserId()+"/picture?type=normal").into(profilePic);
-                Log.d(TAG, "signInWithCredentialq: success");
-                handleFacebookAccessToken(loginResult.getAccessToken());
-
-//
-            }
-
-            @Override
-            public void onCancel() {
-                // App code
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                // App code
-                Log.d(TAG,"onErrorL: "+ exception.getMessage());
-            }
-        });
 
         return view;
     }
@@ -118,12 +116,12 @@ public class LoginFragment extends Fragment {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             //FirebaseUser user = mAuth.getCurrentUser();
-                            Log.d(TAG, "signInWithCredential: success");
+                            Log.d(TAG, "signInWithCredential1: success");
                             openProfile();
 
                         } else {
                             // If sign in fails, display a message to the user.
-
+                            Log.d(TAG,"TaskFail");
 
                         }
                     }
@@ -132,16 +130,15 @@ public class LoginFragment extends Fragment {
 
     }
     private void openProfile(){
-        //this.parent.addFragment(new SettingFragment(), true);
-        startActivity(new Intent(parent, SettingActivity.class));
-        //finish();
+        //this.parent.addFragment(new SettingFragment(this.parent), true)
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
         if(mAuth.getCurrentUser() != null){
-            openProfile();
+            //openProfile();
         }
     }
 }

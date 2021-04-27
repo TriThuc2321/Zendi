@@ -10,8 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Zendi_Application">
-        <activity android:name=".ActivityAccount.SettingActivity"></activity>
-        <activity android:name=".ActivityAccount.LoginActivity" />
         <activity android:name=".dropFragment.collection_drop"></activity>
         <activity android:name=".ActivityAccount.Account_Activity" />
         <activity android:name=".HomeScreen" />
