@@ -72,6 +72,11 @@ public class DropFragment extends Fragment implements View.OnClickListener {
         imglist1.add(R.drawable.nikeshos1);
         imglist1.add(R.drawable.categorytest3);
 
+        List<Integer> imglist2 = new ArrayList<>();
+        imglist2.add(R.drawable.airjodan1);
+        imglist2.add(R.drawable.nikeshos1);
+        imglist2.add(R.drawable.categorytest3);
+
         List<Integer> remainningAmount = new ArrayList<>();
         remainningAmount.add(5);
         remainningAmount.add(6);
@@ -86,26 +91,32 @@ public class DropFragment extends Fragment implements View.OnClickListener {
         //1
         List<category> mcategoryList = new ArrayList<>();
 
+        // init listdrop
+
         List<drop> listDrop = new ArrayList<>();
         listDrop.add(new drop(R.drawable.categorytest,"STAN SMITH, FOREVER"+"","JUST DROPPED","ORIGINALS",productList));
         listDrop.add(new drop(R.drawable.categorytest1,"RUNNER, FASTER"+"","JUST DROPPED","SPORT",productList));
         listDrop.add(new drop(R.drawable.categorytest3,"HYPEBEAST, BUMP"+"","JUST DROPPED","ORIGINALS",productList));
         listDrop.add(new drop(R.drawable.categorytest2,"SNEAKER, FASHION"+"","JUST DROPPED","PARTY",productList));
 
-        listDrop.add(new drop(R.drawable.categorytest,"STAN SMITH, FOREVER1"+"","JUST DROPPED","ORIGINALS",productList));
-        listDrop.add(new drop(R.drawable.categorytest1,"RUNNER, FASTER1"+"","JUST DROPPED","SPORT",productList));
-        listDrop.add(new drop(R.drawable.categorytest3,"HYPEBEAST, BUMP1"+"","JUST DROPPED","ORIGINALS",productList));
-        listDrop.add(new drop(R.drawable.categorytest2,"SNEAKER, FASHION1"+"","JUST DROPPED","PARTY",productList));
+        List<drop> listDrop1 = new ArrayList<>();
+        listDrop1.add(new drop(R.drawable.airjodan1,"STAN SMITH, FOREVER"+"","JUST DROPPED","ORIGINALS",productList));
+        listDrop1.add(new drop(R.drawable.drop1,"RUNNER, FASTER"+"","JUST DROPPED","SPORT",productList));
+        listDrop1.add(new drop(R.drawable.drop2,"HYPEBEAST, BUMP"+"","JUST DROPPED","ORIGINALS",productList));
+        listDrop1.add(new drop(R.drawable.drop3,"SNEAKER, FASHION"+"","JUST DROPPED","PARTY",productList));
+
+        List<drop> listDrop2 = new ArrayList<>();
+        listDrop2.add(new drop(R.drawable.drop4,"STAN SMITH, FOREVER"+"","JUST DROPPED","ORIGINALS",productList));
+        listDrop2.add(new drop(R.drawable.drop5,"RUNNER, FASTER"+"","JUST DROPPED","SPORT",productList));
+        listDrop2.add(new drop(R.drawable.drop6,"HYPEBEAST, BUMP"+"","JUST DROPPED","ORIGINALS",productList));
+        listDrop2.add(new drop(R.drawable.drop7,"SNEAKER, FASHION"+"","JUST DROPPED","PARTY",productList));
+
+//        endregion
 
         mcategoryList.add(new category(listDrop));
-        mcategoryList.add(new category(listDrop));
-        mcategoryList.add(new category(listDrop));
-        mcategoryList.add(new category(listDrop));
-        mcategoryList.add(new category(listDrop));
-        mcategoryList.add(new category(listDrop));
-        mcategoryList.add(new category(listDrop));
-        mcategoryList.add(new category(listDrop));
-        mcategoryList.add(new category(listDrop));
+        mcategoryList.add(new category(listDrop1));
+        mcategoryList.add(new category(listDrop2));
+
         return mcategoryList;
     }
     @Override

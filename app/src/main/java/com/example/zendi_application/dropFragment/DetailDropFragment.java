@@ -8,12 +8,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.drop.drop;
 import com.example.zendi_application.dropFragment.product.productAdapter;
@@ -23,6 +25,17 @@ public class DetailDropFragment extends Fragment {
     private ImageView img;
     private RecyclerView rcv_collection;
     private productAdapter ProductAdapter;
+
+    public void onStop() {
+        super.onStop();
+        ((HomeScreen)this.getContext()).appBarLayout.setVisibility(View.VISIBLE);
+        Log.d("MainActivity Lifecycle", "===== Stop Detail Fragment =====");
+        //onDestroy();
+    }
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("MainActivity Lifecycle", "===== Destroy Detail Fragment =====");
+    }
 
     @Nullable
     @Override

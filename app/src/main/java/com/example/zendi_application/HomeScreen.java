@@ -37,6 +37,18 @@ public class HomeScreen extends AppCompatActivity {
         this.appBarLayout.setVisibility(View.VISIBLE);
         Log.d("MainActivity Lifecycle", "===== onResume =====");
     }
+    protected void onStart() {
+        super.onStart();
+        this.appBarLayout.setVisibility(View.VISIBLE);
+        Log.d("MainActivity Lifecycle", "===== onStart =====");
+    }
+    protected void onRestart() {
+        super.onRestart();
+        this.appBarLayout.setVisibility(View.VISIBLE);
+        Log.d("MainActivity Lifecycle", "===== onRestart =====");
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +58,6 @@ public class HomeScreen extends AppCompatActivity {
         // test
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
-
         myRef.setValue("Hello, World222!");
         // Hooks
         mAppBarTop = findViewById(R.id.topAppBar);
@@ -123,7 +134,6 @@ public class HomeScreen extends AppCompatActivity {
                         break;
                 }
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
 

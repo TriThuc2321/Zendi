@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.zendi_application.R;
 
 import java.util.List;
+import java.util.Set;
 import java.util.zip.Inflater;
 
 public class productAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -65,6 +67,16 @@ public class productAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             //productType1ViewHolder.background_type1.setBackgroundColor(#c1b378);
             productType1ViewHolder.nameproduct_type1.setText(mproduct.getProductName());
             productType1ViewHolder.priceproduct_type1.setText(mproduct.getProductPrice());
+
+//            Set click event type1
+
+            ((productType1ViewHolder) holder).btn_type1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(), "type1", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
         else if (FINAL_TYPE2 == holder.getItemViewType())
         {
@@ -74,6 +86,15 @@ public class productAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             //productType1ViewHolder.background_type1.setBackgroundColor(#c1b378);
             productType2ViewHolder.nameproduct_type2.setText(mproduct.getProductName());
             productType2ViewHolder.priceproduct_type2.setText(mproduct.getProductPrice());
+
+//            Set click event type2
+
+            ((productType2ViewHolder) holder).btn_type2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(), "type2", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
         else if (FINAL_TYPE3 == holder.getItemViewType())
         {
@@ -82,7 +103,20 @@ public class productAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             //productType1ViewHolder.background_type1.setBackgroundColor(#c1b378);
             productType3ViewHolder.nameproduct_type3.setText(mproduct.getProductName());
             productType3ViewHolder.priceproduct_type3.setText(mproduct.getProductPrice());
+
+//            Set click event type3
+
+          ((productType3ViewHolder) holder).btn_type3.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  Toast.makeText(v.getContext(), "type3", Toast.LENGTH_SHORT).show();
+              }
+          });
+
+
         }
+
+
     }
 
     @Override
