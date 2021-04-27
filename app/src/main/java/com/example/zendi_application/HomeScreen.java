@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.example.zendi_application.ActivityAccount.Account_Activity;
+import com.example.zendi_application.ActivityAccount.LoginRegisterActivity;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -50,7 +51,7 @@ public class HomeScreen extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.account) {
 
-                    Intent intent = new Intent(HomeScreen.this, Account_Activity.class);
+                    Intent intent = new Intent(HomeScreen.this, LoginRegisterActivity.class);
                     
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);

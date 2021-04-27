@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityAccount.SettingActivity"
-    android:orientation="vertical">
-
-    <Button
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ButtonBack"
-/>
+    tools:context=".ActivityAccount.SettingActivity">
 
     <TextView
-        android:id="@+id/name"
-        android:layout_width="158dp"
+        android:id="@+id/nameTxt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Name" />
+        android:text="Thức"
+        android:textSize="40dp"
 
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="149dp"
-        android:layout_height="wrap_content"
-        android:text="email"
-/>
-
+        />
     <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
+        android:id="@+id/logOutBtn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Logout"
- />
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/black"
+        android:text="LOG OUT"
+        android:textSize="30dp"
 
-</LinearLayout>
+        android:textColor="@color/white"
+        android:gravity=""
+        />
+</RelativeLayout>

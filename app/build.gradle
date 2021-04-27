@@ -41,7 +41,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.0'
 
     implementation 'com.google.firebase:firebase-database:9.4.0'
-    implementation platform('com.google.firebase:firebase-bom:27.0.0')
+    implementation platform('com.google.firebase:firebase-bom:27.1.0')
     implementation 'com.google.firebase:firebase-analytics'
 
     // Thien
@@ -55,6 +55,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
 
     //gmail
+    implementation 'com.google.firebase:firebase-auth:20.0.4'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
 }
