@@ -1,6 +1,7 @@
 package com.example.zendi_application;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeScreen extends AppCompatActivity {
+    private static final int REQUEST_EXIT = 1;
     AppBarLayout appBarLayout;
     MaterialToolbar mAppBarTop;
     BottomNavigationView mNavigationView;
@@ -52,8 +54,7 @@ public class HomeScreen extends AppCompatActivity {
                 if (item.getItemId() == R.id.account) {
 
                     Intent intent = new Intent(HomeScreen.this, LoginRegisterActivity.class);
-                    
-                    startActivity(intent);
+                    startActivityForResult(intent, 1);
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
                 }
                 return true;
@@ -118,5 +119,15 @@ public class HomeScreen extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_EXIT) {
+            if (resultCode == RESULT_OK) {
+                this.finish();
+            }
+        }
     }
 }

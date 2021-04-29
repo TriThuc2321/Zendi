@@ -10,6 +10,7 @@
     >
 
     <View
+        android:id="@+id/cancelBtn"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:background="@drawable/ic_baseline_cancel_24"
