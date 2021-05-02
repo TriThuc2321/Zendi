@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Zendi_Application</string>
+    <string name="action_wishlist">Wishlist</string>
+    <string name="action_search">Search</string>
+    <string name="action_shop">Shop</string>
+    <string name="action_drops">Drops</string>
+
+    <string name="facebook_app_id">293009389112207</string>
+    <string name="fb_login_protocol_scheme">fb293009389112207</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
