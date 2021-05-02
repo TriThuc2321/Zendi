@@ -4,155 +4,215 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityAccount.SettingActivity">
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/profileInfo">
-        <View
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/ic_baseline_arrow_back_24"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="PROFILE INFO"
-            android:textSize="35dp"
-            android:textStyle="bold"
-            android:layout_toRightOf="@+id/arrowLeft"
-            />
-</LinearLayout>
+    tools:context=".ActivityAccount.SettingActivity"
+    android:id="@+id/settingLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/name"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/profileInfo"
-            android:background="@drawable/custom_black_stroke"
-            android:orientation="vertical"
-            android:padding="20dp"
-                android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="NAME"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
+            android:id="@+id/profileInfo">
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/ic_baseline_arrow_back_24"
                     />
                 <TextView
-                    android:id="@+id/nameTxt"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thức"
+                    android:layout_marginLeft="20dp"
+                    android:text="PROFILE INFO"
                     android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@+id/arrowLeft"
                     />
         </LinearLayout>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/location"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/name"
-            android:background="@drawable/custom_black_stroke"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            >
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/name"
-                android:layout_marginTop="30dp"
-                android:layout_below="@+id/profileInfo"
-                android:background="@drawable/custom_black_stroke"
-                android:orientation="vertical"
-                android:padding="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                >
-                <TextView
+            android:layout_height="match_parent"
+            android:layout_below="@+id/profileInfo">
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="LOCATION"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
-                    />
-                <TextView
-                    android:id="@+id/locationTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ap An Ninh 2"
-                    android:textSize="20dp"
-                    />
-        </LinearLayout>
+                    android:layout_height="match_parent"
+                    >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/birthday"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/location"
-            android:background="@drawable/custom_black_stroke"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/name"
+                            android:layout_marginTop="30dp"
+                            android:background="@drawable/custom_black_stroke"
+                            android:orientation="vertical"
+                            android:padding="15dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
+                            >
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="NAME"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:id="@+id/nameTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Thức"
+                                    android:textSize="15dp"
+                                    />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="DATE OF BIRTH"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
-                    />
-                <TextView
-                    android:id="@+id/birthdayTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="DD / MM / YY"
-                    android:textSize="20dp"
-                    />
+                                <EditText
+                                    android:id="@+id/nameEdt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="gone"
+                                    />
+                        </LinearLayout>
 
-        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/location"
+                            android:layout_marginTop="30dp"
+                            android:layout_below="@+id/name"
+                            android:background="@drawable/custom_black_stroke"
+                            android:orientation="vertical"
+                            android:padding="15dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
+                            >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/gender"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/birthday"
-            android:background="@drawable/custom_black_stroke"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="LOCATION"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:id="@+id/locationTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Ap An Ninh 2"
+                                    android:textSize="15dp"
+                                    />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="GENDER"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
-                    />
-                <TextView
-                    android:id="@+id/genderTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="DD / MM / YY"
-                    android:textSize="20dp"
-                    />
+                                <EditText
+                                    android:id="@+id/locationEdt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="15dp"
+                                    android:visibility="gone"
+                                    android:maxLines="1"
+                                    android:lines="1"
+                                    android:inputType="textAutoComplete"
+                                    />
+                        </LinearLayout>
 
-        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/birthday"
+                            android:layout_marginTop="30dp"
+                            android:layout_below="@+id/location"
+                            android:background="@drawable/custom_black_stroke"
+                            android:orientation="vertical"
+                            android:padding="15dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp">
 
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="DATE OF BIRTH"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:id="@+id/birthdayTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="DD / MM / YY"
+                                    android:textSize="15dp"
+                                    />
+                                <EditText
+                                    android:id="@+id/birthdayEdt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="gone"
+                                    android:inputType="date"
+                                    />
 
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/gender"
+                            android:layout_marginTop="30dp"
+                            android:layout_below="@+id/birthday"
+                            android:background="@drawable/custom_black_stroke"
+                            android:orientation="vertical"
+                            android:padding="15dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
+                            >
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="GENDER"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold"
+                                    />
+                                <RadioGroup
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal"
+                                    >
+
+                                        <RadioButton
+                                            android:id="@+id/radioButton_male"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Male"
+                                            android:textColor="#777676"
+                                            android:textSize="15dp"
+                                            android:buttonTint="#777676" />
+
+                                        <RadioButton
+                                            android:id="@+id/radioButton_female"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Famale"
+                                            android:textColor="#777676"
+                                            android:textSize="15dp"
+                                            android:buttonTint="#777676" />
+
+                                        <RadioButton
+                                            android:id="@+id/radioButton_other"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Other"
+                                            android:textColor="#777676"
+                                            android:textSize="15dp"
+                                            android:buttonTint="#777676" />
+                                </RadioGroup>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/gender">
+
+                        </LinearLayout>
+
+                </RelativeLayout>
+
+        </ScrollView>
         <Button
             android:id="@+id/logOutBtn"
             android:layout_width="match_parent"
@@ -160,11 +220,10 @@
             android:layout_alignParentBottom="true"
             android:backgroundTint="@color/black"
             android:text="LOG OUT"
-            android:textSize="30dp"
+            android:textSize="25dp"
             android:textColor="@color/white"
-            android:gravity=""
+                android:gravity="left"
             />
-
 
 
 
