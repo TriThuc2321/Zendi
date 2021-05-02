@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">Zendi_Application</string>
-    <string name="action_wishlist">Wishlist</string>
-    <string name="action_search">Search</string>
-    <string name="action_shop">Shop</string>
-    <string name="action_drops">Drops</string>
-
-</resources>
