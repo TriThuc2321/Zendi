@@ -39,6 +39,10 @@ public class SearchListNavigationActivity extends AppCompatActivity {
         articalModelArrayList.add(new ArticalModel(R.drawable.ic_baseline_face_24,"áo"));
         articalModelArrayList.add(new ArticalModel(R.drawable.ic_baseline_face_24,"áo"));
         articalModelArrayList.add(new ArticalModel(R.drawable.ic_baseline_face_24,"áo"));
+        articalModelArrayList.add(new ArticalModel(R.drawable.ic_baseline_face_24,"áo"));
+        articalModelArrayList.add(new ArticalModel(R.drawable.ic_baseline_face_24,"áo"));
+        articalModelArrayList.add(new ArticalModel(R.drawable.ic_baseline_face_24,"áo"));
+        articalModelArrayList.add(new ArticalModel(R.drawable.ic_baseline_face_24,"áo"));
         recv = findViewById(R.id.recyc_artical);
         recv.setHasFixedSize(true);
         recAdt = new RecycleAdapterForArtical(articalModelArrayList);
