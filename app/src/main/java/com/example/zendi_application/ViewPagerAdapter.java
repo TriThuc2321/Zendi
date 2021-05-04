@@ -7,13 +7,13 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.zendi_application.dropFragment.DropFragment;
 
-
-import com.example.zendi_application.searchfragment.SearchFragment;
-
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+
+
     public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
+
     @NonNull
     @Override
     public Fragment getItem(int position) {
@@ -22,7 +22,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 1: return new SearchFragment();
             case 2: return new WishlistFragment();
             default: return new ShopFragment();
-            //default: return shopFragment;
         }
     }
 

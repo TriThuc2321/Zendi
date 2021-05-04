@@ -16,8 +16,6 @@
         <activity android:name=".ActivityAccount.SettingActivity" />
         <activity android:name=".dropFragment.collection_drop" />
         <activity android:name=".ActivityAccount.Account_Activity" />
-        <activity android:name=".searchfragment.listnavigation.SearchListNavigationActivity"/>
-        <activity android:name=".Account_Activity" />
         <activity android:name=".HomeScreen" />
         <activity android:name=".Introduction">
             <intent-filter>
@@ -25,8 +23,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
 
         <meta-data
