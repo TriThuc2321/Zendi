@@ -60,5 +60,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.firebase:firebase-core:17.0.0'
 
+    //realtimeDatabase
+    implementation 'com.google.firebase:firebase-database:19.7.0'
+
 }
 apply plugin: 'com.google.gms.google-services'
