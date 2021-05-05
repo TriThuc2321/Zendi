@@ -4,17 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.example.zendi_application.ActivityAccount.Account_Activity;
 import com.example.zendi_application.ActivityAccount.LoginRegisterActivity;
+import com.example.zendi_application.dropFragment.DetailDropFragment;
+import com.example.zendi_application.dropFragment.drop.drop;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,10 +30,29 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeScreen extends AppCompatActivity {
     private static final int REQUEST_EXIT = 1;
-    AppBarLayout appBarLayout;
-    MaterialToolbar mAppBarTop;
-    BottomNavigationView mNavigationView;
-    ViewPager mViewPager;
+    public AppBarLayout appBarLayout;
+    public MaterialToolbar mAppBarTop;
+    public BottomNavigationView mNavigationView;
+    public ViewPager mViewPager;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.appBarLayout.setVisibility(View.VISIBLE);
+        Log.d("MainActivity Lifecycle", "===== onResume =====");
+    }
+    protected void onStart() {
+        super.onStart();
+        this.appBarLayout.setVisibility(View.VISIBLE);
+        Log.d("MainActivity Lifecycle", "===== onStart =====");
+    }
+    protected void onRestart() {
+        super.onRestart();
+        this.appBarLayout.setVisibility(View.VISIBLE);
+        Log.d("MainActivity Lifecycle", "===== onRestart =====");
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +62,11 @@ public class HomeScreen extends AppCompatActivity {
         // test
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
-
         myRef.setValue("Hello, World222!");
         // Hooks
         mAppBarTop = findViewById(R.id.topAppBar);
         appBarLayout = findViewById(R.id.appbarlayout);
+        this.appBarLayout.setVisibility(View.VISIBLE);
         mAppBarTop.setTitle("DROPS"+ "");
         mNavigationView = findViewById(R.id.bottom_nav);
         mViewPager = findViewById(R.id.view_paper);
@@ -113,12 +139,12 @@ public class HomeScreen extends AppCompatActivity {
                         break;
                 }
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
 
             }
         });
+
     }
 
     @Override
