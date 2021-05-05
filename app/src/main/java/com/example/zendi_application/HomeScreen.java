@@ -59,10 +59,7 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home_screen);
-        // test
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-        myRef.setValue("Hello, World222!");
+
         // Hooks
         mAppBarTop = findViewById(R.id.topAppBar);
         appBarLayout = findViewById(R.id.appbarlayout);
