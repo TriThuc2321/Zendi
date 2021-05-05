@@ -9,7 +9,11 @@ public class DataManager {
          return instance;
     }
 
-    private static void setInstance(DataManager instance) {
+    public static void setInstance(DataManager instance) {
         DataManager.instance = instance;
+    }
+    public void addDataForDrogFragment(int whichType)
+    {
+
     }
 }

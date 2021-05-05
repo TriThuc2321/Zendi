@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.category_drop.category;
 import com.example.zendi_application.dropFragment.category_drop.categoryAdapter;
@@ -26,6 +27,7 @@ public class DropFragment extends Fragment implements View.OnClickListener {
     Button btn_type ;
     Button btn_type1 ;
     Button btn_type2;
+    public DataManager dataManager;
     private RecyclerView rcvCategory;
     private categoryAdapter CategoryAdapter;
     LinearLayoutManager linearLayoutManager;
@@ -117,6 +119,7 @@ public class DropFragment extends Fragment implements View.OnClickListener {
         mcategoryList.add(new category(listDrop1));
         mcategoryList.add(new category(listDrop2));
 
+        dataManager.getInstance().addDataForDrogFragment(1);
         return mcategoryList;
     }
     @Override
