@@ -1,23 +1,20 @@
 package com.example.zendi_application.dropFragment.drop;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
-import com.example.zendi_application.dropFragment.collection_drop;
-import com.example.zendi_application.dropFragment.product;
+import com.example.zendi_application.dropFragment.DetailDropFragment;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolder>{
@@ -51,9 +48,19 @@ public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolde
         holder.shopbtnDrop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), collection_drop.class);
-
-                v.getContext().startActivity(intent);
+                int a = 5;
+//                Intent intent = new Intent(v.getContext(), collection_drop.class);
+//                Bundle bundle = new Bundle();
+//                //bundle.putInt("data", dropp.getResourceId());
+//                bundle.putParcelable("data",dropp);
+//                intent.putExtras(bundle);
+//                v.getContext().startActivity(intent);
+//                // ((HomeScreen) v.getContext()).OpenDetailDropFragment(dropp);
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                DetailDropFragment myFragment = new DetailDropFragment();
+                ((DetailDropFragment)myFragment).recieveDrop(dropp);
+                ((HomeScreen)activity).appBarLayout.setVisibility(View.INVISIBLE);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_screen, myFragment).addToBackStack(null).commit();
             }
         });
 
@@ -83,6 +90,8 @@ public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolde
             statusDrop = itemView.findViewById(R.id.status_drop);
             typeDrop = itemView.findViewById(R.id.type_drop);
             shopbtnDrop = itemView.findViewById(R.id.btn_drop);
+
+
         }
     }
 }

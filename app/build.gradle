@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.zendi_application"
-        minSdkVersion 21
+        minSdkVersion 29
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -59,9 +59,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.firebase:firebase-core:17.0.0'
-
-    //realtimeDatabase
-    implementation 'com.google.firebase:firebase-database:19.7.0'
 
 }
 apply plugin: 'com.google.gms.google-services'
