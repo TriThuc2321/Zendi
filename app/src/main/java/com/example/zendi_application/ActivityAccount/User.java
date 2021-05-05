@@ -3,89 +3,33 @@ package com.example.zendi_application.ActivityAccount;
 import android.net.Uri;
 
 public class User {
-    private String Id;
-    private String Email;
-    private String Password;
-    private String Name;
-    private String DOB;
-    private String Gender;
-    private int PhoneNumber;
-    private Uri ProfilePic;
-    private Size size;
+    public String Address;
+    public String DOB;
+    public String Email;
+    public String Gender;
+    public String Id;
+    public String Name;
+    public String Password;
+    public String PhoneNumber;
+    public String ProfilePic;
+    public int Size;
+    public int Total;
 
-    public User(String id) {
-        Id = id;
+    public User(){
+
     }
 
-    public String getId() {
-        return Id;
-    }
-
-    public void setId(String id) {
-        Id = id;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public String getDOB() {
-        return DOB;
-    }
-
-    public void setDOB(String DOB) {
+    public User(String address, String DOB, String email, String gender, String id, String name, String password, String phoneNumber, String profilePic, int size, int total) {
+        Address = address;
         this.DOB = DOB;
-    }
-
-    public String getGender() {
-        return Gender;
-    }
-
-    public void setGender(String gender) {
+        Email = email;
         Gender = gender;
-    }
-
-    public int getPhoneNumber() {
-        return PhoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
+        Id = id;
+        Name = name;
+        Password = password;
         PhoneNumber = phoneNumber;
-    }
-
-    public Uri getProfilePic() {
-        return ProfilePic;
-    }
-
-    public void setProfilePic(Uri profilePic) {
         ProfilePic = profilePic;
-    }
-
-    public Size getSize() {
-        return size;
-    }
-
-    public void setSize(Size size) {
-        this.size = size;
+        Size = size;
+        Total = total;
     }
 }
