@@ -68,8 +68,8 @@ public class DropFragment extends Fragment implements View.OnClickListener {
         imglist.add(R.drawable.categorytest3);
 
         List<Integer> imglist1 = new ArrayList<>();
-        imglist1.add(R.drawable.nike_collection);
         imglist1.add(R.drawable.nikeshos1);
+        imglist1.add(R.drawable.nike_collection);
         imglist1.add(R.drawable.categorytest3);
 
         List<Integer> imglist2 = new ArrayList<>();
