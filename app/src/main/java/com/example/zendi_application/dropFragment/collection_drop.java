@@ -1,24 +1,15 @@
 package com.example.zendi_application.dropFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.zendi_application.R;
-import com.example.zendi_application.dropFragment.category_drop.testclass;
 import com.example.zendi_application.dropFragment.drop.drop;
-import com.example.zendi_application.dropFragment.product.product;
-import com.example.zendi_application.dropFragment.product.productAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.zendi_application.dropFragment.product_package.productAdapter;
 
 public class collection_drop extends AppCompatActivity {
     private ImageView img;

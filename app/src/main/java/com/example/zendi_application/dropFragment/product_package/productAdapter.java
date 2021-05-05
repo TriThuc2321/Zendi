@@ -1,4 +1,4 @@
-package com.example.zendi_application.dropFragment.product;
+package com.example.zendi_application.dropFragment.product_package;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.zendi_application.R;
 
 import java.util.List;
-import java.util.Set;
-import java.util.zip.Inflater;
 
 public class productAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

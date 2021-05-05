@@ -17,7 +17,7 @@ import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.category_drop.category;
 import com.example.zendi_application.dropFragment.category_drop.categoryAdapter;
 import com.example.zendi_application.dropFragment.drop.drop;
-import com.example.zendi_application.dropFragment.product.product;
+import com.example.zendi_application.dropFragment.product_package.product;
 
 import java.util.ArrayList;
 import java.util.List;

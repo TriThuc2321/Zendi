@@ -1,7 +1,5 @@
 package com.example.zendi_application.dropFragment.drop;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +9,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.DetailDropFragment;
-import com.example.zendi_application.dropFragment.category_drop.testclass;
-import com.example.zendi_application.dropFragment.collection_drop;
-import com.example.zendi_application.dropFragment.product.product;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolder>{

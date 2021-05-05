@@ -2,7 +2,6 @@ package com.example.zendi_application.dropFragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,14 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.drop.drop;
-import com.example.zendi_application.dropFragment.product.productAdapter;
-
-import java.util.concurrent.Delayed;
+import com.example.zendi_application.dropFragment.product_package.productAdapter;
 
 public class DetailDropFragment extends Fragment {
     drop dropp;
