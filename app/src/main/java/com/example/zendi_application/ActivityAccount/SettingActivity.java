@@ -121,7 +121,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);
-                locationTxt.setText(user.Address);
+                locationTxt.setText(user.getAddress());
             }
 
             @Override
