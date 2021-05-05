@@ -1,6 +1,7 @@
 package com.example.zendi_application;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.example.zendi_application.ActivityAccount.Account_Activity;
+import com.example.zendi_application.ActivityAccount.LoginRegisterActivity;
 import com.example.zendi_application.dropFragment.DetailDropFragment;
 import com.example.zendi_application.dropFragment.drop.drop;
 import com.google.android.material.appbar.AppBarLayout;
@@ -26,10 +29,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeScreen extends AppCompatActivity {
+    private static final int REQUEST_EXIT = 1;
     public AppBarLayout appBarLayout;
     public MaterialToolbar mAppBarTop;
     public BottomNavigationView mNavigationView;
-    ViewPager mViewPager;
+    public ViewPager mViewPager;
 
     @Override
     protected void onResume() {
@@ -55,10 +59,7 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home_screen);
-        // test
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-        myRef.setValue("Hello, World222!");
+
         // Hooks
         mAppBarTop = findViewById(R.id.topAppBar);
         appBarLayout = findViewById(R.id.appbarlayout);
@@ -74,8 +75,9 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.account) {
-                    Intent intent = new Intent(HomeScreen.this, Account_Activity.class);
-                    startActivity(intent);
+
+                    Intent intent = new Intent(HomeScreen.this, LoginRegisterActivity.class);
+                    startActivityForResult(intent, 1);
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
                 }
                 return true;
@@ -140,5 +142,15 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_EXIT) {
+            if (resultCode == RESULT_OK) {
+                this.finish();
+            }
+        }
     }
 }
