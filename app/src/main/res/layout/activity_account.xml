@@ -18,12 +18,14 @@
         android:text="LOGIGN"
         android:textSize="30dp"
         android:textStyle="bold"
-        android:textColor="#4E4D4D"/>
-    <TextView
+        android:textColor="#4E4D4D"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"/>
+    <View
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#2C2B2B"
+        android:layout_height="0.5dp"
+        android:background="#595757"
+
         />
 
 
@@ -31,14 +33,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="30"
-        android:weightSum="6">
+        android:layout_marginLeft="15dp">
 
-        <Button
+        <ImageView
             android:id="@+id/facebookBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/facebook_logo"
+            android:scaleType="fitCenter"
             android:layout_weight="1"/>
+
         <TextView
             android:id="@+id/facebookTxt"
             android:layout_width="0dp"
@@ -49,20 +53,28 @@
             android:layout_weight="5"/>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#595757"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="30"
-        android:weightSum="10">
 
-        <Button
+        android:layout_marginLeft="15dp">
+
+        <ImageView
             android:id="@+id/googleBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/google_logo"
             android:layout_weight="1"
             android:layout_margin="15dp"
-            />
+            android:scaleType="centerCrop"/>
+
         <TextView
             android:id="@+id/googleTxt"
             android:layout_width="0dp"
@@ -73,20 +85,11 @@
             android:layout_weight="8"/>
     </LinearLayout>
 
-
     <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
+        android:id="@+id/button_sign_in"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:visibility="gone"
-        android:layout_weight="1"
         />
-<com.facebook.login.widget.LoginButton
-    android:id="@+id/button_sign_in"
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:visibility="gone"
-    />
 
 </LinearLayout>
