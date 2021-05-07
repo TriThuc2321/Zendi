@@ -6,10 +6,10 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class product implements Parcelable {
+public class product  {
     private String productId,productName,productPrice;
     private List<Integer> ResourceID; // Image list of product
-    private List<Integer> remainingAmount;
+    private List<Integer> remainingAmount; // 0 : 5 , 1 : 5,5, 2 : 6
     private Integer type;
 
 
@@ -18,26 +18,6 @@ public class product implements Parcelable {
 
     }
 
-    protected product(Parcel in) {
-        productId = in.readString();
-        productName = in.readString();
-        if (in.readByte() == 0x01) {
-            ResourceID = new ArrayList<Integer>();
-            in.readList(ResourceID, Integer.class.getClassLoader());
-        } else {
-            ResourceID = null;
-        }
-        if (in.readByte() == 0x01) {
-            remainingAmount = new ArrayList<Integer>();
-            in.readList(remainingAmount, Integer.class.getClassLoader());
-        } else {
-            remainingAmount = null;
-        }
-
-
-        type = in.readInt();
-        productPrice = in.readString();
-    }
 
     public product(String productId, String productName, String productPrice, List<Integer> resourceID, List<Integer> remainingAmount, int type) {
         this.productId = productId;
@@ -49,42 +29,7 @@ public class product implements Parcelable {
     }
 
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(productId);
-        dest.writeString(productName);
-        dest.writeString(productPrice);
-        if (ResourceID == null) {
-            dest.writeByte((byte) (0x00));
-        } else {
-            dest.writeByte((byte) (0x01));
-            dest.writeList(ResourceID);
-        }
-        if (remainingAmount == null) {
-            dest.writeByte((byte) (0x00));
-        } else {
-            dest.writeByte((byte) (0x01));
-            dest.writeList(remainingAmount);
-        }
-        dest.writeInt(type);
-    }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<product> CREATOR = new Creator<product>() {
-        @Override
-        public product createFromParcel(Parcel in) {
-            return new product(in);
-        }
-
-        @Override
-        public product[] newArray(int size) {
-            return new product[size];
-        }
-    };
     public int getType() {
         return type;
     }
