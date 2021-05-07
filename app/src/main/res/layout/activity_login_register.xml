@@ -32,19 +32,20 @@
         android:gravity="left|center_vertical"
         android:layout_alignParentBottom="true"
         android:background="@drawable/account_custom_button"
-        android:text="REGISTER"
+        android:text="LOGIN"
         android:textSize="16dp"
         />
-
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/btnRegister"
-        android:backgroundTint="@color/white"
-        android:text="LOGIN                         "
-        android:textColor="@color/gold"
-        android:textSize="20dp" />
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:gravity="left|center_vertical"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/account_custom_button"
+            android:text="REGISTER"
+            android:textSize="16dp"
+            />
 
     </LinearLayout>
 
