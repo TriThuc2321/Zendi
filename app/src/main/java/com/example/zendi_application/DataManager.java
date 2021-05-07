@@ -27,28 +27,27 @@ public class DataManager {
     private StorageReference storageReference;
 
 
-
     public static DataManager getInstance() {
-         if (instance == null) instance = new DataManager();
-         return instance;
+        if (instance == null) instance = new DataManager();
+        return instance;
     }
 
     public static void setInstance(DataManager instance) {
         DataManager.instance = instance;
     }
-    public void addDataForDrogFragment(int whichType)
-    {
+
+    public void addDataForDrogFragment(int whichType) {
 
     }
-    public void readDataForDrogFragment()
-    {
+
+    public void readDataForDrogFragment() {
 
     }
+
     //Thien//
-    public void pushImage( Uri imageUri){
+    public void pushImage(Uri imageUri) {
         this.imageUri = imageUri;
-        if (this.imageUri != null)
-        {
+        if (this.imageUri != null) {
             storage = FirebaseStorage.getInstance();
             storageReference = storage.getReference();
 //            String a = imageName + "." + extension;
@@ -58,9 +57,9 @@ public class DataManager {
             StorageReference riversRef = storageReference.child("images/" + randomKey);
             riversRef.putFile(imageUri);
         }
-    //endregion//
+        //endregion//
 
-}
+    }
 
     public Uri getImageUri() {
         return imageUri;
@@ -85,3 +84,4 @@ public class DataManager {
     public void setStorageReference(StorageReference storageReference) {
         this.storageReference = storageReference;
     }
+}
