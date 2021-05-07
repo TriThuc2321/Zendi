@@ -238,6 +238,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);
+
                 locationTxt.setText(user.getAddress());
                 birthdayTxt.setText(user.getDOB());
                 sizeTxt.setText(user.getSize()+"");
@@ -269,11 +270,12 @@ public class SettingActivity extends AppCompatActivity {
     public void setEnableSaveButton(boolean isEnable){
         if(isEnable == true){
             saveBtn.setVisibility(View.VISIBLE);
-            saveBtn.setBackgroundColor(getResources().getColor(R.color.black));
+            saveBtn.setBackgroundColor(Color.parseColor("#000000"));
+
         }
         else if(isEnable == false){
             saveBtn.setVisibility(View.INVISIBLE);
-            saveBtn.setBackgroundColor(getResources().getColor(R.color.grey));
+            saveBtn.setBackgroundColor(Color.parseColor("#777676"));
         }
     }
 }

@@ -255,7 +255,7 @@
                             android:backgroundTint="@color/grey"
                             android:layout_marginTop="15dp"
                             android:layout_marginRight="15dp"
-                            android:visibility="invisible"
+
                             />
 
                         <Button
