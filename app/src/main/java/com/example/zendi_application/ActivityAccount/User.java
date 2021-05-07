@@ -7,7 +7,6 @@ public class User {
     private int Gender;
     private String Id;
     private String Name;
-    private String Password;
     private String PhoneNumber;
     private String ProfilePic;
     private int Size;
@@ -17,14 +16,13 @@ public class User {
 
     }
 
-    public User(String address, String DOB, String email, int gender, String id, String name, String password, String phoneNumber, String profilePic, int size, int total) {
+    public User(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, int size, int total) {
         Address = address;
         this.DOB = DOB;
         Email = email;
         Gender = gender;
         Id = id;
         Name = name;
-        Password = password;
         PhoneNumber = phoneNumber;
         ProfilePic = profilePic;
         Size = size;
@@ -77,14 +75,6 @@ public class User {
 
     public void setName(String name) {
         Name = name;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
     }
 
     public String getPhoneNumber() {

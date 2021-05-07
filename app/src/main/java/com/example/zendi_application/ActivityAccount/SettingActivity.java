@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
@@ -88,7 +89,7 @@ public class SettingActivity extends AppCompatActivity {
 
         Init();
         SetButtonClick();
-        setData("Soc Trang","23_02", "10522321@gm.uit.edu.vn",0, "123","Trần Trí Thức","123456","0787960456","MyUri",40,10000);
+        setData("","", currentUser.getEmail(),0, "123",currentUser.getDisplayName(),"","",0,0);
         getData();
     }
 
@@ -127,7 +128,8 @@ public class SettingActivity extends AppCompatActivity {
                 locationTxt.setVisibility(View.GONE);
                 locationEdt.setText(locationTxt.getText());
                 locationEdt.setVisibility(View.VISIBLE);
-                setEnableSaveButton(true);
+                saveBtn.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -152,7 +154,7 @@ public class SettingActivity extends AppCompatActivity {
                 birthdayTxt.setVisibility(View.GONE);
                 birthdayEdt.setText(birthdayTxt.getText());
                 birthdayEdt.setVisibility(View.VISIBLE);
-
+                saveBtn.setVisibility(View.VISIBLE);
             }
         });
 
@@ -177,7 +179,7 @@ public class SettingActivity extends AppCompatActivity {
                 nameTxt.setVisibility(View.GONE);
                 nameEdt.setText(nameTxt.getText());
                 nameEdt.setVisibility(View.VISIBLE);
-
+                saveBtn.setVisibility(View.VISIBLE);
             }
         });
 
@@ -201,7 +203,7 @@ public class SettingActivity extends AppCompatActivity {
                 sizeTxt.setVisibility(View.GONE);
                 sizeEdt.setText(sizeTxt.getText());
                 sizeEdt.setVisibility(View.VISIBLE);
-
+                saveBtn.setVisibility(View.VISIBLE);
             }
         });
         sizeEdt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -221,7 +223,27 @@ public class SettingActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                    saveBtn.setVisibility(View.INVISIBLE);
+            }
+        });
 
+
+        maleRad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                saveBtn.setVisibility(View.VISIBLE);
+            }
+        });
+        femaleRad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                saveBtn.setVisibility(View.VISIBLE);
+            }
+        });
+        otherRad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                saveBtn.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -271,7 +293,7 @@ public class SettingActivity extends AppCompatActivity {
                 else if(user.getGender() == -1){
                     otherRad.setChecked(true);
                 }
-
+                saveBtn.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -281,20 +303,8 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
-    public void setData(String address, String DOB, String email, int gender, String id, String name, String password, String phoneNumber, String profilePic, int size, int total){
-        User mUser =  new User(address, DOB, email, gender, currentUser.getUid(), name, password,phoneNumber,profilePic,size,total);
+    public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, int size, int total){
+        User mUser =  new User(address, DOB, email, gender, currentUser.getUid(), name,phoneNumber,profilePic,size,total);
         dataBase.child("Users").child(currentUser.getUid()).setValue(mUser);
-    }
-
-    public void setEnableSaveButton(boolean isEnable){
-        if(isEnable == true){
-            saveBtn.setVisibility(View.VISIBLE);
-            saveBtn.setBackgroundColor(Color.parseColor("#000000"));
-
-        }
-        else if(isEnable == false){
-            saveBtn.setVisibility(View.INVISIBLE);
-            saveBtn.setBackgroundColor(Color.parseColor("#777676"));
-        }
     }
 }

@@ -252,10 +252,10 @@
                             android:layout_alignParentRight="true"
                             android:textColor="@color/white"
                             android:textStyle="bold"
-                            android:backgroundTint="@color/grey"
+                            android:backgroundTint="@color/black"
                             android:layout_marginTop="15dp"
                             android:layout_marginRight="15dp"
-
+                            android:visibility="invisible"
                             />
 
                         <Button
