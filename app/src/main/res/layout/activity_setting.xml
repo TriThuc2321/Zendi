@@ -12,6 +12,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/profileInfo">
                 <View
+                    android:id="@+id/turnBack"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
@@ -36,7 +37,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     >
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                                     android:id="@+id/nameTxt"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Thức"
+                                    android:text="Name"
                                     android:textSize="15dp"
                                     />
 
@@ -68,6 +68,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:visibility="gone"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="textAutoComplete"
                                     />
                         </LinearLayout>
 
@@ -95,7 +97,7 @@
                                     android:id="@+id/locationTxt"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Ap An Ninh 2"
+                                    android:text="Location"
                                     android:textSize="15dp"
                                     />
 
@@ -107,6 +109,8 @@
                                     android:visibility="gone"
                                     android:maxLines="1"
                                     android:lines="1"
+                                    android:inputType="textAutoComplete"
+                                    android:imeOptions="actionDone"
                                     android:inputType="textAutoComplete"
                                     />
                         </LinearLayout>
@@ -143,6 +147,7 @@
                                     android:layout_height="wrap_content"
                                     android:visibility="gone"
                                     android:inputType="date"
+                                    android:imeOptions="actionDone"
                                     />
 
                         </LinearLayout>
@@ -186,7 +191,7 @@
                                             android:id="@+id/radioButton_female"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:text="Famale"
+                                            android:text="Female"
                                             android:textColor="#777676"
                                             android:textSize="15dp"
                                             android:buttonTint="#777676" />
@@ -209,22 +214,68 @@
                             android:layout_below="@id/gender">
 
                         </LinearLayout>
+                        </LinearLayout     
+                            android:id="@+id/size"
+                            android:layout_marginTop="30dp"
+                            android:layout_below="@+id/gender"
+                            android:background="@drawable/custom_black_stroke"
+                            android:orientation="vertical"
+                            android:padding="15dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp">
 
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="SIZE"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:id="@+id/sizeTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Size"
+                                    android:textSize="15dp"
+                                    />
+                                <EditText
+                                    android:id="@+id/sizeEdt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="gone"
+                                    android:inputType="date"
+                                    android:imeOptions="actionDone"
+                                    />
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/saveBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SAVE"
+                            android:layout_below="@id/size"
+                            android:layout_alignParentRight="true"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:backgroundTint="@color/grey"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="15dp"
+
+                            />
+
+                        <Button
+                            android:id="@+id/logOutBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/saveBtn"
+                            android:backgroundTint="@color/black"
+                            android:text="LOG OUT"
+                            android:textSize="25dp"
+                            android:textColor="@color/white"
+                            android:gravity="left"
+
+                            />
                 </RelativeLayout>
-
         </ScrollView>
-        <Button
-            android:id="@+id/logOutBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:backgroundTint="@color/black"
-            android:text="LOG OUT"
-            android:textSize="25dp"
-            android:textColor="@color/white"
-                android:gravity="left"
-            />
-
-
-
 </RelativeLayout>
