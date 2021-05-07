@@ -255,7 +255,7 @@
                             android:backgroundTint="@color/grey"
                             android:layout_marginTop="15dp"
                             android:layout_marginRight="15dp"
-                            android:enabled="false"
+                            android:visibility="invisible"
                             />
 
                         <Button
@@ -268,6 +268,7 @@
                             android:textSize="25dp"
                             android:textColor="@color/white"
                             android:gravity="left"
+
                             />
                 </RelativeLayout>
         </ScrollView>

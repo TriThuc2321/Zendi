@@ -268,11 +268,11 @@ public class SettingActivity extends AppCompatActivity {
 
     public void setEnableSaveButton(boolean isEnable){
         if(isEnable == true){
-            saveBtn.setEnabled(true);
+            saveBtn.setVisibility(View.VISIBLE);
             saveBtn.setBackgroundColor(getResources().getColor(R.color.black));
         }
         else if(isEnable == false){
-            saveBtn.setEnabled(false);
+            saveBtn.setVisibility(View.INVISIBLE);
             saveBtn.setBackgroundColor(getResources().getColor(R.color.grey));
         }
     }
