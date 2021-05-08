@@ -4,19 +4,19 @@ public class User {
     private String Address;
     private String DOB;
     private String Email;
-    private int Gender;
+    private String Gender;
     private String Id;
     private String Name;
     private String PhoneNumber;
     private String ProfilePic;
-    private int Size;
-    private int Total;
+    private String Size;
+    private String Total;
 
     public User(){
 
     }
 
-    public User(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, int size, int total) {
+    public User(String address, String DOB, String email, String gender, String id, String name, String phoneNumber, String profilePic, String size, String total) {
         Address = address;
         this.DOB = DOB;
         Email = email;
@@ -53,11 +53,11 @@ public class User {
         Email = email;
     }
 
-    public int getGender() {
+    public String getGender() {
         return Gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         Gender = gender;
     }
 
@@ -93,19 +93,19 @@ public class User {
         ProfilePic = profilePic;
     }
 
-    public int getSize() {
+    public String getSize() {
         return Size;
     }
 
-    public void setSize(int size) {
+    public void setSize(String size) {
         Size = size;
     }
 
-    public int getTotal() {
+    public String getTotal() {
         return Total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(String total) {
         Total = total;
     }
 }

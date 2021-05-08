@@ -45,6 +45,7 @@
                             android:background="@drawable/custom_black_stroke"
                             android:orientation="vertical"
                             android:padding="15dp"
+                            android:layout_alignParentTop="true"
                             android:layout_marginLeft="30dp"
                             android:layout_marginRight="30dp"
                             >
@@ -120,9 +121,51 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/birthday"
+                            android:id="@+id/phonenumber"
                             android:layout_marginTop="30dp"
                             android:layout_below="@+id/location"
+                            android:background="@drawable/custom_black_stroke"
+                            android:orientation="vertical"
+                            android:padding="15dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
+                            >
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="PHONE NUMBER"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:id="@+id/phoneNumberTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Phone number"
+                                    android:textSize="15dp"
+                                    />
+
+                                <EditText
+                                    android:id="@+id/phoneNumberEdt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="15dp"
+                                    android:visibility="gone"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="textAutoComplete"
+                                    android:clickable="true"
+                                    android:focusableInTouchMode="true"
+
+                                    />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/birthday"
+                            android:layout_marginTop="30dp"
+                            android:layout_below="@+id/phonenumber"
                             android:background="@drawable/custom_black_stroke"
                             android:orientation="vertical"
                             android:padding="15dp"
@@ -251,12 +294,51 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/total"
+                            android:layout_marginTop="30dp"
+                            android:layout_below="@+id/size"
+                            android:background="@drawable/custom_black_stroke"
+                            android:orientation="vertical"
+                            android:padding="15dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="TOTAL"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:id="@+id/totalTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total"
+                                    android:textSize="15dp"
+                                    />
+                                <EditText
+                                    android:id="@+id/totalEdt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="gone"
+                                    android:inputType="date"
+                                    android:imeOptions="actionDone"
+                                    android:clickable="true"
+                                    android:focusableInTouchMode="true"
+                                    />
+
+                        </LinearLayout>
+
                         <Button
                             android:id="@+id/saveBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="SAVE"
-                            android:layout_below="@id/size"
+                            android:layout_below="@id/total"
                             android:layout_alignParentRight="true"
                             android:textColor="@color/white"
                             android:textStyle="bold"

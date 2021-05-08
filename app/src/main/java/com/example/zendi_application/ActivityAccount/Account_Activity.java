@@ -193,10 +193,9 @@ public class Account_Activity extends AppCompatActivity  {
     }
     private void openProfile(){
         startActivity(new Intent(Account_Activity.this, SettingActivity.class));
-        setData("","", mAuth.getCurrentUser().getEmail(),1, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","",0,0);
         finish();
     }
-    public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, int size, int total){
+    public void setData(String address, String DOB, String email, String gender, String id, String name, String phoneNumber, String profilePic, String size, String total){
         User mUser =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total);
         dataBase.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(mUser);
     }
@@ -213,13 +212,14 @@ public class Account_Activity extends AppCompatActivity  {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
+                            setData("","", mAuth.getCurrentUser().getEmail(),"", mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","");
                             openProfile();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(Account_Activity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            openProfile();
+
                         }
                     }
                 });

@@ -80,6 +80,12 @@ public class SettingActivity extends AppCompatActivity {
     private TextView sizeTxt;
     private EditText sizeEdt;
 
+    private TextView totalTxt;
+    private EditText totalEdt;
+
+    private TextView phoneNumberTxt;
+    private EditText phoneNumberEdt;
+
     private Button saveBtn;
 
     @Override
@@ -91,15 +97,9 @@ public class SettingActivity extends AppCompatActivity {
 
         Init();
         SetButtonClick();
-        setData("","", currentUser.getEmail(),1, currentUser.getUid(),currentUser.getDisplayName(),"","",0,0);
         getData();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        setData("","", currentUser.getEmail(),1, currentUser.getUid(),currentUser.getDisplayName(),"","",0,0);
-    }
 
     private void SetButtonClick() {
         findViewById(R.id.logOutBtn).setOnClickListener(new View.OnClickListener() {
@@ -162,6 +162,7 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
+        //---------------------LOCTATION--------------------//
 
         //---------------------BIRTHDAY---------------------//
         birthdayTxt.setOnClickListener(new View.OnClickListener() {
@@ -197,6 +198,7 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
+        //--------------------BIRTHDAY--------------//
 
         //--------------------NAME------------------//
         nameTxt.setOnClickListener(new View.OnClickListener() {
@@ -230,6 +232,7 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
+        //----------------------NAME-------------------//
 
         //----------------------SIZE-------------------//
         sizeTxt.setOnClickListener(new View.OnClickListener() {
@@ -264,7 +267,79 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
+        //----------------------SIZE----------------------//
 
+        //----------------------TOTAL---------------------//
+
+        totalTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                totalTxt.setVisibility(View.GONE);
+                totalEdt.setText(sizeTxt.getText());
+                totalEdt.setVisibility(View.VISIBLE);
+                saveBtn.setVisibility(View.VISIBLE);
+            }
+        });
+        totalEdt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    totalEdt.setVisibility(View.GONE);
+                    totalTxt.setVisibility(View.VISIBLE);
+                    totalTxt.setText(totalEdt.getText());
+                    handled = true;
+
+                }
+                return handled;
+            }
+        });
+
+        totalEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        //----------------------------TOTAL------------------------------//
+
+        //----------------------------PHONE NUMBER-----------------------//
+
+        phoneNumberTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                phoneNumberTxt.setVisibility(View.GONE);
+                phoneNumberEdt.setText(sizeTxt.getText());
+                phoneNumberEdt.setVisibility(View.VISIBLE);
+                saveBtn.setVisibility(View.VISIBLE);
+            }
+        });
+        phoneNumberEdt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    phoneNumberEdt.setVisibility(View.GONE);
+                    phoneNumberTxt.setVisibility(View.VISIBLE);
+                    phoneNumberTxt.setText(phoneNumberEdt.getText());
+                    handled = true;
+
+                }
+                return handled;
+            }
+        });
+
+        phoneNumberEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        //----------------------------PHONE NUMBER-----------------------//
         findViewById(R.id.profileInfo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -277,6 +352,18 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setEdtToTxt();
                 saveBtn.setVisibility(View.INVISIBLE);
+                String mGender = "";
+
+                if(maleRad.isChecked() == true){
+                    mGender = "0";
+                }
+                else if(femaleRad.isChecked() == true){
+                    mGender = "1";
+                }
+                else if(otherRad.isChecked() == true){
+                    mGender = "";
+                }
+                setData(locationTxt.getText().toString(),birthdayTxt.getText().toString(),currentUser.getEmail(),mGender,currentUser.getUid(), nameTxt.getText().toString(),phoneNumberTxt.getText().toString(),"ImageUri",sizeTxt.getText().toString(),totalTxt.getText().toString());
             }
         });
 
@@ -324,6 +411,12 @@ public class SettingActivity extends AppCompatActivity {
         sizeEdt = findViewById(R.id.sizeEdt);
         sizeTxt = findViewById(R.id.sizeTxt);
 
+        totalEdt = findViewById(R.id.totalEdt);
+        totalTxt = findViewById(R.id.totalTxt);
+
+        phoneNumberEdt = findViewById(R.id.phoneNumberEdt);
+        phoneNumberTxt = findViewById(R.id.phoneNumberTxt);
+
         saveBtn = findViewById(R.id.saveBtn);
 
     }
@@ -337,14 +430,18 @@ public class SettingActivity extends AppCompatActivity {
                 locationTxt.setText(user.getAddress());
                 birthdayTxt.setText(user.getDOB());
                 sizeTxt.setText(user.getSize()+"");
+                phoneNumberTxt.setText(user.getPhoneNumber());
+                totalTxt.setText(user.getPhoneNumber());
 
-                if(user.getGender() == 0){
+                //maleRad.setChecked(true);
+
+                if(user.getGender() == "0"){
                     maleRad.setChecked(true);
                 }
-                else if(user.getGender() == 1){
+                if( user.getGender()== "1"){
                     femaleRad.setChecked(true);
                 }
-                else if(user.getGender() == -1){
+                if(user.getGender() == ""){
                     otherRad.setChecked(true);
                 }
                 saveBtn.setVisibility(View.INVISIBLE);
@@ -357,9 +454,9 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
-    public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, int size, int total){
-        User mUser =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total);
-        dataBase.child("Users").child(currentUser.getUid()).setValue(mUser);
+    public void setData(String address, String DOB, String email, String gender, String id, String name, String phoneNumber, String profilePic, String size, String total){
+        user =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total);
+        dataBase.child("Users").child(currentUser.getUid()).setValue(user);
     }
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -376,4 +473,5 @@ public class SettingActivity extends AppCompatActivity {
         birthdayTxt.setVisibility(View.VISIBLE);
         sizeTxt.setVisibility(View.VISIBLE);
     }
+
 }
