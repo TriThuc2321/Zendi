@@ -43,6 +43,8 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.annotations.Nullable;
 
 import java.util.concurrent.Executor;
@@ -51,6 +53,7 @@ public class Account_Activity extends AppCompatActivity  {
 
     private  String TAG = "Thuc";
     private FirebaseAuth mAuth;
+    private DatabaseReference dataBase;
 
     //google
     private GoogleSignInClient mGoogleSignInClient;
@@ -66,6 +69,7 @@ public class Account_Activity extends AppCompatActivity  {
         setContentView(R.layout.activity_account);
 
         mAuth = FirebaseAuth.getInstance();
+        dataBase = FirebaseDatabase.getInstance().getReference();
 //--------------------------------------google------------------------//
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -189,9 +193,13 @@ public class Account_Activity extends AppCompatActivity  {
     }
     private void openProfile(){
         startActivity(new Intent(Account_Activity.this, SettingActivity.class));
+        setData("","", mAuth.getCurrentUser().getEmail(),1, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","",0,0);
         finish();
     }
-
+    public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, int size, int total){
+        User mUser =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total);
+        dataBase.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(mUser);
+    }
 
 
     private void handleFacebookAccessToken(AccessToken token) {

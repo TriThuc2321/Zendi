@@ -70,6 +70,8 @@
                                     android:visibility="gone"
                                     android:imeOptions="actionDone"
                                     android:inputType="textAutoComplete"
+                                    android:clickable="true"
+                                    android:focusableInTouchMode="true"
                                     />
                         </LinearLayout>
 
@@ -109,6 +111,8 @@
                                     android:visibility="gone"
                                     android:imeOptions="actionDone"
                                     android:inputType="textAutoComplete"
+                                    android:clickable="true"
+                                    android:focusableInTouchMode="true"
 
                                     />
                         </LinearLayout>
@@ -146,6 +150,8 @@
                                     android:visibility="gone"
                                     android:inputType="date"
                                     android:imeOptions="actionDone"
+                                    android:clickable="true"
+                                    android:focusableInTouchMode="true"
                                     />
 
                         </LinearLayout>
@@ -239,6 +245,8 @@
                                     android:visibility="gone"
                                     android:inputType="date"
                                     android:imeOptions="actionDone"
+                                    android:clickable="true"
+                                    android:focusableInTouchMode="true"
                                     />
 
                         </LinearLayout>

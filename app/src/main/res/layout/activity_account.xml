@@ -9,22 +9,24 @@
     android:background="@color/white"
     android:id="@+id/fragment_login">
 
-    <TextView
-        android:layout_weight="20"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="LOGIGN"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:textColor="#4E4D4D"
-        android:layout_marginLeft="15dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#2C2B2B"
-        android:textColor="#4E4D4D"
-        android:gravity="center"/>
+        android:layout_weight="30">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LOGIN"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="#4E4D4D"
+            android:layout_marginLeft="25dp"
+            android:layout_gravity="center"
+/>
+    </LinearLayout>
+
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
@@ -60,6 +62,7 @@
         android:layout_height="0.5dp"
         android:background="#595757"
         />
+
 
     <LinearLayout
         android:layout_width="match_parent"

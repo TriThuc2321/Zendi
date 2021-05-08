@@ -2,12 +2,14 @@ package com.example.zendi_application.ActivityAccount;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -56,7 +58,6 @@ public class SettingActivity extends AppCompatActivity {
 
     private User user;
     private DatabaseReference dataBase;
-
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
@@ -86,11 +87,18 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         Init();
         SetButtonClick();
-        setData("","", currentUser.getEmail(),0, "123",currentUser.getDisplayName(),"","",0,0);
+        setData("","", currentUser.getEmail(),1, currentUser.getUid(),currentUser.getDisplayName(),"","",0,0);
         getData();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setData("","", currentUser.getEmail(),1, currentUser.getUid(),currentUser.getDisplayName(),"","",0,0);
     }
 
     private void SetButtonClick() {
@@ -109,9 +117,7 @@ public class SettingActivity extends AppCompatActivity {
         settingLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                locationTxt.setText(locationEdt.getText());
-                locationEdt.setVisibility(View.GONE);
-                locationTxt.setVisibility(View.VISIBLE);
+                setEdtToTxt();
             }
         });
 
@@ -122,6 +128,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        //---------------------LOCATION---------------------//
         locationTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,7 +154,16 @@ public class SettingActivity extends AppCompatActivity {
                 return handled;
             }
         });
+        locationEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
 
+        //---------------------BIRTHDAY---------------------//
         birthdayTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,6 +189,16 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        birthdayEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        //--------------------NAME------------------//
         nameTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,7 +222,16 @@ public class SettingActivity extends AppCompatActivity {
                 return handled;
             }
         });
+        nameEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
 
+        //----------------------SIZE-------------------//
         sizeTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,19 +250,37 @@ public class SettingActivity extends AppCompatActivity {
                     sizeTxt.setVisibility(View.VISIBLE);
                     sizeTxt.setText(sizeEdt.getText());
                     handled = true;
+
                 }
                 return handled;
+            }
+        });
+
+        sizeEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        findViewById(R.id.profileInfo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setEdtToTxt();
             }
         });
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    saveBtn.setVisibility(View.INVISIBLE);
+                setEdtToTxt();
+                saveBtn.setVisibility(View.INVISIBLE);
             }
         });
 
-
+        //---------------------RADIO BUTTON--------------------//
         maleRad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -280,6 +333,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);
 
+                nameTxt.setText(user.getName());
                 locationTxt.setText(user.getAddress());
                 birthdayTxt.setText(user.getDOB());
                 sizeTxt.setText(user.getSize()+"");
@@ -304,7 +358,22 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, int size, int total){
-        User mUser =  new User(address, DOB, email, gender, currentUser.getUid(), name,phoneNumber,profilePic,size,total);
+        User mUser =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total);
         dataBase.child("Users").child(currentUser.getUid()).setValue(mUser);
+    }
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+    public void setEdtToTxt(){
+        nameEdt.setVisibility(View.GONE);
+        locationEdt.setVisibility(View.GONE);
+        birthdayEdt.setVisibility(View.GONE);
+        sizeEdt.setVisibility(View.GONE);
+
+        nameTxt.setVisibility(View.VISIBLE);
+        locationTxt.setVisibility(View.VISIBLE);
+        birthdayTxt.setVisibility(View.VISIBLE);
+        sizeTxt.setVisibility(View.VISIBLE);
     }
 }
