@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class product  {
-    private String productId,productName,productPrice;
-    private List<Integer> ResourceID; // Image list of product
-    private List<Integer> remainingAmount; // 0 : 5 , 1 : 5,5, 2 : 6
+    protected String productId,productName,productPrice;
+    protected List<Integer> ResourceID; // Image list of product
+    protected List<Integer> remainingAmount; // 0 : 5 , 1 : 5,5, 2 : 6
     private Integer type;
 
 

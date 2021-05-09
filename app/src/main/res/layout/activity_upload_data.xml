@@ -6,14 +6,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".uploadData">
+
     <Button
         android:id="@+id/btnloadiamge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="click me to load image"
         ></Button>
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ></ProgressBar>
     <ImageView
         android:id="@+id/img_load"
+        android:layout_width="300dp"
+        android:layout_height="300dp">
+    </ImageView>
+    <ImageView
+        android:id="@+id/img_load1"
         android:layout_width="300dp"
         android:layout_height="300dp">
     </ImageView>
