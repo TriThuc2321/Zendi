@@ -26,8 +26,8 @@ import java.net.URL;
 
 public class uploadData extends AppCompatActivity {
     private Button btnload;
-    private ImageView imgview;
-    private ImageView imgview1;
+    public ImageView imgview;
+    public ImageView imgview1;
     public DataManager dataManager;
     private static  final  int IMAGE_REQUEST = 2;
     public ProgressBar progressBar;
@@ -45,14 +45,13 @@ public class uploadData extends AppCompatActivity {
         btnload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                dataManager.getInstance();
-//                dataManager.instance.getImageFromStorage("testfolder","img1");
-//                Uri temp = dataManager.instance.getImageUri();
-//                Glide.with(v.getContext()).load(temp).into(imgview);
-//                dataManager.instance.getImageFromStorage("testfolder","download.jpg");
-//                temp = dataManager.instance.getImageUri();
-//                Glide.with(v.getContext()).load(temp).into(imgview1);
                 OpenImage();
+              //  dataManager.getInstance();
+               // dataManager.instance.getImgUrlFromFirestone(v.getContext(),"Document");
+//                dataManager.instance.getImageFromStorage("testfolder","img7");
+//                Glide.with(v.getContext()).load(dataManager.instance.getImageUri()).into(imgview1);
+                ///////////////////////////
+//                OpenImage();
 
                 int b = 2;
             }
@@ -72,11 +71,11 @@ public class uploadData extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==IMAGE_REQUEST && resultCode ==RESULT_OK && data!=null && data.getData()!=null){
-            Uri imageUri = data.getData();
-            imgview.setImageURI(imageUri);
-            Glide.with(this).load("https://firebasestorage.googleapis.com/v0/b/zendi-1e684.appspot.com/o/testfolder%2Fimg4.jpg?alt=media&token=32f90648-76f8-4ce2-90bd-e90ef6ef052e").into(imgview1);
-            //dataManager.getInstance().pushImageToStorage( "testfolder","img3",data.getData());
-            dataManager.getInstance().pushImageToStorage1(uploadData.this,"testfolder","img7",data.getData());
+//            Uri imageUri = data.getData();
+//            imgview.setImageURI(imageUri);
+//            Glide.with(this).load("https://firebasestorage.googleapis.com/v0/b/zendi-1e684.appspot.com/o/testfolder%2Fimg4.jpg?alt=media&token=32f90648-76f8-4ce2-90bd-e90ef6ef052e").into(imgview1);
+            dataManager.getInstance().pushImageToStorage( "testfolder","img8",data.getData());
+//            dataManager.getInstance().pushImageToStorage1(uploadData.this,"testfolder","img8",data.getData());
             }
 
     }
