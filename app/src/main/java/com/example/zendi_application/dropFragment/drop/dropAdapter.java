@@ -1,5 +1,6 @@
 package com.example.zendi_application.dropFragment.drop;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +12,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.DetailDropFragment;
+import com.example.zendi_application.uploadData;
 
+import java.net.URL;
 import java.util.List;
 
 public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolder>{
+    private Context mContext;
     private List<drop> mdrop;
+
+    public dropAdapter(Context mContext) {
+        this.mContext = mContext;
+    }
+
     public void SetData(List<drop> list)
     {
         this.mdrop = list;
@@ -38,8 +48,8 @@ public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolde
         {
             return;
         }
-
-        holder.imgDrop.setImageResource(dropp.getResourceId());
+        Glide.with(mContext).load("https://firebasestorage.googleapis.com/v0/b/zendi-1e684.appspot.com/o/testfolder%2Fimg4.jpg?alt=media&token=32f90648-76f8-4ce2-90bd-e90ef6ef052e").into(holder.imgDrop);
+        //holder.imgDrop.setImageResource(dropp.getResourceId());
         holder.captionDrop.setText(dropp.getCaption());
         holder.statusDrop.setText(dropp.getSatus());
         holder.typeDrop.setText(dropp.getType());

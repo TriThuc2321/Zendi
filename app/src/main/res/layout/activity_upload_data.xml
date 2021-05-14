@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".uploadData">
-
     <Button
         android:id="@+id/btnloadiamge"
         android:layout_width="wrap_content"
@@ -19,14 +18,24 @@
         android:layout_height="wrap_content"
         ></ProgressBar>
     <ImageView
-        android:id="@+id/img_load"
+        android:id="@+id/img_load3"
         android:layout_width="300dp"
-        android:layout_height="300dp">
+        android:layout_height="0dp">
     </ImageView>
     <ImageView
         android:id="@+id/img_load1"
         android:layout_width="300dp"
-        android:layout_height="300dp">
+        android:layout_height="100dp">
+    </ImageView>
+    <ImageView
+        android:id="@+id/img_load"
+        android:layout_width="300dp"
+        android:layout_height="100dp">
+    </ImageView>
+    <ImageView
+        android:id="@+id/img_load2"
+        android:layout_width="300dp"
+        android:layout_height="100dp">
     </ImageView>
 
 </LinearLayout>
