@@ -75,7 +75,7 @@ public class uploadData extends AppCompatActivity {
 //            imgview.setImageURI(imageUri);
 //            Glide.with(this).load("https://firebasestorage.googleapis.com/v0/b/zendi-1e684.appspot.com/o/testfolder%2Fimg4.jpg?alt=media&token=32f90648-76f8-4ce2-90bd-e90ef6ef052e").into(imgview1);
             dataManager.getInstance().pushImageToStorage( "testfolder","img8",data.getData());
-//            dataManager.getInstance().pushImageToStorage1(uploadData.this,"testfolder","img8",data.getData());
+            dataManager.getInstance().pushImageToStorage1(uploadData.this,"testfolder","img8",data.getData());
             }
 
     }

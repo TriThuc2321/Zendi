@@ -58,7 +58,7 @@ public class DetailDropFragment extends Fragment {
             img.setImageResource(dropp.getResourceId());
         }
         rcv_collection = mview.findViewById(R.id.rcv_collection);
-        ProductAdapter = new productAdapter();
+        ProductAdapter = new productAdapter(getContext());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mview.getContext(),RecyclerView.VERTICAL,false);
         rcv_collection.setLayoutManager(linearLayoutManager);

@@ -48,8 +48,8 @@ public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolde
         {
             return;
         }
-        Glide.with(mContext).load("https://firebasestorage.googleapis.com/v0/b/zendi-1e684.appspot.com/o/testfolder%2Fimg4.jpg?alt=media&token=32f90648-76f8-4ce2-90bd-e90ef6ef052e").into(holder.imgDrop);
-        //holder.imgDrop.setImageResource(dropp.getResourceId());
+//        Glide.with(mContext).load(dropp.getResourceId()).into(holder.imgDrop);
+        holder.imgDrop.setImageResource(dropp.getResourceId());
         holder.captionDrop.setText(dropp.getCaption());
         holder.statusDrop.setText(dropp.getSatus());
         holder.typeDrop.setText(dropp.getType());
