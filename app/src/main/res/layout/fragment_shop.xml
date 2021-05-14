@@ -6,20 +6,18 @@
     android:padding="8dp">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/shop_fragment_rcv"
         android:layout_width="match_parent"
-        android:layout_height="650dp"
-        android:id="@+id/shop_fragment_rcv">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="611dp"/>
 
     <Button
+        android:id="@+id/settle_place"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:id="@+id/settle_place"
-        android:text="SETTLE"
-        android:textColor="@color/gold"
         android:background="@drawable/custom_button"
-        android:textStyle="bold"
+        android:text="SETTLE"
+        android:textAlignment="center"
+        android:textColor="@color/gold"
         android:textSize="20sp"
-        android:textAlignment="center">
-    </Button>
-    </LinearLayout>
+        android:textStyle="bold"></Button>
+</LinearLayout>
