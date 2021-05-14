@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -34,6 +35,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class DataManager {
@@ -44,6 +47,8 @@ public class DataManager {
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+    private FirebaseFirestore firestonedb = FirebaseFirestore.getInstance();
+
 
 
     public static DataManager getInstance() {
@@ -91,7 +96,22 @@ public class DataManager {
                             ModelSupportLoad modelSupportLoad = new ModelSupportLoad(uri.toString());
                             // add image URL to real-time database with folder and img name.
                             root.child(folderName + "/" +imgName).setValue(modelSupportLoad);
-                            Toast.makeText((uploadData)parent,"Upload Failed",Toast.LENGTH_SHORT);
+
+                            Map<String,Object> map = new HashMap<>();
+                            map.put("imgURL",modelSupportLoad);
+                            firestonedb.collection("Document").document("test").set(map)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Toast.makeText((uploadData)parent,"Upload Successed",Toast.LENGTH_SHORT);
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText((uploadData)parent,"Upload Failed",Toast.LENGTH_SHORT);
+                                }
+                            });
+
                             parent.progressBar.setVisibility(View.INVISIBLE);
                         }
                     });
