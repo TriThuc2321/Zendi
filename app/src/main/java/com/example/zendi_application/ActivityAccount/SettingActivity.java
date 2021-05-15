@@ -127,6 +127,12 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.backgroundLayout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setEdtToTxt();
+            }
+        });
         //---------------------LOCATION---------------------//
         locationTxt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -429,11 +435,13 @@ public class SettingActivity extends AppCompatActivity {
         locationEdt.setVisibility(View.GONE);
         birthdayEdt.setVisibility(View.GONE);
         sizeEdt.setVisibility(View.GONE);
+        phoneNumberEdt.setVisibility(View.GONE);
 
         nameTxt.setVisibility(View.VISIBLE);
         locationTxt.setVisibility(View.VISIBLE);
         birthdayTxt.setVisibility(View.VISIBLE);
         sizeTxt.setVisibility(View.VISIBLE);
+        phoneNumberTxt.setVisibility(View.VISIBLE);
     }
 
 }
