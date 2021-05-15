@@ -320,17 +320,6 @@
                                     android:text="Total"
                                     android:textSize="15dp"
                                     />
-                                <EditText
-                                    android:id="@+id/totalEdt"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:visibility="gone"
-                                    android:inputType="date"
-                                    android:imeOptions="actionDone"
-                                    android:clickable="true"
-                                    android:focusableInTouchMode="true"
-                                    />
-
                         </LinearLayout>
 
                         <Button

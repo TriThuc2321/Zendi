@@ -81,7 +81,6 @@ public class SettingActivity extends AppCompatActivity {
     private EditText sizeEdt;
 
     private TextView totalTxt;
-    private EditText totalEdt;
 
     private TextView phoneNumberTxt;
     private EditText phoneNumberEdt;
@@ -162,7 +161,7 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
-        //---------------------LOCTATION--------------------//
+        //---------------------LOCATION--------------------//
 
         //---------------------BIRTHDAY---------------------//
         birthdayTxt.setOnClickListener(new View.OnClickListener() {
@@ -268,43 +267,6 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
         //----------------------SIZE----------------------//
-
-        //----------------------TOTAL---------------------//
-
-        totalTxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                totalTxt.setVisibility(View.GONE);
-                totalEdt.setText(sizeTxt.getText());
-                totalEdt.setVisibility(View.VISIBLE);
-                saveBtn.setVisibility(View.VISIBLE);
-            }
-        });
-        totalEdt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if(actionId == EditorInfo.IME_ACTION_DONE){
-                    totalEdt.setVisibility(View.GONE);
-                    totalTxt.setVisibility(View.VISIBLE);
-                    totalTxt.setText(totalEdt.getText());
-                    handled = true;
-
-                }
-                return handled;
-            }
-        });
-
-        totalEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard(v);
-                }
-            }
-        });
-        //----------------------------TOTAL------------------------------//
-
         //----------------------------PHONE NUMBER-----------------------//
 
         phoneNumberTxt.setOnClickListener(new View.OnClickListener() {
@@ -347,6 +309,27 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+                //---------------------RADIO BUTTON--------------------//
+        maleRad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                saveBtn.setVisibility(View.VISIBLE);
+            }
+        });
+        femaleRad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                saveBtn.setVisibility(View.VISIBLE);
+            }
+        });
+        otherRad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                saveBtn.setVisibility(View.VISIBLE);
+            }
+        });
+
+
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -364,26 +347,6 @@ public class SettingActivity extends AppCompatActivity {
                     mGender = "";
                 }
                 setData(locationTxt.getText().toString(),birthdayTxt.getText().toString(),currentUser.getEmail(),mGender,currentUser.getUid(), nameTxt.getText().toString(),phoneNumberTxt.getText().toString(),"ImageUri",sizeTxt.getText().toString(),totalTxt.getText().toString());
-            }
-        });
-
-        //---------------------RADIO BUTTON--------------------//
-        maleRad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                saveBtn.setVisibility(View.VISIBLE);
-            }
-        });
-        femaleRad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                saveBtn.setVisibility(View.VISIBLE);
-            }
-        });
-        otherRad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                saveBtn.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -411,7 +374,6 @@ public class SettingActivity extends AppCompatActivity {
         sizeEdt = findViewById(R.id.sizeEdt);
         sizeTxt = findViewById(R.id.sizeTxt);
 
-        totalEdt = findViewById(R.id.totalEdt);
         totalTxt = findViewById(R.id.totalTxt);
 
         phoneNumberEdt = findViewById(R.id.phoneNumberEdt);
@@ -431,7 +393,7 @@ public class SettingActivity extends AppCompatActivity {
                 birthdayTxt.setText(user.getDOB());
                 sizeTxt.setText(user.getSize()+"");
                 phoneNumberTxt.setText(user.getPhoneNumber());
-                totalTxt.setText(user.getPhoneNumber());
+                totalTxt.setText(user.getTotal());
 
                 //maleRad.setChecked(true);
 

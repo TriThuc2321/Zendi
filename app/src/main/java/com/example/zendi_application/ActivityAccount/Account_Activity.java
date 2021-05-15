@@ -43,8 +43,13 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.Nullable;
 
 import java.util.concurrent.Executor;
@@ -212,8 +217,11 @@ public class Account_Activity extends AppCompatActivity  {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            setData("","", mAuth.getCurrentUser().getEmail(),"", mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","");
-                            openProfile();
+
+                            if(!userExist()){
+                                setData("","", mAuth.getCurrentUser().getEmail(),"", mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","");
+                            }
+                               openProfile();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -225,6 +233,15 @@ public class Account_Activity extends AppCompatActivity  {
                 });
     }
 
+    private boolean userExist(){
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        Query query = dataBase.child("Users").orderByChild("id").equalTo(currentUser.getUid());
+        if(query != null){
+            return true;
+        }
+        return false;
+    }
     @Override
     protected void onStart() {
         super.onStart();
