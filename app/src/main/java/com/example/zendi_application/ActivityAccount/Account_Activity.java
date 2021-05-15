@@ -26,6 +26,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -200,7 +201,7 @@ public class Account_Activity extends AppCompatActivity  {
         startActivity(new Intent(Account_Activity.this, SettingActivity.class));
         finish();
     }
-    public void setData(String address, String DOB, String email, String gender, String id, String name, String phoneNumber, String profilePic, String size, String total){
+    public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total){
         User mUser =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total);
         dataBase.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(mUser);
     }
@@ -219,7 +220,7 @@ public class Account_Activity extends AppCompatActivity  {
                             Log.d(TAG, "signInWithCredential:success");
 
                             if(!userExist()){
-                                setData("","", mAuth.getCurrentUser().getEmail(),"", mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","");
+                                setData("","DD/ MM/ YY", mAuth.getCurrentUser().getEmail(),2, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","");
                             }
                                openProfile();
                         } else {
@@ -234,7 +235,6 @@ public class Account_Activity extends AppCompatActivity  {
     }
 
     private boolean userExist(){
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
         Query query = dataBase.child("Users").orderByChild("id").equalTo(currentUser.getUid());
         if(query != null){

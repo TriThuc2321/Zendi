@@ -4,7 +4,7 @@ public class User {
     private String Address;
     private String DOB;
     private String Email;
-    private String Gender;
+    private int Gender;
     private String Id;
     private String Name;
     private String PhoneNumber;
@@ -16,7 +16,7 @@ public class User {
 
     }
 
-    public User(String address, String DOB, String email, String gender, String id, String name, String phoneNumber, String profilePic, String size, String total) {
+    public User(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total) {
         Address = address;
         this.DOB = DOB;
         Email = email;
@@ -53,11 +53,11 @@ public class User {
         Email = email;
     }
 
-    public String getGender() {
+    public int getGender() {
         return Gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         Gender = gender;
     }
 

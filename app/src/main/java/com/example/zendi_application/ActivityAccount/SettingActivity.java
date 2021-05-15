@@ -3,6 +3,8 @@ package com.example.zendi_application.ActivityAccount;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
@@ -54,6 +57,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
 public class SettingActivity extends AppCompatActivity {
 
     private User user;
@@ -68,7 +73,6 @@ public class SettingActivity extends AppCompatActivity {
     private TextView locationTxt;
 
     private TextView birthdayTxt;
-    private EditText birthdayEdt;
 
     private TextView nameTxt;
     private EditText nameEdt;
@@ -86,6 +90,8 @@ public class SettingActivity extends AppCompatActivity {
     private EditText phoneNumberEdt;
 
     private Button saveBtn;
+
+    private String txtForcus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,7 +147,8 @@ public class SettingActivity extends AppCompatActivity {
                 locationEdt.setText(locationTxt.getText());
                 locationEdt.setVisibility(View.VISIBLE);
                 saveBtn.setVisibility(View.VISIBLE);
-
+                setEdtToTxt();
+                txtForcus="location";
             }
         });
 
@@ -153,6 +160,7 @@ public class SettingActivity extends AppCompatActivity {
                     locationEdt.setVisibility(View.GONE);
                     locationTxt.setVisibility(View.VISIBLE);
                     locationTxt.setText(locationEdt.getText());
+                    txtForcus = "";
                     handled = true;
                 }
 
@@ -173,36 +181,31 @@ public class SettingActivity extends AppCompatActivity {
         birthdayTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                birthdayTxt.setVisibility(View.GONE);
-                birthdayEdt.setText(birthdayTxt.getText());
-                birthdayEdt.setVisibility(View.VISIBLE);
                 saveBtn.setVisibility(View.VISIBLE);
+
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(SettingActivity.this, android.R.style.Theme_Holo_Dialog,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+
+                                birthdayTxt.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+
+
             }
         });
 
-        birthdayEdt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if(actionId == EditorInfo.IME_ACTION_DONE){
-                    birthdayEdt.setVisibility(View.GONE);
-                    birthdayTxt.setVisibility(View.VISIBLE);
-                    birthdayTxt.setText(birthdayEdt.getText());
-                    handled = true;
-                }
 
-                return handled;
-            }
-        });
-
-        birthdayEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard(v);
-                }
-            }
-        });
         //--------------------BIRTHDAY--------------//
 
         //--------------------NAME------------------//
@@ -213,6 +216,8 @@ public class SettingActivity extends AppCompatActivity {
                 nameEdt.setText(nameTxt.getText());
                 nameEdt.setVisibility(View.VISIBLE);
                 saveBtn.setVisibility(View.VISIBLE);
+                setEdtToTxt();
+                txtForcus="name";
             }
         });
 
@@ -224,6 +229,7 @@ public class SettingActivity extends AppCompatActivity {
                     nameEdt.setVisibility(View.GONE);
                     nameTxt.setVisibility(View.VISIBLE);
                     nameTxt.setText(nameEdt.getText());
+                    txtForcus="";
                     handled = true;
                 }
                 return handled;
@@ -279,9 +285,11 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 phoneNumberTxt.setVisibility(View.GONE);
-                phoneNumberEdt.setText(sizeTxt.getText());
+                phoneNumberEdt.setText(phoneNumberTxt.getText());
                 phoneNumberEdt.setVisibility(View.VISIBLE);
                 saveBtn.setVisibility(View.VISIBLE);
+                setEdtToTxt();
+                txtForcus="phone";
             }
         });
         phoneNumberEdt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -293,7 +301,7 @@ public class SettingActivity extends AppCompatActivity {
                     phoneNumberTxt.setVisibility(View.VISIBLE);
                     phoneNumberTxt.setText(phoneNumberEdt.getText());
                     handled = true;
-
+                    txtForcus="";
                 }
                 return handled;
             }
@@ -341,16 +349,16 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setEdtToTxt();
                 saveBtn.setVisibility(View.INVISIBLE);
-                String mGender = "";
+                int mGender = 2;
 
                 if(maleRad.isChecked() == true){
-                    mGender = "0";
+                    mGender = 0;
                 }
                 else if(femaleRad.isChecked() == true){
-                    mGender = "1";
+                    mGender = 1;
                 }
                 else if(otherRad.isChecked() == true){
-                    mGender = "";
+                    mGender = 2;
                 }
                 setData(locationTxt.getText().toString(),birthdayTxt.getText().toString(),currentUser.getEmail(),mGender,currentUser.getUid(), nameTxt.getText().toString(),phoneNumberTxt.getText().toString(),"ImageUri",sizeTxt.getText().toString(),totalTxt.getText().toString());
             }
@@ -370,7 +378,6 @@ public class SettingActivity extends AppCompatActivity {
         locationEdt = findViewById(R.id.locationEdt);
         locationTxt = findViewById(R.id.locationTxt);
 
-        birthdayEdt = findViewById(R.id.birthdayEdt);
         birthdayTxt = findViewById(R.id.birthdayTxt);
 
         maleRad = findViewById(R.id.radioButton_male);
@@ -386,6 +393,7 @@ public class SettingActivity extends AppCompatActivity {
         phoneNumberTxt = findViewById(R.id.phoneNumberTxt);
 
         saveBtn = findViewById(R.id.saveBtn);
+        txtForcus = "";
 
     }
     void getData(){
@@ -394,22 +402,22 @@ public class SettingActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);
 
-                nameTxt.setText(user.getName());
-                locationTxt.setText(user.getAddress());
-                birthdayTxt.setText(user.getDOB());
+                nameTxt.setText(user.getName()+"");
+                locationTxt.setText(user.getAddress()+"");
+                birthdayTxt.setText(user.getDOB()+"");
                 sizeTxt.setText(user.getSize()+"");
-                phoneNumberTxt.setText(user.getPhoneNumber());
-                totalTxt.setText(user.getTotal());
+                phoneNumberTxt.setText(user.getPhoneNumber()+"");
+                totalTxt.setText(user.getTotal()+"");
 
                 //maleRad.setChecked(true);
 
-                if(user.getGender() == "0"){
+                if(user.getGender() == 0){
                     maleRad.setChecked(true);
                 }
-                if( user.getGender()== "1"){
+                if( user.getGender()== 1){
                     femaleRad.setChecked(true);
                 }
-                if(user.getGender() == ""){
+                if(user.getGender() == 2){
                     otherRad.setChecked(true);
                 }
                 saveBtn.setVisibility(View.INVISIBLE);
@@ -422,7 +430,7 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
-    public void setData(String address, String DOB, String email, String gender, String id, String name, String phoneNumber, String profilePic, String size, String total){
+    public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total){
         user =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total);
         dataBase.child("Users").child(currentUser.getUid()).setValue(user);
     }
@@ -431,17 +439,18 @@ public class SettingActivity extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
     public void setEdtToTxt(){
-        nameEdt.setVisibility(View.GONE);
-        locationEdt.setVisibility(View.GONE);
-        birthdayEdt.setVisibility(View.GONE);
-        sizeEdt.setVisibility(View.GONE);
-        phoneNumberEdt.setVisibility(View.GONE);
-
-        nameTxt.setVisibility(View.VISIBLE);
-        locationTxt.setVisibility(View.VISIBLE);
-        birthdayTxt.setVisibility(View.VISIBLE);
-        sizeTxt.setVisibility(View.VISIBLE);
-        phoneNumberTxt.setVisibility(View.VISIBLE);
+        if(txtForcus=="name"){
+            nameEdt.setVisibility(View.GONE);
+            nameTxt.setVisibility(View.VISIBLE);
+        }
+        else if(txtForcus=="phone"){
+            phoneNumberEdt.setVisibility(View.GONE);
+            phoneNumberTxt.setVisibility(View.VISIBLE);
+        }
+        else if(txtForcus=="location"){
+            locationEdt.setVisibility(View.GONE);
+            locationTxt.setVisibility(View.VISIBLE);
+        }
+        txtForcus="";
     }
-
 }

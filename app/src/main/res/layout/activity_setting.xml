@@ -188,16 +188,7 @@
                                     android:text="DD / MM / YY"
                                     android:textSize="15dp"
                                     />
-                                <EditText
-                                    android:id="@+id/birthdayEdt"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:visibility="gone"
-                                    android:inputType="date"
-                                    android:imeOptions="actionDone"
-                                    android:clickable="true"
-                                    android:focusableInTouchMode="true"
-                                    />
+
 
                         </LinearLayout>
 
@@ -283,16 +274,11 @@
                                     android:text="Size"
                                     android:textSize="15dp"
                                     />
-                                <EditText
-                                    android:id="@+id/sizeEdt"
+
+                                <SeekBar
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:visibility="gone"
-                                    android:inputType="date"
-                                    android:imeOptions="actionDone"
-                                    android:clickable="true"
-                                    android:focusableInTouchMode="true"
-                                    />
+                                    android:thumbTint="#555555" />
 
                         </LinearLayout>
 
