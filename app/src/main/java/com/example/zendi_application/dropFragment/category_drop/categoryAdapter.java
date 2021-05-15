@@ -47,7 +47,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catego
         holder.rcvDrop.setLayoutManager(linearLayoutManager);
 
         // khai bao adapter set du lieu
-        dropAdapter DropAdapter = new dropAdapter();
+        dropAdapter DropAdapter = new dropAdapter(mContext);
         DropAdapter.SetData(mcategory.getListDrop());
         holder.rcvDrop.setAdapter(DropAdapter);
 

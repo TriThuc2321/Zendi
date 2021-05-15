@@ -9,7 +9,7 @@ import com.example.zendi_application.dropFragment.product_package.product;
 import java.util.ArrayList;
 import java.util.List;
 
-public class drop implements Parcelable {
+public class drop  {
     private int ResourceId;
     private String caption, satus, type;
     private List<product> productList;
@@ -25,67 +25,6 @@ public class drop implements Parcelable {
         this.type = type;
         this.productList = productList;
     }
-
-
-    protected drop(Parcel in) {
-        ResourceId = in.readInt();
-        caption = in.readString();
-        satus = in.readString();
-        type = in.readString();
-        if (in.readByte() == 0x01) {
-            productList = new ArrayList<product>();
-            //productList = in.readArrayList(product.class.getClassLoader());
-            // in.readList(productList,product.class.getClassLoader());
-            in.readParcelableList(productList, product.class.getClassLoader());
-        } else {
-            productList = null;
-        }
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(ResourceId);
-        dest.writeString(caption);
-        dest.writeString(satus);
-        dest.writeString(type);
-        if (productList != null)
-//        dest.writeList(productList);
-            dest.writeParcelableList(productList, flags);
-
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<drop> CREATOR = new Creator<drop>() {
-        @Override
-        public drop createFromParcel(Parcel in) {
-//            final drop dropp = new drop();
-//            dropp.setResourceId(in.readInt());
-//            dropp.setCaption(in.readString());
-//            dropp.setSatus(in.readString());
-//            dropp.setType(in.readString());
-//            List<product> myList = new ArrayList<>();
-//            if (in.readByte() == 0x01) {
-//                //productList = in.readArrayList(product.class.getClassLoader());
-//                in.readList(myList,product.class.getClassLoader());
-//            } else {
-//                myList = null;
-//            }
-//            dropp.setProductList(myList);
-//            return dropp;
-            //
-            return new drop(in);
-        }
-
-        @Override
-        public drop[] newArray(int size) {
-            return new drop[size];
-        }
-    };
-
     public int getResourceId() {
         return ResourceId;
     }

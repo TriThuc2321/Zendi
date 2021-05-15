@@ -7,13 +7,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.zendi_application.R;
 
 import java.util.List;
+
+
 
 public class productAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -22,6 +26,12 @@ public class productAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final int FINAL_TYPE3 = 3;
 
     private List<product> mlistProduct;
+    private Context mContext;
+
+    public productAdapter(Context mContext) {
+        this.mContext = mContext;
+    }
+
 
     public void setData(List<product> list)
     {
@@ -60,11 +70,15 @@ public class productAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         else if (FINAL_TYPE1 == holder.getItemViewType())
         {
             productType1ViewHolder productType1ViewHolder = (productAdapter.productType1ViewHolder) holder;
+
             productType1ViewHolder.imgbig_type1.setImageResource(mproduct.getResourceID().get(1));
             productType1ViewHolder.imgsmall_type1.setImageResource(mproduct.getResourceID().get(0));
             //productType1ViewHolder.background_type1.setBackgroundColor(#c1b378);
             productType1ViewHolder.nameproduct_type1.setText(mproduct.getProductName());
             productType1ViewHolder.priceproduct_type1.setText(mproduct.getProductPrice());
+
+//            Glide.with(mContext).load(mproduct.getResourceID().get(0)).into(productType1ViewHolder.imgsmall_type1);
+//            Glide.with(mContext).load(mproduct.getResourceID().get(1)).into(productType1ViewHolder.imgbig_type1);
 
 //            Set click event type1
 
@@ -84,6 +98,9 @@ public class productAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             //productType1ViewHolder.background_type1.setBackgroundColor(#c1b378);
             productType2ViewHolder.nameproduct_type2.setText(mproduct.getProductName());
             productType2ViewHolder.priceproduct_type2.setText(mproduct.getProductPrice());
+//            Glide.with(mContext).load(mproduct.getResourceID().get(0)).into(productType2ViewHolder.imgsmall_type2);
+//            Glide.with(mContext).load(mproduct.getResourceID().get(1)).into(productType2ViewHolder.imgbig_type2);
+
 
 //            Set click event type2
 
@@ -101,6 +118,8 @@ public class productAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             //productType1ViewHolder.background_type1.setBackgroundColor(#c1b378);
             productType3ViewHolder.nameproduct_type3.setText(mproduct.getProductName());
             productType3ViewHolder.priceproduct_type3.setText(mproduct.getProductPrice());
+
+//            Glide.with(mContext).load(mproduct.getResourceID().get(1)).into(productType3ViewHolder.imgbig_type3);
 
 //            Set click event type3
 

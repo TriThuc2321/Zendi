@@ -34,6 +34,7 @@ public class HomeScreen extends AppCompatActivity {
     public MaterialToolbar mAppBarTop;
     public BottomNavigationView mNavigationView;
     public ViewPager mViewPager;
+    public DataManager dataManager;
 
     @Override
     protected void onResume() {
