@@ -107,11 +107,14 @@ public class DataManager {
 
 //                            Map<String,Object> map = new HashMap<>();
 //                            map.put("imgURL1",modelSupportLoad.getImgURl());
+                            List<Integer> b = new ArrayList<>();
+                            b.add(1);
+                            b.add(5);
 
 
                             /// them 1 product
-                            product mproduct = new product("111","ok","333",null,null,3);
-                            firestonedb.collection(folderName).document("productlist1").set(mproduct)
+                            product mproduct = new product("111","ok","333",null,b,3);
+                            firestonedb.collection(folderName).document("productlist4").set(mproduct)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
@@ -143,16 +146,24 @@ public class DataManager {
             });
         }
     }
-    public void getImgUrlFromFirestone(Context parent,String collection) {
+    public void getImgUrlFromFirestone(Context parent,String collection, List<product> productList) {
+        ((uploadData)parent).progressBar.setVisibility(View.VISIBLE);
        firestonedb.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                productList.clear();
                 for (DocumentSnapshot documentSnapshot : task.getResult())
                 {
-                    ModelSupportLoad modelSupportLoad = new ModelSupportLoad(documentSnapshot.getString("imgURL1"));
-                    Glide.with(parent).load(modelSupportLoad.getImgURl()).into(((uploadData)parent).imgview);
-
+                    product temp = documentSnapshot.toObject(product.class);
+                    productList.add(temp);
                 }
+                int c = 2;
+                ((uploadData)parent).progressBar.setVisibility(View.INVISIBLE);
+                ((uploadData)parent).txt1.setText(productList.get(0).getProductId());
+                ((uploadData)parent).txt2.setText(productList.get(1).getProductId());
+                ((uploadData)parent).txt3.setText(productList.get(2).getProductId());
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
