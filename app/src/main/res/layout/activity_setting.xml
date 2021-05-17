@@ -276,9 +276,15 @@
                                     />
 
                                 <SeekBar
+                                    android:id="@+id/sizeSb"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:thumbTint="#555555" />
+                                    android:max="16"
+                                    android:visibility="gone"
+                                    android:scrollbarStyle="insideInset"
+                                    android:thumbTint="#555555"
+                                    android:progressTint="#555555"
+                                    />
 
                         </LinearLayout>
 

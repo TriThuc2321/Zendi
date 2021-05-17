@@ -36,6 +36,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.zendi_application.HomeScreen;
@@ -82,6 +83,7 @@ public class SettingActivity extends AppCompatActivity {
     private RadioButton otherRad;
 
     private TextView sizeTxt;
+    private SeekBar sizeSb;
 
     private TextView totalTxt;
 
@@ -245,38 +247,32 @@ public class SettingActivity extends AppCompatActivity {
         //----------------------NAME-------------------//
 
         //----------------------SIZE-------------------//
-        /*sizeTxt.setOnClickListener(new View.OnClickListener() {
+        sizeTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sizeTxt.setVisibility(View.GONE);
-                sizeEdt.setText(sizeTxt.getText());
-                sizeEdt.setVisibility(View.VISIBLE);
+                sizeSb.setProgress(Integer.parseInt(sizeTxt.getText().toString()) - 3);
+                sizeSb.setVisibility(View.VISIBLE);
                 saveBtn.setVisibility(View.VISIBLE);
+                txtForcus="size";
             }
         });
-        sizeEdt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        sizeSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if(actionId == EditorInfo.IME_ACTION_DONE){
-                    sizeEdt.setVisibility(View.GONE);
-                    sizeTxt.setVisibility(View.VISIBLE);
-                    sizeTxt.setText(sizeEdt.getText());
-                    handled = true;
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                sizeTxt.setText(progress+ 3+ "");
+            }
 
-                }
-                return handled;
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
 
-        sizeEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard(v);
-                }
-            }
-        });*/
         //----------------------SIZE----------------------//
         //----------------------------PHONE NUMBER-----------------------//
 
@@ -384,6 +380,7 @@ public class SettingActivity extends AppCompatActivity {
         otherRad = findViewById(R.id.radioButton_other);
 
         sizeTxt = findViewById(R.id.sizeTxt);
+        sizeSb = findViewById(R.id.sizeSb);
 
         totalTxt = findViewById(R.id.totalTxt);
 
@@ -448,6 +445,9 @@ public class SettingActivity extends AppCompatActivity {
         else if(txtForcus=="location"){
             locationEdt.setVisibility(View.GONE);
             locationTxt.setVisibility(View.VISIBLE);
+        }
+        else if(txtForcus=="size"){
+            sizeSb.setVisibility(View.GONE);
         }
         txtForcus="";
     }
