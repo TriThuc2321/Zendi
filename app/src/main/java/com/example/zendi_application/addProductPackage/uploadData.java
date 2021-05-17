@@ -25,7 +25,6 @@ import java.util.List;
 public class uploadData extends AppCompatActivity {
     private Button btnload,btnloadimg,btngetdata;
     public ImageView imgview;
-    public ImageView imgview1;
     public EditText txt1,txt2,txt3,txt4,txtposition;
     public DataManager dataManager;
     private static  final  int IMAGE_REQUEST = 2;
@@ -44,7 +43,6 @@ public class uploadData extends AppCompatActivity {
         btnloadimg = findViewById(R.id.btnloadiamge);
         btngetdata = findViewById(R.id.btngetdata);
         imgview = findViewById(R.id.img_load);
-        imgview1 = findViewById(R.id.img_load1);
         txt1 = findViewById(R.id.edit1);
         txt2 = findViewById(R.id.edit2);
         txt3 = findViewById(R.id.edit3);

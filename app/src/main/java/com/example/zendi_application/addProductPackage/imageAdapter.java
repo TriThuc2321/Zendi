@@ -51,7 +51,8 @@ public class imageAdapter extends RecyclerView.Adapter<imageAdapter.imageViewHol
 
     @Override
     public int getItemCount() {
-        if (mListproduct!= null) return mListproduct.size();
+        if (mListString != null && mtype != 99) return 4;
+        if (mListproduct!= null && mtype == 99) return mListproduct.size();
         return 0;
     }
 
@@ -71,10 +72,11 @@ public class imageAdapter extends RecyclerView.Adapter<imageAdapter.imageViewHol
             if (mListproduct.size() > mtype){
                 mListString = mListproduct.get(mtype).getResourceID();
             }
+            if (position >= mListString.size()) return;
             String String_ = mListString.get(position);
             if (String_ == null) return;
             Glide.with(mContext).load(String_).into(holder.img);
-            holder.imgname.setText("0");
+//            holder.imgname.setText("0");
         }
     }
 
