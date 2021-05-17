@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.zendi_application.dropFragment.DropFragment;
+import com.example.zendi_application.shopFragment.ShopFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
