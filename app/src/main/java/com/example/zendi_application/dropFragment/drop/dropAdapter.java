@@ -12,13 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.DetailDropFragment;
-import com.example.zendi_application.uploadData;
 
-import java.net.URL;
 import java.util.List;
 
 public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolder>{
