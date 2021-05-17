@@ -82,7 +82,6 @@ public class SettingActivity extends AppCompatActivity {
     private RadioButton otherRad;
 
     private TextView sizeTxt;
-    private EditText sizeEdt;
 
     private TextView totalTxt;
 
@@ -246,7 +245,7 @@ public class SettingActivity extends AppCompatActivity {
         //----------------------NAME-------------------//
 
         //----------------------SIZE-------------------//
-        sizeTxt.setOnClickListener(new View.OnClickListener() {
+        /*sizeTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sizeTxt.setVisibility(View.GONE);
@@ -277,7 +276,7 @@ public class SettingActivity extends AppCompatActivity {
                     hideKeyboard(v);
                 }
             }
-        });
+        });*/
         //----------------------SIZE----------------------//
         //----------------------------PHONE NUMBER-----------------------//
 
@@ -384,7 +383,6 @@ public class SettingActivity extends AppCompatActivity {
         femaleRad = findViewById(R.id.radioButton_female);
         otherRad = findViewById(R.id.radioButton_other);
 
-        sizeEdt = findViewById(R.id.sizeEdt);
         sizeTxt = findViewById(R.id.sizeTxt);
 
         totalTxt = findViewById(R.id.totalTxt);
