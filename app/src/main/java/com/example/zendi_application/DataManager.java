@@ -198,6 +198,7 @@ public class DataManager {
                 productList.clear();
                 for (DocumentSnapshot documentSnapshot : task.getResult())
                 {
+
                     // U have to need default constructor in product2 class to use the sequence below
                     product2 temp = documentSnapshot.toObject(product2.class);
                     productList.add(temp);
@@ -223,7 +224,6 @@ public class DataManager {
        firestonedb.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
                 productList.clear();
                 for (DocumentSnapshot documentSnapshot : task.getResult())
                 {

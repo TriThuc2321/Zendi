@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.bumptech.glide.Glide;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.product_package.product2;
@@ -85,6 +86,7 @@ public class uploadData extends AppCompatActivity {
 
 //                dataManager.instance.getImageFromStorage("testfolder","img7");
 //                Glide.with(v.getContext()).load(dataManager.instance.getImageUri()).into(imgview1);
+
             }
         });
 

@@ -5,7 +5,7 @@ import java.util.List;
 public class product2 {
     protected String productId,productName,productPrice;
     protected List<String> ResourceID; // Image list of product
-    protected List<Integer> remainingAmount; // 0 : 5 , 1 : 5,5, 2 : 6
+    private List<Integer> remainingAmount; // 0 : 5 , 1 : 5,5, 2 : 6
     private Integer type;
     public product2(){
 
