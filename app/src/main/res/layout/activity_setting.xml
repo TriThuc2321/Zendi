@@ -10,8 +10,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/profileInfo">
+            android:id="@+id/profileInfo"
+            android:layout_marginTop="4dp">
                 <View
+                    android:id="@+id/turnBack"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
@@ -35,8 +37,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:id="@+id/backgroundLayout"
                     >
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -45,6 +47,7 @@
                             android:background="@drawable/custom_black_stroke"
                             android:orientation="vertical"
                             android:padding="15dp"
+                            android:layout_alignParentTop="true"
                             android:layout_marginLeft="30dp"
                             android:layout_marginRight="30dp"
                             >
@@ -59,7 +62,7 @@
                                     android:id="@+id/nameTxt"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Thức"
+                                    android:text="Name"
                                     android:textSize="15dp"
                                     />
 
@@ -68,6 +71,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:visibility="gone"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="textAutoComplete"
+                                    android:clickable="true"
+                                    android:focusableInTouchMode="true"
                                     />
                         </LinearLayout>
 
@@ -95,7 +102,7 @@
                                     android:id="@+id/locationTxt"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Ap An Ninh 2"
+                                    android:text="Location"
                                     android:textSize="15dp"
                                     />
 
@@ -105,9 +112,53 @@
                                     android:layout_height="wrap_content"
                                     android:textSize="15dp"
                                     android:visibility="gone"
-                                    android:maxLines="1"
-                                    android:lines="1"
+                                    android:imeOptions="actionDone"
                                     android:inputType="textAutoComplete"
+                                    android:clickable="true"
+                                    android:focusableInTouchMode="true"
+
+                                    />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/phonenumber"
+                            android:layout_marginTop="30dp"
+                            android:layout_below="@+id/location"
+                            android:background="@drawable/custom_black_stroke"
+                            android:orientation="vertical"
+                            android:padding="15dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
+                            >
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="PHONE NUMBER"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:id="@+id/phoneNumberTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Phone number"
+                                    android:textSize="15dp"
+                                    />
+
+                                <EditText
+                                    android:id="@+id/phoneNumberEdt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="15dp"
+                                    android:visibility="gone"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="textAutoComplete"
+                                    android:clickable="true"
+                                    android:focusableInTouchMode="true"
+
                                     />
                         </LinearLayout>
 
@@ -116,7 +167,7 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/birthday"
                             android:layout_marginTop="30dp"
-                            android:layout_below="@+id/location"
+                            android:layout_below="@+id/phonenumber"
                             android:background="@drawable/custom_black_stroke"
                             android:orientation="vertical"
                             android:padding="15dp"
@@ -137,13 +188,7 @@
                                     android:text="DD / MM / YY"
                                     android:textSize="15dp"
                                     />
-                                <EditText
-                                    android:id="@+id/birthdayEdt"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:visibility="gone"
-                                    android:inputType="date"
-                                    />
+
 
                         </LinearLayout>
 
@@ -186,7 +231,7 @@
                                             android:id="@+id/radioButton_female"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:text="Famale"
+                                            android:text="Female"
                                             android:textColor="#777676"
                                             android:textSize="15dp"
                                             android:buttonTint="#777676" />
@@ -206,25 +251,98 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/gender">
+                            android:id="@+id/size"
+                            android:layout_marginTop="30dp"
+                            android:layout_below="@+id/gender"
+                            android:background="@drawable/custom_black_stroke"
+                            android:orientation="vertical"
+                            android:padding="15dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="SIZE"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:id="@+id/sizeTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Size"
+                                    android:textSize="15dp"
+                                    />
+
+                                <SeekBar
+                                    android:id="@+id/sizeSb"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:max="16"
+                                    android:visibility="gone"
+                                    android:scrollbarStyle="insideInset"
+                                    android:thumbTint="#555555"
+                                    android:progressTint="#555555"
+                                    />
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/total"
+                            android:layout_marginTop="30dp"
+                            android:layout_below="@+id/size"
+                            android:background="@drawable/custom_black_stroke"
+                            android:orientation="vertical"
+                            android:padding="15dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="TOTAL"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:id="@+id/totalTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total"
+                                    android:textSize="15dp"
+                                    />
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/saveBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SAVE"
+                            android:layout_below="@id/total"
+                            android:layout_alignParentRight="true"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:backgroundTint="@color/black"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="15dp"
+                            android:visibility="invisible"
+                            />
+
+                        <Button
+                            android:id="@+id/logOutBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/saveBtn"
+                            android:backgroundTint="@color/black"
+                            android:text="LOG OUT"
+                            android:textSize="25dp"
+                            android:textColor="@color/white"
+                            android:gravity="left"
+
+                            />
                 </RelativeLayout>
-
         </ScrollView>
-        <Button
-            android:id="@+id/logOutBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:backgroundTint="@color/black"
-            android:text="LOG OUT"
-            android:textSize="25dp"
-            android:textColor="@color/white"
-                android:gravity="left"
-            />
-
-
-
 </RelativeLayout>

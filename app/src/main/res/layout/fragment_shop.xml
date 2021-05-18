@@ -2,4 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    />
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/shop_fragment_rcv"
+        android:layout_width="match_parent"
+        android:layout_height="611dp"/>
+
+    <Button
+        android:id="@+id/settle_place"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@drawable/custom_button"
+        android:text="SETTLE"
+        android:textAlignment="center"
+        android:textColor="@color/gold"
+        android:textSize="20sp"
+        android:textStyle="bold"></Button>
+</LinearLayout>

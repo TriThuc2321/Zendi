@@ -26,6 +26,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -43,6 +44,13 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.Nullable;
 
 import java.util.concurrent.Executor;
@@ -51,6 +59,7 @@ public class Account_Activity extends AppCompatActivity  {
 
     private  String TAG = "Thuc";
     private FirebaseAuth mAuth;
+    private DatabaseReference dataBase;
 
     //google
     private GoogleSignInClient mGoogleSignInClient;
@@ -66,6 +75,7 @@ public class Account_Activity extends AppCompatActivity  {
         setContentView(R.layout.activity_account);
 
         mAuth = FirebaseAuth.getInstance();
+        dataBase = FirebaseDatabase.getInstance().getReference();
 //--------------------------------------google------------------------//
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -191,7 +201,10 @@ public class Account_Activity extends AppCompatActivity  {
         startActivity(new Intent(Account_Activity.this, SettingActivity.class));
         finish();
     }
-
+    public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total){
+        User mUser =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total);
+        dataBase.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(mUser);
+    }
 
 
     private void handleFacebookAccessToken(AccessToken token) {
@@ -205,18 +218,30 @@ public class Account_Activity extends AppCompatActivity  {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            openProfile();
+
+                            if(!userExist()){
+                                setData("","DD/ MM/ YY", mAuth.getCurrentUser().getEmail(),2, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","");
+                            }
+                               openProfile();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(Account_Activity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            openProfile();
+
                         }
                     }
                 });
     }
 
+    private boolean userExist(){
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        Query query = dataBase.child("Users").orderByChild("id").equalTo(currentUser.getUid());
+        if(query != null){
+            return true;
+        }
+        return false;
+    }
     @Override
     protected void onStart() {
         super.onStart();
