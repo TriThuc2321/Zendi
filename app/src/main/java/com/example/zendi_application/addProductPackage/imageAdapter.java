@@ -58,7 +58,7 @@ public class imageAdapter extends RecyclerView.Adapter<imageAdapter.imageViewHol
 
     @Override
     public void onBindViewHolder(@NonNull imageViewHolder holder, int position) {
-        /// load tam dau tien cua tt ca product
+        /// load tam dau tien cua tat ca product
         if (mtype == 99) {
             product2 product2_ = mListproduct.get(position);
             if (product2_ == null) return;

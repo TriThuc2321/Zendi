@@ -22,6 +22,7 @@ import com.example.zendi_application.ActivityAccount.Account_Activity;
 import com.example.zendi_application.ActivityAccount.LoginRegisterActivity;
 import com.example.zendi_application.dropFragment.DetailDropFragment;
 import com.example.zendi_application.dropFragment.drop.drop;
+import com.example.zendi_application.dropFragment.product_package.product2;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

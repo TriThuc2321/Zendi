@@ -30,7 +30,7 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
     @Override
     public void onBindViewHolder(@NonNull ShoeInBagViewHolder holder, int position) {
 
-        holder.shoeimg.setImageResource(shoeInBagList.get(position).getResourceID().get(1));
+       // holder.shoeimg.setImageResource(shoeInBagList.get(position).getResourceID().get(1));
         holder.name.setText(shoeInBagList.get(position).getProductName());
         holder.status.setText(shoeInBagList.get(position).getShoeStatus());
         holder.size.setText(shoeInBagList.get(position).getShoeSize());
