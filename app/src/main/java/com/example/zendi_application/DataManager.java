@@ -13,6 +13,8 @@ import com.example.zendi_application.addProductPackage.uploadData;
 import com.example.zendi_application.dropFragment.ModelSupportLoad;
 import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
+import com.example.zendi_application.shopFragment.ShoeInBag;
+import com.example.zendi_application.shopFragment.ShopFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,6 +37,7 @@ import java.util.List;
 public class DataManager {
     // Instance
     public static DataManager instance;
+    public static List<ShoeInBag> list = new ArrayList<>();
     // Attributes
     private Uri imageUri;
     private FirebaseStorage storage;
@@ -204,12 +207,12 @@ public class DataManager {
                     productList.add(temp);
                     ((uploadData)parent).imageAdapter_.notifyDataSetChanged();
                 }
-                int c = 2;
-                ((uploadData)parent).progressBar.setVisibility(View.INVISIBLE);
-                ((uploadData)parent).txt1.setText(productList.get(0).getProductId());
-                ((uploadData)parent).txt2.setText(productList.get(1).getProductId());
-                ((uploadData)parent).txt3.setText(productList.get(2).getProductId());
-                ((uploadData)parent).imageAdapter_.notifyDataSetChanged();
+//                int c = 2;
+//                ((uploadData)parent).progressBar.setVisibility(View.INVISIBLE);
+//                ((uploadData)parent).txt1.setText(productList.get(0).getProductId());
+//                ((uploadData)parent).txt2.setText(productList.get(1).getProductId());
+//                ((uploadData)parent).txt3.setText(productList.get(2).getProductId());
+//                ((uploadData)parent).imageAdapter_.notifyDataSetChanged();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -219,6 +222,28 @@ public class DataManager {
         });
     }
 
+    //Huynh
+    public static void getShoeInBagFromFirestone(String collection, List<ShoeInBag> productList) {
+        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
+        firestoneGetProduct.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                productList.clear();
+                for (DocumentSnapshot documentSnapshot : task.getResult())
+                {
+                    // U have to need default constructor in ShIB class to use the sequence below
+                    ShoeInBag temp = documentSnapshot.toObject(ShoeInBag.class);
+                    productList.add(temp);
+                    //((ShopFragment)parent).shoeInBagAdapter.notifyDataSetChanged();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
     public void getImgUrlFromFirestone(Context parent,String collection, List<product> productList) {
         ((uploadData)parent).progressBar.setVisibility(View.VISIBLE);
        firestonedb.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

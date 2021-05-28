@@ -9,13 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.zendi_application.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.ShoeInBagViewHolder> {
 
-    private List<ShoeInBag> shoeInBagList;
+     List<ShoeInBag> shoeInBagList;
     public void setData(List<ShoeInBag> list){
         this.shoeInBagList = list;
         notifyDataSetChanged();
@@ -30,6 +32,8 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
     @Override
     public void onBindViewHolder(@NonNull ShoeInBagViewHolder holder, int position) {
 
+        Glide.with(holder.shoeimg).load(shoeInBagList.get(position).getResourceID().get(0)).into(holder.shoeimg);
+        //Picasso.get().load(shoeInBagList.get(position).getResourceID().get(0)).into(holder.shoeimg);
        // holder.shoeimg.setImageResource(shoeInBagList.get(position).getResourceID().get(1));
         holder.name.setText(shoeInBagList.get(position).getProductName());
         holder.status.setText(shoeInBagList.get(position).getShoeStatus());
