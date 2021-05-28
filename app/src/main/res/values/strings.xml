@@ -10,5 +10,6 @@
     <string name="fb_login_protocol_scheme">fb293009389112207</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="server_client_id">224410556573-v22k1tm3dme7tea6runjnkuk1jmq8m7m.apps.googleusercontent.com</string>
 
 </resources>
