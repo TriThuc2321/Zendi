@@ -104,7 +104,7 @@ public class AddDrop extends AppCompatActivity {
         deletebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedproductId !=null)
+                if (selectedproductId != null)
                     selected_productlist.remove(selectedproductId);
             }
         });
@@ -132,17 +132,13 @@ public class AddDrop extends AppCompatActivity {
                         }
                     }
                 }
-
                 drop2 a = new drop2(null,selected_productlist,dropcaptionEdit.getText().toString(),dropstatusEdit.getText().toString(),droptypeEdit.getText().toString(),productList);
                 String temp = "Category_" + category_ordinalEdit.getText().toString() +"/";
 //                DataManager.Push_Image(temp,"Collection/Category_1/","",listURL);
-
                 /// txt1 chua stt category, txt2 chua ten drop, txt3 chua stt cua drop
                 DataManager.push_drop_To_FireStone((AddDrop)v.getContext(),temp,"Drop_" + drop_ordinalEdit.getText().toString(),drop_ordinalEdit.getText().toString(),a,listURL);
                 // listURL.clear();
                 //listimg.clear();
-
-
             }
         });
 

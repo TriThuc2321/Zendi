@@ -362,11 +362,11 @@ public class DataManager {
                     ((uploadData)parent).imageAdapter_.notifyDataSetChanged();
                 }
                 int c = 2;
-//                ((uploadData)parent).progressBar.setVisibility(View.INVISIBLE);
+                ((uploadData)parent).progressBar.setVisibility(View.INVISIBLE);
 //                ((uploadData)parent).txt1.setText(productList.get(0).getProductId());
 //                ((uploadData)parent).txt2.setText(productList.get(1).getProductId());
 //                ((uploadData)parent).txt3.setText(productList.get(2).getProductId());
-//                ((uploadData)parent).imageAdapter_.notifyDataSetChanged();
+                ((uploadData)parent).imageAdapter_.notifyDataSetChanged();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
