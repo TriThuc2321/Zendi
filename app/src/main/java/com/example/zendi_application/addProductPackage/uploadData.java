@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,20 +19,22 @@ import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
+import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product2;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class uploadData extends AppCompatActivity {
-    private Button btnload,btnloadimg,btngetdata;
+    private Button btnload,btnloadimg,btngetdata,btnpushdrop;
     public ImageView imgview;
-    public EditText txt1,txt2,txt3,txt4,txtposition;
+    public EditText idEdit,captionEdit,priceEdit,brandEdit,typeEdit,txtposition;
     public DataManager dataManager;
     private static  final  int IMAGE_REQUEST = 2;
     public ProgressBar progressBar;
     private List<String> listimg;
     private List<Uri> listURL;
+    private AddDrop addDropActivity;
     ///
     private RecyclerView imageRecycleView;
     public imageAdapter imageAdapter_;
@@ -44,10 +47,12 @@ public class uploadData extends AppCompatActivity {
         btnloadimg = findViewById(R.id.btnloadiamge);
         btngetdata = findViewById(R.id.btngetdata);
         imgview = findViewById(R.id.img_load);
-        txt1 = findViewById(R.id.edit1);
-        txt2 = findViewById(R.id.edit2);
-        txt3 = findViewById(R.id.edit3);
-        txt4 = findViewById(R.id.edit4);
+        idEdit = findViewById(R.id.edit1);
+        captionEdit = findViewById(R.id.edit2);
+        priceEdit = findViewById(R.id.edit3);
+        brandEdit = findViewById(R.id.edit4);
+        typeEdit = findViewById(R.id.edit5);
+        btnpushdrop = findViewById(R.id.pushdrop);
         txtposition = (EditText) findViewById(R.id.position_);
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.INVISIBLE);
@@ -56,6 +61,9 @@ public class uploadData extends AppCompatActivity {
         imageAdapter_ = new imageAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
         imageRecycleView.setLayoutManager(linearLayoutManager);
+
+        DataManager.LoadDropInformation("Collection/Category_test/Drop_1",DataManager.listDrop);
+        DataManager.LoadProductInformation("Product",DataManager.listProduct);
 
         /////
 
@@ -78,14 +86,13 @@ public class uploadData extends AppCompatActivity {
                 List<Integer> b = new ArrayList<>();
                 b.add(1);
                 b.add(5);
-                product2 mproduct = new product2(txt1.getText().toString(),txt2.getText().toString(),txt3.getText().toString(),new ArrayList<String>(),b,3);
-                DataManager.push_Object_To_FireStone(uploadData.this,"Product","ProductName4",mproduct,listURL);
+                product2 mproduct = new product2(idEdit.getText().toString(),captionEdit.getText().toString(),
+                        priceEdit.getText().toString(),brandEdit.getText().toString(),typeEdit.getText().toString(),new ArrayList<String>(),b,1);
+                DataManager.push_Object_To_FireStone(uploadData.this,"Product",idEdit.getText().toString(),mproduct,listURL);
                 listURL.clear();
                 listimg.clear();
                 imgview.setImageURI(null);
 
-//                dataManager.instance.getImageFromStorage("testfolder","img7");
-//                Glide.with(v.getContext()).load(dataManager.instance.getImageUri()).into(imgview1);
 
             }
         });
@@ -104,6 +111,18 @@ public class uploadData extends AppCompatActivity {
                 imageAdapter_.SetData(c,n);
                 imageAdapter_.notifyDataSetChanged();
                 imageRecycleView.setAdapter(imageAdapter_);
+
+                DataManager.LoadDropInformation("Collection/Category_test/Drop_1",DataManager.listDrop);
+                DataManager.LoadProductInformation("Product",DataManager.listProduct);
+
+                int d = 0;
+            }
+        });
+
+        btnpushdrop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                   startActivity(new Intent(uploadData.this,AddDrop.class));
 
             }
         });

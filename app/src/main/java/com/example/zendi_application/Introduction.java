@@ -40,6 +40,7 @@ public class Introduction extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+
                 Intent intent = new Intent(Introduction.this,HomeScreen.class);
                 startActivity(intent);
                 finish();

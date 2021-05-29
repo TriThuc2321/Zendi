@@ -9,8 +9,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.zendi_application.addProductPackage.AddDrop;
 import com.example.zendi_application.addProductPackage.uploadData;
 import com.example.zendi_application.dropFragment.ModelSupportLoad;
+import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,7 +36,11 @@ import java.util.List;
 
 public class DataManager {
     // Instance
+
     public static DataManager instance;
+    public static List<product2> listProduct = new ArrayList<>();
+    public static List<drop2> listDrop = new ArrayList<>();
+
     // Attributes
     private Uri imageUri;
     private FirebaseStorage storage;
@@ -73,11 +79,113 @@ public class DataManager {
         }
 
     }
+    public static void Push_Image(String path_Storage,String catogoryName, String document, List<Uri> listURI)
+    {
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance(); // Init reference
+        StorageReference storageReference_ = firebaseStorage.getReference();
+        Integer ordinalNumber = 0;
+        for (Uri a : listURI)
+        {
+            String temp = "Drop_" + ordinalNumber.toString();
+            StorageReference processPutFile = storageReference_.child( path_Storage + temp );
+            ordinalNumber++;
+            processPutFile.putFile(a).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    processPutFile.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            // After getting Url of images, we add Urls to resource field in product.
+
+                            FirebaseFirestore firestonedb1 = FirebaseFirestore.getInstance();
+                            DocumentReference documentReference = firestonedb1.collection("Collection")
+                                    .document(document).collection("DropList").document(temp);
+
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                }
+            });
+        }
+        /// After converting  List of ImageURI to List of ImageURL,we push data to Firestone with path : collectionName/productName.
+
+//        FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
+//        firestonePutProduct.collection(path_Cloud_collection).document(document).set(object)
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        parent.progressBar.setVisibility(View.INVISIBLE);
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//
+//            }
+//        });
+    }
+
+    public static void push_drop_To_FireStone(AddDrop parent, String collectionName, String dropname, String ordinal , drop2 object, List<Uri> listURI )
+    {
+        /// Push List Image to Storage and Get List of ImageURL
+        parent.progressBar_adddrop.setVisibility(View.VISIBLE);
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance(); // Init reference
+        StorageReference storageReference_ = firebaseStorage.getReference();
+            String temp = "Drop_" + ordinal.toString();
+            StorageReference processPutFile = storageReference_.child("Collection/" + collectionName + temp );
+            processPutFile.putFile(listURI.get(0)).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    processPutFile.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            //// After getting Url of images, we add Urls to Image
+                            object.setImage( uri.toString() );
+                            FirebaseFirestore firestonedb1 = FirebaseFirestore.getInstance();
+                            String path2 = "Collection/" + collectionName + "DropList/" ;
+                            DocumentReference documentReference = firestonedb1.collection(path2).document(temp);
+                            documentReference.update("image", FieldValue.arrayUnion(uri.toString()));
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                }
+            });
+
+        /// After converting  List of ImageURI to List of ImageURL,we push data to Firestone with path : collectionName/productName.
+
+        FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
+        firestonePutProduct.collection("Collection/" + collectionName + "DropList/" ).document(dropname).set(object)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        parent.progressBar_adddrop.setVisibility(View.INVISIBLE);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+    }
+
     public static void push_Object_To_FireStone(uploadData parent, String collectionName, String productName , product2 object, List<Uri> listURI )
     {
         /// Push List Image to Storage and Get List of ImageURL
         parent.progressBar.setVisibility(View.VISIBLE);
-
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance(); // Init reference
         StorageReference storageReference_ = firebaseStorage.getReference();
         Integer ordinalNumber = 0;
@@ -188,10 +296,10 @@ public class DataManager {
             });
         }
     }
-    public static void getImgUrlFromFirestone1(Context parent,String collection, List<product2> productList) {
-        ((uploadData)parent).progressBar.setVisibility(View.VISIBLE);
+    public static void LoadProductInformation(String path, List<product2> productList)
+    {
         FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
-        firestoneGetProduct.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firestoneGetProduct.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
@@ -202,14 +310,63 @@ public class DataManager {
                     // U have to need default constructor in product2 class to use the sequence below
                     product2 temp = documentSnapshot.toObject(product2.class);
                     productList.add(temp);
+                    int d = 1;
+                }
+                AddDrop.imagedropAdapter_.notifyDataSetChanged();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+    public static void LoadDropInformation(String path, List<drop2> listDrop)
+    {
+        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
+        firestoneGetProduct.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                listDrop.clear();
+                for (DocumentSnapshot documentSnapshot : task.getResult())
+                {
+
+                    // U have to need default constructor in drop2 class to use the sequence below
+                    drop2 temp = documentSnapshot.toObject(drop2.class);
+                    listDrop.add(temp);
+                    int c = 0;
+                    //((uploadData)parent).imageAdapter_.notifyDataSetChanged();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+    public static void getImgUrlFromFirestone1(Context parent,String collection, List<product2> productList) {
+        ((uploadData)parent).progressBar.setVisibility(View.VISIBLE);
+        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
+        firestoneGetProduct.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                productList.clear();
+                for (DocumentSnapshot documentSnapshot : task.getResult())
+                {
+                    // U have to need default constructor in product2 class to use the sequence below
+                    product2 temp = documentSnapshot.toObject(product2.class);
+                    productList.add(temp);
                     ((uploadData)parent).imageAdapter_.notifyDataSetChanged();
                 }
                 int c = 2;
-                ((uploadData)parent).progressBar.setVisibility(View.INVISIBLE);
-                ((uploadData)parent).txt1.setText(productList.get(0).getProductId());
-                ((uploadData)parent).txt2.setText(productList.get(1).getProductId());
-                ((uploadData)parent).txt3.setText(productList.get(2).getProductId());
-                ((uploadData)parent).imageAdapter_.notifyDataSetChanged();
+//                ((uploadData)parent).progressBar.setVisibility(View.INVISIBLE);
+//                ((uploadData)parent).txt1.setText(productList.get(0).getProductId());
+//                ((uploadData)parent).txt2.setText(productList.get(1).getProductId());
+//                ((uploadData)parent).txt3.setText(productList.get(2).getProductId());
+//                ((uploadData)parent).imageAdapter_.notifyDataSetChanged();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -231,10 +388,10 @@ public class DataManager {
                     productList.add(temp);
                 }
                 int c = 2;
-                ((uploadData)parent).progressBar.setVisibility(View.INVISIBLE);
-                ((uploadData)parent).txt1.setText(productList.get(0).getProductId());
-                ((uploadData)parent).txt2.setText(productList.get(1).getProductId());
-                ((uploadData)parent).txt3.setText(productList.get(2).getProductId());
+//                ((uploadData)parent).progressBar.setVisibility(View.INVISIBLE);
+//                ((uploadData)parent).txt1.setText(productList.get(0).getProductId());
+//                ((uploadData)parent).txt2.setText(productList.get(1).getProductId());
+//                ((uploadData)parent).txt3.setText(productList.get(2).getProductId());
 
             }
         }).addOnFailureListener(new OnFailureListener() {
