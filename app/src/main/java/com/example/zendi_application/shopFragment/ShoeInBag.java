@@ -1,5 +1,7 @@
 package com.example.zendi_application.shopFragment;
 
+import android.content.Intent;
+
 import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
 
@@ -42,5 +44,13 @@ public class ShoeInBag extends product2 {
 
     public void setShoeAmount(String shoeAmount) {
         this.shoeAmount = shoeAmount;
+    }
+
+    public void increaseAmountView(){
+        this.shoeAmount = String.valueOf((Integer.parseInt(this.shoeAmount) + 1));
+    }
+    public void decreaseAmountView(){
+        if(Integer.parseInt(this.shoeAmount) == 0) return;
+        this.shoeAmount = String.valueOf((Integer.parseInt(this.shoeAmount) - 1));
     }
 }

@@ -8,6 +8,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 
 import com.example.zendi_application.addProductPackage.uploadData;
 import com.example.zendi_application.dropFragment.ModelSupportLoad;
@@ -222,28 +223,7 @@ public class DataManager {
         });
     }
 
-    //Huynh
-    public static void getShoeInBagFromFirestone(String collection, List<ShoeInBag> productList) {
-        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
-        firestoneGetProduct.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                productList.clear();
-                for (DocumentSnapshot documentSnapshot : task.getResult())
-                {
-                    // U have to need default constructor in ShIB class to use the sequence below
-                    ShoeInBag temp = documentSnapshot.toObject(ShoeInBag.class);
-                    productList.add(temp);
-                    //((ShopFragment)parent).shoeInBagAdapter.notifyDataSetChanged();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
 
-            }
-        });
-    }
     public void getImgUrlFromFirestone(Context parent,String collection, List<product> productList) {
         ((uploadData)parent).progressBar.setVisibility(View.VISIBLE);
        firestonedb.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -284,6 +264,37 @@ public class DataManager {
     }
 
             //endregion//
+
+    //Huynh//
+    public static void getShoeInBagFromFirestone(String collection, List<ShoeInBag> productList) {
+        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
+        firestoneGetProduct.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                productList.clear();
+                for (DocumentSnapshot documentSnapshot : task.getResult())
+                {
+                    // U have to need default constructor in ShIB class to use the sequence below
+                    ShoeInBag temp = documentSnapshot.toObject(ShoeInBag.class);
+                    productList.add(temp);
+                    //((ShopFragment)parent).shoeInBagAdapter.notifyDataSetChanged();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+
+
+    //Tang giam amount trong BAG cua User
+    public void increaseAmount(List<ShoeInBag> list, String collection){
+
+
+    }
+    //endregion//
 
     public Uri getImageUri() {
         return imageUri;

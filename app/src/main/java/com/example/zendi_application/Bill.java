@@ -9,16 +9,14 @@ public class Bill {
     private String billID;
     private String date;
     private List<ShoeInBag> listProduct;
-    private boolean Isdeliverd; // true -> isdelivering, false -> isrecieved
     private String total;
 
 
-    public Bill(String userID, String billID, String date, List<ShoeInBag> listProduct, boolean isdeliverd, String total) {
+    public Bill(String userID, String billID, String date, List<ShoeInBag> listProduct, String total) {
         this.userID = userID;
         this.billID = billID;
         this.date = date;
         this.listProduct = listProduct;
-        Isdeliverd = isdeliverd;
         this.total = getTotal(listProduct);
     }
 
