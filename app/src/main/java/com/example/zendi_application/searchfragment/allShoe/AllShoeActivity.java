@@ -2,6 +2,7 @@ package com.example.zendi_application.searchfragment.allShoe;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,6 +21,7 @@ public class AllShoeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.all_shoe_activity);
         tb = findViewById(R.id.shoesBar2);
         tb.setNavigationOnClickListener(new View.OnClickListener() {
@@ -29,12 +31,12 @@ public class AllShoeActivity extends AppCompatActivity {
             }
         });
         ArrayList<ShoeItemModel> shoeItemModelArrayList = new ArrayList<>();
-        shoeItemModelArrayList.add(new ShoeItemModel(R.drawable.ic_baseline_face_24,"100000","Nike","Originals"));
-        shoeItemModelArrayList.add(new ShoeItemModel(R.drawable.ic_baseline_face_24,"100000","Nike","Originals"));
-        shoeItemModelArrayList.add(new ShoeItemModel(R.drawable.ic_baseline_face_24,"100000","Nike","Originals"));
-        shoeItemModelArrayList.add(new ShoeItemModel(R.drawable.ic_baseline_face_24,"100000","Nike","Originals"));
-        shoeItemModelArrayList.add(new ShoeItemModel(R.drawable.ic_baseline_face_24,"100000","Nike","Originals"));
-        
+        shoeItemModelArrayList.add(new ShoeItemModel(R.drawable.ic_baseline_face_24,R.drawable.ic_baseline_favorite_24,"100000","Nike","Originals",false));
+        shoeItemModelArrayList.add(new ShoeItemModel(R.drawable.ic_baseline_face_24,R.drawable.ic_baseline_favorite_24,"100000","Nike","Originals",true));
+        shoeItemModelArrayList.add(new ShoeItemModel(R.drawable.ic_baseline_face_24,R.drawable.ic_baseline_favorite_24,"100000","Nike","Originals",true));
+        shoeItemModelArrayList.add(new ShoeItemModel(R.drawable.ic_baseline_face_24,R.drawable.ic_baseline_favorite_24,"100000","Nike","Originals",false));
+        shoeItemModelArrayList.add(new ShoeItemModel(R.drawable.ic_baseline_face_24,R.drawable.ic_baseline_favorite_24,"100000","Nike","Originals",false));
+
         recv = findViewById(R.id.rcv_all_shoe);
         recv.setHasFixedSize(true);
         recAdt = new RecycleAdapterForShoeItem(shoeItemModelArrayList);

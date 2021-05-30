@@ -18,6 +18,7 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
     private ArrayList<ShoeItemModel> elementOfRecycModelArrayList;
     public static class RecycleViewHolderForShoeItem extends RecyclerView.ViewHolder{
         public ImageView imageView;
+        public ImageView heartView;
         public TextView NameOfElement;
         public TextView Charge;
         public TextView Originals;
@@ -25,6 +26,7 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
         {
             super(view);
             imageView = view.findViewById(R.id.imageView2);
+            heartView = view.findViewById(R.id.heart_imageView);
             NameOfElement = view.findViewById(R.id.tenSanPham_textview2);
             Charge = view.findViewById(R.id.soTien_textview2);
             Originals = view.findViewById(R.id.originals_textview2);
@@ -44,10 +46,30 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
     @Override
     public void onBindViewHolder(@NonNull RecycleViewHolderForShoeItem holder, int position) {
         ShoeItemModel currentItem = elementOfRecycModelArrayList.get(position);
+        if (currentItem.isLike())
+            holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_24);
+        else
+            holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_border_24);
         holder.imageView.setImageResource(currentItem.getImageRes());
         holder.Charge.setText(currentItem.getmCharge());
         holder.Originals.setText(currentItem.getmOriginals());
         holder.NameOfElement.setText(currentItem.getmName());
+
+        holder.heartView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentItem.isLike())
+                {
+                    currentItem.setLike(false);
+                    holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                }
+                else
+                {
+                    currentItem.setLike(true);
+                    holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_24);
+                }
+            }
+        });
     }
 
     @Override

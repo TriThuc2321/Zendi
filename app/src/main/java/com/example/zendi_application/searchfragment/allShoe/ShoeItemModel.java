@@ -2,15 +2,19 @@ package com.example.zendi_application.searchfragment.allShoe;
 
 public class ShoeItemModel {
     private int ImageRes;
+    private int HeartImageRes;
     private String mCharge;
     private String mOriginals;
     private String mName;
-    public ShoeItemModel(int imageRes, String mCharge, String mName, String mOriginals)
+    private boolean isLike;
+    public ShoeItemModel(int imageRes, int heartImageRes, String mCharge, String mName, String mOriginals,boolean isLike)
     {
         this.ImageRes = imageRes;
         this.mCharge = mCharge;
         this.mName = mName;
         this.mOriginals = mOriginals;
+        this.HeartImageRes = heartImageRes;
+        this.isLike = isLike;
     }
 
     public int getImageRes() {
@@ -29,6 +33,13 @@ public class ShoeItemModel {
         return mOriginals;
     }
 
+    public boolean isLike() {
+        return isLike;
+    }
+    public int getHeartImageRes() {
+        return HeartImageRes;
+    }
+
     public void setImageRes(int imageRes) {
         ImageRes = imageRes;
     }
@@ -43,5 +54,13 @@ public class ShoeItemModel {
 
     public void setmOriginals(String mOriginals) {
         this.mOriginals = mOriginals;
+    }
+
+    public void setHeartImageRes(int heartImageRes) {
+        HeartImageRes = heartImageRes;
+    }
+
+    public void setLike(boolean like) {
+        isLike = like;
     }
 }
