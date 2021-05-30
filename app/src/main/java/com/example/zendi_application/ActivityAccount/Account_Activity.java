@@ -199,8 +199,8 @@ public class Account_Activity extends AppCompatActivity  {
         startActivity(new Intent(Account_Activity.this, SettingActivity.class));
         finish();
     }
-    public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total){
-        User mUser =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total);
+    public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int isShopOwner){
+        User mUser =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total, isShopOwner);
         dataBase.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(mUser);
     }
 
@@ -218,7 +218,7 @@ public class Account_Activity extends AppCompatActivity  {
                             Log.d(TAG, "signInWithCredential:success");
 
                             if(!userExist()){
-                                setData("","DD/ MM/ YY", mAuth.getCurrentUser().getEmail(),2, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","");
+                                setData("","DD/ MM/ YY", mAuth.getCurrentUser().getEmail(),2, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","", 0);
                             }
                                openProfile();
                         } else {

@@ -11,12 +11,14 @@ public class User {
     private String ProfilePic;
     private String Size;
     private String Total;
+    private int ShopOwner;  //0 là k, 1 là chủ shop
+
 
     public User(){
 
     }
 
-    public User(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total) {
+    public User(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int shopOwner) {
         Address = address;
         this.DOB = DOB;
         Email = email;
@@ -27,6 +29,7 @@ public class User {
         ProfilePic = profilePic;
         Size = size;
         Total = total;
+        ShopOwner = shopOwner;
     }
 
     public String getAddress() {
@@ -107,5 +110,13 @@ public class User {
 
     public void setTotal(String total) {
         Total = total;
+    }
+
+    public int getShopOwner() {
+        return ShopOwner;
+    }
+
+    public void setShopOwner(int shopOwner) {
+        ShopOwner = shopOwner;
     }
 }

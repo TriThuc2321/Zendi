@@ -42,19 +42,19 @@
 
         <ImageView
             android:id="@+id/facebookBtn"
-            android:layout_width="0dp"
+            android:layout_width="70dp"
             android:layout_height="match_parent"
             android:background="@drawable/facebook_logo"
-            android:layout_weight="1"/>
+            />
 
         <TextView
             android:id="@+id/facebookTxt"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="      Facebook"
             android:textSize="20dp"
             android:gravity="center_vertical"
-            android:layout_weight="5"/>
+            />
     </LinearLayout>
 
     <View
@@ -73,21 +73,19 @@
 
         <ImageView
             android:id="@+id/googleBtn"
-            android:layout_width="0dp"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:background="@drawable/google_logo"
-            android:layout_weight="1"
             android:layout_margin="15dp"
             android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/googleTxt"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="      Google"
             android:textSize="20dp"
-            android:gravity="center_vertical"
-            android:layout_weight="8"/>
+            android:gravity="center_vertical" />
     </LinearLayout>
 
     <com.facebook.login.widget.LoginButton
