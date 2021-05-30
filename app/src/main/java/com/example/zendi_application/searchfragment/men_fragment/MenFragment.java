@@ -11,14 +11,13 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.R;
 import com.example.zendi_application.searchfragment.ElementOfRecycModel;
 import com.example.zendi_application.searchfragment.RecycleAdapter;
-import com.example.zendi_application.searchfragment.listnavigation.SearchListNavigationActivity;
+import com.example.zendi_application.searchfragment.allShoe.AllShoeActivity;
 
 import java.util.ArrayList;
 
@@ -62,7 +61,7 @@ public class MenFragment extends Fragment {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), SearchListNavigationActivity.class);
+                Intent intent = new Intent(view.getContext(), AllShoeActivity.class);
                 startActivity(intent);
             }
         });

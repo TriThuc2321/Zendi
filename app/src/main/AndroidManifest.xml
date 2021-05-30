@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Zendi_Application">
-        <activity android:name=".searchfragment.listnavigation.SearchListNavigationActivity"/>
         <activity android:name=".Account_Activity" />
+        <activity android:name=".searchfragment.allShoe.AllShoeActivity" />
         <activity android:name=".HomeScreen" />
         <activity android:name=".Introduction">
             <intent-filter>
