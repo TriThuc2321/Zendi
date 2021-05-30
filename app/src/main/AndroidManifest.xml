@@ -27,6 +27,7 @@
         
         <activity android:name=".dropFragment.collection_drop" />
         <activity android:name=".ActivityAccount.Account_Activity" />
+        <activity android:name=".searchfragment.allShoe.AllShoeActivity" />
         <activity android:name=".HomeScreen" />
         <activity android:name=".Introduction">
             <intent-filter>
