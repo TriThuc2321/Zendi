@@ -287,6 +287,7 @@ public class DataManager {
             }
         });
     }
+    //Delete item from bag
 
 
     //Tang giam amount trong BAG cua User

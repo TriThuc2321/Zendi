@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,8 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -31,7 +36,7 @@ import static android.widget.Toast.LENGTH_LONG;
 public class ShopFragment extends Fragment implements RecyclerViewClickInterface{
 
     Button settle;
-    List<ShoeInBag> shoeInBagList = new ArrayList<>();
+    //List<ShoeInBag> shoeInBagList = new ArrayList<>();
     public ShoeInBagAdapter shoeInBagAdapter;
     RecyclerView recyclerView;
 
@@ -44,21 +49,22 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
         //DataManager.getShoeInBagFromFirestone(this,"InBag",shoeInBagList);
 
         settle = view.findViewById(R.id.settle_place);
+        settle.setText(total());
         recyclerView = view.findViewById(R.id.shop_fragment_rcv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(),recyclerView.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);;
         recyclerView.setHasFixedSize(true);
         shoeInBagAdapter.setData(DataManager.list);
-        recyclerView.setAdapter(shoeInBagAdapter);
-
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+        recyclerView.setAdapter(shoeInBagAdapter);
+
         return view;
     }
 
-    String increaseAmount = "One more";
+    String increaseAmount = "One more or swipe down to delete";
     String decreaseAmount = "One less";
-    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT)
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT| ItemTouchHelper.DOWN)
     {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -81,18 +87,22 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
                     shoeInBagAdapter.notifyItemChanged(position);
                     settle.setText(total());
                     break;
+                case ItemTouchHelper.DOWN:
+                    deleteItem(DataManager.list.get(position));
+                    DataManager.list.remove(position);
+                    shoeInBagAdapter.notifyDataSetChanged();
+                    settle.setText(total());
+                    Toast.makeText(getContext(), "You have just dragged this shoe out of bag", LENGTH_LONG).show();
             }
         }
         @Override
         public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
             new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                    .addSwipeRightBackgroundColor(R.color.gold)
                     .addSwipeRightActionIcon(R.drawable.ic_baseline_exposure_neg_1_24)
                     .addSwipeRightLabel(decreaseAmount)
                     .addSwipeLeftBackgroundColor(R.color.com_facebook_messenger_blue)
                     .addSwipeLeftActionIcon(R.drawable.ic_baseline_plus_one_24)
                     .addSwipeLeftLabel(increaseAmount)
-                    .addBackgroundColor(R.color.gold)
                     .create()
                     .decorate();
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
@@ -100,10 +110,10 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
     };
 
     @Override
-    public void onLongItemClick(int position) {
+    public  void onLongItemClick(int position) {
 
     }
-    public String total(){
+    public static String total(){
         String total_ ="SETTLE $";
         Integer temp = 0;
         for (ShoeInBag a : DataManager.list)
@@ -112,5 +122,15 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
         }
         total_+= temp.toString();
         return total_ ;
+    }
+    //Delete from FireStore
+    public  void deleteItem(final ShoeInBag shoe){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("InBag").document(shoe.getProductId())
+                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
     }
 }
