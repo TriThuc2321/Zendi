@@ -41,6 +41,7 @@ public class HomeScreen extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         this.appBarLayout.setVisibility(View.VISIBLE);
+        this.mNavigationView.setVisibility(View.VISIBLE);
         Log.d("MainActivity Lifecycle", "===== onResume =====");
     }
     protected void onStart() {

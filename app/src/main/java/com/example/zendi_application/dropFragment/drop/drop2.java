@@ -3,42 +3,54 @@ package com.example.zendi_application.dropFragment.drop;
 import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class drop2 {
-    private String Image;
+    private String image;
+    private String caption;
+    private String status;
+    private String type;
+    private String categoryNumber;
+    private List<String> listProductName;
+    private List<product2> productList ;
 
-    public String getImage() {
-        return Image;
-    }
-
-    public drop2(String image, List<String> listProductName, String caption, String status, String type, List<product2> productList) {
-        Image = image;
-        this.listProductName = listProductName;
+    public drop2(String image, String caption, String status, String type, String categoryNumber, List<String> listProductName, List<product2> productList) {
+        this.image = image;
         this.caption = caption;
         this.status = status;
         this.type = type;
+        this.categoryNumber = categoryNumber;
+        this.listProductName = listProductName;
         this.productList = productList;
+    }
+    public String getCategoryNumber() {
+        return categoryNumber;
+    }
+
+    public void setCategoryNumber(String categoryNumber) {
+        this.categoryNumber = categoryNumber;
+    }
+
+
+    public String getImage() {
+        return image;
+    }
+
+    public drop2() {
     }
 
     public void setImage(String image) {
-        Image = image;
+        this.image = image;
     }
 
     public List<String> getListProductName() {
         return listProductName;
     }
 
-
     public void setListProductName(List<String> listProductName) {
         this.listProductName = listProductName;
     }
-
-    private List<String> listProductName;
-
-    private String caption;
-
-
 
     public String getCaption() {
         return caption;
@@ -48,7 +60,7 @@ public class drop2 {
         this.caption = caption;
     }
 
-    public String getSatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -72,12 +84,8 @@ public class drop2 {
         this.productList = productList;
     }
 
-    private String status;
-    private String type;
-    private List<product2> productList;
 
-    public drop2() {
 
-    }
+
 
 }

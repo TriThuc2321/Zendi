@@ -37,15 +37,18 @@ public class Introduction extends AppCompatActivity {
         appName.animate().translationY(2000).setDuration(1000).setStartDelay(2000);
         slogan.animate().translationY(2000).setDuration(1000).setStartDelay(2000);
 
+        //Load data
+        DataManager.LoadDropInformation("Collection/",DataManager.listDrop);  // load products
+        DataManager.LoadProductInformation("Product",DataManager.listProduct); // load categors
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 Intent intent = new Intent(Introduction.this,HomeScreen.class);
                 startActivity(intent);
                 finish();
             }
-        },3500);
+        },5000);
 
     }
 }

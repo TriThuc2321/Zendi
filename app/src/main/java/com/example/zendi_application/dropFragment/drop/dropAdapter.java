@@ -16,18 +16,19 @@ import com.bumptech.glide.Glide;
 import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.DetailDropFragment;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolder>{
     private Context mContext;
-    private List<drop> mdrop;
+    private List<drop2> mdrop;
 
     public dropAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void SetData(List<drop> list)
+    public void SetData(List<drop2> list)
     {
         this.mdrop = list;
         notifyDataSetChanged();
@@ -41,15 +42,15 @@ public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull dropViewHolder holder, int position) {
-        drop dropp = mdrop.get(position);
+        drop2 dropp = mdrop.get(position);
         if (dropp == null)
         {
             return;
         }
-//        Glide.with(mContext).load(dropp.getResourceId()).into(holder.imgDrop);
-        holder.imgDrop.setImageResource(dropp.getResourceId());
+        //Picasso.get().load(dropp.getImage()).into(holder.imgDrop);
+        Glide.with(mContext).load(dropp.getImage()).into(holder.imgDrop);
         holder.captionDrop.setText(dropp.getCaption());
-        holder.statusDrop.setText(dropp.getSatus());
+        holder.statusDrop.setText(dropp.getStatus());
         holder.typeDrop.setText(dropp.getType());
         holder.shopbtnDrop.setText("SHOP NOW" + "");
 
@@ -68,6 +69,7 @@ public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolde
                 DetailDropFragment myFragment = new DetailDropFragment();
                 ((DetailDropFragment)myFragment).recieveDrop(dropp);
                 ((HomeScreen)activity).appBarLayout.setVisibility(View.INVISIBLE);
+                ((HomeScreen)activity).mNavigationView.setVisibility(View.INVISIBLE);
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_screen, myFragment).addToBackStack(null).commit();
             }
         });

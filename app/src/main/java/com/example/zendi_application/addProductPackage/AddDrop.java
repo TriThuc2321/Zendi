@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
+import com.example.zendi_application.dropFragment.drop.drop;
 import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product2;
 
@@ -84,6 +86,7 @@ public class AddDrop extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,productName);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         productList_spinner.setAdapter(arrayAdapter);
+
         productList_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -119,26 +122,40 @@ public class AddDrop extends AppCompatActivity {
         pushbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                List<product2> productList = new ArrayList<>();
-                for (int i = 0; i < DataManager.listProduct.size(); i++)
-                {
-                    for (int j = 0; j < selected_productlist.size(); j++)
-                    {
-                        if (DataManager.listProduct.get(i).getProductId().compareTo(selected_productlist.get(j)) == 0)
-                        {
-                            productList.add(DataManager.listProduct.get(i));
-                            continue;
+                if (dropstatusEdit.getText().length() != 0 && dropcaptionEdit.getText().length() != 0
+                && droptypeEdit.getText().length() != 0 && drop_ordinalEdit.getText().length() != 0
+                && category_ordinalEdit.getText().length() != 0 && listimg != null && selected_productlist != null) {
+                    List<product2> productList = new ArrayList<>();
+                    for (int i = 0; i < DataManager.listProduct.size(); i++) {
+                        for (int j = 0; j < selected_productlist.size(); j++) {
+                            if (DataManager.listProduct.get(i).getProductId().compareTo(selected_productlist.get(j)) == 0) {
+                                productList.add(DataManager.listProduct.get(i));
+                                continue;
+                            }
                         }
                     }
-                }
-                drop2 a = new drop2(null,selected_productlist,dropcaptionEdit.getText().toString(),dropstatusEdit.getText().toString(),droptypeEdit.getText().toString(),productList);
-                String temp = "Category_" + category_ordinalEdit.getText().toString() +"/";
+                    drop2 a = new drop2(null, dropcaptionEdit.getText().toString(), dropstatusEdit.getText().toString(), droptypeEdit.getText().toString()
+                            , category_ordinalEdit.getText().toString(), selected_productlist, productList);
+                    String temp = "Drop_" + category_ordinalEdit.getText().toString() + "_" + drop_ordinalEdit.getText().toString() + "/";
 //                DataManager.Push_Image(temp,"Collection/Category_1/","",listURL);
-                /// txt1 chua stt category, txt2 chua ten drop, txt3 chua stt cua drop
-                DataManager.push_drop_To_FireStone((AddDrop)v.getContext(),temp,"Drop_" + drop_ordinalEdit.getText().toString(),drop_ordinalEdit.getText().toString(),a,listURL);
-                // listURL.clear();
-                //listimg.clear();
+                    /// txt1 chua stt category, txt2 chua ten drop, txt3 chua stt cua drop
+                    DataManager.push_drop_To_FireStone((AddDrop) v.getContext(), temp, drop_ordinalEdit.getText().toString(), a, listURL);
+
+                    listURL.clear();
+                    listimg.clear();
+                    selected_productlist.clear();
+                    drop_ordinalEdit.setText("");
+                    dropcaptionEdit.setText("");
+                    droptypeEdit.setText("");
+                    dropstatusEdit.setText("");
+                    category_ordinalEdit.setText("");
+                    load_dropimage.setImageURI(null);
+                    Toast.makeText(v.getContext(),"Drop is Loaded !!",Toast.LENGTH_SHORT);
+                }
+                else
+                {
+                    Toast.makeText(v.getContext(),"Please fill in all the information !!",Toast.LENGTH_SHORT);
+                }
             }
         });
 
@@ -147,6 +164,7 @@ public class AddDrop extends AppCompatActivity {
             public void onClick(View v) {
                 onBackPressed();
                 finish();
+
             }
         });
         adddropimagebtn.setOnClickListener(new View.OnClickListener() {
@@ -173,13 +191,6 @@ public class AddDrop extends AppCompatActivity {
             listURL.add(data.getData());
             listimg.add(data.getData().toString());
             load_dropimage.setImageURI(data.getData());
-//            Uri imageUri = data.getData();
-//            imgview.setImageURI(imageUri);
-//            Glide.with(this).load("https://firebasestorage.googleapis.com/v0/b/zendi-1e684.appspot.com/o/testfolder%2Fimg4.jpg?alt=media&token=32f90648-76f8-4ce2-90bd-e90ef6ef052e").into(imgview1);
-//            dataManager.getInstance().pushImageToStorage( "testfolder","img8",data.getData());
-
-            //          dataManager.getInstance().pushImageToStorage1(uploadData.this,"testfolder","img8",data.getData());
-
         }
 
     }

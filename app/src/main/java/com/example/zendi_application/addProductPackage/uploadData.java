@@ -62,7 +62,8 @@ public class uploadData extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
         imageRecycleView.setLayoutManager(linearLayoutManager);
 
-        DataManager.LoadDropInformation("Collection/Category_test/Drop_1",DataManager.listDrop);
+       // DataManager.GetNumberofCategory();
+        DataManager.LoadDropInformation("Collection/",DataManager.listDrop);
         DataManager.LoadProductInformation("Product",DataManager.listProduct);
 
         /////
@@ -111,9 +112,6 @@ public class uploadData extends AppCompatActivity {
                 imageAdapter_.SetData(c,n);
                 imageAdapter_.notifyDataSetChanged();
                 imageRecycleView.setAdapter(imageAdapter_);
-
-                DataManager.LoadDropInformation("Collection/Category_test/Drop_1",DataManager.listDrop);
-                DataManager.LoadProductInformation("Product",DataManager.listProduct);
 
                 int d = 0;
             }

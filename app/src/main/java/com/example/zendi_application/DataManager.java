@@ -9,9 +9,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.addProductPackage.AddDrop;
+import com.example.zendi_application.addProductPackage.ProductList;
+import com.example.zendi_application.addProductPackage.ProductNameList;
 import com.example.zendi_application.addProductPackage.uploadData;
 import com.example.zendi_application.dropFragment.ModelSupportLoad;
+import com.example.zendi_application.dropFragment.category_drop.category;
+import com.example.zendi_application.dropFragment.drop.drop;
 import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
@@ -25,6 +30,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -32,14 +38,19 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class DataManager {
     // Instance
 
     public static DataManager instance;
-    public static List<product2> listProduct = new ArrayList<>();
-    public static List<drop2> listDrop = new ArrayList<>();
+    public static List<product2> listProduct = new ArrayList<>(); // All products
+    public static List<drop2> listDrop = new ArrayList<>(); // All drops
+    public static HashMap<String,List<drop2>> listCategory = new HashMap<>(); // All categories
+    public static User host ;
 
     // Attributes
     private Uri imageUri;
@@ -58,14 +69,6 @@ public class DataManager {
 
     public static void setInstance(DataManager instance) {
         DataManager.instance = instance;
-    }
-
-    public void addDataForDrogFragment(int whichType) {
-
-    }
-
-    public void readDataForDrogFragment() {
-
     }
 
     //Thien//
@@ -114,31 +117,16 @@ public class DataManager {
                 }
             });
         }
-        /// After converting  List of ImageURI to List of ImageURL,we push data to Firestone with path : collectionName/productName.
-
-//        FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
-//        firestonePutProduct.collection(path_Cloud_collection).document(document).set(object)
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        parent.progressBar.setVisibility(View.INVISIBLE);
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//
-//            }
-//        });
     }
 
-    public static void push_drop_To_FireStone(AddDrop parent, String collectionName, String dropname, String ordinal , drop2 object, List<Uri> listURI )
+    public static void push_drop_To_FireStone(AddDrop parent, String dropname, String ordinal , drop2 object, List<Uri> listURI )
     {
         /// Push List Image to Storage and Get List of ImageURL
         parent.progressBar_adddrop.setVisibility(View.VISIBLE);
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance(); // Init reference
         StorageReference storageReference_ = firebaseStorage.getReference();
             String temp = "Drop_" + ordinal.toString();
-            StorageReference processPutFile = storageReference_.child("Collection/" + collectionName + temp );
+            StorageReference processPutFile = storageReference_.child("Collection/" + dropname);
             processPutFile.putFile(listURI.get(0)).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -148,8 +136,8 @@ public class DataManager {
                             //// After getting Url of images, we add Urls to Image
                             object.setImage( uri.toString() );
                             FirebaseFirestore firestonedb1 = FirebaseFirestore.getInstance();
-                            String path2 = "Collection/" + collectionName + "DropList/" ;
-                            DocumentReference documentReference = firestonedb1.collection(path2).document(temp);
+                            String path2 = "Collection/";
+                            DocumentReference documentReference = firestonedb1.collection(path2).document(dropname);
                             documentReference.update("image", FieldValue.arrayUnion(uri.toString()));
                         }
                     });
@@ -167,7 +155,7 @@ public class DataManager {
         /// After converting  List of ImageURI to List of ImageURL,we push data to Firestone with path : collectionName/productName.
 
         FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
-        firestonePutProduct.collection("Collection/" + collectionName + "DropList/" ).document(dropname).set(object)
+        firestonePutProduct.collection("Collection/" ).document(dropname).set(object)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -321,23 +309,45 @@ public class DataManager {
             }
         });
     }
+
     public static void LoadDropInformation(String path, List<drop2> listDrop)
     {
-        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
-        firestoneGetProduct.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        FirebaseFirestore firestoneGetDrop = FirebaseFirestore.getInstance();
+        firestoneGetDrop.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                listDrop.clear();
-                for (DocumentSnapshot documentSnapshot : task.getResult())
-                {
-
+                DataManager.listDrop.clear();
+                for (DocumentSnapshot documentSnapshot : task.getResult()) {
                     // U have to need default constructor in drop2 class to use the sequence below
-                    drop2 temp = documentSnapshot.toObject(drop2.class);
-                    listDrop.add(temp);
-                    int c = 0;
-                    //((uploadData)parent).imageAdapter_.notifyDataSetChanged();
+                    //List<Map<String, Object>> productList = (List<Map<String, Object>>) documentSnapshot.get("productList");
+                    List<product2> productList_ = documentSnapshot.toObject(ProductList.class).productList;
+                   String image_ = documentSnapshot.get("image").toString();
+                   String processed_image;
+                    processed_image = image_.replace("[","");
+                    processed_image.replace("]","");
+                   //image_.indexOf(1,image_.length()-2);
+                   String caption_ = documentSnapshot.get("caption").toString();
+                   String status_ = documentSnapshot.get("status").toString();
+                   String type_ = documentSnapshot.get("type").toString();
+                   String categoryName_ = documentSnapshot.get("categoryNumber").toString();
+                   List<String> productNameList = documentSnapshot.toObject(ProductNameList.class).listProductName;
+                    drop2 sample = new drop2(processed_image,caption_,status_,type_,categoryName_,productNameList,productList_);
+                    listDrop.add(sample);
+                    if (listCategory.get(categoryName_) == null)
+                    {
+                        List<drop2> temp = new ArrayList<>();
+                        temp.add(sample);
+                        listCategory.put(categoryName_,temp);
+                    }
+                    else
+                    {
+                        listCategory.get(categoryName_).add(sample);
+                    }
+                    int a = 2;
                 }
+
+               int a = 0;
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
