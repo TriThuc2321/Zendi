@@ -45,6 +45,7 @@ public class Introduction extends AppCompatActivity {
             @Override
             public void run() {
                 DataManager.getShoeInBagFromFirestone("InBag/aaa/ShoeList",DataManager.list);
+                DataManager.getShoeInBagFromFirestone("InWish",DataManager.shoeInWish);
                 Intent intent = new Intent(Introduction.this,HomeScreen.class);
                 startActivity(intent);
                 finish();

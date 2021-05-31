@@ -95,6 +95,8 @@ public class SettingActivity extends AppCompatActivity {
 
     private String txtForcus;
 
+    private int isShopOwner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -356,7 +358,7 @@ public class SettingActivity extends AppCompatActivity {
                 else if(otherRad.isChecked() == true){
                     mGender = 2;
                 }
-                setData(locationTxt.getText().toString(),birthdayTxt.getText().toString(),currentUser.getEmail(),mGender,currentUser.getUid(), nameTxt.getText().toString(),phoneNumberTxt.getText().toString(),"ImageUri",sizeTxt.getText().toString(),totalTxt.getText().toString());
+                setData(locationTxt.getText().toString(),birthdayTxt.getText().toString(),currentUser.getEmail(),mGender,currentUser.getUid(), nameTxt.getText().toString(),phoneNumberTxt.getText().toString(),"ImageUri",sizeTxt.getText().toString(),totalTxt.getText().toString(),isShopOwner);
             }
         });
     }
@@ -365,6 +367,7 @@ public class SettingActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         dataBase = FirebaseDatabase.getInstance().getReference();
         currentUser = mAuth.getCurrentUser();
+
         settingLayout = findViewById(R.id.settingLayout);
 
         nameTxt = findViewById(R.id.nameTxt);
@@ -405,6 +408,7 @@ public class SettingActivity extends AppCompatActivity {
                 sizeTxt.setText(user.getSize()+"");
                 phoneNumberTxt.setText(user.getPhoneNumber()+"");
                 totalTxt.setText(user.getTotal()+"");
+                isShopOwner = user.getShopOwner();
 
                 //maleRad.setChecked(true);
 
@@ -427,8 +431,8 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
-    public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total){
-        user =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total);
+    public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int isShoOwner){
+        user =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total, isShoOwner);
         dataBase.child("Users").child(currentUser.getUid()).setValue(user);
     }
     public void hideKeyboard(View view) {

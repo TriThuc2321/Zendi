@@ -56,6 +56,7 @@ public class DataManager {
     public static User host = new User();
     public static HashMap<String,Integer> sizeConvert = new HashMap<>();
     public static List<ShoeInBag> list = new ArrayList<>();
+    public static List<ShoeInBag> shoeInWish = new ArrayList<>();
     // Attributes
     private Uri imageUri;
     private FirebaseStorage storage;
@@ -498,6 +499,7 @@ public class DataManager {
             }
         });
     }
+    //Delete item from bag
 
 
     //Tang giam amount trong BAG cua User
