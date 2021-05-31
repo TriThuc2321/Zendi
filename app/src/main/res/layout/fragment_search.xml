@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/white"
-    android:backgroundTintMode="add">
+    android:backgroundTintMode="add"
+    android:orientation="vertical">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -25,7 +26,7 @@
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
-        android:layout_width="408dp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/height_for_bar"
         android:background="@drawable/border_searchbar"
         app:iconifiedByDefault="false"
@@ -38,15 +39,14 @@
         app:queryBackground="@null"
         app:queryHint="Find products..."></androidx.appcompat.widget.SearchView>
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout"></androidx.viewpager.widget.ViewPager>
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
