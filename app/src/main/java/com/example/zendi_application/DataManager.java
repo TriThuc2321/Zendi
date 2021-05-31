@@ -39,6 +39,7 @@ public class DataManager {
     // Instance
     public static DataManager instance;
     public static List<ShoeInBag> list = new ArrayList<>();
+    public static List<ShoeInBag> shoeInWish = new ArrayList<>();
     // Attributes
     private Uri imageUri;
     private FirebaseStorage storage;

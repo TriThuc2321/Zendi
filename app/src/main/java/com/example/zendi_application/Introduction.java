@@ -40,7 +40,8 @@ public class Introduction extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                DataManager.getShoeInBagFromFirestone("InBag",DataManager.list);
+              DataManager.getShoeInBagFromFirestone("InBag",DataManager.list);
+              DataManager.getShoeInBagFromFirestone("InWish",DataManager.shoeInWish);
                 Intent intent = new Intent(Introduction.this,HomeScreen.class);
                 startActivity(intent);
                 finish();

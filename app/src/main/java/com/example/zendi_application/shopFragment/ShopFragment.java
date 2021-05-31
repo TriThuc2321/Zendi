@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -63,7 +64,6 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
 
         return view;
     }
-
     String increaseAmount = "One more or swipe down to delete";
     String decreaseAmount = "One less";
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT| ItemTouchHelper.DOWN)
@@ -117,6 +117,8 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
     public  void onLongItemClick(int position) {
 
     }
+
+
     public static String total(){
         String total_ ="SETTLE $";
         Integer temp = 0;
