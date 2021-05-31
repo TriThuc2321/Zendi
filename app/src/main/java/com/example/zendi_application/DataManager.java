@@ -53,7 +53,8 @@ public class DataManager {
     public static List<product2> listProduct = new ArrayList<>(); // All products
     public static List<drop2> listDrop = new ArrayList<>(); // All drops
     public static HashMap<String,List<drop2>> listCategory = new HashMap<>(); // All categories
-    public static User host ;
+    public static User host = new User();
+    public static HashMap<String,Integer> sizeConvert = new HashMap<>();
     public static List<ShoeInBag> list = new ArrayList<>();
     // Attributes
     private Uri imageUri;
@@ -171,6 +172,50 @@ public class DataManager {
             }
         });
 
+    }
+    public static void Update_Amount(ShoeInBag selectedShoe)
+    {
+        FirebaseFirestore firestonedb1 = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = firestonedb1.collection("Product/").document(selectedShoe.getProductId());
+        documentReference.update("remainingAmount", selectedShoe.getRemainingAmount());
+    }
+    public static void update_Amount_Of_Shoe_In_Bag(ShoeInBag selectedShoe,ShoeInBag shoe_need_to_increase_amount,User user,Context mContext)
+    {
+        FirebaseFirestore firestonedb1 = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = firestonedb1.collection("InBag/" + "aaa" +"/ShoeList/").document(selectedShoe.getProductId() + "_" + selectedShoe.getShoeSize());
+//        Integer total_amount = Integer.parseInt(shoe_need_to_increase_amount.getShoeAmount()) + Integer.parseInt(selectedShoe.getShoeAmount());
+        Integer new_amount = 1;
+        for (ShoeInBag ite : DataManager.list){
+            if (ite.getProductId().compareTo(selectedShoe.getProductId()) == 0 && ite.getShoeSize().compareTo(selectedShoe.getShoeSize()) == 0 )
+            {
+                new_amount = Integer.parseInt(ite.getShoeAmount()) + 1;
+                ite.setShoeAmount(new_amount.toString());
+                break;
+            }
+        }
+        String a = new_amount.toString();
+        documentReference.update("shoeAmount",a);
+        Toast.makeText(mContext,"Product is Added !!",Toast.LENGTH_SHORT);
+        /// Update admount
+       //Update_Amount(selectedShoe);
+    }
+    public static void push_Shoe_To_Bag(ShoeInBag selectedShoe,User user,Context mContext)
+    {
+        FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
+        firestonePutProduct.collection("InBag/" + "aaa" +"/ShoeList").document(selectedShoe.getProductId() + "_" + selectedShoe.getShoeSize()).set(selectedShoe)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+//                      Update_Amount(selectedShoe);
+                        DataManager.list.add(selectedShoe);
+                        Toast.makeText(mContext,"Product is Added !!",Toast.LENGTH_SHORT);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(mContext,"Adding Failed !!",Toast.LENGTH_SHORT);
+            }
+        });
     }
 
     public static void push_Object_To_FireStone(uploadData parent, String collectionName, String productName , product2 object, List<Uri> listURI )
