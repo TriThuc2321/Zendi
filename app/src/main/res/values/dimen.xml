@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="height_for_bar">60dp</dimen>
+    <dimen name="padding_for_fragment">30dp</dimen>
+    <dimen name="height_for_article_card">90dp</dimen>
+    <dimen name="height_for_recycle">200dp</dimen>
+    <dimen name="padding_for_article_card">15dp</dimen>
+    <dimen name="size_of_article">20sp</dimen>
+    <dimen name="dimen_for_pic_of_recyc">120dp</dimen>
+    <dimen name="dimen_for_charge_of_recyc">80dp</dimen>
+    <dimen name="margin_for_element_of_charge">8dp</dimen>
+    <dimen name="text_size_for_card">12sp</dimen>
+</resources>

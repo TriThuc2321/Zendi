@@ -39,6 +39,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.example.zendi_application.DataManager;
 import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
 import com.facebook.login.LoginManager;
@@ -399,6 +400,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);
+                DataManager.host = user;
 
                 nameTxt.setText(user.getName()+"");
                 locationTxt.setText(user.getAddress()+"");

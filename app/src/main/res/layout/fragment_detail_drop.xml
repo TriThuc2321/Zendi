@@ -27,6 +27,15 @@
     </ImageView>
 
         <Button
+            android:id="@+id/back_detailfragment"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="Back"
+            app:layout_constraintLeft_toLeftOf="@+id/img_drop_collection"
+            app:layout_constraintTop_toTopOf="@+id/img_drop_collection">
+        </Button>
+
+        <Button
             android:id="@+id/namedrop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
