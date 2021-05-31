@@ -27,7 +27,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
@@ -81,11 +83,13 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
                     DataManager.list.get(position).increaseAmountView();
                     shoeInBagAdapter.notifyItemChanged(position);
                     settle.setText(total());
+                    upAmount(DataManager.list.get(position),DataManager.list.get(position).getShoeAmount());
                     break;
                  case ItemTouchHelper.RIGHT:
                     DataManager.list.get(position).decreaseAmountView();
                     shoeInBagAdapter.notifyItemChanged(position);
                     settle.setText(total());
+                     upAmount(DataManager.list.get(position),DataManager.list.get(position).getShoeAmount());
                     break;
                 case ItemTouchHelper.DOWN:
                     deleteItem(DataManager.list.get(position));
@@ -130,6 +134,18 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
                 .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
+            }
+        });
+    }
+    public void upAmount(ShoeInBag shoe, String amount){
+        final DocumentReference docRef = FirebaseFirestore.getInstance().collection("InBag")
+                .document(shoe.getProductId());
+        Map<String, Object> map = new HashMap<>();
+        map.put("shoeAmount",amount);
+        docRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
             }
         });
     }
