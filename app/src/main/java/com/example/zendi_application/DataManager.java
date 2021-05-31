@@ -8,6 +8,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 
 import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.addProductPackage.AddDrop;
@@ -20,6 +21,8 @@ import com.example.zendi_application.dropFragment.drop.drop;
 import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
+import com.example.zendi_application.shopFragment.ShoeInBag;
+import com.example.zendi_application.shopFragment.ShopFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,7 +54,7 @@ public class DataManager {
     public static List<drop2> listDrop = new ArrayList<>(); // All drops
     public static HashMap<String,List<drop2>> listCategory = new HashMap<>(); // All categories
     public static User host ;
-
+    public static List<ShoeInBag> list = new ArrayList<>();
     // Attributes
     private Uri imageUri;
     private FirebaseStorage storage;
@@ -386,6 +389,7 @@ public class DataManager {
         });
     }
 
+
     public void getImgUrlFromFirestone(Context parent,String collection, List<product> productList) {
         ((uploadData)parent).progressBar.setVisibility(View.VISIBLE);
        firestonedb.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -426,6 +430,37 @@ public class DataManager {
     }
 
             //endregion//
+
+    //Huynh//
+    public static void getShoeInBagFromFirestone(String collection, List<ShoeInBag> productList) {
+        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
+        firestoneGetProduct.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                productList.clear();
+                for (DocumentSnapshot documentSnapshot : task.getResult())
+                {
+                    // U have to need default constructor in ShIB class to use the sequence below
+                    ShoeInBag temp = documentSnapshot.toObject(ShoeInBag.class);
+                    productList.add(temp);
+                    //((ShopFragment)parent).shoeInBagAdapter.notifyDataSetChanged();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+
+
+    //Tang giam amount trong BAG cua User
+    public void increaseAmount(List<ShoeInBag> list, String collection){
+
+
+    }
+    //endregion//
 
     public Uri getImageUri() {
         return imageUri;

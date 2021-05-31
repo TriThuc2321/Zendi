@@ -8,6 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.example.zendi_application.searchfragment.ViewPageAdapterForTablayout;
+import com.google.android.material.tabs.TabLayout;
 
 public class WishlistFragment extends Fragment {
     @Nullable

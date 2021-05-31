@@ -38,25 +38,26 @@
         </activity>
         <activity android:name=".ActivityAccount.LoginRegisterActivity" />
         <activity android:name=".ActivityAccount.SettingActivity" />
-        <activity android:name=".addProductPackage.uploadData">
+        <activity android:name=".addProductPackage.uploadData" >
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
-        <activity android:name=".dropFragment.collection_drop" />
+        
         <activity android:name=".ActivityAccount.Account_Activity" />
+        <activity android:name=".searchfragment.allShoe.AllShoeActivity" />
         <activity android:name=".HomeScreen" />
         <activity android:name=".Introduction">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter> 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".dropFragment.collection_drop" />
+    
 
         <meta-data
             android:name="preloaded_fonts"
