@@ -1,5 +1,8 @@
 package com.example.zendi_application.searchfragment.allShoe;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,11 +10,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
+import com.example.zendi_application.dropFragment.DetailProductFragment;
 import com.example.zendi_application.dropFragment.product_package.product2;
+import com.example.zendi_application.dropFragment.product_package.productAdapter;
+import com.example.zendi_application.newac;
 import com.example.zendi_application.searchfragment.ElementOfRecycModel;
+import com.example.zendi_application.searchfragment.MyDetailProduct;
+import com.example.zendi_application.searchfragment.Transactor;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -71,6 +81,20 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
                     currentItem.setLike(true);
                     holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_24);
                 }
+            }
+        });
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Transactor.getInstance().getArrayList().add(currentItemProDuct);
+                Intent intent = new Intent(v.getContext(), MyDetailProduct.class);
+                v.getContext().startActivity(intent);
+//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+//                DetailProductFragment myFragment = new DetailProductFragment();
+//                ((DetailProductFragment)myFragment).recieveDrop(currentItemProDuct,null);
+//                //((HomeScreen)activity).appBarLayout.setVisibility(View.INVISIBLE);
+//                //((HomeScreen)activity).mNavigationView.setVisibility(View.INVISIBLE);
+//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.all_shoe_layout, myFragment).addToBackStack(null).commit();
             }
         });
     }

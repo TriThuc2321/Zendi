@@ -38,6 +38,8 @@ public class AdapterForSuggestion extends RecyclerView.Adapter<AdapterForSuggest
             holder.sexType.setText("Women");
         else
             holder.sexType.setText("Both");
+
+        
     }
 
     @Override

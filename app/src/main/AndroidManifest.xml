@@ -18,8 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Zendi_Application">
-
-
+        <activity android:name=".searchfragment.MyDetailProduct"></activity>
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
@@ -28,24 +27,26 @@
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
-        <activity
-            android:name=".addProductPackage.AddDrop">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+        <activity android:name=".addProductPackage.AddDrop">
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".ActivityAccount.LoginRegisterActivity" />
         <activity android:name=".ActivityAccount.SettingActivity" />
-        <activity android:name=".addProductPackage.uploadData" >
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+        <activity android:name=".addProductPackage.uploadData">
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
-        
         <activity android:name=".ActivityAccount.Account_Activity" />
         <activity android:name=".searchfragment.allShoe.AllShoeActivity" />
         <activity android:name=".HomeScreen" />
@@ -57,7 +58,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".dropFragment.collection_drop" />
-    
 
         <meta-data
             android:name="preloaded_fonts"

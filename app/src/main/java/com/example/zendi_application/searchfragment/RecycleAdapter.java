@@ -1,5 +1,7 @@
 package com.example.zendi_application.searchfragment;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,10 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.DataManager;
+import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
+import com.example.zendi_application.dropFragment.DetailProductFragment;
 import com.example.zendi_application.dropFragment.product_package.product2;
 import com.example.zendi_application.searchfragment.allShoe.MyEnum;
 import com.squareup.picasso.Picasso;
@@ -72,6 +78,21 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.RecycleV
         Picasso.get().load(currentItem.getResourceID().get(0)).into(holder.imageView);
         holder.Charge.setText(currentItem.getProductPrice());
         holder.NameOfElement.setText(currentItem.getProductName());
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Transactor.getInstance().getArrayList().add(currentItem);
+                Intent intent = new Intent(v.getContext(), MyDetailProduct.class);
+                v.getContext().startActivity(intent);
+//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+//                DetailProductFragment myFragment = new DetailProductFragment();
+//                myFragment.recieveDrop(currentItem,null);
+//                ((HomeScreen)activity).appBarLayout.setVisibility(View.INVISIBLE);
+//                ((HomeScreen)activity).mNavigationView.setVisibility(View.INVISIBLE);
+//                ((HomeScreen)activity).getSupportFragmentManager().beginTransaction().replace(R.id.home_screen, myFragment).addToBackStack(null).commit();
+            }
+        });
     }
 
     @Override
