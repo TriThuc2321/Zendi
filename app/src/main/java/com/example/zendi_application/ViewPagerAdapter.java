@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.zendi_application.dropFragment.DropFragment;
 import com.example.zendi_application.shopFragment.ShopFragment;
 import com.example.zendi_application.searchfragment.SearchFragment;
+import com.example.zendi_application.wishFragment.WishlistFragment;
+
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
 

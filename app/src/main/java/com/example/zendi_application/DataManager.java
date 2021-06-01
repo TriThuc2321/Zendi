@@ -22,7 +22,9 @@ import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
 import com.example.zendi_application.shopFragment.ShoeInBag;
+import com.example.zendi_application.shopFragment.ShoeInBagAdapter;
 import com.example.zendi_application.shopFragment.ShopFragment;
+import com.example.zendi_application.wishFragment.ShoeInWishAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,7 +50,8 @@ import java.util.Set;
 
 public class DataManager {
     // Instance
-
+    public static ShoeInBagAdapter shoeInBagAdapter;
+    public static ShoeInWishAdapter shoeInWishAdapter;
     public static DataManager instance;
     public static List<product2> listProduct = new ArrayList<>(); // All products
     public static List<drop2> listDrop = new ArrayList<>(); // All drops

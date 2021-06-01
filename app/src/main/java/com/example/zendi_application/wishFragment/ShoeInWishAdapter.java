@@ -91,16 +91,18 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
             s.put("shoeAmount",shoeInWishList.get(getAdapterPosition()).getShoeAmount());
             s.put("shoeStatus",shoeInWishList.get(getAdapterPosition()).getShoeStatus());
             s.put("shoeSize",shoeInWishList.get(getAdapterPosition()).getShoeSize());
-            db.collection("InWish/aaaaa/ShoeinWish").document(shoeInWishList.get(getAdapterPosition()).getProductId())
+            db.collection("InWish/aaaaa/ShoeinWish").document(docName)
                     .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                 }
             });
-            shoeInWishList.remove(getAdapterPosition());
-            notifyDataSetChanged();
-            DataManager.list.clear();
-            DataManager.getShoeInBagFromFirestone("InBag/aaa/ShoeList",DataManager.list);
+
+            DataManager.list.add(DataManager.shoeInWish.get(getAdapterPosition()));
+            DataManager.shoeInWish.remove(getAdapterPosition());
+            DataManager.shoeInWishAdapter.notifyDataSetChanged();
+            DataManager.shoeInBagAdapter.notifyDataSetChanged();
+
             db.collection("InBag/aaa/ShoeList").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
