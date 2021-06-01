@@ -1,19 +1,19 @@
 package com.example.zendi_application.searchfragment;
 
+import android.app.SearchManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.zendi_application.R;
 import com.google.android.material.tabs.TabLayout;
@@ -22,6 +22,10 @@ import com.google.android.material.tabs.TabLayout;
 public class SearchFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+    private RecyclerView rcvForSuggest;
+    private AdapterForSuggestion adapterForSuggestion;
+    private SearchView searchView;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
@@ -31,30 +35,30 @@ public class SearchFragment extends Fragment {
         ViewPageAdapterForTablayout viewPageAdapterForTablayout = new ViewPageAdapterForTablayout(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(viewPageAdapterForTablayout);
         tabLayout.setupWithViewPager(viewPager);
-//        tabLayout.addTab(tabLayout.newTab().setText("Men"));
-//        tabLayout.addTab(tabLayout.newTab().setText("Women"));
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                viewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
-//        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-//            @Override
-//            public void onPageSelected(int position) {
-//                tabLayout.selectTab(tabLayout.getTabAt(position));
-//            }
-//        });
+
+        rcvForSuggest = view.findViewById(R.id.suggest_rcv);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rcvForSuggest.setLayoutManager(linearLayoutManager);
+
+        adapterForSuggestion = new AdapterForSuggestion();
+        rcvForSuggest.setAdapter(adapterForSuggestion);
+
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        rcvForSuggest.addItemDecoration(itemDecoration);
+
+        searchView = view.findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapterForSuggestion.filter(newText);
+                return false;
+            }
+        });
         return view;
     }
 

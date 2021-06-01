@@ -9,7 +9,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
+import com.example.zendi_application.dropFragment.product_package.product2;
 
 import java.util.ArrayList;
 
@@ -31,15 +33,14 @@ public class AllShoeActivity extends AppCompatActivity {
             }
         });
         ArrayList<ShoeItemModel> shoeItemModelArrayList = new ArrayList<>();
-        shoeItemModelArrayList.add(new ShoeItemModel(R.drawable.ic_baseline_face_24,R.drawable.ic_baseline_favorite_24,"100000","Nike","Originals",false));
-        shoeItemModelArrayList.add(new ShoeItemModel(R.drawable.ic_baseline_face_24,R.drawable.ic_baseline_favorite_24,"100000","Nike","Originals",true));
-        shoeItemModelArrayList.add(new ShoeItemModel(R.drawable.ic_baseline_face_24,R.drawable.ic_baseline_favorite_24,"100000","Nike","Originals",true));
-        shoeItemModelArrayList.add(new ShoeItemModel(R.drawable.ic_baseline_face_24,R.drawable.ic_baseline_favorite_24,"100000","Nike","Originals",false));
-        shoeItemModelArrayList.add(new ShoeItemModel(R.drawable.ic_baseline_face_24,R.drawable.ic_baseline_favorite_24,"100000","Nike","Originals",false));
+        for(product2 product2 : DataManager.listProduct)
+        {
+            shoeItemModelArrayList.add(new ShoeItemModel(false));
+        }
 
         recv = findViewById(R.id.rcv_all_shoe);
         recv.setHasFixedSize(true);
-        recAdt = new RecycleAdapterForShoeItem(shoeItemModelArrayList);
+        recAdt = new RecycleAdapterForShoeItem(shoeItemModelArrayList, DataManager.listProduct);
         layoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
         recv.setLayoutManager(layoutManager);
         recv.setAdapter(recAdt);

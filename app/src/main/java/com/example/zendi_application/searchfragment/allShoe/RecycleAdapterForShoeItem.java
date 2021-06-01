@@ -10,18 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.R;
+import com.example.zendi_application.dropFragment.product_package.product2;
 import com.example.zendi_application.searchfragment.ElementOfRecycModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapterForShoeItem.RecycleViewHolderForShoeItem> {
-    private ArrayList<ShoeItemModel> elementOfRecycModelArrayList;
+    private ArrayList<ShoeItemModel> elementOfRecycModelArrayList = new ArrayList<>();
+    private List<product2> listProduct = new ArrayList<>();
     public static class RecycleViewHolderForShoeItem extends RecyclerView.ViewHolder{
         public ImageView imageView;
         public ImageView heartView;
         public TextView NameOfElement;
         public TextView Charge;
-        public TextView Originals;
         public RecycleViewHolderForShoeItem(View view)
         {
             super(view);
@@ -29,12 +32,12 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
             heartView = view.findViewById(R.id.heart_imageView);
             NameOfElement = view.findViewById(R.id.tenSanPham_textview2);
             Charge = view.findViewById(R.id.soTien_textview2);
-            Originals = view.findViewById(R.id.originals_textview2);
         }
     }
-    public RecycleAdapterForShoeItem(ArrayList<ShoeItemModel> elementOfRecycModelArrayList)
+    public RecycleAdapterForShoeItem(ArrayList<ShoeItemModel> elementOfRecycModelArrayList, List<product2> listProduct)
     {
         this.elementOfRecycModelArrayList = elementOfRecycModelArrayList;
+        this.listProduct = listProduct;
     }
     @Override
     public RecycleViewHolderForShoeItem onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -46,14 +49,14 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
     @Override
     public void onBindViewHolder(@NonNull RecycleViewHolderForShoeItem holder, int position) {
         ShoeItemModel currentItem = elementOfRecycModelArrayList.get(position);
+        product2 currentItemProDuct = listProduct.get(position);
         if (currentItem.isLike())
             holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_24);
         else
             holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-        holder.imageView.setImageResource(currentItem.getImageRes());
-        holder.Charge.setText(currentItem.getmCharge());
-        holder.Originals.setText(currentItem.getmOriginals());
-        holder.NameOfElement.setText(currentItem.getmName());
+        Picasso.get().load(currentItemProDuct.getResourceID().get(0)).into(holder.imageView);
+        holder.Charge.setText(currentItemProDuct.getProductPrice());
+        holder.NameOfElement.setText(currentItemProDuct.getProductName());
 
         holder.heartView.setOnClickListener(new View.OnClickListener() {
             @Override

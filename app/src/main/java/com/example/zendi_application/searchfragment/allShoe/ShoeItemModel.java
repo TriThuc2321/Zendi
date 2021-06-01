@@ -7,13 +7,8 @@ public class ShoeItemModel {
     private String mOriginals;
     private String mName;
     private boolean isLike;
-    public ShoeItemModel(int imageRes, int heartImageRes, String mCharge, String mName, String mOriginals,boolean isLike)
+    public ShoeItemModel(boolean isLike)
     {
-        this.ImageRes = imageRes;
-        this.mCharge = mCharge;
-        this.mName = mName;
-        this.mOriginals = mOriginals;
-        this.HeartImageRes = heartImageRes;
         this.isLike = isLike;
     }
 

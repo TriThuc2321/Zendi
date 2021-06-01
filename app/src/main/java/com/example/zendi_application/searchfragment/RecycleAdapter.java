@@ -9,29 +9,55 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
+import com.example.zendi_application.dropFragment.product_package.product2;
+import com.example.zendi_application.searchfragment.allShoe.MyEnum;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.RecycleViewHolder> {
-    private ArrayList<ElementOfRecycModel> elementOfRecycModelArrayList;
+    private List<product2> product2List = new ArrayList<>();
     public static class RecycleViewHolder extends RecyclerView.ViewHolder{
         public ImageView imageView;
         public TextView NameOfElement;
         public TextView Charge;
-        public TextView Originals;
         public RecycleViewHolder(View view)
         {
             super(view);
-            imageView = view.findViewById(R.id.imageView);
+            imageView = view.findViewById(R.id.imageView3);
             NameOfElement = view.findViewById(R.id.tenSanPham_textview);
             Charge = view.findViewById(R.id.soTien_textview);
-            Originals = view.findViewById(R.id.originals_textview);
         }
     }
-    public RecycleAdapter(ArrayList<ElementOfRecycModel> elementOfRecycModelArrayList)
+    public RecycleAdapter(MyEnum.Brand brand, MyEnum.Sex sex)
     {
-        this.elementOfRecycModelArrayList = elementOfRecycModelArrayList;
+        String brandstring;
+        String sexstring;
+        switch (brand)
+        {
+            case NIKE:brandstring = "NIKE";break;
+            case PUMA:brandstring = "PUMA";break;
+            case CONVERSE:brandstring = "CONVERSE";break;
+            case NEW_BALANCE:brandstring = "NEW BALANCE";break;
+            case VANS:brandstring = "VANS";break;
+            case ADDIDAS:brandstring = "ADDIDAS";break;
+            default: REEBOOK:brandstring = "REEBOOK";
+        }
+
+        switch (sex)
+        {
+            case MEN:sexstring = "1";break;
+            default: sexstring = "2";
+        }
+        for(product2 product : DataManager.listProduct)
+        {
+            if (brandstring.equals(product.getProductBrand().toUpperCase()) && (sexstring.equals(product.getProductType()) || product.getProductType().equals("3")) && product2List.size() < 8)
+                product2List.add(product);
+        }
     }
     @Override
     public RecycleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,15 +68,15 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.RecycleV
 
     @Override
     public void onBindViewHolder(@NonNull RecycleViewHolder holder, int position) {
-        ElementOfRecycModel currentItem = elementOfRecycModelArrayList.get(position);
-        holder.imageView.setImageResource(currentItem.getImageRes());
-        holder.Charge.setText(currentItem.getmCharge());
-        holder.Originals.setText(currentItem.getmOriginals());
-        holder.NameOfElement.setText(currentItem.getmName());
+        product2 currentItem = product2List.get(position);
+        Picasso.get().load(currentItem.getResourceID().get(0)).into(holder.imageView);
+        holder.Charge.setText(currentItem.getProductPrice());
+        holder.NameOfElement.setText(currentItem.getProductName());
     }
 
     @Override
     public int getItemCount() {
-        return elementOfRecycModelArrayList.size();
+        return product2List.size();
     }
+
 }
