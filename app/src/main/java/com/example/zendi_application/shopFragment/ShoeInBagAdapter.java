@@ -119,8 +119,8 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
            shoeInBagList.remove(getAdapterPosition());
            notifyDataSetChanged();
            DataManager.shoeInWish.clear();
-           DataManager.getShoeInBagFromFirestone("InWish",DataManager.shoeInWish);
-           db.collection("InWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
+           DataManager.getShoeInBagFromFirestone("InWish/aaaaa/ShoeinWish",DataManager.shoeInWish);
+           db.collection("InWish/aaaaa/ShoeinWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
                @Override
                public void onSuccess(Void aVoid) {
                }

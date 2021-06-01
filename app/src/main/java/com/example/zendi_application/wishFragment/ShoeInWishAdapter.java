@@ -91,7 +91,7 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
             s.put("shoeAmount",shoeInWishList.get(getAdapterPosition()).getShoeAmount());
             s.put("shoeStatus",shoeInWishList.get(getAdapterPosition()).getShoeStatus());
             s.put("shoeSize",shoeInWishList.get(getAdapterPosition()).getShoeSize());
-            db.collection("InWish").document(shoeInWishList.get(getAdapterPosition()).getProductId())
+            db.collection("InWish/aaaaa/ShoeinWish").document(shoeInWishList.get(getAdapterPosition()).getProductId())
                     .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
