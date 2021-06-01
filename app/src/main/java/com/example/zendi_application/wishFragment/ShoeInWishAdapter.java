@@ -81,7 +81,7 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
 
         @Override
         public void onClick(View v) {
-            String docName = shoeInWishList.get(getAdapterPosition()).getProductId();
+            String docName = shoeInWishList.get(getAdapterPosition()).getProductId() + "_" + shoeInWishList.get(getAdapterPosition()).getShoeSize() ;
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             Map<String, Object> s = new HashMap<>();
             s.put("ResourceID",shoeInWishList.get(getAdapterPosition()).getResourceID());
@@ -100,8 +100,8 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
             shoeInWishList.remove(getAdapterPosition());
             notifyDataSetChanged();
             DataManager.list.clear();
-            DataManager.getShoeInBagFromFirestone("InBag",DataManager.list);
-            db.collection("InBag").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
+            DataManager.getShoeInBagFromFirestone("InBag/aaa/ShoeList",DataManager.list);
+            db.collection("InBag/aaa/ShoeList").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                 }

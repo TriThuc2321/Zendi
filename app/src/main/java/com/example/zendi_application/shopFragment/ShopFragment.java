@@ -131,8 +131,9 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
     }
     //Delete from FireStore
     public  void deleteItem(final ShoeInBag shoe){
+        String docName = shoe.getProductId() + "_" + shoe.getShoeSize();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("InBag").document(shoe.getProductId())
+        db.collection("InBag/aaa/ShoeList").document(docName)
                 .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -140,8 +141,9 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
         });
     }
     public void upAmount(ShoeInBag shoe, String amount){
-        final DocumentReference docRef = FirebaseFirestore.getInstance().collection("InBag")
-                .document(shoe.getProductId());
+        String docName = shoe.getProductId() + "_" + shoe.getShoeSize();
+        final DocumentReference docRef = FirebaseFirestore.getInstance().collection("InBag/aaa/ShoeList")
+                .document(docName);
         Map<String, Object> map = new HashMap<>();
         map.put("shoeAmount",amount);
         docRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
