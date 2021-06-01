@@ -76,6 +76,7 @@ public class Account_Activity extends AppCompatActivity  {
 
         mAuth = FirebaseAuth.getInstance();
         dataBase = FirebaseDatabase.getInstance().getReference();
+
 //--------------------------------------google------------------------//
 //        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 //                .requestIdToken(getString(R.string.default_web_client_id))
@@ -83,9 +84,11 @@ public class Account_Activity extends AppCompatActivity  {
 //                .build();
 //
 //        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        loginGoogle();
+        loginFacebook();
 
-
-
+    }
+    private  void loginGoogle(){
         findViewById(R.id.googleTxt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,15 +103,47 @@ public class Account_Activity extends AppCompatActivity  {
             }
         });
 
+        /*GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();*/
 
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("761078127076-no8v16g7j2afutvg6cdmmleffhmslqgd.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
 
-//-----------------------------------------------facebook--------------------------//
-        // Initialize Facebook Login button
+        mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
+    }
+    private void signIn(){
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void firebaseAuthWithGoogle(String idToken) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Toast.makeText(getApplicationContext(),"login sucess", Toast.LENGTH_LONG).show();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+
+                        }
+                    }
+                });
+    }
+
+    private void loginFacebook(){
         mCallbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = findViewById(R.id.button_sign_in);
         loginButton.setReadPermissions("email", "public_profile");
-
-
 
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -141,13 +176,6 @@ public class Account_Activity extends AppCompatActivity  {
                 loginButton.callOnClick();
             }
         });
-
-    }
-
-    private void signIn(){
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-
     }
 
     @Override
@@ -155,7 +183,16 @@ public class Account_Activity extends AppCompatActivity  {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RC_SIGN_IN){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+                firebaseAuthWithGoogle(account.getIdToken());
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                Toast.makeText(getApplicationContext(),"Google sign in failed",Toast.LENGTH_LONG).show();
+                Log.w(TAG, "Google sign in failed", e);
+            }
         }
         else{
             mCallbackManager.onActivityResult(requestCode, resultCode, data);
@@ -163,46 +200,14 @@ public class Account_Activity extends AppCompatActivity  {
         }
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask){
-        try{
 
-            GoogleSignInAccount acc = completedTask.getResult(ApiException.class);
-            Toast.makeText(Account_Activity.this,"Signed In Successfully",Toast.LENGTH_SHORT).show();
-            FirebaseGoogleAuth(acc);
-        }
-        catch (ApiException e){
-            Toast.makeText(Account_Activity.this,"Sign In Failed",Toast.LENGTH_SHORT).show();
-            FirebaseGoogleAuth(null);
-        }
-    }
 
-    private void FirebaseGoogleAuth(GoogleSignInAccount acct) {
-        //check if the account is null
-        if (acct != null) {
-            AuthCredential authCredential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-            mAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(Account_Activity.this, "Successful", Toast.LENGTH_SHORT).show();
-                        openProfile();
-                    } else {
-                        Toast.makeText(Account_Activity.this, "Failed", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-            });
-        }
-        else{
-            Toast.makeText(Account_Activity.this, "acc failed", Toast.LENGTH_SHORT).show();
-        }
-    }
     private void openProfile(){
         startActivity(new Intent(Account_Activity.this, SettingActivity.class));
         finish();
     }
-    public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total){
-        User mUser =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total);
+    public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int isShopOwner){
+        User mUser =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total, isShopOwner);
         dataBase.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(mUser);
     }
 
@@ -220,7 +225,7 @@ public class Account_Activity extends AppCompatActivity  {
                             Log.d(TAG, "signInWithCredential:success");
 
                             if(!userExist()){
-                                setData("","DD/ MM/ YY", mAuth.getCurrentUser().getEmail(),2, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","");
+                                setData("","DD/ MM/ YY", mAuth.getCurrentUser().getEmail(),2, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","", 0);
                             }
                                openProfile();
                         } else {
@@ -228,7 +233,6 @@ public class Account_Activity extends AppCompatActivity  {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(Account_Activity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 });
@@ -249,3 +253,5 @@ public class Account_Activity extends AppCompatActivity  {
         if(currentUser!=null) openProfile();
     }
 }
+
+

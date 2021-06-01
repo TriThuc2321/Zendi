@@ -20,14 +20,22 @@ import android.view.WindowManager;
 
 import com.example.zendi_application.ActivityAccount.Account_Activity;
 import com.example.zendi_application.ActivityAccount.LoginRegisterActivity;
+import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.dropFragment.DetailDropFragment;
 import com.example.zendi_application.dropFragment.drop.drop;
 import com.example.zendi_application.dropFragment.product_package.product2;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
 
 public class HomeScreen extends AppCompatActivity {
     private static final int REQUEST_EXIT = 1;
@@ -37,9 +45,11 @@ public class HomeScreen extends AppCompatActivity {
     public ViewPager mViewPager;
     public DataManager dataManager;
 
+
     @Override
     protected void onResume() {
         super.onResume();
+
         this.appBarLayout.setVisibility(View.VISIBLE);
         this.mNavigationView.setVisibility(View.VISIBLE);
         Log.d("MainActivity Lifecycle", "===== onResume =====");
@@ -55,8 +65,6 @@ public class HomeScreen extends AppCompatActivity {
         Log.d("MainActivity Lifecycle", "===== onRestart =====");
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +79,13 @@ public class HomeScreen extends AppCompatActivity {
         mNavigationView = findViewById(R.id.bottom_nav);
         mViewPager = findViewById(R.id.view_paper);
         mNavigationView.setBackgroundColor(Color.WHITE);
-
         setUpViewPager();
+        //set chủ shop
+        dataBase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        setShopOwner();
+        //set chủ shop
 
         mAppBarTop.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -155,5 +168,37 @@ public class HomeScreen extends AppCompatActivity {
                 this.finish();
             }
         }
+    }
+
+
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private DatabaseReference dataBase;
+
+    void setShopOwner(){
+
+        if(currentUser==null){
+            mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(false);
+        }
+        else {
+            dataBase.child("Users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User user = snapshot.getValue(User.class);
+                    if(user.getShopOwner()==1){
+                        mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(true);
+                    }
+                    else{
+                        mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(true);
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+
     }
 }

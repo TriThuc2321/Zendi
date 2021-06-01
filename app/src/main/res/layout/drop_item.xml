@@ -77,7 +77,7 @@
             android:text="SHOP NOW"
             android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:textStyle="italic"
-            android:paddingEnd="200dp"
+            android:paddingEnd="160dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.19"
             app:layout_constraintLeft_toLeftOf="parent"

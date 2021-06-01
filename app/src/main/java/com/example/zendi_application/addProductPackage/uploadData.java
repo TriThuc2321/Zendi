@@ -85,8 +85,10 @@ public class uploadData extends AppCompatActivity {
                 dataManager.getInstance();
 //                dataManager.instance.getImgUrlFromFirestone(v.getContext(),"testfolder",c);
                 List<Integer> b = new ArrayList<>();
-                b.add(1);
-                b.add(5);
+                for ( int i = 0; i <= 14; i++)
+                {
+                    b.add(10);
+                }
                 product2 mproduct = new product2(idEdit.getText().toString(),captionEdit.getText().toString(),
                         priceEdit.getText().toString(),brandEdit.getText().toString(),typeEdit.getText().toString(),new ArrayList<String>(),b,1);
                 DataManager.push_Object_To_FireStone(uploadData.this,"Product",idEdit.getText().toString(),mproduct,listURL);
