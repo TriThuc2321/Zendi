@@ -62,7 +62,7 @@ public class DataManager {
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-    private FirebaseFirestore firestonedb = FirebaseFirestore.getInstance();
+    private static FirebaseFirestore firestonedb = FirebaseFirestore.getInstance();
     private String temp;
 
 
@@ -479,8 +479,8 @@ public class DataManager {
 
     //Huynh//
     public static void getShoeInBagFromFirestone(String collection, List<ShoeInBag> productList) {
-        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
-        firestoneGetProduct.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+       // FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
+        firestonedb.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 productList.clear();
@@ -501,8 +501,8 @@ public class DataManager {
     }
     //Load shoe from InWish
     public static void getShoeInWishFromFirestone(String collection, List<ShoeInBag> productList) {
-        FirebaseFirestore firestone = FirebaseFirestore.getInstance();
-        firestone.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        //FirebaseFirestore firestone = FirebaseFirestore.getInstance();
+        firestonedb.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 productList.clear();
