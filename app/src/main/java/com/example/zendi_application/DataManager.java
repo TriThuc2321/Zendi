@@ -501,8 +501,8 @@ public class DataManager {
     }
     //Load shoe from InWish
     public static void getShoeInWishFromFirestone(String collection, List<ShoeInBag> productList) {
-        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
-        firestoneGetProduct.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        FirebaseFirestore firestone = FirebaseFirestore.getInstance();
+        firestone.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 productList.clear();
