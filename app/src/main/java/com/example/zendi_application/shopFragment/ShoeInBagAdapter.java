@@ -68,7 +68,6 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
 
         Glide.with(holder.shoeimg).load(shoeInBagList.get(position).getResourceID().get(0)).into(holder.shoeimg);
         holder.name.setText(shoeInBagList.get(position).getProductName());
-        holder.status.setText(shoeInBagList.get(position).getShoeStatus());
         holder.size.setText(shoeInBagList.get(position).getShoeSize());
         holder.price.setText(new StringBuilder("$").append(shoeInBagList.get(position).getProductPrice()));
         holder.amount.setText(shoeInBagList.get(position).getShoeAmount());
@@ -84,13 +83,12 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
     public class ShoeInBagViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView shoeimg;
         Button wishbtn;
-        TextView name, status, size, amount, price;
+        TextView name, size, amount, price;
 
         public ShoeInBagViewHolder(@NonNull View itemView) {
             super(itemView);
             shoeimg = itemView.findViewById(R.id.shoe_img);
             name = itemView.findViewById(R.id.shoe_name);
-            status = itemView.findViewById(R.id.shoe_status);
             size = itemView.findViewById(R.id.shoe_size);
             price = itemView.findViewById(R.id.shoe_price);
             amount = itemView.findViewById(R.id.shoe_amount);
@@ -108,7 +106,7 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
            s.put("productName",shoeInBagList.get(getAdapterPosition()).getProductName());
            s.put("productPrice",shoeInBagList.get(getAdapterPosition()).getProductPrice());
            s.put("shoeAmount",shoeInBagList.get(getAdapterPosition()).getShoeAmount());
-           s.put("shoeStatus",shoeInBagList.get(getAdapterPosition()).getShoeStatus());
+          // s.put("shoeStatus",shoeInBagList.get(getAdapterPosition()).getShoeStatus());
            s.put("shoeSize",shoeInBagList.get(getAdapterPosition()).getShoeSize());
             db.collection("InBag/aaa/ShoeList").document(docName)
                     .delete().addOnSuccessListener(new OnSuccessListener<Void>() {

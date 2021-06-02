@@ -52,7 +52,7 @@ public class WishlistFragment extends Fragment implements RecyclerViewClickInter
         return view;
     }
 
-    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.DOWN|ItemTouchHelper.LEFT) {
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.DOWN) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
@@ -64,12 +64,11 @@ public class WishlistFragment extends Fragment implements RecyclerViewClickInter
             switch (direction){
                 case ItemTouchHelper.DOWN:
                     deleteItem(DataManager.shoeInWish.get(position));
-
                     Toast.makeText(getContext(), "Unliked it", LENGTH_LONG).show();
-                case ItemTouchHelper.LEFT:
                     break;
+                case ItemTouchHelper.LEFT:
+                    return;
             }
-
         }
 
         @Override

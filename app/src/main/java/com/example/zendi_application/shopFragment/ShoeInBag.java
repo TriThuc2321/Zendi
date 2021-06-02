@@ -8,7 +8,7 @@ import com.example.zendi_application.dropFragment.product_package.product2;
 import java.util.List;
 
 public class ShoeInBag extends product2 {
-     private String shoeStatus, shoeSize, shoeAmount;
+     private String  shoeSize, shoeAmount;
 
 //    public ShoeInBag(String productId_, String productName_, String productPrice_, List<String> ImgProduct,String shoeStatus_, String size_, String amount_) {
 //        this.productId = productId_;
@@ -21,22 +21,13 @@ public class ShoeInBag extends product2 {
 //    }
 
 
-    public ShoeInBag(String productId, String productName, String productPrice, String productBrand, String productType, List<String> resourceID, List<Integer> remainingAmount, Integer type, String shoeStatus, String shoeSize, String shoeAmount) {
+    public ShoeInBag(String productId, String productName, String productPrice, String productBrand, String productType, List<String> resourceID, List<Integer> remainingAmount, Integer type, String shoeSize, String shoeAmount) {
         super(productId, productName, productPrice, productBrand, productType, resourceID, remainingAmount, type);
-        this.shoeStatus = shoeStatus;
         this.shoeSize = shoeSize;
         this.shoeAmount = shoeAmount;
     }
 
     public ShoeInBag(){};
-
-    public String getShoeStatus() {
-        return shoeStatus;
-    }
-
-    public void setShoeStatus(String shoeStatus) {
-        this.shoeStatus = shoeStatus;
-    }
 
     public String getShoeSize() {
         return shoeSize;
