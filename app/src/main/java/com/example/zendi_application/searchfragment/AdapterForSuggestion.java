@@ -1,6 +1,7 @@
 package com.example.zendi_application.searchfragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.DataManager;
@@ -39,7 +41,14 @@ public class AdapterForSuggestion extends RecyclerView.Adapter<AdapterForSuggest
         else
             holder.sexType.setText("Both");
 
-        
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Transactor.getInstance().getArrayList().add(currentItem);
+                Intent intent = new Intent(v.getContext(), MyDetailProduct.class);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -50,10 +59,12 @@ public class AdapterForSuggestion extends RecyclerView.Adapter<AdapterForSuggest
     public class AdapterForSuggestionViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
         private TextView sexType;
+        private ConstraintLayout constraintLayout;
         public AdapterForSuggestionViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.item_name_textView);
             sexType = itemView.findViewById(R.id.sex_type_textView);
+            constraintLayout = itemView.findViewById(R.id.cons_represent_suggest);
         }
     }
 

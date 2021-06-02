@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.R;
 import com.example.zendi_application.searchfragment.RecycleAdapter;
+import com.example.zendi_application.searchfragment.Transactor;
 import com.example.zendi_application.searchfragment.allShoe.AllShoeActivity;
 import com.example.zendi_application.searchfragment.allShoe.MyEnum;
 import com.example.zendi_application.searchfragment.men_fragment.MenFragment;
@@ -114,6 +115,7 @@ public class WomenFragment extends Fragment {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Transactor.sex = MyEnum.Sex.WOMEN;
                 Intent intent = new Intent(view.getContext(), AllShoeActivity.class);
                 startActivity(intent);
             }

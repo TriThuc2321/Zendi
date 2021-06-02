@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.zendi_application.DataManager;
 import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.DetailProductFragment;
@@ -22,6 +24,7 @@ import com.example.zendi_application.newac;
 import com.example.zendi_application.searchfragment.ElementOfRecycModel;
 import com.example.zendi_application.searchfragment.MyDetailProduct;
 import com.example.zendi_application.searchfragment.Transactor;
+import com.example.zendi_application.shopFragment.ShoeInBag;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -35,6 +38,7 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
         public ImageView heartView;
         public TextView NameOfElement;
         public TextView Charge;
+        public ConstraintLayout constraintLayout;
         public RecycleViewHolderForShoeItem(View view)
         {
             super(view);
@@ -44,10 +48,30 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
             Charge = view.findViewById(R.id.soTien_textview2);
         }
     }
-    public RecycleAdapterForShoeItem(ArrayList<ShoeItemModel> elementOfRecycModelArrayList, List<product2> listProduct)
+    public RecycleAdapterForShoeItem(MyEnum.Sex sex)
     {
-        this.elementOfRecycModelArrayList = elementOfRecycModelArrayList;
-        this.listProduct = listProduct;
+        String sexstring;
+        switch (sex)
+        {
+            case MEN: sexstring = "1";break;
+            default: sexstring = "2";
+        }
+        for(product2 product : DataManager.listProduct)
+        {
+            if (product.getProductType().equals(sexstring) || product.getProductType().equals("3"))
+            {
+                listProduct.add(product);
+                int index = Transactor.ExistInShoeWish(product);
+                if (index != -1)
+                {
+                    elementOfRecycModelArrayList.add(new ShoeItemModel(true,index));
+                }
+                else
+                {
+                    elementOfRecycModelArrayList.add(new ShoeItemModel(false,index));
+                }
+            }
+        }
     }
     @Override
     public RecycleViewHolderForShoeItem onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -67,18 +91,25 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
         Picasso.get().load(currentItemProDuct.getResourceID().get(0)).into(holder.imageView);
         holder.Charge.setText(currentItemProDuct.getProductPrice());
         holder.NameOfElement.setText(currentItemProDuct.getProductName());
-
         holder.heartView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (currentItem.isLike())
                 {
                     currentItem.setLike(false);
+
+                    DataManager.shoeInWish.remove(currentItem.getIndexInShoeWish());
+                    currentItem.setIndexInShoeWish(-1);
+
                     holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_border_24);
                 }
                 else
                 {
                     currentItem.setLike(true);
+
+                    DataManager.shoeInWish.add(new ShoeInBag(currentItemProDuct.getProductId(),currentItemProDuct.getProductName(),currentItemProDuct.getProductPrice(),currentItemProDuct.getProductBrand(),currentItemProDuct.getProductType(),currentItemProDuct.getResourceID(),currentItemProDuct.getRemainingAmount(),currentItemProDuct.getType(),"0","0","0") );
+                    currentItem.setIndexInShoeWish(DataManager.shoeInWish.size()-1);
+
                     holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_24);
                 }
             }
@@ -89,12 +120,6 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
                 Transactor.getInstance().getArrayList().add(currentItemProDuct);
                 Intent intent = new Intent(v.getContext(), MyDetailProduct.class);
                 v.getContext().startActivity(intent);
-//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-//                DetailProductFragment myFragment = new DetailProductFragment();
-//                ((DetailProductFragment)myFragment).recieveDrop(currentItemProDuct,null);
-//                //((HomeScreen)activity).appBarLayout.setVisibility(View.INVISIBLE);
-//                //((HomeScreen)activity).mNavigationView.setVisibility(View.INVISIBLE);
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.all_shoe_layout, myFragment).addToBackStack(null).commit();
             }
         });
     }

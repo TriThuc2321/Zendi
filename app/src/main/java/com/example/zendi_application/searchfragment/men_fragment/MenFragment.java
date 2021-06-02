@@ -18,6 +18,7 @@ import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.product_package.product2;
 import com.example.zendi_application.searchfragment.ElementOfRecycModel;
 import com.example.zendi_application.searchfragment.RecycleAdapter;
+import com.example.zendi_application.searchfragment.Transactor;
 import com.example.zendi_application.searchfragment.allShoe.AllShoeActivity;
 import com.example.zendi_application.searchfragment.allShoe.MyEnum;
 
@@ -120,6 +121,7 @@ public class MenFragment extends Fragment {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Transactor.sex = MyEnum.Sex.MEN;
                 Intent intent = new Intent(view.getContext(), AllShoeActivity.class);
                 startActivity(intent);
             }

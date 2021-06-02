@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,12 +33,14 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.RecycleV
         public ImageView imageView;
         public TextView NameOfElement;
         public TextView Charge;
+        public ConstraintLayout constraintLayout;
         public RecycleViewHolder(View view)
         {
             super(view);
             imageView = view.findViewById(R.id.imageView3);
             NameOfElement = view.findViewById(R.id.tenSanPham_textview);
             Charge = view.findViewById(R.id.soTien_textview);
+            constraintLayout = view.findViewById(R.id.cons_represent);
         }
     }
     public RecycleAdapter(MyEnum.Brand brand, MyEnum.Sex sex)
@@ -50,7 +54,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.RecycleV
             case CONVERSE:brandstring = "CONVERSE";break;
             case NEW_BALANCE:brandstring = "NEW BALANCE";break;
             case VANS:brandstring = "VANS";break;
-            case ADDIDAS:brandstring = "ADDIDAS";break;
+            case ADDIDAS:brandstring = "ADIDAS";break;
             default: REEBOOK:brandstring = "REEBOOK";
         }
 
@@ -79,18 +83,12 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.RecycleV
         holder.Charge.setText(currentItem.getProductPrice());
         holder.NameOfElement.setText(currentItem.getProductName());
 
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Transactor.getInstance().getArrayList().add(currentItem);
                 Intent intent = new Intent(v.getContext(), MyDetailProduct.class);
                 v.getContext().startActivity(intent);
-//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-//                DetailProductFragment myFragment = new DetailProductFragment();
-//                myFragment.recieveDrop(currentItem,null);
-//                ((HomeScreen)activity).appBarLayout.setVisibility(View.INVISIBLE);
-//                ((HomeScreen)activity).mNavigationView.setVisibility(View.INVISIBLE);
-//                ((HomeScreen)activity).getSupportFragmentManager().beginTransaction().replace(R.id.home_screen, myFragment).addToBackStack(null).commit();
             }
         });
     }

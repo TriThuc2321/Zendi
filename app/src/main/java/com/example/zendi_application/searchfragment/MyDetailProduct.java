@@ -133,9 +133,8 @@ public class MyDetailProduct extends AppCompatActivity {
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().popBackStack();
-
-
+                Transactor.getInstance().getArrayList().remove(0);
+                finish();
             }
         });
         getbtn.setOnClickListener(new View.OnClickListener() {
