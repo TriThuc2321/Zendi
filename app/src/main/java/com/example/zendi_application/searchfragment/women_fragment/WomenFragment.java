@@ -50,7 +50,14 @@ public class WomenFragment extends Fragment {
     private RecyclerView.Adapter adtPuma;
     private RecyclerView.LayoutManager layoutPuma;
 
-    private Button bt;
+    private Button bt_all_shoe;
+    private Button bt_adidas_shoe;
+    private Button bt_nike_shoe;
+    private Button bt_ree_shoe;
+    private Button bt_vans_shoe;
+    private Button bt_puma_shoe;
+    private Button bt_converse_shoe;
+    private Button bt_balance_shoe;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -111,11 +118,89 @@ public class WomenFragment extends Fragment {
         rcvRee.setLayoutManager(layoutRee);
         rcvRee.setAdapter(adtRee);
 
-        bt = view.findViewById(R.id.shoes_button_women);
-        bt.setOnClickListener(new View.OnClickListener() {
+        bt_all_shoe = view.findViewById(R.id.shoes_button_women);
+        bt_all_shoe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Transactor.brand = MyEnum.Brand.ALL;
+                Transactor.sex = MyEnum.Sex.WOMEN;
+                Intent intent = new Intent(view.getContext(), AllShoeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        bt_adidas_shoe = view.findViewById(R.id.see_all_addidas_button);
+        bt_adidas_shoe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Transactor.sex = MyEnum.Sex.WOMEN;
+                Transactor.brand = MyEnum.Brand.ADDIDAS;
+                Intent intent = new Intent(view.getContext(), AllShoeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        bt_nike_shoe = view.findViewById(R.id.see_all_nike_button);
+        bt_nike_shoe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Transactor.sex = MyEnum.Sex.WOMEN;
+                Transactor.brand = MyEnum.Brand.NIKE;
+                Intent intent = new Intent(view.getContext(), AllShoeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        bt_puma_shoe = view.findViewById(R.id.see_all_puma_button);
+        bt_puma_shoe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Transactor.sex = MyEnum.Sex.WOMEN;
+                Transactor.brand = MyEnum.Brand.PUMA;
+                Intent intent = new Intent(view.getContext(), AllShoeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        bt_ree_shoe = view.findViewById(R.id.see_all_reebook_button);
+        bt_ree_shoe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Transactor.sex = MyEnum.Sex.WOMEN;
+                Transactor.brand = MyEnum.Brand.REEBOOK;
+                Intent intent = new Intent(view.getContext(), AllShoeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        bt_converse_shoe = view.findViewById(R.id.see_all_converse_button);
+        bt_converse_shoe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Transactor.sex = MyEnum.Sex.WOMEN;
+                Transactor.brand = MyEnum.Brand.CONVERSE;
+                Intent intent = new Intent(view.getContext(), AllShoeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        bt_vans_shoe = view.findViewById(R.id.see_all_vans_button);
+        bt_vans_shoe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Transactor.sex = MyEnum.Sex.WOMEN;
+                Transactor.brand = MyEnum.Brand.VANS;
+                Intent intent = new Intent(view.getContext(), AllShoeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        bt_balance_shoe = view.findViewById(R.id.see_all_newbalance_button);
+        bt_balance_shoe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Transactor.sex = MyEnum.Sex.WOMEN;
+                Transactor.brand = MyEnum.Brand.NEW_BALANCE;
                 Intent intent = new Intent(view.getContext(), AllShoeActivity.class);
                 startActivity(intent);
             }

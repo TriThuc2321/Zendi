@@ -97,7 +97,7 @@ public class MyDetailProduct extends AppCompatActivity {
                     selectedSize = sizeSpinner.getSelectedItem().toString();
                     shoeInBag = new ShoeInBag(mproduct.getProductId(), mproduct.getProductName(), mproduct.getProductPrice()
                             , mproduct.getProductBrand(), mproduct.getProductType(), mproduct.getResourceID(), mproduct.getRemainingAmount()
-                            , mproduct.getType(), null, selectedSize, "1");
+                            , mproduct.getType(), selectedSize, "1");
                     Toast.makeText(getApplicationContext(),"DRAGGED INTO BAG SUCCESSFULLY !!",Toast.LENGTH_SHORT);
                 }
                 else

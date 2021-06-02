@@ -1,7 +1,5 @@
 package com.example.zendi_application.searchfragment.allShoe;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,25 +8,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.DataManager;
-import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
-import com.example.zendi_application.dropFragment.DetailProductFragment;
 import com.example.zendi_application.dropFragment.product_package.product2;
-import com.example.zendi_application.dropFragment.product_package.productAdapter;
-import com.example.zendi_application.newac;
-import com.example.zendi_application.searchfragment.ElementOfRecycModel;
 import com.example.zendi_application.searchfragment.MyDetailProduct;
 import com.example.zendi_application.searchfragment.Transactor;
 import com.example.zendi_application.shopFragment.ShoeInBag;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapterForShoeItem.RecycleViewHolderForShoeItem> {
     private ArrayList<ShoeItemModel> elementOfRecycModelArrayList = new ArrayList<>();
@@ -48,8 +44,21 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
             Charge = view.findViewById(R.id.soTien_textview2);
         }
     }
-    public RecycleAdapterForShoeItem(MyEnum.Sex sex)
+    public RecycleAdapterForShoeItem(MyEnum.Brand brand,MyEnum.Sex sex)
     {
+        String brandstring;
+        switch (brand)
+        {
+            case NIKE:brandstring = "NIKE";break;
+            case PUMA:brandstring = "PUMA";break;
+            case CONVERSE:brandstring = "CONVERSE";break;
+            case NEW_BALANCE:brandstring = "NEW BALANCE";break;
+            case VANS:brandstring = "VANS";break;
+            case ADDIDAS:brandstring = "ADIDAS";break;
+            case REEBOOK:brandstring = "REEBOOK";break;
+            default: brandstring = "ALL";
+        }
+
         String sexstring;
         switch (sex)
         {
@@ -58,7 +67,7 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
         }
         for(product2 product : DataManager.listProduct)
         {
-            if (product.getProductType().equals(sexstring) || product.getProductType().equals("3"))
+            if ((product.getProductType().equals(sexstring) || product.getProductType().equals("3")) && (brandstring.equals("ALL")||brandstring.equals(product.getProductBrand())))
             {
                 listProduct.add(product);
                 int index = Transactor.ExistInShoeWish(product);
@@ -98,16 +107,56 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
                 {
                     currentItem.setLike(false);
 
+                    String docName = listProduct.get(position).getProductId();
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("InWish/aaaaa/ShoeinWish").document(docName)
+                            .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        }
+                    });
+
                     DataManager.shoeInWish.remove(currentItem.getIndexInShoeWish());
+                    DataManager.shoeInWishAdapter.notifyDataSetChanged();
                     currentItem.setIndexInShoeWish(-1);
 
                     holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_border_24);
                 }
                 else
                 {
-                    currentItem.setLike(true);
+                    String docName = listProduct.get(position).getProductId();
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    Map<String, Object> s = new HashMap<>();
+                    s.put("ResourceID",listProduct.get(position).getResourceID());
+                    s.put("productId",listProduct.get(position).getProductId());
+                    s.put("productName",listProduct.get(position).getProductName());
+                    s.put("productPrice",listProduct.get(position).getProductPrice());
+                    s.put("shoeAmount","1");
+                    // s.put("shoeStatus",shoeInBagList.get(getAdapterPosition()).getShoeStatus());
+                    s.put("shoeSize","5 UK");
+                    db.collection("InBag/aaa/ShoeList").document(docName)
+                            .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        }
+                    });
 
-                    DataManager.shoeInWish.add(new ShoeInBag(currentItemProDuct.getProductId(),currentItemProDuct.getProductName(),currentItemProDuct.getProductPrice(),currentItemProDuct.getProductBrand(),currentItemProDuct.getProductType(),currentItemProDuct.getResourceID(),currentItemProDuct.getRemainingAmount(),currentItemProDuct.getType(),"0","0","0") );
+                    DataManager.shoeInWish.add((new ShoeInBag(currentItemProDuct.getProductId(),
+                            currentItemProDuct.getProductName(),
+                            currentItemProDuct.getProductPrice(),
+                            currentItemProDuct.getProductBrand(),
+                            currentItemProDuct.getProductType(),
+                            currentItemProDuct.getResourceID(),
+                            currentItemProDuct.getRemainingAmount(),
+                            currentItemProDuct.getType(),"1","1")));
+                    DataManager.shoeInWishAdapter.notifyDataSetChanged();
+                    db.collection("InWish/aaaaa/ShoeinWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        }
+                    });
+
+                    currentItem.setLike(true);
                     currentItem.setIndexInShoeWish(DataManager.shoeInWish.size()-1);
 
                     holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_24);

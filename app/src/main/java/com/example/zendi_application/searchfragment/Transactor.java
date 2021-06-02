@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Transactor {
     private static ArrayList<product2> arrayList = new ArrayList<>();
     public static MyEnum.Sex sex;
+    public static MyEnum.Brand brand;
     public static Transactor instance;
     public static Transactor getInstance() {
         if (instance == null) instance = new Transactor();

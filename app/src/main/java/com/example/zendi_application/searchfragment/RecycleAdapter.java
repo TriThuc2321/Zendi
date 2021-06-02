@@ -55,7 +55,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.RecycleV
             case NEW_BALANCE:brandstring = "NEW BALANCE";break;
             case VANS:brandstring = "VANS";break;
             case ADDIDAS:brandstring = "ADIDAS";break;
-            default: REEBOOK:brandstring = "REEBOOK";
+            default :brandstring = "REEBOOK";
         }
 
         switch (sex)
@@ -65,7 +65,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.RecycleV
         }
         for(product2 product : DataManager.listProduct)
         {
-            if (brandstring.equals(product.getProductBrand().toUpperCase()) && (sexstring.equals(product.getProductType()) || product.getProductType().equals("3")) && product2List.size() < 8)
+            if (brandstring.equals(product.getProductBrand()) && (sexstring.equals(product.getProductType()) || product.getProductType().equals("3")) && product2List.size() < 5)
                 product2List.add(product);
         }
     }

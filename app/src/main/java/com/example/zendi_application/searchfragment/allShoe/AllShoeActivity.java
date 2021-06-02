@@ -36,7 +36,7 @@ public class AllShoeActivity extends AppCompatActivity {
 
         recv = findViewById(R.id.rcv_all_shoe);
         recv.setHasFixedSize(true);
-        recAdt = new RecycleAdapterForShoeItem(Transactor.sex);
+        recAdt = new RecycleAdapterForShoeItem(Transactor.brand,Transactor.sex);
         layoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
         recv.setLayoutManager(layoutManager);
         recv.setAdapter(recAdt);
