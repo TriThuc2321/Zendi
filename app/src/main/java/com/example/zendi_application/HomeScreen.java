@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.example.zendi_application.ActivityAccount.Account_Activity;
 import com.example.zendi_application.ActivityAccount.LoginRegisterActivity;
@@ -38,7 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 public class HomeScreen extends AppCompatActivity {
-    private static final int REQUEST_EXIT = 1;
+    private static final int REQUEST_EXIT = 99;
     public AppBarLayout appBarLayout;
     public MaterialToolbar mAppBarTop;
     public BottomNavigationView mNavigationView;
@@ -49,7 +50,7 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        setShopOwner();
         this.appBarLayout.setVisibility(View.VISIBLE);
         this.mNavigationView.setVisibility(View.VISIBLE);
         Log.d("MainActivity Lifecycle", "===== onResume =====");
@@ -61,6 +62,7 @@ public class HomeScreen extends AppCompatActivity {
     }
     protected void onRestart() {
         super.onRestart();
+
         this.appBarLayout.setVisibility(View.VISIBLE);
         Log.d("MainActivity Lifecycle", "===== onRestart =====");
     }
@@ -93,7 +95,7 @@ public class HomeScreen extends AppCompatActivity {
                 if (item.getItemId() == R.id.account) {
 
                     Intent intent = new Intent(HomeScreen.this, LoginRegisterActivity.class);
-                    startActivityForResult(intent, 1);
+                    startActivityForResult(intent, REQUEST_EXIT);
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
                 }
                 return true;
@@ -164,13 +166,25 @@ public class HomeScreen extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_EXIT) {
-            if (resultCode == RESULT_OK) {
+            //if (resultCode == RESULT_OK) {
                 this.finish();
-            }
+
+            //}
         }
     }
 
+    private long pressedTime;
+    @Override
+    public void onBackPressed() {
 
+        if (pressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+            finish();
+        } else {
+            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+        pressedTime = System.currentTimeMillis();
+    }
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private DatabaseReference dataBase;

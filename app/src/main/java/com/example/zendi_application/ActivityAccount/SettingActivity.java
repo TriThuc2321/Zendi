@@ -38,6 +38,7 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.HomeScreen;
@@ -117,6 +118,7 @@ public class SettingActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
 
+                DataManager.host = null;
                 setResult(RESULT_OK, null);
                 finish();
                 startActivity(new Intent(SettingActivity.this, HomeScreen.class));
@@ -133,7 +135,9 @@ public class SettingActivity extends AppCompatActivity {
         findViewById(R.id.turnBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 finish();
+                startActivity(new Intent(SettingActivity.this, HomeScreen.class));
             }
         });
 
@@ -456,5 +460,22 @@ public class SettingActivity extends AppCompatActivity {
             sizeSb.setVisibility(View.GONE);
         }
         txtForcus="";
+    }
+
+    protected void onStop() {
+        setResult(99);
+        super.onStop();
+    }
+    @Override
+    protected void onDestroy() {
+        setResult(99);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        startActivity(new Intent(SettingActivity.this, HomeScreen.class));
     }
 }
