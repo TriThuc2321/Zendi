@@ -50,7 +50,6 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
 
         Glide.with(holder.shoeimg).load(shoeInWishList.get(position).getResourceID().get(0)).into(holder.shoeimg);
         holder.name.setText(shoeInWishList.get(position).getProductName());
-        holder.status.setText(shoeInWishList.get(position).getShoeStatus());
         holder.size.setText(shoeInWishList.get(position).getShoeSize());
         holder.price.setText(new StringBuilder("$").append(shoeInWishList.get(position).getProductPrice()));
         holder.amount.setText(shoeInWishList.get(position).getShoeAmount());
@@ -65,13 +64,12 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
 
     public class ShoeInWishViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView shoeimg;
-        TextView name, status, size, price, amount;
+        TextView name,  size, price, amount;
         Button shopBtn;
         public ShoeInWishViewHolder(@NonNull View itemView) {
             super(itemView);
             shoeimg = itemView.findViewById(R.id.shoe_img);
             name = itemView.findViewById(R.id.shoe_name);
-            status = itemView.findViewById(R.id.shoe_status);
             size = itemView.findViewById(R.id.shoe_size);
             price = itemView.findViewById(R.id.shoe_price);
             amount = itemView.findViewById(R.id.shoe_amount);
@@ -89,7 +87,7 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
             s.put("productName",shoeInWishList.get(getAdapterPosition()).getProductName());
             s.put("productPrice",shoeInWishList.get(getAdapterPosition()).getProductPrice());
             s.put("shoeAmount",shoeInWishList.get(getAdapterPosition()).getShoeAmount());
-            s.put("shoeStatus",shoeInWishList.get(getAdapterPosition()).getShoeStatus());
+           // s.put("shoeStatus",shoeInWishList.get(getAdapterPosition()).getShoeStatus());
             s.put("shoeSize",shoeInWishList.get(getAdapterPosition()).getShoeSize());
             db.collection("InWish/aaaaa/ShoeinWish").document(docName)
                     .delete().addOnSuccessListener(new OnSuccessListener<Void>() {

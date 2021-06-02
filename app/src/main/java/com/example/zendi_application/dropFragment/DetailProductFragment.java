@@ -114,7 +114,7 @@ public class DetailProductFragment extends Fragment {
                     selectedSize = sizeSpinner.getSelectedItem().toString();
                     shoeInBag = new ShoeInBag(mproduct.getProductId(), mproduct.getProductName(), mproduct.getProductPrice()
                             , mproduct.getProductBrand(), mproduct.getProductType(), mproduct.getResourceID(), mproduct.getRemainingAmount()
-                            , mproduct.getType(), null, selectedSize, "1");
+                            , mproduct.getType(), selectedSize, "1");
                     Toast.makeText(mview.getContext(),"DRAGGED INTO BAG SUCCESSFULLY !!",Toast.LENGTH_SHORT);
                 }
                 else
