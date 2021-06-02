@@ -227,6 +227,7 @@ public class Account_Activity extends AppCompatActivity  {
                             if(!userExist()){
                                 setData("","DD/ MM/ YY", mAuth.getCurrentUser().getEmail(),2, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","", 0);
                             }
+                            //setData("","DD/ MM/ YY", mAuth.getCurrentUser().getEmail(),2, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","", 0);
                                openProfile();
                         } else {
                             // If sign in fails, display a message to the user.

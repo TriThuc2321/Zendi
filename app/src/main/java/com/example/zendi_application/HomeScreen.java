@@ -190,8 +190,7 @@ public class HomeScreen extends AppCompatActivity {
     private DatabaseReference dataBase;
 
     void setShopOwner(){
-
-        if(currentUser==null){
+        if(currentUser == null){
             mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(false);
         }
         else {
@@ -199,11 +198,12 @@ public class HomeScreen extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     User user = snapshot.getValue(User.class);
+
                     if(user.getShopOwner()==1){
                         mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(true);
                     }
                     else{
-                        mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(true);
+                        mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(false);
                     }
                 }
                 @Override

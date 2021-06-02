@@ -118,6 +118,7 @@ public class SettingActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
 
+                DataManager.host = null;
                 setResult(RESULT_OK, null);
                 finish();
                 startActivity(new Intent(SettingActivity.this, HomeScreen.class));
@@ -256,7 +257,13 @@ public class SettingActivity extends AppCompatActivity {
         sizeTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sizeSb.setProgress(Integer.parseInt(sizeTxt.getText().toString()) - 3);
+                if(sizeTxt.getText() == "" || sizeTxt.getText()=="Size") {
+                    sizeSb.setProgress(0);
+                }
+                else{
+                    sizeSb.setProgress(Integer.parseInt(sizeTxt.getText().toString()) - 3);
+                }
+
                 sizeSb.setVisibility(View.VISIBLE);
                 saveBtn.setVisibility(View.VISIBLE);
                 txtForcus="size";
