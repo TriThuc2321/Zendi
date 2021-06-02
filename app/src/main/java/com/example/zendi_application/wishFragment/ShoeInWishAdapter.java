@@ -81,7 +81,7 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
 
         @Override
         public void onClick(View v) {
-            String docName = shoeInWishList.get(getAdapterPosition()).getProductId();
+            String docName = shoeInWishList.get(getAdapterPosition()).getProductId() + "_" + shoeInWishList.get(getAdapterPosition()).getShoeSize() ;
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             Map<String, Object> s = new HashMap<>();
             s.put("ResourceID",shoeInWishList.get(getAdapterPosition()).getResourceID());
@@ -91,17 +91,19 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
             s.put("shoeAmount",shoeInWishList.get(getAdapterPosition()).getShoeAmount());
             s.put("shoeStatus",shoeInWishList.get(getAdapterPosition()).getShoeStatus());
             s.put("shoeSize",shoeInWishList.get(getAdapterPosition()).getShoeSize());
-            db.collection("InWish").document(shoeInWishList.get(getAdapterPosition()).getProductId())
+            db.collection("InWish/aaaaa/ShoeinWish").document(docName)
                     .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                 }
             });
-            shoeInWishList.remove(getAdapterPosition());
-            notifyDataSetChanged();
-            DataManager.list.clear();
-            DataManager.getShoeInBagFromFirestone("InBag",DataManager.list);
-            db.collection("InBag").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+            DataManager.list.add(DataManager.shoeInWish.get(getAdapterPosition()));
+            DataManager.shoeInWish.remove(getAdapterPosition());
+            DataManager.shoeInWishAdapter.notifyDataSetChanged();
+            DataManager.shoeInBagAdapter.notifyDataSetChanged();
+
+            db.collection("InBag/aaa/ShoeList").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                 }

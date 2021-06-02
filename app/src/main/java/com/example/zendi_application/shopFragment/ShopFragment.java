@@ -39,28 +39,25 @@ import static android.widget.Toast.LENGTH_LONG;
 public class ShopFragment extends Fragment implements RecyclerViewClickInterface{
 
     Button settle;
-    //List<ShoeInBag> shoeInBagList = new ArrayList<>();
-    public ShoeInBagAdapter shoeInBagAdapter;
     RecyclerView recyclerView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
-
-        shoeInBagAdapter = new ShoeInBagAdapter();
-        //DataManager.getShoeInBagFromFirestone(this,"InBag",shoeInBagList);
-
+        DataManager.shoeInBagAdapter = new ShoeInBagAdapter();
         settle = view.findViewById(R.id.settle_place);
         settle.setText(total());
         recyclerView = view.findViewById(R.id.shop_fragment_rcv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(),recyclerView.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);;
         recyclerView.setHasFixedSize(true);
-        shoeInBagAdapter.setData(DataManager.list);
+
+        DataManager.shoeInBagAdapter.setData(DataManager.list);
+
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-        recyclerView.setAdapter(shoeInBagAdapter);
+        recyclerView.setAdapter(DataManager.shoeInBagAdapter);
 
         return view;
     }
@@ -81,20 +78,29 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
             switch (direction){
                 case ItemTouchHelper.LEFT:
                     DataManager.list.get(position).increaseAmountView();
-                    shoeInBagAdapter.notifyItemChanged(position);
+                    DataManager.shoeInBagAdapter.notifyItemChanged(position);
                     settle.setText(total());
                     upAmount(DataManager.list.get(position),DataManager.list.get(position).getShoeAmount());
                     break;
                  case ItemTouchHelper.RIGHT:
                     DataManager.list.get(position).decreaseAmountView();
-                    shoeInBagAdapter.notifyItemChanged(position);
-                    settle.setText(total());
+                     if (DataManager.list.get(position).getShoeAmount().compareTo("0") == 0) {
+                         deleteItem(DataManager.list.get(position));
+                         DataManager.list.remove(position);
+                         DataManager.shoeInBagAdapter.notifyDataSetChanged();
+                         settle.setText(total());
+                         break;
+                     }
+                     DataManager.shoeInBagAdapter.notifyDataSetChanged();
+                     settle.setText(total());
                      upAmount(DataManager.list.get(position),DataManager.list.get(position).getShoeAmount());
                     break;
                 case ItemTouchHelper.DOWN:
                     deleteItem(DataManager.list.get(position));
-                    DataManager.list.remove(position);
-                    shoeInBagAdapter.notifyDataSetChanged();
+                    DataManager.list.remove(DataManager.list.get(position));
+                    DataManager.shoeInBagAdapter.notifyDataSetChanged();
+
+
                     settle.setText(total());
                     Toast.makeText(getContext(), "You have just dragged this shoe out of bag", LENGTH_LONG).show();
             }
@@ -131,8 +137,9 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
     }
     //Delete from FireStore
     public  void deleteItem(final ShoeInBag shoe){
+        String docName = shoe.getProductId() + "_" + shoe.getShoeSize();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("InBag").document(shoe.getProductId())
+        db.collection("InBag/aaa/ShoeList").document(docName)
                 .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -140,8 +147,9 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
         });
     }
     public void upAmount(ShoeInBag shoe, String amount){
-        final DocumentReference docRef = FirebaseFirestore.getInstance().collection("InBag")
-                .document(shoe.getProductId());
+        String docName = shoe.getProductId() + "_" + shoe.getShoeSize();
+        final DocumentReference docRef = FirebaseFirestore.getInstance().collection("InBag/aaa/ShoeList")
+                .document(docName);
         Map<String, Object> map = new HashMap<>();
         map.put("shoeAmount",amount);
         docRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {

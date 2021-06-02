@@ -100,7 +100,7 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
 
         @Override
         public void onClick(View v) {
-            String docName = shoeInBagList.get(getAdapterPosition()).getProductId();
+            String docName = shoeInBagList.get(getAdapterPosition()).getProductId() + "_" + shoeInBagList.get(getAdapterPosition()).getShoeSize();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             Map<String, Object> s = new HashMap<>();
            s.put("ResourceID",shoeInBagList.get(getAdapterPosition()).getResourceID());
@@ -110,17 +110,18 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
            s.put("shoeAmount",shoeInBagList.get(getAdapterPosition()).getShoeAmount());
            s.put("shoeStatus",shoeInBagList.get(getAdapterPosition()).getShoeStatus());
            s.put("shoeSize",shoeInBagList.get(getAdapterPosition()).getShoeSize());
-            db.collection("InBag").document(shoeInBagList.get(getAdapterPosition()).getProductId())
+            db.collection("InBag/aaa/ShoeList").document(docName)
                     .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                 }
             });
-           shoeInBagList.remove(getAdapterPosition());
-           notifyDataSetChanged();
-           DataManager.shoeInWish.clear();
-           DataManager.getShoeInBagFromFirestone("InWish",DataManager.shoeInWish);
-           db.collection("InWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+            DataManager.shoeInWish.add(DataManager.list.get(getAdapterPosition()));
+            DataManager.list.remove(getAdapterPosition());
+            DataManager.shoeInWishAdapter.notifyDataSetChanged();
+            DataManager.shoeInBagAdapter.notifyDataSetChanged();
+           db.collection("InWish/aaaaa/ShoeinWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
                @Override
                public void onSuccess(Void aVoid) {
                }

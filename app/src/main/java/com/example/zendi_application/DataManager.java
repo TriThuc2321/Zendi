@@ -22,7 +22,9 @@ import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
 import com.example.zendi_application.shopFragment.ShoeInBag;
+import com.example.zendi_application.shopFragment.ShoeInBagAdapter;
 import com.example.zendi_application.shopFragment.ShopFragment;
+import com.example.zendi_application.wishFragment.ShoeInWishAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,7 +50,8 @@ import java.util.Set;
 
 public class DataManager {
     // Instance
-
+    public static ShoeInBagAdapter shoeInBagAdapter;
+    public static ShoeInWishAdapter shoeInWishAdapter;
     public static DataManager instance;
     public static List<product2> listProduct = new ArrayList<>(); // All products
     public static List<drop2> listDrop = new ArrayList<>(); // All drops
@@ -499,7 +502,28 @@ public class DataManager {
             }
         });
     }
-    //Delete item from bag
+    //Load shoe from InWish
+    public static void getShoeInWishFromFirestone(String collection, List<ShoeInBag> productList) {
+        FirebaseFirestore firestone = FirebaseFirestore.getInstance();
+        firestone.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                productList.clear();
+                for (DocumentSnapshot documentSnapshot : task.getResult())
+                {
+                    // U have to need default constructor in ShIB class to use the sequence below
+                    ShoeInBag temp = documentSnapshot.toObject(ShoeInBag.class);
+                    productList.add(temp);
+                    //((ShopFragment)parent).shoeInBagAdapter.notifyDataSetChanged();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
 
 
     //Tang giam amount trong BAG cua User

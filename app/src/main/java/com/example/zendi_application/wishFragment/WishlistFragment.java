@@ -27,23 +27,28 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import static android.widget.Toast.LENGTH_LONG;
 
 public class WishlistFragment extends Fragment implements RecyclerViewClickInterface {
-    public ShoeInWishAdapter shoeInWishAdapter;
+    //public ShoeInWishAdapter shoeInWishAdapter;
     RecyclerView recyclerView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wishlist, container, false);
-        shoeInWishAdapter = new ShoeInWishAdapter();
+
+        DataManager.shoeInWishAdapter = new ShoeInWishAdapter();
+        //shoeInWishAdapter = new ShoeInWishAdapter();
+
         recyclerView = view.findViewById(R.id.wishListrcv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), recyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        ;
         recyclerView.setHasFixedSize(true);
-        shoeInWishAdapter.setData(DataManager.shoeInWish);
+
+        DataManager.shoeInWishAdapter.setData(DataManager.shoeInWish);
+        //shoeInWishAdapter.setData(DataManager.shoeInWish);
+
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-        recyclerView.setAdapter(shoeInWishAdapter);
+        recyclerView.setAdapter(DataManager.shoeInWishAdapter);
         return view;
     }
 
@@ -59,8 +64,7 @@ public class WishlistFragment extends Fragment implements RecyclerViewClickInter
             switch (direction){
                 case ItemTouchHelper.DOWN:
                     deleteItem(DataManager.shoeInWish.get(position));
-                    DataManager.shoeInWish.remove(position);
-                    shoeInWishAdapter.notifyDataSetChanged();
+
                     Toast.makeText(getContext(), "Unliked it", LENGTH_LONG).show();
                 case ItemTouchHelper.LEFT:
                     break;
@@ -86,8 +90,9 @@ public class WishlistFragment extends Fragment implements RecyclerViewClickInter
     }
 
     public  void deleteItem(final ShoeInBag shoe){
+        String docName = shoe.getProductId() + "_" + shoe.getShoeSize();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("InWish").document(shoe.getProductId())
+        db.collection("InWish/aaaaa/ShoeinWish").document(docName)
                 .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
