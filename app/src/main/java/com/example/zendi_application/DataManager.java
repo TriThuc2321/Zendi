@@ -27,8 +27,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -54,6 +57,7 @@ public class DataManager {
     public static List<drop2> listDrop = new ArrayList<>(); // All drops
     public static HashMap<String,List<drop2>> listCategory = new HashMap<>(); // All categories
     public static User host = new User();
+    public static List<User> listUsers = new ArrayList<>();
     public static HashMap<String,Integer> sizeConvert = new HashMap<>();
     public static List<ShoeInBag> list = new ArrayList<>();
     public static List<ShoeInBag> shoeInWish = new ArrayList<>();
@@ -540,4 +544,27 @@ public class DataManager {
     public void setTemp(String temp) {
         this.temp = temp;
     }
+    private static DatabaseReference dataBase;
+    public static void loadUser(){
+        dataBase = FirebaseDatabase.getInstance().getReference();
+        dataBase.child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                {
+                    for (DataSnapshot data : snapshot.getChildren()) {
+                        User temp = new User();
+                        temp = data.getValue(User.class);
+                        listUsers.add(temp);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
 }

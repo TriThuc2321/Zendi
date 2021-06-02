@@ -120,6 +120,7 @@ public class SettingActivity extends AppCompatActivity {
 
                 DataManager.host = null;
                 setResult(RESULT_OK, null);
+                setResult(99);
                 finish();
                 startActivity(new Intent(SettingActivity.this, HomeScreen.class));
             }
@@ -135,7 +136,6 @@ public class SettingActivity extends AppCompatActivity {
         findViewById(R.id.turnBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 finish();
                 startActivity(new Intent(SettingActivity.this, HomeScreen.class));
             }
@@ -190,6 +190,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveBtn.setVisibility(View.VISIBLE);
+                setEdtToTxt();
 
                 final Calendar c = Calendar.getInstance();
                 int mYear = c.get(Calendar.YEAR);
@@ -263,7 +264,7 @@ public class SettingActivity extends AppCompatActivity {
                 else{
                     sizeSb.setProgress(Integer.parseInt(sizeTxt.getText().toString()) - 3);
                 }
-
+                setEdtToTxt();
                 sizeSb.setVisibility(View.VISIBLE);
                 saveBtn.setVisibility(View.VISIBLE);
                 txtForcus="size";
@@ -335,18 +336,21 @@ public class SettingActivity extends AppCompatActivity {
         maleRad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setEdtToTxt();
                 saveBtn.setVisibility(View.VISIBLE);
             }
         });
         femaleRad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setEdtToTxt();
                 saveBtn.setVisibility(View.VISIBLE);
             }
         });
         otherRad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setEdtToTxt();
                 saveBtn.setVisibility(View.VISIBLE);
             }
         });

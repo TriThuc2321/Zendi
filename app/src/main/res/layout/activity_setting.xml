@@ -64,6 +64,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Name"
                                     android:textSize="15dp"
+
                                     />
 
                                 <EditText
@@ -155,11 +156,11 @@
                                     android:textSize="15dp"
                                     android:visibility="gone"
                                     android:imeOptions="actionDone"
-                                    android:inputType="textAutoComplete"
+                                    android:inputType="phone"
                                     android:clickable="true"
                                     android:focusableInTouchMode="true"
-
                                     />
+
                         </LinearLayout>
 
                         <LinearLayout

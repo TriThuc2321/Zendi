@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 import com.example.zendi_application.ViewPagerAdapter;
 import com.facebook.AccessToken;
@@ -53,7 +54,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executor;
+
+import static com.example.zendi_application.DataManager.listUsers;
 
 public class Account_Activity extends AppCompatActivity  {
 
@@ -67,7 +72,6 @@ public class Account_Activity extends AppCompatActivity  {
 
     //facebook
     CallbackManager mCallbackManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -76,7 +80,6 @@ public class Account_Activity extends AppCompatActivity  {
 
         mAuth = FirebaseAuth.getInstance();
         dataBase = FirebaseDatabase.getInstance().getReference();
-
 //--------------------------------------google------------------------//
 //        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 //                .requestIdToken(getString(R.string.default_web_client_id))
@@ -203,9 +206,25 @@ public class Account_Activity extends AppCompatActivity  {
 
 
     private void openProfile(){
+        if(!existUser()){
+            setData("","DD/ MM/ YY", mAuth.getCurrentUser().getEmail(),2, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","", 0);
+
+        }
         startActivity(new Intent(Account_Activity.this, SettingActivity.class));
         finish();
     }
+    boolean existUser(){
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        for(int i=0; i< listUsers.size(); i++){
+            String b = currentUser.getUid();
+            String c = listUsers.get(i).getId();
+            int d = b.compareTo(c);
+            int a = 5;
+            if(d == 0) return true;
+        }
+        return false;
+    }
+
     public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int isShopOwner){
         User mUser =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total, isShopOwner);
         dataBase.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(mUser);
@@ -224,9 +243,8 @@ public class Account_Activity extends AppCompatActivity  {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
 
-                            if(!userExist()){
-                                setData("","DD/ MM/ YY", mAuth.getCurrentUser().getEmail(),2, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","", 0);
-                            }
+
+
                             //setData("","DD/ MM/ YY", mAuth.getCurrentUser().getEmail(),2, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","", 0);
                                openProfile();
                         } else {
@@ -239,14 +257,7 @@ public class Account_Activity extends AppCompatActivity  {
                 });
     }
 
-    private boolean userExist(){
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        Query query = dataBase.child("Users").orderByChild("id").equalTo(currentUser.getUid());
-        if(query != null){
-            return true;
-        }
-        return false;
-    }
+
     @Override
     protected void onStart() {
         super.onStart();
