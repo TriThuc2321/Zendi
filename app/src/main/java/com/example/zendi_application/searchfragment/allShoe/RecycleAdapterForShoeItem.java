@@ -116,9 +116,20 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
                         }
                     });
 
-                    DataManager.shoeInWish.remove(currentItem.getIndexInShoeWish());
-                    DataManager.shoeInWishAdapter.notifyDataSetChanged();
+                    int currentIndex = currentItem.getIndexInShoeWish();
+                    DataManager.shoeInWish.remove(currentIndex);
                     currentItem.setIndexInShoeWish(-1);
+                    for (int i = 0; i< elementOfRecycModelArrayList.size();i++)
+                    {
+                        int oldIndexInWishList = elementOfRecycModelArrayList.get(i).getIndexInShoeWish();
+                        if ( oldIndexInWishList > currentIndex)
+                        {
+                            elementOfRecycModelArrayList.get(i).setIndexInShoeWish(oldIndexInWishList - 1);
+                        }
+                    }
+
+                    DataManager.shoeInWishAdapter.notifyDataSetChanged();
+
 
                     holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_border_24);
                 }
@@ -133,7 +144,7 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
                     s.put("productPrice",listProduct.get(position).getProductPrice());
                     s.put("shoeAmount","1");
                     // s.put("shoeStatus",shoeInBagList.get(getAdapterPosition()).getShoeStatus());
-                    s.put("shoeSize","5 UK");
+                    s.put("shoeSize",null);
                     db.collection("InBag/aaa/ShoeList").document(docName)
                             .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -148,7 +159,7 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
                             currentItemProDuct.getProductType(),
                             currentItemProDuct.getResourceID(),
                             currentItemProDuct.getRemainingAmount(),
-                            currentItemProDuct.getType(),"1","1")));
+                            currentItemProDuct.getType(),null,"1")));
                     DataManager.shoeInWishAdapter.notifyDataSetChanged();
                     db.collection("InWish/aaaaa/ShoeinWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
