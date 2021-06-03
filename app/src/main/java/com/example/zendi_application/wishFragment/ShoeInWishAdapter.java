@@ -10,23 +10,33 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.zendi_application.DataManager;
+import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
+import com.example.zendi_application.dropFragment.DetailProductFragment;
+import com.example.zendi_application.dropFragment.drop.drop2;
+import com.example.zendi_application.dropFragment.product_package.product2;
+import com.example.zendi_application.shopFragment.RecyclerViewClickInterface;
 import com.example.zendi_application.shopFragment.ShoeInBag;
 import com.example.zendi_application.shopFragment.ShoeInBagAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.security.AccessController.getContext;
+
 public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.ShoeInWishViewHolder> {
 
-    Context context;
+
+    ItemClickListener itemClickListener;
     List<ShoeInBag> shoeInWishList;
     public void setData(List<ShoeInBag> list){
         this.shoeInWishList = list;
@@ -34,8 +44,8 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
     }
 
     public ShoeInWishAdapter(){};
-    public ShoeInWishAdapter(Context context, List<ShoeInBag> shoeInWishList) {
-        this.context = context;
+    public ShoeInWishAdapter( List<ShoeInBag> shoeInWishList, ItemClickListener listener) {
+        this.itemClickListener = listener;
         this.shoeInWishList = shoeInWishList;
     }
     @NonNull
@@ -52,7 +62,9 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
         holder.name.setText(shoeInWishList.get(position).getProductName());
         holder.size.setText(shoeInWishList.get(position).getShoeSize());
         holder.price.setText(new StringBuilder("$").append(shoeInWishList.get(position).getProductPrice()));
-        holder.amount.setText(shoeInWishList.get(position).getShoeAmount());
+        holder.itemView.setOnClickListener(view ->{
+            itemClickListener.onItemClick(shoeInWishList.get(position));
+        });
     }
 
 
@@ -62,9 +74,12 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
         return 0;
     }
 
+    public interface ItemClickListener{
+        void onItemClick(ShoeInBag shoe);
+    }
     public class ShoeInWishViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView shoeimg;
-        TextView name,  size, price, amount;
+        TextView name,  size, price;
         Button shopBtn;
         public ShoeInWishViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,10 +87,9 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
             name = itemView.findViewById(R.id.shoe_name);
             size = itemView.findViewById(R.id.shoe_size);
             price = itemView.findViewById(R.id.shoe_price);
-            amount = itemView.findViewById(R.id.shoe_amount);
             shopBtn = itemView.findViewById(R.id.shop_btn);
             shopBtn.setOnClickListener(this);
-        }
+    }
 
         @Override
         public void onClick(View v) {
@@ -86,7 +100,7 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
             s.put("productId",shoeInWishList.get(getAdapterPosition()).getProductId());
             s.put("productName",shoeInWishList.get(getAdapterPosition()).getProductName());
             s.put("productPrice",shoeInWishList.get(getAdapterPosition()).getProductPrice());
-            s.put("shoeAmount",shoeInWishList.get(getAdapterPosition()).getShoeAmount());
+            s.put("shoeAmount","1");
            // s.put("shoeStatus",shoeInWishList.get(getAdapterPosition()).getShoeStatus());
             s.put("shoeSize",shoeInWishList.get(getAdapterPosition()).getShoeSize());
             db.collection("InWish/aaaaa/ShoeinWish").document(docName)

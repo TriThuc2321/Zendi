@@ -106,8 +106,11 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
            s.put("productName",shoeInBagList.get(getAdapterPosition()).getProductName());
            s.put("productPrice",shoeInBagList.get(getAdapterPosition()).getProductPrice());
            s.put("shoeAmount",shoeInBagList.get(getAdapterPosition()).getShoeAmount());
-          // s.put("shoeStatus",shoeInBagList.get(getAdapterPosition()).getShoeStatus());
            s.put("shoeSize",shoeInBagList.get(getAdapterPosition()).getShoeSize());
+           s.put("remainingAmount",shoeInBagList.get(getAdapterPosition()).getRemainingAmount());
+           s.put("type",shoeInBagList.get(getAdapterPosition()).getType());
+           s.put("productType",shoeInBagList.get(getAdapterPosition()).getProductType());
+           s.put("productBrand",shoeInBagList.get(getAdapterPosition()).getProductBrand());
             db.collection("InBag/aaa/ShoeList").document(docName)
                     .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override

@@ -3,6 +3,7 @@ package com.example.zendi_application.wishFragment;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,24 +11,32 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.DataManager;
+import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
+import com.example.zendi_application.dropFragment.DetailProductFragment;
 import com.example.zendi_application.shopFragment.RecyclerViewClickInterface;
 import com.example.zendi_application.shopFragment.ShoeInBag;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 import static android.widget.Toast.LENGTH_LONG;
 
 public class WishlistFragment extends Fragment implements RecyclerViewClickInterface {
-    //public ShoeInWishAdapter shoeInWishAdapter;
     RecyclerView recyclerView;
 
     @Nullable
@@ -42,9 +51,19 @@ public class WishlistFragment extends Fragment implements RecyclerViewClickInter
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), recyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
-
+        DataManager.shoeInWishAdapter = new ShoeInWishAdapter(DataManager.shoeInWish, new ShoeInWishAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(ShoeInBag shoe) {
+                AppCompatActivity activity = (AppCompatActivity)getContext();
+                FragmentDialogBox myFragment = new FragmentDialogBox();
+                ((FragmentDialogBox)myFragment).recieveDrop(shoe);
+                  ((HomeScreen)activity).appBarLayout.setVisibility(View.INVISIBLE);
+//                ((HomeScreen)activity).mNavigationView.setVisibility(View.INVISIBLE);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_screen, myFragment).addToBackStack(null).commit();
+            }
+        });
         DataManager.shoeInWishAdapter.setData(DataManager.shoeInWish);
-        //shoeInWishAdapter.setData(DataManager.shoeInWish);
+
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -64,6 +83,8 @@ public class WishlistFragment extends Fragment implements RecyclerViewClickInter
             switch (direction){
                 case ItemTouchHelper.DOWN:
                     deleteItem(DataManager.shoeInWish.get(position));
+                    DataManager.shoeInWish.remove(DataManager.shoeInWish.get(position));
+                    DataManager.shoeInWishAdapter.notifyDataSetChanged();
                     Toast.makeText(getContext(), "Unliked it", LENGTH_LONG).show();
                     break;
                 case ItemTouchHelper.LEFT:
@@ -88,6 +109,47 @@ public class WishlistFragment extends Fragment implements RecyclerViewClickInter
 
     }
 
+    public void addNewShoeSize(ShoeInBag shoe, String newsize){
+        String olddocName = shoe.getProductId() + "_" + shoe.getShoeSize() ; //path the old size
+        String newdocName = shoe.getProductId() + "_" + newsize ;
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> s = new HashMap<>();
+        s.put("ResourceID",shoe.getResourceID());
+        s.put("productId",shoe.getProductId());
+        s.put("productName",shoe.getProductName());
+        s.put("productPrice",shoe.getProductPrice());
+        s.put("shoeAmount","1");
+        s.put("shoeSize",newsize);
+        db.collection("InBag/aaa/ShoeList").document(newdocName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+        db.collection("InWish/aaaaa/ShoeinWish").document(olddocName)
+                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+        DataManager.shoeInWish.remove(shoe);
+        DataManager.shoeInWishAdapter.notifyDataSetChanged();
+    }
+
+    public void upSize(ShoeInBag shoe, String size){
+        String docName = shoe.getProductId() + "_" + shoe.getShoeSize();
+        final DocumentReference docRef = FirebaseFirestore.getInstance().collection("InWish/aaa/ShoeinWish")
+                .document(docName);
+        Map<String, Object> map = new HashMap<>();
+        map.put("shoeSize",size);
+        docRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+            }
+        });
+       // DataManager.shoeInWish.remove(shoe);
+        DataManager.shoeInWishAdapter.notifyDataSetChanged();
+    }
     public  void deleteItem(final ShoeInBag shoe){
         String docName = shoe.getProductId() + "_" + shoe.getShoeSize();
         FirebaseFirestore db = FirebaseFirestore.getInstance();

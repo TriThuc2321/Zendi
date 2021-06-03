@@ -18,4 +18,21 @@
     -->
     <string name="hello_world">Hello Square World!</string>
     <string name="title_activity_add_drop">AddDrop</string>
+    <string-array name="sizelist">
+        <item>5 UK</item>
+        <item>5.5 UK</item>
+        <item>6 UK</item>
+        <item>6.5 UK</item>
+        <item>7 UK</item>
+        <item>7.5 UK</item>
+        <item>8 UK</item>
+        <item>8.5 UK</item>
+        <item>9 UK</item>
+        <item>9.5 UK</item>
+        <item>10 UK</item>
+        <item>10.5 UK</item>
+        <item>11 UK</item>
+        <item>11.5 UK</item>
+        <item>12 UK</item>
+    </string-array>
 </resources>
