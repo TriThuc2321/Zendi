@@ -19,9 +19,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.model.ModelLoader;
 import com.example.zendi_application.ActivityAccount.Account_Activity;
 import com.example.zendi_application.ActivityAccount.LoginRegisterActivity;
 import com.example.zendi_application.ActivityAccount.User;
+import com.example.zendi_application.addProductPackage.uploadData;
 import com.example.zendi_application.dropFragment.DetailDropFragment;
 import com.example.zendi_application.dropFragment.drop.drop;
 import com.example.zendi_application.dropFragment.product_package.product2;
@@ -95,6 +97,12 @@ public class HomeScreen extends AppCompatActivity {
                 if (item.getItemId() == R.id.account) {
 
                     Intent intent = new Intent(HomeScreen.this, LoginRegisterActivity.class);
+                    startActivityForResult(intent, REQUEST_EXIT);
+                    overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
+                }
+                else if (item.getItemId() == R.id.shop_owner_item) {
+
+                    Intent intent = new Intent(HomeScreen.this, uploadData.class);
                     startActivityForResult(intent, REQUEST_EXIT);
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
                 }
