@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#D8D8D6">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="back"
+            android:drawableLeft="@drawable/ic_baseline_keyboard_arrow_left_black"
+            android:id="@+id/backbtn"
+            android:layout_gravity="right"></Button>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgofShoe"
+        android:layout_width="395dp"
+        android:layout_height="380dp"
+        android:layout_margin="10dp"></ImageView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/custom_for_detailproduct"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/brandName"
+            android:textStyle="italic"
+            android:textColor="#6A6969"
+            android:textSize="20dp"
+            android:text="ADIDAs"
+            android:textAlignment="textStart"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/productname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="15dp"
+            android:text="NIKE AIR FORCE 1 LIMITED EDITION"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/productprice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="10dp"
+            android:text="Price: $359.00"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold">
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/choose"
+                android:layout_width="123dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="95dp"
+                android:text="Choose size:"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18dp"></TextView>
+
+            <Spinner
+                android:id="@+id/sizespinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.581"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/productprice"
+                app:layout_constraintVertical_bias="0.201"></Spinner>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/shopnowbtn"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginEnd="0dp"
+            android:background="@drawable/custombutton_detailproduct"
+            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_black"
+            android:text="GET NOW"
+            android:textStyle="italic"
+          ></Button>
+
+
+    </LinearLayout>
+</LinearLayout>

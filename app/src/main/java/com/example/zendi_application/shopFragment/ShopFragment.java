@@ -99,8 +99,6 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
                     deleteItem(DataManager.list.get(position));
                     DataManager.list.remove(DataManager.list.get(position));
                     DataManager.shoeInBagAdapter.notifyDataSetChanged();
-
-
                     settle.setText(total());
                     Toast.makeText(getContext(), "You have just dragged this shoe out of bag", LENGTH_LONG).show();
             }
@@ -113,6 +111,7 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
                     .addSwipeLeftBackgroundColor(R.color.com_facebook_messenger_blue)
                     .addSwipeLeftActionIcon(R.drawable.ic_baseline_plus_one_24)
                     .addSwipeLeftLabel(increaseAmount)
+                    .addSwipeRightBackgroundColor(R.color.com_facebook_messenger_blue)
                     .create()
                     .decorate();
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);

@@ -56,23 +56,6 @@
                     android:text="$2500"
                     android:textSize="10dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10sp"
-                    android:text="X"
-                    android:textSize="10dp"
-                    android:textAlignment="center"/>
-
-                <TextView
-                    android:id="@+id/shoe_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:text="2"
-                    android:textColor="@color/gold"
-                    android:textSize="10dp"
-                    android:textStyle="italic" />
             </LinearLayout>
 
             <LinearLayout
