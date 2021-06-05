@@ -611,16 +611,20 @@ public class DataManager {
     public static void GetUser(){
         dataBase = FirebaseDatabase.getInstance().getReference();
         if(currentUser!= null){
+
             dataBase.child("Users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     host = snapshot.getValue(User.class);
+                    getShoeInBagFromFirestone("InBag/" + DataManager.host.getId() + "/ShoeList",DataManager.list);
+                    getShoeInWishFromFirestone("InWish/" + DataManager.host.getId() + "/ShoeList",DataManager.shoeInWish);
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
             });
+
         }
 
     }

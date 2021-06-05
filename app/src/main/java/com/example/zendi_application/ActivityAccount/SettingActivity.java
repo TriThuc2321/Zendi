@@ -415,6 +415,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);
                 DataManager.host = user;
+                DataManager.getShoeInBagFromFirestone("InBag/" + DataManager.host.getId() + "/ShoeList",DataManager.list);
+                DataManager.getShoeInWishFromFirestone("InWish/" + DataManager.host.getId() + "/ShoeList",DataManager.shoeInWish);
 
                 nameTxt.setText(user.getName()+"");
                 locationTxt.setText(user.getAddress()+"");
