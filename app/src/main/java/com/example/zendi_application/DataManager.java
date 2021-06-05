@@ -22,7 +22,9 @@ import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
 import com.example.zendi_application.shopFragment.ShoeInBag;
+import com.example.zendi_application.shopFragment.ShoeInBagAdapter;
 import com.example.zendi_application.shopFragment.ShopFragment;
+import com.example.zendi_application.wishFragment.ShoeInWishAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,7 +53,8 @@ import java.util.Set;
 
 public class DataManager {
     // Instance
-
+    public static ShoeInBagAdapter shoeInBagAdapter;
+    public static ShoeInWishAdapter shoeInWishAdapter;
     public static DataManager instance;
     public static List<product2> listProduct = new ArrayList<>(); // All products
     public static List<drop2> listDrop = new ArrayList<>(); // All drops
@@ -66,7 +69,7 @@ public class DataManager {
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-    private FirebaseFirestore firestonedb = FirebaseFirestore.getInstance();
+    private static FirebaseFirestore firestonedb = FirebaseFirestore.getInstance();
     private String temp;
 
 
@@ -483,8 +486,8 @@ public class DataManager {
 
     //Huynh//
     public static void getShoeInBagFromFirestone(String collection, List<ShoeInBag> productList) {
-        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
-        firestoneGetProduct.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+       // FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
+        firestonedb.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 productList.clear();
@@ -503,13 +506,47 @@ public class DataManager {
             }
         });
     }
-    //Delete item from bag
+    //Load shoe from InWish
+    public static void getShoeInWishFromFirestone(String collection, List<ShoeInBag> productList) {
+        //FirebaseFirestore firestone = FirebaseFirestore.getInstance();
+        firestonedb.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                productList.clear();
+                for (DocumentSnapshot documentSnapshot : task.getResult())
+                {
+                    // U have to need default constructor in ShIB class to use the sequence below
+                    ShoeInBag temp = documentSnapshot.toObject(ShoeInBag.class);
+                    productList.add(temp);
+                    //((ShopFragment)parent).shoeInBagAdapter.notifyDataSetChanged();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
 
+            }
+        });
+    }
 
-    //Tang giam amount trong BAG cua User
-    public void increaseAmount(List<ShoeInBag> list, String collection){
-
-
+    public static void push_Shoe_To_Bag_in_Fragmentdialog(ShoeInBag selectedshoe,User user,Context mContext)
+    {
+        FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
+        firestonePutProduct.collection("InBag/" + "aaa" +"/ShoeList").document(selectedshoe.getProductId() + "_" + selectedshoe.getShoeSize()).set(selectedshoe)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+//                      Update_Amount(selectedShoe);
+                        DataManager.list.add(selectedshoe);
+                        DataManager.shoeInBagAdapter.notifyDataSetChanged();
+                        Toast.makeText(mContext,"Product is Added !!",Toast.LENGTH_SHORT);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(mContext,"Adding Failed !!",Toast.LENGTH_SHORT);
+            }
+        });
     }
     //endregion//
 

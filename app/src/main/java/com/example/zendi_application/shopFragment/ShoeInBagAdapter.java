@@ -68,7 +68,6 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
 
         Glide.with(holder.shoeimg).load(shoeInBagList.get(position).getResourceID().get(0)).into(holder.shoeimg);
         holder.name.setText(shoeInBagList.get(position).getProductName());
-        holder.status.setText(shoeInBagList.get(position).getShoeStatus());
         holder.size.setText(shoeInBagList.get(position).getShoeSize());
         holder.price.setText(new StringBuilder("$").append(shoeInBagList.get(position).getProductPrice()));
         holder.amount.setText(shoeInBagList.get(position).getShoeAmount());
@@ -84,13 +83,12 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
     public class ShoeInBagViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView shoeimg;
         Button wishbtn;
-        TextView name, status, size, amount, price;
+        TextView name, size, amount, price;
 
         public ShoeInBagViewHolder(@NonNull View itemView) {
             super(itemView);
             shoeimg = itemView.findViewById(R.id.shoe_img);
             name = itemView.findViewById(R.id.shoe_name);
-            status = itemView.findViewById(R.id.shoe_status);
             size = itemView.findViewById(R.id.shoe_size);
             price = itemView.findViewById(R.id.shoe_price);
             amount = itemView.findViewById(R.id.shoe_amount);
@@ -100,31 +98,55 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
 
         @Override
         public void onClick(View v) {
-            String docName = shoeInBagList.get(getAdapterPosition()).getProductId();
+            String docName = shoeInBagList.get(getAdapterPosition()).getProductId() + "_" + shoeInBagList.get(getAdapterPosition()).getShoeSize();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            Map<String, Object> s = new HashMap<>();
-           s.put("ResourceID",shoeInBagList.get(getAdapterPosition()).getResourceID());
-           s.put("productId",shoeInBagList.get(getAdapterPosition()).getProductId());
-           s.put("productName",shoeInBagList.get(getAdapterPosition()).getProductName());
-           s.put("productPrice",shoeInBagList.get(getAdapterPosition()).getProductPrice());
-           s.put("shoeAmount",shoeInBagList.get(getAdapterPosition()).getShoeAmount());
-           s.put("shoeStatus",shoeInBagList.get(getAdapterPosition()).getShoeStatus());
-           s.put("shoeSize",shoeInBagList.get(getAdapterPosition()).getShoeSize());
-            db.collection("InBag").document(shoeInBagList.get(getAdapterPosition()).getProductId())
-                    .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
+            Integer test1 = 0;
+            for (ShoeInBag ite : DataManager.shoeInWish)
+            {
+                // Process add the shoe added
+                if (ite.getProductId().compareTo(shoeInBagList.get(getAdapterPosition()).getProductId()) == 0  )
+                {
+                    db.collection("InBag/aaa/ShoeList").document(docName)
+                            .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        }
+                    });
+                    DataManager.list.remove(getAdapterPosition());
+                    DataManager.shoeInWishAdapter.notifyDataSetChanged();
+                    DataManager.shoeInBagAdapter.notifyDataSetChanged();
+                    test1 = 1;
+                    break;
                 }
-            });
-           shoeInBagList.remove(getAdapterPosition());
-           notifyDataSetChanged();
-           DataManager.shoeInWish.clear();
-           DataManager.getShoeInBagFromFirestone("InWish",DataManager.shoeInWish);
-           db.collection("InWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
-               @Override
-               public void onSuccess(Void aVoid) {
-               }
-           });
+            }
+            if(test1 == 0){
+                Map<String, Object> s = new HashMap<>();
+                s.put("ResourceID",shoeInBagList.get(getAdapterPosition()).getResourceID());
+                s.put("productId",shoeInBagList.get(getAdapterPosition()).getProductId());
+                s.put("productName",shoeInBagList.get(getAdapterPosition()).getProductName());
+                s.put("productPrice",shoeInBagList.get(getAdapterPosition()).getProductPrice());
+                s.put("shoeAmount",shoeInBagList.get(getAdapterPosition()).getShoeAmount());
+                s.put("shoeSize",shoeInBagList.get(getAdapterPosition()).getShoeSize());
+                s.put("remainingAmount",shoeInBagList.get(getAdapterPosition()).getRemainingAmount());
+                s.put("type",shoeInBagList.get(getAdapterPosition()).getType());
+                s.put("productType",shoeInBagList.get(getAdapterPosition()).getProductType());
+                s.put("productBrand",shoeInBagList.get(getAdapterPosition()).getProductBrand());
+                db.collection("InBag/aaa/ShoeList").document(docName)
+                        .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
+                DataManager.shoeInWish.add(DataManager.list.get(getAdapterPosition()));
+                DataManager.list.remove(getAdapterPosition());
+                DataManager.shoeInWishAdapter.notifyDataSetChanged();
+                DataManager.shoeInBagAdapter.notifyDataSetChanged();
+                db.collection("InWish/aaaaa/ShoeinWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.product_package.product2;
+import com.example.zendi_application.searchfragment.Transactor;
 
 import java.util.ArrayList;
 
@@ -32,15 +33,10 @@ public class AllShoeActivity extends AppCompatActivity {
                 finish();
             }
         });
-        ArrayList<ShoeItemModel> shoeItemModelArrayList = new ArrayList<>();
-        for(product2 product2 : DataManager.listProduct)
-        {
-            shoeItemModelArrayList.add(new ShoeItemModel(false));
-        }
 
         recv = findViewById(R.id.rcv_all_shoe);
         recv.setHasFixedSize(true);
-        recAdt = new RecycleAdapterForShoeItem(shoeItemModelArrayList, DataManager.listProduct);
+        recAdt = new RecycleAdapterForShoeItem(Transactor.brand,Transactor.sex);
         layoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
         recv.setLayoutManager(layoutManager);
         recv.setAdapter(recAdt);
