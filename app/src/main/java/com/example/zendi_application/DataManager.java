@@ -30,6 +30,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -590,7 +592,7 @@ public class DataManager {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 {
                     for (DataSnapshot data : snapshot.getChildren()) {
-                        User temp = new User();
+                        User temp;
                         temp = data.getValue(User.class);
                         listUsers.add(temp);
                     }
@@ -604,5 +606,23 @@ public class DataManager {
         });
     }
 
+    private static FirebaseAuth  mAuth = FirebaseAuth.getInstance();;
+    private static FirebaseUser currentUser = mAuth.getCurrentUser();;
+    public static void GetUser(){
+        dataBase = FirebaseDatabase.getInstance().getReference();
+        if(currentUser!= null){
+            dataBase.child("Users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    host = snapshot.getValue(User.class);
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+    }
 
 }
