@@ -100,33 +100,53 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
         public void onClick(View v) {
             String docName = shoeInBagList.get(getAdapterPosition()).getProductId() + "_" + shoeInBagList.get(getAdapterPosition()).getShoeSize();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            Map<String, Object> s = new HashMap<>();
-           s.put("ResourceID",shoeInBagList.get(getAdapterPosition()).getResourceID());
-           s.put("productId",shoeInBagList.get(getAdapterPosition()).getProductId());
-           s.put("productName",shoeInBagList.get(getAdapterPosition()).getProductName());
-           s.put("productPrice",shoeInBagList.get(getAdapterPosition()).getProductPrice());
-           s.put("shoeAmount",shoeInBagList.get(getAdapterPosition()).getShoeAmount());
-           s.put("shoeSize",shoeInBagList.get(getAdapterPosition()).getShoeSize());
-           s.put("remainingAmount",shoeInBagList.get(getAdapterPosition()).getRemainingAmount());
-           s.put("type",shoeInBagList.get(getAdapterPosition()).getType());
-           s.put("productType",shoeInBagList.get(getAdapterPosition()).getProductType());
-           s.put("productBrand",shoeInBagList.get(getAdapterPosition()).getProductBrand());
-            db.collection("InBag/aaa/ShoeList").document(docName)
-                    .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
+            Integer test1 = 0;
+            for (ShoeInBag ite : DataManager.shoeInWish)
+            {
+                // Process add the shoe added
+                if (ite.getProductId().compareTo(shoeInBagList.get(getAdapterPosition()).getProductId()) == 0  )
+                {
+                    db.collection("InBag/aaa/ShoeList").document(docName)
+                            .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        }
+                    });
+                    DataManager.list.remove(getAdapterPosition());
+                    DataManager.shoeInWishAdapter.notifyDataSetChanged();
+                    DataManager.shoeInBagAdapter.notifyDataSetChanged();
+                    test1 = 1;
+                    break;
                 }
-            });
-
-            DataManager.shoeInWish.add(DataManager.list.get(getAdapterPosition()));
-            DataManager.list.remove(getAdapterPosition());
-            DataManager.shoeInWishAdapter.notifyDataSetChanged();
-            DataManager.shoeInBagAdapter.notifyDataSetChanged();
-           db.collection("InWish/aaaaa/ShoeinWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
-               @Override
-               public void onSuccess(Void aVoid) {
-               }
-           });
+            }
+            if(test1 == 0){
+                Map<String, Object> s = new HashMap<>();
+                s.put("ResourceID",shoeInBagList.get(getAdapterPosition()).getResourceID());
+                s.put("productId",shoeInBagList.get(getAdapterPosition()).getProductId());
+                s.put("productName",shoeInBagList.get(getAdapterPosition()).getProductName());
+                s.put("productPrice",shoeInBagList.get(getAdapterPosition()).getProductPrice());
+                s.put("shoeAmount",shoeInBagList.get(getAdapterPosition()).getShoeAmount());
+                s.put("shoeSize",shoeInBagList.get(getAdapterPosition()).getShoeSize());
+                s.put("remainingAmount",shoeInBagList.get(getAdapterPosition()).getRemainingAmount());
+                s.put("type",shoeInBagList.get(getAdapterPosition()).getType());
+                s.put("productType",shoeInBagList.get(getAdapterPosition()).getProductType());
+                s.put("productBrand",shoeInBagList.get(getAdapterPosition()).getProductBrand());
+                db.collection("InBag/aaa/ShoeList").document(docName)
+                        .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
+                DataManager.shoeInWish.add(DataManager.list.get(getAdapterPosition()));
+                DataManager.list.remove(getAdapterPosition());
+                DataManager.shoeInWishAdapter.notifyDataSetChanged();
+                DataManager.shoeInBagAdapter.notifyDataSetChanged();
+                db.collection("InWish/aaaaa/ShoeinWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
+            }
         }
     }
 }

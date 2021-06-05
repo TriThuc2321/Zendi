@@ -58,7 +58,7 @@ public class WishlistFragment extends Fragment implements RecyclerViewClickInter
                 FragmentDialogBox myFragment = new FragmentDialogBox();
                 ((FragmentDialogBox)myFragment).recieveDrop(shoe);
                   ((HomeScreen)activity).appBarLayout.setVisibility(View.INVISIBLE);
-//                ((HomeScreen)activity).mNavigationView.setVisibility(View.INVISIBLE);
+                ((HomeScreen)activity).mNavigationView.setVisibility(View.INVISIBLE);
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_screen, myFragment).addToBackStack(null).commit();
             }
         });

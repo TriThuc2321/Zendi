@@ -30,6 +30,8 @@ import com.example.zendi_application.dropFragment.detail_product.detailproductAd
 import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product2;
 import com.example.zendi_application.shopFragment.ShoeInBag;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -139,6 +141,7 @@ public class FragmentDialogBox extends Fragment {
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();
                 getFragmentManager().popBackStack();
                 ((HomeScreen)activity).appBarLayout.setVisibility(View.VISIBLE);
+                ((HomeScreen)activity).mNavigationView.setVisibility(View.VISIBLE);
             }
         });
 
@@ -164,10 +167,18 @@ public class FragmentDialogBox extends Fragment {
                             // Process add the shoe added
                             if (ite.getProductId().compareTo(shoe.getProductId()) == 0 && ite.getShoeSize().compareTo(shoe.getShoeSize()) == 0 )
                             {
-//                                Integer amount_of_product = shoeInBag.getRemainingAmount().get(DataManager.sizeConvert.get(selectedSize));
-//                                Integer processed_amount = amount_of_product - Integer.parseInt(shoeInBag.getShoeAmount());
-//                                shoeInBag.getRemainingAmount().set(DataManager.sizeConvert.get(selectedSize),processed_amount) ;
                                 DataManager.update_Amount_Of_Shoe_In_Bag(shoe,ite,DataManager.host,v.getContext());
+                                String docName = shoeInBag.getProductId() + "_" + shoeInBag.getShoeSize() ;
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                db.collection("InWish/aaaaa/ShoeinWish").document(docName)
+                                        .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                    }
+                                });
+                                DataManager.shoeInWish.remove(shoeInBag);
+                                DataManager.shoeInWishAdapter.notifyDataSetChanged();
+                                DataManager.shoeInBagAdapter.notifyDataSetChanged();
                                 check = 1;
                                 Toast.makeText(v.getContext(),"Added "+ shoe.getProductName() + " to bag successfully", Toast.LENGTH_SHORT).show();
                                 break;
@@ -177,8 +188,19 @@ public class FragmentDialogBox extends Fragment {
                             Integer amount_of_product = shoe.getRemainingAmount().get(DataManager.sizeConvert.get(selectedSize));
                             Integer processed_amount = amount_of_product - Integer.parseInt(shoe.getShoeAmount());
                             shoe.getRemainingAmount().set(DataManager.sizeConvert.get(selectedSize),processed_amount);
-                            DataManager.push_Shoe_To_Bag(shoe, DataManager.host, v.getContext());
+                            DataManager.push_Shoe_To_Bag_in_Fragmentdialog(shoe, DataManager.host, v.getContext());
+                            DataManager.shoeInBagAdapter.notifyDataSetChanged();
                             Toast.makeText(v.getContext(),"Added "+ shoe.getProductName() + " to bag successfully", Toast.LENGTH_SHORT).show();
+                            String docName = shoeInBag.getProductId() + "_" + shoeInBag.getShoeSize() ;
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            db.collection("InWish/aaaaa/ShoeinWish").document(docName)
+                                    .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                }
+                            });
+                            DataManager.shoeInWish.remove(shoeInBag);
+                            DataManager.shoeInWishAdapter.notifyDataSetChanged();
                             for (ShoeInBag ite : DataManager.list)
                             {
                                 if (ite.getProductId() == shoe.getProductId()) {

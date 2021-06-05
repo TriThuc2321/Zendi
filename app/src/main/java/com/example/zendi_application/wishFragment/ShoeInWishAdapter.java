@@ -1,6 +1,7 @@
 package com.example.zendi_application.wishFragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,16 +94,41 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
 
         @Override
         public void onClick(View v) {
-            String docName = shoeInWishList.get(getAdapterPosition()).getProductId() + "_" + shoeInWishList.get(getAdapterPosition()).getShoeSize() ;
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            Map<String, Object> s = new HashMap<>();
+            String docName = shoeInWishList.get(getAdapterPosition()).getProductId() + "_" + shoeInWishList.get(getAdapterPosition()).getShoeSize() ;
+            Integer test = 0;
+            for (ShoeInBag ite : DataManager.list)
+            {
+                // Process add the shoe added
+                if (ite.getProductId().compareTo(shoeInWishList.get(getAdapterPosition()).getProductId()) == 0 && ite.getShoeSize().compareTo(shoeInWishList.get(getAdapterPosition()).getShoeSize()) == 0 )
+                {
+
+                    db.collection("InWish/aaaaa/ShoeinWish").document(docName)
+                            .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        }
+                    });
+                    DataManager.shoeInWish.remove(getAdapterPosition());
+                    DataManager.shoeInWishAdapter.notifyDataSetChanged();
+                    DataManager.shoeInBagAdapter.notifyDataSetChanged();
+                    test = 1;
+                    break;
+                }
+            }
+            if ( test == 0 ) {
+                Map<String, Object> s = new HashMap<>();
             s.put("ResourceID",shoeInWishList.get(getAdapterPosition()).getResourceID());
             s.put("productId",shoeInWishList.get(getAdapterPosition()).getProductId());
             s.put("productName",shoeInWishList.get(getAdapterPosition()).getProductName());
             s.put("productPrice",shoeInWishList.get(getAdapterPosition()).getProductPrice());
-            s.put("shoeAmount","1");
-           // s.put("shoeStatus",shoeInWishList.get(getAdapterPosition()).getShoeStatus());
+            s.put("shoeAmount",shoeInWishList.get(getAdapterPosition()).getShoeAmount());
             s.put("shoeSize",shoeInWishList.get(getAdapterPosition()).getShoeSize());
+            s.put("remainingAmount",shoeInWishList.get(getAdapterPosition()).getRemainingAmount());
+            s.put("type",shoeInWishList.get(getAdapterPosition()).getType());
+            s.put("productType",shoeInWishList.get(getAdapterPosition()).getProductType());
+            s.put("productBrand",shoeInWishList.get(getAdapterPosition()).getProductBrand());
+
             db.collection("InWish/aaaaa/ShoeinWish").document(docName)
                     .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
@@ -120,6 +146,7 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
                 public void onSuccess(Void aVoid) {
                 }
             });
+            }
         }
     }
 }

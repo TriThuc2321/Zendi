@@ -525,11 +525,24 @@ public class DataManager {
         });
     }
 
-
-    //Tang giam amount trong BAG cua User
-    public void increaseAmount(List<ShoeInBag> list, String collection){
-
-
+    public static void push_Shoe_To_Bag_in_Fragmentdialog(ShoeInBag selectedshoe,User user,Context mContext)
+    {
+        FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
+        firestonePutProduct.collection("InBag/" + "aaa" +"/ShoeList").document(selectedshoe.getProductId() + "_" + selectedshoe.getShoeSize()).set(selectedshoe)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+//                      Update_Amount(selectedShoe);
+                        DataManager.list.add(selectedshoe);
+                        DataManager.shoeInBagAdapter.notifyDataSetChanged();
+                        Toast.makeText(mContext,"Product is Added !!",Toast.LENGTH_SHORT);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(mContext,"Adding Failed !!",Toast.LENGTH_SHORT);
+            }
+        });
     }
     //endregion//
 
