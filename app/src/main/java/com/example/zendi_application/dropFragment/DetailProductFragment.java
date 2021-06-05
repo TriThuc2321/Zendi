@@ -143,7 +143,6 @@ public class DetailProductFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mview.getContext(),RecyclerView.HORIZONTAL,false);
         productimageRecycleView.setLayoutManager(linearLayoutManager);
 
-
         imageAdapter.SetData(mproduct,parent);
         productimageRecycleView.setAdapter(imageAdapter);
         //
