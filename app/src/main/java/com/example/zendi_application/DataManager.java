@@ -16,6 +16,7 @@ import com.example.zendi_application.addProductPackage.ProductList;
 import com.example.zendi_application.addProductPackage.ProductNameList;
 import com.example.zendi_application.addProductPackage.uploadData;
 import com.example.zendi_application.dropFragment.DetailProductFragment;
+import com.example.zendi_application.dropFragment.DropFragment;
 import com.example.zendi_application.dropFragment.ModelSupportLoad;
 import com.example.zendi_application.dropFragment.category_drop.category;
 import com.example.zendi_application.dropFragment.drop.drop;
@@ -360,6 +361,7 @@ public class DataManager {
                     int d = 1;
                 }
                 AddDrop.imagedropAdapter_.notifyDataSetChanged();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -421,21 +423,19 @@ public class DataManager {
         firestoneGetProduct.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
                 productList.clear();
                 for (DocumentSnapshot documentSnapshot : task.getResult())
                 {
                     // U have to need default constructor in product2 class to use the sequence below
                     product2 temp = documentSnapshot.toObject(product2.class);
                     productList.add(temp);
-                    ((uploadData)parent).imageAdapter_.notifyDataSetChanged();
                 }
                 int c = 2;
                 ((uploadData)parent).progressBar.setVisibility(View.INVISIBLE);
 //                ((uploadData)parent).txt1.setText(productList.get(0).getProductId());
 //                ((uploadData)parent).txt2.setText(productList.get(1).getProductId());
 //                ((uploadData)parent).txt3.setText(productList.get(2).getProductId());
-                ((uploadData)parent).imageAdapter_.notifyDataSetChanged();
+                    uploadData.imageAdapter_.notifyDataSetChanged();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

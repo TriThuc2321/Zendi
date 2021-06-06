@@ -74,8 +74,6 @@ public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolde
             }
         });
 
-
-
     }
 
 

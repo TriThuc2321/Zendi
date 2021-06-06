@@ -40,7 +40,9 @@ public class uploadData extends AppCompatActivity {
     private AddDrop addDropActivity;
     ///
     private RecyclerView imageRecycleView;
-    public imageAdapter imageAdapter_;
+    private RecyclerView imageRecycleView2;
+    public static imageAdapter imageAdapter_;
+    public static imageAdapter2 imageAdapter2_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +65,24 @@ public class uploadData extends AppCompatActivity {
         toolbar.setTitle("Upload Product");
         progressBar.setVisibility(View.INVISIBLE);
         ////
-        imageRecycleView = findViewById(R.id.recycleview_imageofnewproduct);
+        imageRecycleView = findViewById(R.id.recycleview_imageofproductlist);
         imageAdapter_ = new imageAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
         imageRecycleView.setLayoutManager(linearLayoutManager);
-
+        uploadData.imageAdapter_.SetData(DataManager.listProduct,99);
+        uploadData.imageAdapter_.notifyDataSetChanged();
+        imageRecycleView.setAdapter(imageAdapter_);
+        /////
+        imageRecycleView2 = findViewById(R.id.recycleview_imageofnewproduct);
+        imageAdapter2_ = new imageAdapter2(this);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
+        imageRecycleView2.setLayoutManager(linearLayoutManager2);
+        listURL = new ArrayList<>();
+        imageAdapter2_.SetData(listURL);
+        imageAdapter2_.notifyDataSetChanged();
+        imageRecycleView2.setAdapter(imageAdapter2_);
        // DataManager.GetNumberofCategory();
-        DataManager.LoadDropInformation("Collection/",DataManager.listDrop);
-        DataManager.LoadProductInformation("Product",DataManager.listProduct);
+
 
         /////
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -157,6 +169,8 @@ public class uploadData extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==IMAGE_REQUEST && resultCode ==RESULT_OK && data!=null && data.getData()!=null){
                 listURL.add(data.getData());
+                imageAdapter2_.SetData(listURL);
+                imageAdapter2_.notifyDataSetChanged();
                 listimg.add(data.getData().toString());
                 imgview.setImageURI(data.getData());
 //            Uri imageUri = data.getData();

@@ -30,7 +30,7 @@ public class DropFragment extends Fragment implements View.OnClickListener {
     Button btn_type2;
     public DataManager dataManager;
     private RecyclerView rcvCategory;
-    private categoryAdapter CategoryAdapter;
+    public static categoryAdapter CategoryAdapter;
     LinearLayoutManager linearLayoutManager;
     @Nullable
     @Override
@@ -76,17 +76,16 @@ public class DropFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.btn_type)
         {
-            Toast.makeText(this.getContext(),"CAI CC BA M",Toast.LENGTH_SHORT).show();
+
         }
         if (v.getId() == R.id.btn_type1)
         {
-            Toast.makeText(this.getContext(),"C",Toast.LENGTH_SHORT).show();
             rcvCategory.smoothScrollToPosition(1);
 
         }
         if (v.getId() == R.id.btn_type2)
         {
-            Toast.makeText(this.getContext(),"CAI CC ME M",Toast.LENGTH_SHORT).show();
+
             rcvCategory.smoothScrollToPosition(2);
         }
     }
