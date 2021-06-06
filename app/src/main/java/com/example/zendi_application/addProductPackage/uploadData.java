@@ -10,11 +10,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.zendi_application.DataManager;
@@ -31,6 +33,7 @@ public class uploadData extends AppCompatActivity {
     public EditText idEdit,captionEdit,priceEdit,brandEdit,typeEdit,txtposition;
     public DataManager dataManager;
     private static  final  int IMAGE_REQUEST = 2;
+    private Toolbar toolbar;
     public ProgressBar progressBar;
     private List<String> listimg;
     private List<Uri> listURL;
@@ -42,6 +45,7 @@ public class uploadData extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_upload_data);
         btnload = findViewById(R.id.btnloaddata);
         btnloadimg = findViewById(R.id.btnloadiamge);
@@ -55,6 +59,8 @@ public class uploadData extends AppCompatActivity {
         btnpushdrop = findViewById(R.id.pushdrop);
         txtposition = (EditText) findViewById(R.id.position_);
         progressBar = findViewById(R.id.progress_bar);
+        toolbar = findViewById(R.id.toorbar_uploaddata);
+        toolbar.setTitle("Upload Product");
         progressBar.setVisibility(View.INVISIBLE);
         ////
         imageRecycleView = findViewById(R.id.recycleview_imageofnewproduct);
@@ -67,7 +73,12 @@ public class uploadData extends AppCompatActivity {
         DataManager.LoadProductInformation("Product",DataManager.listProduct);
 
         /////
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         btnloadimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +102,8 @@ public class uploadData extends AppCompatActivity {
                 }
                 product2 mproduct = new product2(idEdit.getText().toString(),captionEdit.getText().toString(),
                         priceEdit.getText().toString(),brandEdit.getText().toString(),typeEdit.getText().toString(),new ArrayList<String>(),b,1);
+                DataManager.listProduct.add(mproduct);
+
                 DataManager.push_Object_To_FireStone(uploadData.this,"Product",idEdit.getText().toString(),mproduct,listURL);
                 listURL.clear();
                 listimg.clear();
@@ -123,7 +136,7 @@ public class uploadData extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                    startActivity(new Intent(uploadData.this,AddDrop.class));
-
+                   AddDrop.imagedropAdapter_.notifyDataSetChanged();
             }
         });
     }

@@ -32,7 +32,7 @@ public class Introduction extends AppCompatActivity {
         appName.setAnimation(bottomAim);
         slogan.setAnimation(bottomAim);
         // Set animation 2
-        background.animate().translationY(-2500).setDuration(1000).setStartDelay(2000);
+        background.animate().translationY(-3500).setDuration(1000).setStartDelay(2000);
         logo.animate().translationY(2000).setDuration(1000).setStartDelay(2000);
         appName.animate().translationY(2000).setDuration(1000).setStartDelay(2000);
         slogan.animate().translationY(2000).setDuration(1000).setStartDelay(2000);

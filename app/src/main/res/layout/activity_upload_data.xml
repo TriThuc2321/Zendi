@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/up_load"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,87 +8,192 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".addProductPackage.uploadData">
+
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycleview_imageofnewproduct"></LinearLayout>
+
+    <Toolbar
+        android:id="@+id/toorbar_uploaddata"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/gold"
+        android:navigationIcon="?attr/homeAsUpIndicator"
+        android:titleTextColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></Toolbar>
+
+
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <Button
-        android:id="@+id/btnloadiamge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Load Image"
-        ></Button>
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/bangers"
+        android:text=" Product List "
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toorbar_uploaddata"></TextView>
 
-        <Button
-            android:id="@+id/btnloaddata"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Load Data"
-            ></Button>
-
-        <Button
-            android:id="@+id/btngetdata"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Set Data"
-            ></Button>
-        <Button
-            android:id="@+id/pushdrop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PushDrop"
-            ></Button>
-
-
-    </LinearLayout>
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        ></ProgressBar>
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="72dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/img_load"
+        app:layout_constraintTop_toBottomOf="@+id/btnloadiamge"></ProgressBar>
+
     <ImageView
         android:id="@+id/img_load"
-        android:layout_width="100dp"
-        android:layout_height="110dp">
-    </ImageView>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-    <EditText
-        android:id="@+id/edit1"
-        android:hint="ID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <EditText
-        android:id="@+id/edit2"
-        android:hint="Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <EditText
-        android:id="@+id/edit3"
-        android:hint="Price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-        <EditText
-            android:id="@+id/edit4"
-            android:hint="Brand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    <EditText
-        android:id="@+id/edit5"
-        android:hint="Type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-        <EditText
-            android:id="@+id/position_"
-            android:hint="position"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></EditText>
-    </LinearLayout>
+        android:layout_width="86dp"
+        android:layout_height="87dp"
+        android:layout_marginStart="148dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.537"></ImageView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleview_imageofnewproduct"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"></androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/btnloaddata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Push New Product"
+        android:layout_margin="10dp"
+        android:background="@color/gold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></Button>
+
+    <EditText
+        android:id="@+id/position_"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </androidx.recyclerview.widget.RecyclerView>
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="8dp"
+        android:hint="Posision"
+        app:layout_constraintEnd_toStartOf="@+id/btngetdata"
+        app:layout_constraintHorizontal_bias="0.718"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toorbar_uploaddata"></EditText>
+
+    <EditText
+        android:id="@+id/edit2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:hint="Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit1" />
+
+    <EditText
+        android:id="@+id/edit3"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+
+        android:hint="Price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit2" />
+
+    <EditText
+        android:id="@+id/edit4"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:hint="Brand"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit3" />
+
+    <EditText
+        android:id="@+id/edit5"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="4dp"
+        android:hint="Type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit3" />
+
+    <EditText
+        android:id="@+id/edit1"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:hint="ID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_load"
+        app:layout_goneMarginTop="5dp" />
+
+    <Button
+        android:id="@+id/btnloadiamge"
+        android:layout_width="115dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/black"
+        android:text="Load Image"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/img_load"
+        app:layout_constraintTop_toBottomOf="@+id/recycleview_imageofnewproduct"></Button>
+
+    <Button
+        android:id="@+id/pushdrop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/white"
+        android:text="PushDrop"
+        android:textSize="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toorbar_uploaddata"></Button>
+
+    <Button
+        android:id="@+id/btngetdata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
+        android:background="@color/white"
+        android:text="Set Data"
+        android:textSize="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/pushdrop"
+        app:layout_constraintTop_toBottomOf="@+id/toorbar_uploaddata"></Button>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/bangers"
+        android:text=" New Product "
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycleview_imageofnewproduct"></TextView>
+</androidx.constraintlayout.widget.ConstraintLayout>

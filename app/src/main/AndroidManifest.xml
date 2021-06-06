@@ -40,12 +40,12 @@
         <activity android:name=".ActivityAccount.SettingActivity" />
         <activity android:name=".addProductPackage.uploadData">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+<!--             <intent-filter>-->
+<!--             <action android:name="android.intent.action.MAIN" />-->
 
 
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+<!--             <category android:name="android.intent.category.LAUNCHER" />-->
+<!--             </intent-filter>-->
         </activity>
         <activity android:name=".ActivityAccount.Account_Activity" />
         <activity android:name=".searchfragment.allShoe.AllShoeActivity" />
