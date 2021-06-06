@@ -43,7 +43,6 @@ public class FragmentDialogBox extends Fragment {
     private TextView productName,productPrice, choose, brandname;
     private Button backbtn,shopnowbtn;
     private ImageView shoeIM;
-    private detailproductAdapter imageAdapter;
     private Spinner sizeSpinner;
     private String selectedSize;
 

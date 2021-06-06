@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -18,7 +19,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.DataManager;
+import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
+import com.example.zendi_application.wishFragment.FragmentDialogBox;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -36,7 +39,7 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 import static android.widget.Toast.LENGTH_LONG;
 
-public class ShopFragment extends Fragment implements RecyclerViewClickInterface{
+public class ShopFragment extends Fragment implements RecyclerViewClickInterface, View.OnClickListener{
 
     Button settle;
     RecyclerView recyclerView;
@@ -58,7 +61,7 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(DataManager.shoeInBagAdapter);
-
+        settle.setOnClickListener(this);
         return view;
     }
     String increaseAmount = "One more or swipe down to delete";
@@ -157,5 +160,20 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
 
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId()==R.id.settle_place){
+
+           // Toast.makeText(getContext(), "You have just dragged this shoe out of bag", LENGTH_LONG).show();
+
+            AppCompatActivity activity = (AppCompatActivity)getContext();
+            FragmentDialogBox myFragment = new FragmentDialogBox();
+            ((FragmentDialogBox)myFragment).recieveDrop(DataManager.list.get(0));
+            ((HomeScreen)activity).appBarLayout.setVisibility(View.INVISIBLE);
+            ((HomeScreen)activity).mNavigationView.setVisibility(View.INVISIBLE);
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_screen, myFragment).addToBackStack(null).commit();
+        }
     }
 }
