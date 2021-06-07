@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"></Toolbar>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         android:padding="5dp"
         android:id="@+id/recycleview_productlist_adddrop">
 
@@ -102,13 +102,7 @@
                 android:background="@drawable/custom_black_stroke"
                 android:id="@+id/delete_adddrop"></Button>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="BACK"
-                android:background="@drawable/custom_black_stroke"
-                android:id="@+id/back_adddrop">
-            </Button>
+
         </LinearLayout>
 
         <EditText
