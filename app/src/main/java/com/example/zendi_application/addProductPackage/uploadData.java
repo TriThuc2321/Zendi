@@ -16,10 +16,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.zendi_application.DataManager;
+import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product2;
@@ -88,7 +90,8 @@ public class uploadData extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                uploadData.super.onBackPressed();
+                finish();
             }
         });
         btnloadimg.setOnClickListener(new View.OnClickListener() {
@@ -104,22 +107,36 @@ public class uploadData extends AppCompatActivity {
         btnload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (captionEdit.getText().length()>0 && typeEdit.getText().length()>0 && brandEdit.getText().length()>0
+                && priceEdit.getText().length() > 0 && idEdit.getText().length() > 0 && listURL.size() == 4) {
+                    dataManager.getInstance();
+                    List<Integer> b = new ArrayList<>();
+                    for (int i = 0; i <= 14; i++) {
+                        b.add(10);
+                    }
+                    product2 mproduct = new product2(idEdit.getText().toString(), captionEdit.getText().toString(),
+                            priceEdit.getText().toString(), brandEdit.getText().toString(), typeEdit.getText().toString(), new ArrayList<String>(), b, 1);
+                    DataManager.listProduct.add(mproduct);
 
-                dataManager.getInstance();
-//                dataManager.instance.getImgUrlFromFirestone(v.getContext(),"testfolder",c);
-                List<Integer> b = new ArrayList<>();
-                for ( int i = 0; i <= 14; i++)
-                {
-                    b.add(10);
+                    DataManager.push_Object_To_FireStone((uploadData)v.getContext(), "Product", idEdit.getText().toString(), mproduct, listURL);
+                    listURL.clear();
+                    listimg.clear();
+                    imgview.setImageURI(null);
                 }
-                product2 mproduct = new product2(idEdit.getText().toString(),captionEdit.getText().toString(),
-                        priceEdit.getText().toString(),brandEdit.getText().toString(),typeEdit.getText().toString(),new ArrayList<String>(),b,1);
-                DataManager.listProduct.add(mproduct);
+                else
+                {
+                    if (captionEdit.getText().length()== 0 || typeEdit.getText().length() == 0 || brandEdit.getText().length() == 0
+                            || priceEdit.getText().length() == 0 || idEdit.getText().length() == 0 )
+                    {
+                            Toast.makeText(v.getContext(),"Bạn Vừa Bỏ Sót Thông Tin Sản Phẩm !!",Toast.LENGTH_SHORT);
 
-                DataManager.push_Object_To_FireStone(uploadData.this,"Product",idEdit.getText().toString(),mproduct,listURL);
-                listURL.clear();
-                listimg.clear();
-                imgview.setImageURI(null);
+                    }
+                    else
+                    if (listURL.size() < 4)
+                    {
+                        Toast.makeText(v.getContext(),"Mỗi Sản Phẩm Nên Có Đủ 4 Tấm Hình !!",Toast.LENGTH_SHORT);
+                    }
+                }
 
 
             }
@@ -148,7 +165,7 @@ public class uploadData extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                    startActivity(new Intent(uploadData.this,AddDrop.class));
-                   AddDrop.imagedropAdapter_.notifyDataSetChanged();
+                   AddDrop.imageproductlistAdapter_.notifyDataSetChanged();
             }
         });
     }

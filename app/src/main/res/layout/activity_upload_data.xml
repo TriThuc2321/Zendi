@@ -17,7 +17,8 @@
         android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycleview_imageofproductlist"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/recycleview_imageofproductlist"
+        android:orientation="horizontal"></LinearLayout>
 
     <Toolbar
         android:id="@+id/toorbar_uploaddata"
