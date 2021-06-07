@@ -41,7 +41,7 @@ public class Introduction extends AppCompatActivity {
         DataManager.LoadDropInformation("Collection/",DataManager.listDrop);  // load products
         DataManager.LoadProductInformation("Product",DataManager.listProduct); // load categors
         DataManager.loadUser();
-        DataManager.GetUser(); // load list User
+        DataManager.GetUser();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
