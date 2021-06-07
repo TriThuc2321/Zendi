@@ -48,8 +48,8 @@ public class DetailProductFragment extends Fragment {
     public void onResume() {
         super.onResume();
         AppCompatActivity activity = (AppCompatActivity) getContext();
-        ((HomeScreen)activity).appBarLayout.setVisibility(View.VISIBLE);
-        ((HomeScreen)activity).mNavigationView.setVisibility(View.VISIBLE);
+        ((HomeScreen)activity).appBarLayout.setVisibility(View.INVISIBLE);
+        ((HomeScreen)activity).mNavigationView.setVisibility(View.INVISIBLE);
 
 
     }
@@ -124,10 +124,10 @@ public class DetailProductFragment extends Fragment {
                     shoeInBag = new ShoeInBag(mproduct.getProductId(), mproduct.getProductName(), mproduct.getProductPrice()
                             , mproduct.getProductBrand(), mproduct.getProductType(), mproduct.getResourceID(), mproduct.getRemainingAmount()
                             , mproduct.getType(), selectedSize, "1");
-                    Toast.makeText(mview.getContext(),"DRAGGED INTO BAG SUCCESSFULLY !!",Toast.LENGTH_SHORT);
+                    Toast.makeText(mview.getContext(),"DRAGGED INTO BAG SUCCESSFULLY !!",Toast.LENGTH_SHORT).show();
                 }
                 else
-                    Toast.makeText(mview.getContext(),"Sold out !!",Toast.LENGTH_SHORT);
+                    Toast.makeText(mview.getContext(),"Sold out !!",Toast.LENGTH_SHORT).show();
 
 
             }
@@ -168,14 +168,14 @@ public class DetailProductFragment extends Fragment {
             public void onClick(View v) {
                 /// Process not choose size
                 if (shoeInBag == null) {
-                    Toast.makeText(v.getContext(),"Please Choose Size For Product !!",Toast.LENGTH_SHORT);
+                    Toast.makeText(v.getContext(),"Please Choose Size For Product !!",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     /// Process not log in
                     if (DataManager.host.getId() == null)
                     {
-                        Toast.makeText(v.getContext(),"Please Log In To Get Product !!", Toast.LENGTH_SHORT);
+                        Toast.makeText(v.getContext(),"Please Log In To Get Product !!", Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
