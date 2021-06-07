@@ -45,6 +45,15 @@ public class DetailProductFragment extends Fragment {
     private ShoeInBag shoeInBag;
 
     @Override
+    public void onResume() {
+        super.onResume();
+        AppCompatActivity activity = (AppCompatActivity) getContext();
+        ((HomeScreen)activity).appBarLayout.setVisibility(View.VISIBLE);
+        ((HomeScreen)activity).mNavigationView.setVisibility(View.VISIBLE);
+
+
+    }
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
