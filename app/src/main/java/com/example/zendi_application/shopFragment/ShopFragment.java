@@ -44,7 +44,7 @@ import static android.widget.Toast.LENGTH_LONG;
 
 public class ShopFragment extends Fragment implements RecyclerViewClickInterface, View.OnClickListener{
 
-    Button settle;
+    public Button settle;
     RecyclerView recyclerView;
 
     @Nullable
@@ -176,55 +176,4 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
         OrderInfoDialog dia = new OrderInfoDialog();
         dia.show(getFragmentManager(),"Order Information");
     }
-
-//    @Override
-//    public void applyTexts(String address, String contact) {
-//      //  upBilltoFireStore(address,contact);
-//    }
-//    public void upBilltoFireStore(String address, String contact){
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//        Date date = new Date();
-//        String datetime = formatter.format(date);
-//        String docName = "Bill" + DataManager.host.getId() + datetime;
-//        Map<String, Object> s1 = new HashMap<>();
-//        s1.put("Address",address);
-//        s1.put("Contact", contact);
-//        db.collection("Ordered/").document(docName).set(s1).addOnSuccessListener(new OnSuccessListener<Void>() {
-//            @Override
-//            public void onSuccess(Void aVoid) {
-//
-//            }
-//        });
-//        String docName2 = docName + "/ShoeList";
-//        for(ShoeInBag ite: DataManager.list){
-//            String docShoe = ite.getProductId() + "_" + ite.getShoeSize();
-//            Map<String, Object> s = new HashMap<>();
-//            s.put("ResourceID",ite.getResourceID());
-//            s.put("productId",ite.getProductId());
-//            s.put("productName",ite.getProductName());
-//            s.put("productPrice",ite.getProductPrice());
-//            s.put("shoeAmount",ite.getShoeAmount());
-//            s.put("shoeSize",ite.getShoeSize());
-//            s.put("remainingAmount",ite.getRemainingAmount());
-//            s.put("type",ite.getType());
-//            s.put("productType",ite.getProductType());
-//            s.put("productBrand",ite.getProductBrand());
-//            db.collection("Ordered/" + docName + "/ShoeList").document(docShoe).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                @Override
-//                public void onSuccess(Void aVoid) {
-//
-//                }
-//            });
-//        }
-//       DataManager.list.clear();
-//       DataManager.shoeInBagAdapter.notifyDataSetChanged();
-//       String docc = "ShoeList";
-//        db.collection("InBag/" + DataManager.host.getId()).document(docc).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-//            @Override
-//            public void onSuccess(Void aVoid) {
-//
-//            }
-//        });
-//    }
 }

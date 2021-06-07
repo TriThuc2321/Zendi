@@ -64,7 +64,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyyHHmmss"); //Bill document se duoc luu duoi dang  userIDngay thang nam gio phut giay dat hang
         Date date = new Date();
         String datetime = formatter.format(date);
-        String docName = "aaa"+datetime; //thay cai aaa thanh DataManger.host.getId()
+        String docName = DataManager.host.getId() + datetime;
         Map<String, Object> s1 = new HashMap<>();
         s1.put("BillId", docName);
         s1.put("Address",address);
@@ -95,12 +95,13 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
 
                 }
             });
+            String doc1 = ite.getProductId() + "_" + ite.getShoeSize();
+            db.collection("InBag/" + DataManager.host.getId() + "/ShoeList").document(doc1).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                }
+            });
         }
-        db.collection("InBag/aaa/ShoeList").document().delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-            }
-        });
         DataManager.list.clear();
         DataManager.shoeInBagAdapter.notifyDataSetChanged();
     }
