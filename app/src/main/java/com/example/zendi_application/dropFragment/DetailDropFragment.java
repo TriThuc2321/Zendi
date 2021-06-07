@@ -35,8 +35,8 @@ public class DetailDropFragment extends Fragment {
     public void onResume() {
         super.onResume();
         AppCompatActivity activity = (AppCompatActivity) getContext();
-        ((HomeScreen)activity).appBarLayout.setVisibility(View.VISIBLE);
-        ((HomeScreen)activity).mNavigationView.setVisibility(View.VISIBLE);
+        ((HomeScreen)activity).appBarLayout.setVisibility(View.INVISIBLE);
+        ((HomeScreen)activity).mNavigationView.setVisibility(View.INVISIBLE);
 
 
     }

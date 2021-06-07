@@ -90,6 +90,7 @@ public class uploadData extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(RESULT_CANCELED);
                 uploadData.super.onBackPressed();
                 finish();
             }
