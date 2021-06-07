@@ -101,7 +101,6 @@ public class HomeScreen extends AppCompatActivity {
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
                 }
                 else if (item.getItemId() == R.id.shop_owner_item) {
-
                     Intent intent = new Intent(HomeScreen.this, uploadData.class);
                     startActivityForResult(intent, REQUEST_EXIT);
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
