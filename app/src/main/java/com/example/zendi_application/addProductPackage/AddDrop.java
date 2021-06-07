@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -62,6 +63,7 @@ public class AddDrop extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_add_drop);
         productlistRecycleView = findViewById(R.id.recycleview_productlist_adddrop);
         productInDropRecycleView = findViewById(R.id.recycleview_productIndrop_adddrop);
@@ -91,6 +93,7 @@ public class AddDrop extends AppCompatActivity {
         progressBar_adddrop = findViewById(R.id.progress_bar_adddrop);
         load_dropimage = findViewById(R.id.load_dropimage);
         toolbar_adddrop = findViewById(R.id.toorbar_adddrop);
+        toolbar_adddrop.setTitle("ADD DROP");
 
         toolbar_adddrop.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +128,7 @@ public class AddDrop extends AppCompatActivity {
 
         adddropimagebtn = findViewById(R.id.adddropimagebtn_adddrop);
         pushbtn = findViewById(R.id.pushdropbtn_adddrop);
-        backbtn = findViewById(R.id.back_adddrop);
+
         addbtn = findViewById(R.id.addproduct_adddrop);
         deletebtn = findViewById(R.id.delete_adddrop);
         deletebtn.setOnClickListener(new View.OnClickListener() {
@@ -135,11 +138,15 @@ public class AddDrop extends AppCompatActivity {
                     selected_productlist.remove(selectedproductId);
                 for (product2 ite : selected_productlist2 )
                 {
-                    if (ite.getProductId() == selectedproductId) selected_productlist2.remove(ite);
+                    if (ite.getProductId().compareTo(selectedproductId) == 0)
+                    {
+                        selected_productlist2.remove(ite);
                     Toast.makeText(v.getContext(),"Deleted Successfully",Toast.LENGTH_SHORT);
                     imageProductInDropAdapter_.SetData(selected_productlist2);
                     imageProductInDropAdapter_.notifyDataSetChanged();
+                    selected_productlist.remove(selectedproductId);
                     return;
+                    }
                 }
             }
         });
@@ -200,15 +207,6 @@ public class AddDrop extends AppCompatActivity {
                 {
                     Toast.makeText(v.getContext(),"Please fill in all the information !!",Toast.LENGTH_SHORT);
                 }
-            }
-        });
-
-        backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-                finish();
-
             }
         });
         adddropimagebtn.setOnClickListener(new View.OnClickListener() {
