@@ -68,8 +68,10 @@ public class AddDrop extends AppCompatActivity {
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
         productlistRecycleView.setLayoutManager(linearLayoutManager);
-        productInDropRecycleView.setLayoutManager(linearLayoutManager);
+        productInDropRecycleView.setLayoutManager(linearLayoutManager2);
+
 
         imageproductlistAdapter_.SetData(DataManager.listProduct);
         imageproductlistAdapter_.notifyDataSetChanged();
@@ -77,7 +79,7 @@ public class AddDrop extends AppCompatActivity {
 
         imageProductInDropAdapter_.SetData(selected_productlist2);
         imageProductInDropAdapter_.notifyDataSetChanged();
-        productInDropRecycleView.setLayoutManager(linearLayoutManager);
+        productInDropRecycleView.setAdapter(imageProductInDropAdapter_);
 
 
         dropcaptionEdit = findViewById(R.id.dropcaption_adddrop);
