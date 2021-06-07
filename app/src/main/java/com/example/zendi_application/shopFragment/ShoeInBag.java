@@ -10,17 +10,6 @@ import java.util.List;
 public class ShoeInBag extends product2 {
      private String  shoeSize, shoeAmount;
 
-//    public ShoeInBag(String productId_, String productName_, String productPrice_, List<String> ImgProduct,String shoeStatus_, String size_, String amount_) {
-//        this.productId = productId_;
-//        this.productName = productName_;
-//        this.productPrice = productPrice_;
-//        this.ResourceID = ImgProduct;
-//        this.shoeStatus = shoeStatus_;
-//        this.shoeSize = size_;
-//        this.shoeAmount = amount_;
-//    }
-
-
     public ShoeInBag(String productId, String productName, String productPrice, String productBrand, String productType, List<String> resourceID, List<Integer> remainingAmount, Integer type, String shoeSize, String shoeAmount) {
         super(productId, productName, productPrice, productBrand, productType, resourceID, remainingAmount, type);
         this.shoeSize = shoeSize;
