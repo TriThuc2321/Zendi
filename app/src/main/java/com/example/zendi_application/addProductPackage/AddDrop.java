@@ -40,7 +40,7 @@ public class AddDrop extends AppCompatActivity {
     private RecyclerView productlistRecycleView;
     private RecyclerView productInDropRecycleView;
     public static imageAddDropAdapter imageproductlistAdapter_ = new imageAddDropAdapter();
-    public static imageAddDropAdapter imageProductInDropAdapter_ = new imageAddDropAdapter();
+    public static imageAddDropAdapter2 imageProductInDropAdapter_ = new imageAddDropAdapter2();
     EditText dropcaptionEdit, dropstatusEdit, droptypeEdit,category_ordinalEdit,drop_ordinalEdit;
     Button pushbtn,backbtn, addbtn,deletebtn,adddropimagebtn;
     public ProgressBar progressBar_adddrop;
