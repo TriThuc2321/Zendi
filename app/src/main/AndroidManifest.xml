@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/zendi_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Zendi_Application">
-        <activity android:name=".searchfragment.MyDetailProduct"></activity>
+        <activity android:name=".ActivityAccount.StaffManager"></activity>
+        <activity android:name=".searchfragment.MyDetailProduct" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
@@ -40,12 +41,12 @@
         <activity android:name=".ActivityAccount.SettingActivity" />
         <activity android:name=".addProductPackage.uploadData">
 
-<!--             <intent-filter>-->
-<!--             <action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-<!--             <category android:name="android.intent.category.LAUNCHER" />-->
-<!--             </intent-filter>-->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".ActivityAccount.Account_Activity" />
         <activity android:name=".searchfragment.allShoe.AllShoeActivity" />

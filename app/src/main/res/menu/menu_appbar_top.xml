@@ -15,4 +15,11 @@
         android:contentDescription="Setting For Your Account"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/staff_manager_item"
+        android:icon="@drawable/ic_baseline_people_outline_24"
+        android:title="Staff manager"
+        android:contentDescription="Setting For Your Account"
+        app:showAsAction="ifRoom"
+        />
 </menu>

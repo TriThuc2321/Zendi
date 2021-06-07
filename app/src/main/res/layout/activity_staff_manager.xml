@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityAccount.StaffManager">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/staff_manager"
+        android:layout_marginTop="4dp">
+        <View
+            android:id="@+id/turnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="STAFF MANAGER"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/arrowLeft"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/staff_manager"
+        android:background="@color/black"
+        android:id="@+id/bar"
+        />
+    <TextView
+        android:id="@+id/list_staff_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Staff list"
+        android:layout_below="@id/bar"
+        android:fontFamily="sans-serif-black"
+        android:textSize="20dp"
+        android:layout_margin="20dp"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_staff_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/list_staff_textview"
+        android:layout_marginLeft="15dp"
+    />
+    <TextView
+        android:id="@+id/list_customer_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Customer list"
+        android:layout_below="@id/list_staff_recyclerView"
+        android:fontFamily="sans-serif-black"
+        android:textSize="20dp"
+        android:layout_margin="20dp"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_customer_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/list_customer_textview"
+        android:layout_marginLeft="15dp"
+        />
+
+
+
+</RelativeLayout>
