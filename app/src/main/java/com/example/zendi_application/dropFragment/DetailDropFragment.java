@@ -31,6 +31,16 @@ public class DetailDropFragment extends Fragment {
     private ConstraintLayout dropWallpaper;
     private Button typebtn,nameDropbtn,backbtn;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        AppCompatActivity activity = (AppCompatActivity) getContext();
+        ((HomeScreen)activity).appBarLayout.setVisibility(View.VISIBLE);
+        ((HomeScreen)activity).mNavigationView.setVisibility(View.VISIBLE);
+
+
+    }
+
     // the variable defines the position of scrolling up of down
     private static int firstVisibleInListview;
 

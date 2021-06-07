@@ -164,7 +164,7 @@ public class DetailProductFragment extends Fragment {
                 else
                 {
                     /// Process not log in
-                    if (DataManager.host == null)
+                    if (DataManager.host.getId() == null)
                     {
                         Toast.makeText(v.getContext(),"Please Log In To Get Product !!", Toast.LENGTH_SHORT);
                     }
