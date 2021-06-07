@@ -106,7 +106,7 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
                 // Process add the shoe added
                 if (ite.getProductId().compareTo(shoeInBagList.get(getAdapterPosition()).getProductId()) == 0  )
                 {
-                    db.collection("InBag/aaa/ShoeList").document(docName)
+                    db.collection("InBag/" +DataManager.host.getId() + "/ShoeList").document(docName)
                             .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -131,7 +131,7 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
                 s.put("type",shoeInBagList.get(getAdapterPosition()).getType());
                 s.put("productType",shoeInBagList.get(getAdapterPosition()).getProductType());
                 s.put("productBrand",shoeInBagList.get(getAdapterPosition()).getProductBrand());
-                db.collection("InBag/aaa/ShoeList").document(docName)
+                db.collection("InBag/"+DataManager.host.getId()+"/ShoeList").document(docName)
                         .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -141,7 +141,7 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
                 DataManager.list.remove(getAdapterPosition());
                 DataManager.shoeInWishAdapter.notifyDataSetChanged();
                 DataManager.shoeInBagAdapter.notifyDataSetChanged();
-                db.collection("InWish/aaaaa/ShoeinWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
+                db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                     }

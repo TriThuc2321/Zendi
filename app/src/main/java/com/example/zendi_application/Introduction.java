@@ -40,12 +40,11 @@ public class Introduction extends AppCompatActivity {
         //Load data
         DataManager.LoadDropInformation("Collection/",DataManager.listDrop);  // load products
         DataManager.LoadProductInformation("Product",DataManager.listProduct); // load categors
-        DataManager.loadUser(); // load list User
+        DataManager.loadUser();
+        DataManager.GetUser(); // load list User
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                DataManager.getShoeInBagFromFirestone("InBag/aaa/ShoeList",DataManager.list);
-                DataManager.getShoeInWishFromFirestone("InWish/aaaaa/ShoeinWish",DataManager.shoeInWish);
                 Intent intent = new Intent(Introduction.this,HomeScreen.class);
                 startActivity(intent);
                 finish();

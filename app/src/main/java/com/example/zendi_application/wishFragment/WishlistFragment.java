@@ -45,7 +45,6 @@ public class WishlistFragment extends Fragment implements RecyclerViewClickInter
         View view = inflater.inflate(R.layout.fragment_wishlist, container, false);
 
         DataManager.shoeInWishAdapter = new ShoeInWishAdapter();
-        //shoeInWishAdapter = new ShoeInWishAdapter();
 
         recyclerView = view.findViewById(R.id.wishListrcv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), recyclerView.VERTICAL, false);
@@ -120,12 +119,12 @@ public class WishlistFragment extends Fragment implements RecyclerViewClickInter
         s.put("productPrice",shoe.getProductPrice());
         s.put("shoeAmount","1");
         s.put("shoeSize",newsize);
-        db.collection("InBag/aaa/ShoeList").document(newdocName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("InBag/"+DataManager.host.getId()+"/ShoeList").document(newdocName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
             }
         });
-        db.collection("InWish/aaaaa/ShoeinWish").document(olddocName)
+        db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(olddocName)
                 .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -137,7 +136,7 @@ public class WishlistFragment extends Fragment implements RecyclerViewClickInter
 
     public void upSize(ShoeInBag shoe, String size){
         String docName = shoe.getProductId() + "_" + shoe.getShoeSize();
-        final DocumentReference docRef = FirebaseFirestore.getInstance().collection("InWish/aaa/ShoeinWish")
+        final DocumentReference docRef = FirebaseFirestore.getInstance().collection("InWish/"+DataManager.host.getId()+"/ShoeinWish")
                 .document(docName);
         Map<String, Object> map = new HashMap<>();
         map.put("shoeSize",size);
@@ -153,7 +152,7 @@ public class WishlistFragment extends Fragment implements RecyclerViewClickInter
     public  void deleteItem(final ShoeInBag shoe){
         String docName = shoe.getProductId() + "_" + shoe.getShoeSize();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("InWish/aaaaa/ShoeinWish").document(docName)
+        db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName)
                 .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

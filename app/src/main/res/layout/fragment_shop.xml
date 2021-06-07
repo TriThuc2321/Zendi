@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -20,7 +19,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="15dp"
             android:background="@drawable/custombutton_detailproduct"
             android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_black"
             android:paddingEnd="100dp"
@@ -31,8 +29,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.97"
-            android:onClick="this"
-            tools:ignore="OnClick"></Button>
+            app:layout_constraintVertical_bias="0.97"></Button>
     </LinearLayout>
 </layout>

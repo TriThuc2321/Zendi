@@ -128,7 +128,6 @@ public class FragmentDialogBox extends Fragment {
 
             }
         });
-        //Glide.with(this.shoeIM).load(shoeInBag.getResourceID().get(0)).into(shoeIM);
         Picasso.get().load(shoeInBag.getResourceID().get(0)).into(shoeIM);
         choose.setText("Choose size: ");
         productPrice.setText(new StringBuilder("Price: $").append(shoeInBag.getProductPrice()));
@@ -169,7 +168,7 @@ public class FragmentDialogBox extends Fragment {
                                 DataManager.update_Amount_Of_Shoe_In_Bag(shoe,ite,DataManager.host,v.getContext());
                                 String docName = shoeInBag.getProductId() + "_" + shoeInBag.getShoeSize() ;
                                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                db.collection("InWish/aaaaa/ShoeinWish").document(docName)
+                                db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName)
                                         .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -192,7 +191,7 @@ public class FragmentDialogBox extends Fragment {
                             Toast.makeText(v.getContext(),"Added "+ shoe.getProductName() + " to bag successfully", Toast.LENGTH_SHORT).show();
                             String docName = shoeInBag.getProductId() + "_" + shoeInBag.getShoeSize() ;
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
-                            db.collection("InWish/aaaaa/ShoeinWish").document(docName)
+                            db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName)
                                     .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
