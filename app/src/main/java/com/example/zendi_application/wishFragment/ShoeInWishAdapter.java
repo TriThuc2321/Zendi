@@ -102,7 +102,6 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
                 // Process add the shoe added
                 if (ite.getProductId().compareTo(shoeInWishList.get(getAdapterPosition()).getProductId()) == 0 && ite.getShoeSize().compareTo(shoeInWishList.get(getAdapterPosition()).getShoeSize()) == 0 )
                 {
-
                     db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName)
                             .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

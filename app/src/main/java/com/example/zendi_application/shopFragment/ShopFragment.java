@@ -30,10 +30,13 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
@@ -165,15 +168,63 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.settle_place){
-
-           // Toast.makeText(getContext(), "You have just dragged this shoe out of bag", LENGTH_LONG).show();
-
-            AppCompatActivity activity = (AppCompatActivity)getContext();
-            FragmentDialogBox myFragment = new FragmentDialogBox();
-            ((FragmentDialogBox)myFragment).recieveDrop(DataManager.list.get(0));
-            ((HomeScreen)activity).appBarLayout.setVisibility(View.INVISIBLE);
-            ((HomeScreen)activity).mNavigationView.setVisibility(View.INVISIBLE);
-            activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_screen, myFragment).addToBackStack(null).commit();
+                openDialog();
         }
     }
+
+    private void openDialog() {
+        OrderInfoDialog dia = new OrderInfoDialog();
+        dia.show(getFragmentManager(),"Order Information");
+    }
+
+//    @Override
+//    public void applyTexts(String address, String contact) {
+//      //  upBilltoFireStore(address,contact);
+//    }
+//    public void upBilltoFireStore(String address, String contact){
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//        Date date = new Date();
+//        String datetime = formatter.format(date);
+//        String docName = "Bill" + DataManager.host.getId() + datetime;
+//        Map<String, Object> s1 = new HashMap<>();
+//        s1.put("Address",address);
+//        s1.put("Contact", contact);
+//        db.collection("Ordered/").document(docName).set(s1).addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
+//
+//            }
+//        });
+//        String docName2 = docName + "/ShoeList";
+//        for(ShoeInBag ite: DataManager.list){
+//            String docShoe = ite.getProductId() + "_" + ite.getShoeSize();
+//            Map<String, Object> s = new HashMap<>();
+//            s.put("ResourceID",ite.getResourceID());
+//            s.put("productId",ite.getProductId());
+//            s.put("productName",ite.getProductName());
+//            s.put("productPrice",ite.getProductPrice());
+//            s.put("shoeAmount",ite.getShoeAmount());
+//            s.put("shoeSize",ite.getShoeSize());
+//            s.put("remainingAmount",ite.getRemainingAmount());
+//            s.put("type",ite.getType());
+//            s.put("productType",ite.getProductType());
+//            s.put("productBrand",ite.getProductBrand());
+//            db.collection("Ordered/" + docName + "/ShoeList").document(docShoe).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                @Override
+//                public void onSuccess(Void aVoid) {
+//
+//                }
+//            });
+//        }
+//       DataManager.list.clear();
+//       DataManager.shoeInBagAdapter.notifyDataSetChanged();
+//       String docc = "ShoeList";
+//        db.collection("InBag/" + DataManager.host.getId()).document(docc).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
+//
+//            }
+//        });
+//    }
 }
