@@ -174,10 +174,10 @@ public class HomeScreen extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_EXIT) {
-            //if (resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 this.finish();
 
-            //}
+            }
         }
     }
 

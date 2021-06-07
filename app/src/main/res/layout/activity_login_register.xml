@@ -6,9 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".ActivityAccount.Account_Activity"
     android:id="@+id/fragment_login_register"
-    android:background="@drawable/background_account"
-    >
 
+    >
+    <ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back_ground_login_register"
+    android:scaleType="centerCrop"
+    />
     <View
         android:id="@+id/cancelBtn"
         android:layout_width="45dp"
@@ -16,6 +21,14 @@
         android:background="@drawable/ic_baseline_cancel_24"
         android:layout_alignParentRight="true"
         />
+
+    <View android:layout_height="140dp"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/white_background_login_register"
+        >
+
+    </View>
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
@@ -29,23 +42,22 @@
         android:textSize="20dp"
         android:paddingLeft="15dp"
         android:layout_marginBottom="5dp"
+        android:background="@drawable/custom_black_stroke"
         />
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:gravity="left|center_vertical"
             android:layout_alignParentBottom="true"
             android:text="REGISTER"
             android:textSize="20dp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="20dp"
             android:paddingLeft="15dp"
+            android:background="@color/black"
             />
-
-
-
 
 </RelativeLayout>
