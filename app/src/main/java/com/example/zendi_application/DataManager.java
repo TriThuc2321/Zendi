@@ -275,6 +275,8 @@ public class DataManager {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         parent.progressBar.setVisibility(View.INVISIBLE);
+                        //
+                        Toast.makeText(parent,"Thêm Sản Phẩm Thành Công !",Toast.LENGTH_SHORT);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -360,7 +362,7 @@ public class DataManager {
                     productList.add(temp);
                     int d = 1;
                 }
-                AddDrop.imagedropAdapter_.notifyDataSetChanged();
+                AddDrop.imageproductlistAdapter_.notifyDataSetChanged();
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -378,6 +380,7 @@ public class DataManager {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 DataManager.listDrop.clear();
+                if (listCategory != null) listCategory.clear();
                 for (DocumentSnapshot documentSnapshot : task.getResult()) {
                     // U have to need default constructor in drop2 class to use the sequence below
                     //List<Map<String, Object>> productList = (List<Map<String, Object>>) documentSnapshot.get("productList");

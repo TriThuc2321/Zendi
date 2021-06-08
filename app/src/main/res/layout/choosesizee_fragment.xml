@@ -22,16 +22,16 @@
 
     <ImageView
         android:id="@+id/imgofShoe"
-        android:layout_width="395dp"
-        android:layout_height="380dp"
-        android:layout_margin="10dp"></ImageView>
+        android:layout_width="388dp"
+        android:layout_height="348dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"></ImageView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/custom_for_detailproduct"
         android:orientation="vertical">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

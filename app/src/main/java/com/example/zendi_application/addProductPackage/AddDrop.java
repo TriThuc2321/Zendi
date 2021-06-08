@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,14 +37,18 @@ public class AddDrop extends AppCompatActivity {
     private List<Uri> listURL;
     private static  final  int IMAGE_REQUEST = 2;
     private ImageView load_dropimage;
-    private RecyclerView dropRecycleView;
-    public static imageAddDropAdapter imagedropAdapter_ = new imageAddDropAdapter();
+    private Toolbar toolbar_adddrop;
+    private RecyclerView productlistRecycleView;
+    private RecyclerView productInDropRecycleView;
+    public static imageAddDropAdapter imageproductlistAdapter_ = new imageAddDropAdapter();
+    public static imageAddDropAdapter2 imageProductInDropAdapter_ = new imageAddDropAdapter2();
     EditText dropcaptionEdit, dropstatusEdit, droptypeEdit,category_ordinalEdit,drop_ordinalEdit;
     Button pushbtn,backbtn, addbtn,deletebtn,adddropimagebtn;
     public ProgressBar progressBar_adddrop;
     Spinner productList_spinner;
     String selectedproductId;
     List<String> selected_productlist = new ArrayList<>();
+    List<product2> selected_productlist2 = new ArrayList<>();
     List<String> productName = new ArrayList<>();
     List<String> productId = new ArrayList<>();
 
@@ -57,15 +63,26 @@ public class AddDrop extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_add_drop);
-        dropRecycleView = findViewById(R.id.recycleview_imagedrop);
+        productlistRecycleView = findViewById(R.id.recycleview_productlist_adddrop);
+        productInDropRecycleView = findViewById(R.id.recycleview_productIndrop_adddrop);
+
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
-        dropRecycleView.setLayoutManager(linearLayoutManager);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
+        productlistRecycleView.setLayoutManager(linearLayoutManager);
+        productInDropRecycleView.setLayoutManager(linearLayoutManager2);
 
-        imagedropAdapter_.SetData(DataManager.listProduct);
-        imagedropAdapter_.notifyDataSetChanged();
-        dropRecycleView.setAdapter(imagedropAdapter_);
+
+        imageproductlistAdapter_.SetData(DataManager.listProduct);
+        imageproductlistAdapter_.notifyDataSetChanged();
+        productlistRecycleView.setAdapter(imageproductlistAdapter_);
+
+        imageProductInDropAdapter_.SetData(selected_productlist2);
+        imageProductInDropAdapter_.notifyDataSetChanged();
+        productInDropRecycleView.setAdapter(imageProductInDropAdapter_);
+
 
         dropcaptionEdit = findViewById(R.id.dropcaption_adddrop);
         dropstatusEdit = findViewById(R.id.dropstatus_adddrop);
@@ -75,6 +92,16 @@ public class AddDrop extends AppCompatActivity {
         productList_spinner = (Spinner) findViewById(R.id.spinner_productlist);
         progressBar_adddrop = findViewById(R.id.progress_bar_adddrop);
         load_dropimage = findViewById(R.id.load_dropimage);
+        toolbar_adddrop = findViewById(R.id.toorbar_adddrop);
+        toolbar_adddrop.setTitle("ADD DROP");
+
+        toolbar_adddrop.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                finish();
+            }
+        });
 
 
         for (product2 temp : DataManager.listProduct)
@@ -101,7 +128,7 @@ public class AddDrop extends AppCompatActivity {
 
         adddropimagebtn = findViewById(R.id.adddropimagebtn_adddrop);
         pushbtn = findViewById(R.id.pushdropbtn_adddrop);
-        backbtn = findViewById(R.id.back_adddrop);
+
         addbtn = findViewById(R.id.addproduct_adddrop);
         deletebtn = findViewById(R.id.delete_adddrop);
         deletebtn.setOnClickListener(new View.OnClickListener() {
@@ -109,14 +136,38 @@ public class AddDrop extends AppCompatActivity {
             public void onClick(View v) {
                 if (selectedproductId != null)
                     selected_productlist.remove(selectedproductId);
+                for (product2 ite : selected_productlist2 )
+                {
+                    if (ite.getProductId().compareTo(selectedproductId) == 0)
+                    {
+                        selected_productlist2.remove(ite);
+                    Toast.makeText(v.getContext(),"Deleted Successfully",Toast.LENGTH_SHORT);
+                    imageProductInDropAdapter_.SetData(selected_productlist2);
+                    imageProductInDropAdapter_.notifyDataSetChanged();
+                    selected_productlist.remove(selectedproductId);
+                    return;
+                    }
+                }
             }
         });
 
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedproductId != null)
+                if (selectedproductId != null) {
                     selected_productlist.add(selectedproductId);
+                    for (product2 ite : DataManager.listProduct) {
+                        if (ite.getProductId() == selectedproductId)
+                        {
+                            Toast.makeText(v.getContext(),"Added Successfully",Toast.LENGTH_SHORT);
+                            selected_productlist2.add(ite);
+                            imageProductInDropAdapter_.SetData(selected_productlist2);
+                            imageProductInDropAdapter_.notifyDataSetChanged();
+                            return;
+                        }
+                    }
+
+                }
             }
         });
         pushbtn.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +175,7 @@ public class AddDrop extends AppCompatActivity {
             public void onClick(View v) {
                 if (dropstatusEdit.getText().length() != 0 && dropcaptionEdit.getText().length() != 0
                 && droptypeEdit.getText().length() != 0 && drop_ordinalEdit.getText().length() != 0
-                && category_ordinalEdit.getText().length() != 0 && listimg != null && selected_productlist != null) {
+                && category_ordinalEdit.getText().length() != 0 && listimg.size() != 0 && selected_productlist != null) {
                     List<product2> productList = new ArrayList<>();
                     for (int i = 0; i < DataManager.listProduct.size(); i++) {
                         for (int j = 0; j < selected_productlist.size(); j++) {
@@ -156,15 +207,6 @@ public class AddDrop extends AppCompatActivity {
                 {
                     Toast.makeText(v.getContext(),"Please fill in all the information !!",Toast.LENGTH_SHORT);
                 }
-            }
-        });
-
-        backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-                finish();
-
             }
         });
         adddropimagebtn.setOnClickListener(new View.OnClickListener() {
