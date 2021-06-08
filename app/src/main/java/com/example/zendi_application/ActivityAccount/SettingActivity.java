@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -41,6 +43,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zendi_application.ActivityAccount.ConfirmEmail.GmailSender;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
@@ -76,6 +79,9 @@ public class SettingActivity extends AppCompatActivity {
     private EditText locationEdt;
     private TextView locationTxt;
 
+    private EditText emailEdt;
+    private TextView emailTxt;
+
     private TextView birthdayTxt;
 
     private TextView nameTxt;
@@ -98,6 +104,10 @@ public class SettingActivity extends AppCompatActivity {
     private String txtForcus;
 
     private int isShopOwner;
+
+    private boolean isConfirm;
+
+    Button sendEmailBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,6 +195,49 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
         //---------------------LOCATION--------------------//
+
+        //---------------------EMAIL-----------------------//
+        emailTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!isConfirm){
+                    emailTxt.setVisibility(View.GONE);
+                    emailEdt.setText(emailTxt.getText());
+                    emailEdt.setVisibility(View.VISIBLE);
+                    saveBtn.setVisibility(View.VISIBLE);
+                    setEdtToTxt();
+                    txtForcus="email";
+                }
+
+            }
+        });
+
+        emailEdt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    emailEdt.setVisibility(View.GONE);
+                    emailTxt.setVisibility(View.VISIBLE);
+                    emailTxt.setText(emailEdt.getText());
+                    txtForcus = "";
+                    handled = true;
+                }
+
+                return handled;
+            }
+        });
+        locationEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        //-----------------------------EMAIL---------------------------//
+
 
         //---------------------BIRTHDAY---------------------//
         birthdayTxt.setOnClickListener(new View.OnClickListener() {
@@ -383,7 +436,14 @@ public class SettingActivity extends AppCompatActivity {
                 else if(otherRad.isChecked() == true){
                     mGender = 2;
                 }
-                setData(locationTxt.getText().toString(),birthdayTxt.getText().toString(),currentUser.getEmail(),mGender,currentUser.getUid(), nameTxt.getText().toString(),phoneNumberTxt.getText().toString(),"ImageUri",sizeTxt.getText().toString(),totalTxt.getText().toString(),isShopOwner);
+                setData(locationTxt.getText().toString(),birthdayTxt.getText().toString(),emailTxt.getText().toString(),mGender,currentUser.getUid(), nameTxt.getText().toString(),phoneNumberTxt.getText().toString(),"ImageUri",sizeTxt.getText().toString(),totalTxt.getText().toString(),isShopOwner);
+            }
+        });
+
+        sendEmailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendEmail();
             }
         });
     }
@@ -402,6 +462,9 @@ public class SettingActivity extends AppCompatActivity {
         locationEdt = findViewById(R.id.locationEdt);
         locationTxt = findViewById(R.id.locationTxt);
 
+        emailEdt = findViewById(R.id.emailEdt);
+        emailTxt = findViewById(R.id.emailTxt);
+
         birthdayTxt = findViewById(R.id.birthdayTxt);
 
         maleRad = findViewById(R.id.radioButton_male);
@@ -419,6 +482,8 @@ public class SettingActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.saveBtn);
         txtForcus = "";
 
+        sendEmailBtn = findViewById(R.id.sendEmailBtn);
+        isConfirm = false;
     }
     void getData(){
         dataBase.child("Users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
@@ -430,6 +495,7 @@ public class SettingActivity extends AppCompatActivity {
                 DataManager.getShoeInWishFromFirestone("InWish/" + DataManager.host.getId() + "/ShoeList",DataManager.shoeInWish);
 
                 nameTxt.setText(user.getName()+"");
+                emailTxt.setText(user.getEmail());
                 locationTxt.setText(user.getAddress()+"");
                 birthdayTxt.setText(user.getDOB()+"");
                 sizeTxt.setText(user.getSize()+"");
@@ -500,5 +566,28 @@ public class SettingActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
         startActivity(new Intent(SettingActivity.this, HomeScreen.class));
+    }
+
+    void sendEmail(){
+        final ProgressDialog dialog = new ProgressDialog(SettingActivity.this);
+        dialog.setTitle("Sending Email");
+        dialog.setMessage("Please wait");
+        dialog.show();
+        Thread sender = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    GmailSender sender = new GmailSender("planzyapplycation@gmail.com", "ThucThienThang123");
+                    sender.sendMail("EmailSender App",
+                            "This is the message body",
+                            "planzyapplycation@gmail.com",
+                            "trithuc23232@gmail.com");
+                    dialog.dismiss();
+                } catch (Exception e) {
+                    Log.e("mylog", "Error: " + e.getMessage());
+                }
+            }
+        });
+        sender.start();
     }
 }

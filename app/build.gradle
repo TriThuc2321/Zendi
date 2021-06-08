@@ -71,6 +71,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.1'
     implementation  'com.google.android.gms:play-services-auth:9.8.0'
     compileOnly 'com.google.android.wearable:wearable:2.6.0'
+    //send email
+    compile files('libs/activation.jar')
+    compile files('libs/additional.jar')
+    compile files('libs/mail.jar')
 
 
 }

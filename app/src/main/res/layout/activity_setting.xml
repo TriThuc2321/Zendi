@@ -82,9 +82,49 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:id="@+id/email"
+                            android:layout_marginTop="30dp"
+                            android:background="@drawable/custom_black_stroke"
+                            android:orientation="vertical"
+                            android:padding="15dp"
+                            android:layout_below="@+id/name"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
+                            >
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="EMAIL"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:id="@+id/emailTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Email"
+                                    android:textSize="15dp"
+
+                                    />
+
+                                <EditText
+                                    android:id="@+id/emailEdt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="gone"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="textAutoComplete"
+                                    android:clickable="true"
+                                    android:focusableInTouchMode="true"
+                                    />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:id="@+id/location"
                             android:layout_marginTop="30dp"
-                            android:layout_below="@+id/name"
+                            android:layout_below="@+id/email"
                             android:background="@drawable/custom_black_stroke"
                             android:orientation="vertical"
                             android:padding="15dp"
@@ -324,6 +364,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="SAVE"
+                            android:layout_below="@id/total"
+                            android:layout_alignParentRight="true"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:backgroundTint="@color/black"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="15dp"
+                            android:visibility="invisible"
+                            />
+
+                        <Button
+                            android:id="@+id/sendEmailBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SEND"
                             android:layout_below="@id/total"
                             android:layout_alignParentRight="true"
                             android:textColor="@color/white"
