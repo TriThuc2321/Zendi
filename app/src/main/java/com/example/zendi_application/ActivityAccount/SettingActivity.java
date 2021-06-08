@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,6 +44,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zendi_application.ActivityAccount.ConfirmEmail.ConfirmPasswordDialog;
 import com.example.zendi_application.ActivityAccount.ConfirmEmail.GmailSender;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.HomeScreen;
@@ -65,6 +67,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
+import java.util.Random;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -105,9 +111,12 @@ public class SettingActivity extends AppCompatActivity {
 
     private int isShopOwner;
 
-    private boolean isConfirm;
+    public static boolean isConfirm;
+    int randomCode;
 
-    Button sendEmailBtn;
+    public static Button openConfirmDialogBtn;
+    public static ImageView lockEmailIcon;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,9 +226,17 @@ public class SettingActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
                 if(actionId == EditorInfo.IME_ACTION_DONE){
-                    emailEdt.setVisibility(View.GONE);
+                    if (isValidEmail(emailEdt.getText().toString())) {
+                        emailTxt.setText(emailEdt.getText().toString());
+                    }
+                        else {
+                        Toast.makeText(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT).show();
+                    }
+
                     emailTxt.setVisibility(View.VISIBLE);
-                    emailTxt.setText(emailEdt.getText());
+                    emailEdt.setVisibility(View.GONE);
+
+
                     txtForcus = "";
                     handled = true;
                 }
@@ -423,32 +440,46 @@ public class SettingActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setEdtToTxt();
-                saveBtn.setVisibility(View.INVISIBLE);
-                int mGender = 2;
+                if (isConfirm) {
+                    saveBtn.setVisibility(View.INVISIBLE);
+                    int mGender = 2;
 
-                if(maleRad.isChecked() == true){
-                    mGender = 0;
+                    if (maleRad.isChecked() == true) {
+                        mGender = 0;
+                    } else if (femaleRad.isChecked() == true) {
+                        mGender = 1;
+                    } else if (otherRad.isChecked() == true) {
+                        mGender = 2;
+                    }
+                    setData(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(), mGender, currentUser.getUid(), nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
                 }
-                else if(femaleRad.isChecked() == true){
-                    mGender = 1;
+                else {
+                    Toast.makeText(getApplicationContext(),"Email is not confirm",Toast.LENGTH_LONG).show();
                 }
-                else if(otherRad.isChecked() == true){
-                    mGender = 2;
-                }
-                setData(locationTxt.getText().toString(),birthdayTxt.getText().toString(),emailTxt.getText().toString(),mGender,currentUser.getUid(), nameTxt.getText().toString(),phoneNumberTxt.getText().toString(),"ImageUri",sizeTxt.getText().toString(),totalTxt.getText().toString(),isShopOwner);
+                setEdtToTxt();
             }
         });
 
-        sendEmailBtn.setOnClickListener(new View.OnClickListener() {
+        openConfirmDialogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendEmail();
+
+                if(emailTxt.getText() == null || emailTxt.getText().toString() == ""){
+                    Toast.makeText(getApplicationContext(), "Enter email to continue", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    sendEmail();
+                    ConfirmPasswordDialog confirmPasswordDialog = new ConfirmPasswordDialog(SettingActivity.this, emailTxt.getText().toString(), randomCode);
+                    confirmPasswordDialog.show();
+                }
+
+
+
             }
         });
     }
 
-    private void Init(){
+    private void Init() {
         mAuth = FirebaseAuth.getInstance();
         dataBase = FirebaseDatabase.getInstance().getReference();
         currentUser = mAuth.getCurrentUser();
@@ -482,14 +513,27 @@ public class SettingActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.saveBtn);
         txtForcus = "";
 
-        sendEmailBtn = findViewById(R.id.sendEmailBtn);
-        isConfirm = false;
+        openConfirmDialogBtn = findViewById(R.id.open_confirm_dialog_btn);
+        lockEmailIcon = findViewById(R.id.lockImg);
+
+
     }
     void getData(){
         dataBase.child("Users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);
+
+                if (user.getEmail() == null || user.getEmail() == "") {
+                    isConfirm = false;
+                    lockEmailIcon.setVisibility(View.GONE);
+                    openConfirmDialogBtn.setVisibility(View.VISIBLE);
+                } else{
+                    isConfirm = true;
+                    lockEmailIcon.setVisibility(View.VISIBLE);
+                    openConfirmDialogBtn.setVisibility(View.GONE);
+                }
+
                 DataManager.host = user;
                 DataManager.getShoeInBagFromFirestone("InBag/" + DataManager.host.getId() + "/ShoeList",DataManager.list);
                 DataManager.getShoeInWishFromFirestone("InWish/" + DataManager.host.getId() + "/ShoeList",DataManager.shoeInWish);
@@ -548,6 +592,10 @@ public class SettingActivity extends AppCompatActivity {
         else if(txtForcus=="size"){
             sizeSb.setVisibility(View.GONE);
         }
+        else if(txtForcus=="email"){
+            emailTxt.setVisibility(View.VISIBLE);
+            emailEdt.setVisibility(View.GONE);
+        }
         txtForcus="";
     }
 
@@ -568,6 +616,21 @@ public class SettingActivity extends AppCompatActivity {
         startActivity(new Intent(SettingActivity.this, HomeScreen.class));
     }
 
+    public boolean isValidEmail(String email)
+    {
+        String expression = "^[\\w\\.]+@([\\w]+\\.)+[A-Z]{2,7}$";
+        CharSequence inputString = email;
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputString);
+        if (matcher.matches())
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     void sendEmail(){
         final ProgressDialog dialog = new ProgressDialog(SettingActivity.this);
         dialog.setTitle("Sending Email");
@@ -577,12 +640,15 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    GmailSender sender = new GmailSender("planzyapplycation@gmail.com", "ThucThienThang123");
-                    sender.sendMail("EmailSender App",
-                            "This is the message body",
+                    randomCode = new Random().nextInt(900000) + 100000;
+
+                    GmailSender sender = new GmailSender("zendiapplication@gmail.com", "ThucThienThangHuynh123");
+                    sender.sendMail("Verify code",
+                            "Thank for using Zendi Application, this is you verify code: " + randomCode,
                             "planzyapplycation@gmail.com",
-                            "trithuc23232@gmail.com");
+                            emailTxt.getText().toString());
                     dialog.dismiss();
+
                 } catch (Exception e) {
                     Log.e("mylog", "Error: " + e.getMessage());
                 }

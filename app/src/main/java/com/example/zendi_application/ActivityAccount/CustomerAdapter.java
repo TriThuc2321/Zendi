@@ -44,6 +44,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
     @Override
     public int getItemCount() {
+        if(listCustomers == null) return 0;
         return listCustomers.size();
     }
 

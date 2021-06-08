@@ -16,16 +16,15 @@ import java.util.List;
 public class StaffManager extends AppCompatActivity {
 
     private List<User> mlistUsers;
-    private  List<User> listStaff;
-    private  List<User> listCustomer;
+    private  List<User> listStaff = new ArrayList<>();
+    private  List<User> listCustomer = new ArrayList<>();;
 
     private RecyclerView mRecyclerStaff;
     private StaffAdapter mStaffAdapter ;
 
     private RecyclerView mRecyclerCustomer;
     private CustomerAdapter mCustomerAdapter;
-
-      View turnbackBtn;
+    View turnbackBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +32,7 @@ public class StaffManager extends AppCompatActivity {
         setContentView(R.layout.activity_staff_manager);
 
         Init();
+
 
         turnbackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +43,7 @@ public class StaffManager extends AppCompatActivity {
         });
     }
     void Init(){
-        turnbackBtn = findViewById(R.id.turn_back_staff_manaher);
+        turnbackBtn = findViewById(R.id.turn_back_staff_manager);
 
         mRecyclerStaff = findViewById(R.id.list_staff_recyclerView);
         mRecyclerCustomer = findViewById(R.id.list_customer_recyclerView);
@@ -62,7 +62,7 @@ public class StaffManager extends AppCompatActivity {
         mRecyclerCustomer.setLayoutManager(new LinearLayoutManager((this)));
     }
     void getList(){
-        for(int i = 0; i<mlistUsers.size(); i++){
+        for(int i = 0; i < mlistUsers.size(); i++){
             if(mlistUsers.get(i).getShopOwner()==0) {
                 listCustomer.add(mlistUsers.get(i));
             }
