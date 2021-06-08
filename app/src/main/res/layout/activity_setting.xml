@@ -147,6 +147,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Phone number"
                                     android:textSize="15dp"
+
                                     />
 
                                 <EditText

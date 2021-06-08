@@ -6,12 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.zendi_application.R;
+import com.google.gson.internal.$Gson$Preconditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +49,7 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.ViewHolder>{
 
     @Override
     public int getItemCount() {
+        if(listStaffs == null) return 0;
         return listStaffs.size();
     }
 
@@ -59,6 +62,15 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.ViewHolder>{
 
             nameTxt = itemView.findViewById(R.id.name_staff);
             subtractBtn = (Button) itemView.findViewById(R.id.subtract_staff_btn);
+
+            subtractBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    listStaffs.remove(getAdapterPosition());
+                    SetData(listStaffs);
+                }
+            });
         }
     }
 }

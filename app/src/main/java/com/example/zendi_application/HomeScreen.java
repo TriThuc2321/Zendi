@@ -215,7 +215,12 @@ public class HomeScreen extends AppCompatActivity {
                     if(user.getShopOwner()==1){
                         mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(true);
                     }
+                    else if(user.getShopOwner()==2){
+                        mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(true);
+                        mAppBarTop.getMenu().findItem(R.id.staff_manager_item).setVisible(true);
+                    }
                     else{
+                        mAppBarTop.getMenu().findItem(R.id.staff_manager_item).setVisible(false);
                         mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(false);
                     }
                 }

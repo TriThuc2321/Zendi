@@ -12,7 +12,7 @@
         android:id="@+id/staff_manager"
         android:layout_marginTop="4dp">
         <View
-            android:id="@+id/turnBack"
+            android:id="@+id/turn_back_staff_manaher"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"

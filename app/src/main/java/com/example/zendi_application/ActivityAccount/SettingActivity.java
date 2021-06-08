@@ -8,6 +8,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
@@ -308,7 +309,17 @@ public class SettingActivity extends AppCompatActivity {
                 if(actionId == EditorInfo.IME_ACTION_DONE){
                     phoneNumberEdt.setVisibility(View.GONE);
                     phoneNumberTxt.setVisibility(View.VISIBLE);
-                    phoneNumberTxt.setText(phoneNumberEdt.getText());
+
+                    String temp = phoneNumberEdt.getText().toString();
+
+
+                    if((temp.length()==10 || temp.length()==11) && android.text.TextUtils.isDigitsOnly(temp)){
+                        phoneNumberTxt.setText(phoneNumberEdt.getText());
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Incorrect phone number!", Toast.LENGTH_LONG).show();
+                    }
+
                     handled = true;
                     txtForcus="";
                 }
