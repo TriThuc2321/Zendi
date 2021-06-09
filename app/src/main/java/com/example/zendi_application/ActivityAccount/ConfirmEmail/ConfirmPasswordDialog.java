@@ -14,9 +14,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.zendi_application.ActivityAccount.SettingActivity;
+import com.example.zendi_application.ActivityAccount.User;
+import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 import com.google.protobuf.StringValue;
 
+import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,6 +37,8 @@ public class ConfirmPasswordDialog extends Dialog {
 
     String email, verifyCode;
     Context mContext;
+
+    List<User> listUsers= DataManager.listUsers;
 
     public ConfirmPasswordDialog(@NonNull Context context, String Email, int randomCode) {
         super(context);

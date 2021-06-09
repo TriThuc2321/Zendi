@@ -67,6 +67,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -110,6 +111,7 @@ public class SettingActivity extends AppCompatActivity {
     private String txtForcus;
 
     private int isShopOwner;
+    private List<User> listUsers = DataManager.listUsers;
 
     public static boolean isConfirm;
     int randomCode;
@@ -467,14 +469,14 @@ public class SettingActivity extends AppCompatActivity {
                 if(emailTxt.getText() == null || emailTxt.getText().toString() == ""){
                     Toast.makeText(getApplicationContext(), "Enter email to continue", Toast.LENGTH_LONG).show();
                 }
+                else if(existEmail(user.getEmail())){
+                    Toast.makeText(getApplicationContext(), "", Toast.LENGTH_LONG).show();
+                }
                 else{
                     sendEmail();
                     ConfirmPasswordDialog confirmPasswordDialog = new ConfirmPasswordDialog(SettingActivity.this, emailTxt.getText().toString(), randomCode);
                     confirmPasswordDialog.show();
                 }
-
-
-
             }
         });
     }
@@ -524,7 +526,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);
 
-                if (user.getEmail() == null || user.getEmail() == "") {
+                String a = user.getEmail();
+                if (user.getEmail() == null || a.compareTo("")==0) {
                     isConfirm = false;
                     lockEmailIcon.setVisibility(View.GONE);
                     openConfirmDialogBtn.setVisibility(View.VISIBLE);
@@ -568,6 +571,14 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
+    public boolean existEmail(String email){
+        for(int i =0; i< listUsers.size(); i++){
+            if(listUsers.get(i).getEmail() == email){
+                return true;
+            }
+        }
+        return false;
+    }
     public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int isShoOwner){
         user =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total, isShoOwner);
         dataBase.child("Users").child(currentUser.getUid()).setValue(user);

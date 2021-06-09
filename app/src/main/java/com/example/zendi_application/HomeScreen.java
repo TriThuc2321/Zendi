@@ -41,6 +41,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
+import static com.example.zendi_application.DataManager.listUsers;
+
 public class HomeScreen extends AppCompatActivity {
     private static final int REQUEST_EXIT = 99;
     public AppBarLayout appBarLayout;
@@ -107,6 +109,8 @@ public class HomeScreen extends AppCompatActivity {
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
                 }
                 else if(item.getItemId() == R.id.staff_manager_item){
+                    listUsers.clear();
+                    DataManager.loadUser();
                     Intent intent = new Intent(HomeScreen.this, StaffManager.class);
                     startActivityForResult(intent, REQUEST_EXIT);
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);

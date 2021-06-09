@@ -589,6 +589,7 @@ public class DataManager {
     }
     private static DatabaseReference dataBase;
     public static void loadUser(){
+        listUsers.clear();
         dataBase = FirebaseDatabase.getInstance().getReference();
         dataBase.child("Users").addValueEventListener(new ValueEventListener() {
             @Override

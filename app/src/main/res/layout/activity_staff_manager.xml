@@ -5,6 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActivityAccount.StaffManager">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/custom_black_stroke"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_marginTop="335dp"
+        android:background="@drawable/custom_black_stroke"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,39 +54,57 @@
         />
     <TextView
         android:id="@+id/list_staff_textview"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Staff list"
         android:layout_below="@id/bar"
         android:fontFamily="sans-serif-black"
         android:textSize="20dp"
         android:layout_margin="20dp"
+        android:background="@color/white"
         />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_staff_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="160dp"
         android:layout_below="@+id/list_staff_textview"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
     />
     <TextView
         android:id="@+id/list_customer_textview"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Customer list"
         android:layout_below="@id/list_staff_recyclerView"
         android:fontFamily="sans-serif-black"
         android:textSize="20dp"
-        android:layout_margin="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white"
         />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_customer_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="160dp"
         android:layout_below="@+id/list_customer_textview"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="20dp"
         />
 
-
+<Button
+    android:id="@+id/saveStaffManagerBtn"
+    android:layout_width="60dp"
+    android:layout_height="30dp"
+    android:background="@color/black"
+    android:layout_below="@+id/list_customer_recyclerView"
+    android:layout_alignParentRight="true"
+    android:layout_marginTop="50dp"
+    android:text="SAVE"
+    android:textColor="@color/white"
+    android:layout_marginRight="30dp"
+    android:visibility="gone"
+    />
 
 </RelativeLayout>
