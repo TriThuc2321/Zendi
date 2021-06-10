@@ -4,7 +4,9 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -27,6 +29,7 @@ import java.util.regex.Pattern;
 import static com.example.zendi_application.ActivityAccount.SettingActivity.isConfirm;
 import static com.example.zendi_application.ActivityAccount.SettingActivity.lockEmailIcon;
 import static com.example.zendi_application.ActivityAccount.SettingActivity.openConfirmDialogBtn;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ConfirmPasswordDialog extends Dialog {
 
@@ -35,7 +38,8 @@ public class ConfirmPasswordDialog extends Dialog {
     EditText emailEdt;
     EditText verifyCodeEdt;
 
-    String email, verifyCode;
+    String email;
+    int verifyCode;
     Context mContext;
 
     List<User> listUsers= DataManager.listUsers;
@@ -44,7 +48,7 @@ public class ConfirmPasswordDialog extends Dialog {
         super(context);
         mContext = context;
         email = Email;
-        verifyCode = new String(randomCode+"");
+        verifyCode = randomCode;
     }
 
     @Override
@@ -64,9 +68,9 @@ public class ConfirmPasswordDialog extends Dialog {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String a = verifyCode;
                 String b = verifyCodeEdt.getText().toString();
-                if( a.compareTo(b)==0){
+                String a = verifyCode + "";
+                if( b.compareTo(a) == 0){
                     isConfirm = true;
 
                     openConfirmDialogBtn.setVisibility(View.GONE);
@@ -84,11 +88,14 @@ public class ConfirmPasswordDialog extends Dialog {
         resendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(emailEdt.getText()!= null && emailEdt.getText().toString()!="" && isValidEmail(emailEdt.getText().toString())){
-                    sendEmail();
+                if(emailEdt.getText() == null || emailEdt.getText().toString() == ""){
+                    Toast.makeText(getApplicationContext(), "Enter email to continue", Toast.LENGTH_LONG).show();
                 }
-                else {
-                    Toast.makeText(mContext,"Invalid email",Toast.LENGTH_LONG).show();
+                else if(existEmail(emailEdt.getText().toString())){
+                    Toast.makeText(getApplicationContext(), "Email already used", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    sendEmail();
                 }
             }
         });
@@ -103,7 +110,7 @@ public class ConfirmPasswordDialog extends Dialog {
             public void run() {
                 try {
                     int randomCode = new Random().nextInt(900000) + 100000;
-
+                    verifyCode = randomCode;
                     GmailSender sender = new GmailSender("zendiapplication@gmail.com", "ThucThienThangHuynh123");
                     sender.sendMail("Verify code",
                             "Thank for using Zendi Application, this is you verify code: " + randomCode,
@@ -119,16 +126,17 @@ public class ConfirmPasswordDialog extends Dialog {
     }
     public boolean isValidEmail(String email)
     {
-        String expression = "^[\\w\\.]+@([\\w]+\\.)+[A-Z]{2,7}$";
-        CharSequence inputString = email;
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(inputString);
-        if (matcher.matches())
-        {
-            return true;
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    public boolean existEmail(String email){
+        for(int i =0; i< listUsers.size(); i++){
+            String a = listUsers.get(i).getEmail();
+            if(a == null) break;
+            if(a.compareTo(email) == 0){
+                return true;
+            }
         }
-        else{
-            return false;
-        }
+        return false;
     }
 }

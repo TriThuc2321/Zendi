@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -65,6 +66,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.annotations.Until;
 
 import java.util.Calendar;
 import java.util.List;
@@ -469,8 +471,8 @@ public class SettingActivity extends AppCompatActivity {
                 if(emailTxt.getText() == null || emailTxt.getText().toString() == ""){
                     Toast.makeText(getApplicationContext(), "Enter email to continue", Toast.LENGTH_LONG).show();
                 }
-                else if(existEmail(user.getEmail())){
-                    Toast.makeText(getApplicationContext(), "", Toast.LENGTH_LONG).show();
+                else if(existEmail(emailTxt.getText().toString())){
+                    Toast.makeText(getApplicationContext(), "Email already used", Toast.LENGTH_LONG).show();
                 }
                 else{
                     sendEmail();
@@ -573,7 +575,9 @@ public class SettingActivity extends AppCompatActivity {
 
     public boolean existEmail(String email){
         for(int i =0; i< listUsers.size(); i++){
-            if(listUsers.get(i).getEmail() == email){
+            String a = listUsers.get(i).getEmail();
+            if(a == null) break;
+            if(a.compareTo(email) == 0){
                 return true;
             }
         }
@@ -629,17 +633,7 @@ public class SettingActivity extends AppCompatActivity {
 
     public boolean isValidEmail(String email)
     {
-        String expression = "^[\\w\\.]+@([\\w]+\\.)+[A-Z]{2,7}$";
-        CharSequence inputString = email;
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(inputString);
-        if (matcher.matches())
-        {
-            return true;
-        }
-        else{
-            return false;
-        }
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     void sendEmail(){
