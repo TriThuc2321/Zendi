@@ -197,6 +197,7 @@ public class DetailProductFragment extends Fragment {
                             Integer processed_amount = amount_of_product - Integer.parseInt(shoeInBag.getShoeAmount());
                             shoeInBag.getRemainingAmount().set(DataManager.sizeConvert.get(selectedSize),processed_amount);
                             DataManager.push_Shoe_To_Bag(shoeInBag, DataManager.host, v.getContext());
+
                             for (ShoeInBag ite : DataManager.list)
                             {
                                 if (ite.getProductId() == shoeInBag.getProductId()) {

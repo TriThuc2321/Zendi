@@ -207,7 +207,7 @@ public class DataManager {
         }
         String a = new_amount.toString();
         documentReference.update("shoeAmount",a);
-        Toast.makeText(mContext,"Product is Added !!",Toast.LENGTH_SHORT);
+        Toast.makeText(mContext,"Product is Added !!",Toast.LENGTH_SHORT).show();
         /// Update admount
        //Update_Amount(selectedShoe);
     }
@@ -220,12 +220,12 @@ public class DataManager {
                     public void onComplete(@NonNull Task<Void> task) {
 //                      Update_Amount(selectedShoe);
                         DataManager.list.add(selectedShoe);
-                        Toast.makeText(mContext,"Product is Added !!",Toast.LENGTH_SHORT);
+                        Toast.makeText(mContext,"Product is Added !!",Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(mContext,"Adding Failed !!",Toast.LENGTH_SHORT);
+                Toast.makeText(mContext,"Adding Failed !!",Toast.LENGTH_SHORT).show();
             }
         });
     }
