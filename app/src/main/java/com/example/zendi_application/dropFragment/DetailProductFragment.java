@@ -124,7 +124,6 @@ public class DetailProductFragment extends Fragment {
                     shoeInBag = new ShoeInBag(mproduct.getProductId(), mproduct.getProductName(), mproduct.getProductPrice()
                             , mproduct.getProductBrand(), mproduct.getProductType(), mproduct.getResourceID(), mproduct.getRemainingAmount()
                             , mproduct.getType(), selectedSize, "1");
-                    Toast.makeText(mview.getContext(),"DRAGGED INTO BAG SUCCESSFULLY !!",Toast.LENGTH_SHORT).show();
                 }
                 else
                     Toast.makeText(mview.getContext(),"Sold out !!",Toast.LENGTH_SHORT).show();

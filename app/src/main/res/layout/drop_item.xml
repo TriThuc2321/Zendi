@@ -57,6 +57,7 @@
             android:layout_marginTop="30dp"
             android:background="@color/white"
             android:text="JUST DROPPED"
+            android:padding="5dp"
             android:paddingStart="10dp"
             android:textSize="15dp"
             android:textStyle="italic"
