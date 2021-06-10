@@ -107,7 +107,7 @@ public class ConfirmPasswordDialog extends Dialog {
                     GmailSender sender = new GmailSender("zendiapplication@gmail.com", "ThucThienThangHuynh123");
                     sender.sendMail("Verify code",
                             "Thank for using Zendi Application, this is you verify code: " + randomCode,
-                            "planzyapplycation@gmail.com",
+                            "zendiapplication@gmail.com",
                             emailEdt.getText().toString());
                     dialog.dismiss();
                 } catch (Exception e) {
