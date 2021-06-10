@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +20,9 @@
         android:roundIcon="@mipmap/zendi_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Zendi_Application">
-        <activity android:name=".searchfragment.MyDetailProduct"></activity>
+        <activity android:name=".Location.Location"></activity>
+        <activity android:name=".ActivityAccount.StaffManager" />
+        <activity android:name=".searchfragment.MyDetailProduct" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
@@ -26,6 +30,9 @@
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCmXt990NNTsptk8ILcCMGCeoBnZZEfpv0" />
 
         <activity android:name=".addProductPackage.AddDrop">
 
@@ -40,12 +47,12 @@
         <activity android:name=".ActivityAccount.SettingActivity" />
         <activity android:name=".addProductPackage.uploadData">
 
-<!--             <intent-filter>-->
-<!--             <action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-<!--             <category android:name="android.intent.category.LAUNCHER" />-->
-<!--             </intent-filter>-->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".ActivityAccount.Account_Activity" />
         <activity android:name=".searchfragment.allShoe.AllShoeActivity" />

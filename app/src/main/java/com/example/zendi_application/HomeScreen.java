@@ -22,7 +22,9 @@ import android.widget.Toast;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.example.zendi_application.ActivityAccount.Account_Activity;
 import com.example.zendi_application.ActivityAccount.LoginRegisterActivity;
+import com.example.zendi_application.ActivityAccount.StaffManager;
 import com.example.zendi_application.ActivityAccount.User;
+import com.example.zendi_application.Location.Location;
 import com.example.zendi_application.addProductPackage.uploadData;
 import com.example.zendi_application.dropFragment.DetailDropFragment;
 import com.example.zendi_application.dropFragment.drop.drop;
@@ -39,6 +41,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+
+import static com.example.zendi_application.DataManager.listUsers;
 
 public class HomeScreen extends AppCompatActivity {
     private static final int REQUEST_EXIT = 99;
@@ -98,10 +102,21 @@ public class HomeScreen extends AppCompatActivity {
 
                     Intent intent = new Intent(HomeScreen.this, LoginRegisterActivity.class);
                     startActivityForResult(intent, REQUEST_EXIT);
+
+                    /*Intent intent = new Intent(HomeScreen.this, Location.class);
+                    startActivityForResult(intent, REQUEST_EXIT);*/
+                    
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
                 }
                 else if (item.getItemId() == R.id.shop_owner_item) {
                     Intent intent = new Intent(HomeScreen.this, uploadData.class);
+                    startActivityForResult(intent, REQUEST_EXIT);
+                    overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
+                }
+                else if(item.getItemId() == R.id.staff_manager_item){
+                    listUsers.clear();
+                    DataManager.loadUser();
+                    Intent intent = new Intent(HomeScreen.this, StaffManager.class);
                     startActivityForResult(intent, REQUEST_EXIT);
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
                 }
@@ -209,7 +224,12 @@ public class HomeScreen extends AppCompatActivity {
                     if(user.getShopOwner()==1){
                         mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(true);
                     }
+                    else if(user.getShopOwner()==2){
+                        mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(true);
+                        mAppBarTop.getMenu().findItem(R.id.staff_manager_item).setVisible(true);
+                    }
                     else{
+                        mAppBarTop.getMenu().findItem(R.id.staff_manager_item).setVisible(false);
                         mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(false);
                     }
                 }
