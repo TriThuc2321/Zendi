@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.zendi_application.ActivityAccount.LoginRegisterActivity;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.product_package.product2;
@@ -103,74 +105,74 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
         holder.heartView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentItem.isLike())
+                if (DataManager.host.getId() == null)
                 {
-                    currentItem.setLike(false);
-
-                    String docName = listProduct.get(position).getProductId();
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    db.collection("InWish/aaaaa/ShoeinWish").document(docName)
-                            .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                        }
-                    });
-
-                    int currentIndex = currentItem.getIndexInShoeWish();
-                    DataManager.shoeInWish.remove(currentIndex);
-                    currentItem.setIndexInShoeWish(-1);
-                    for (int i = 0; i< elementOfRecycModelArrayList.size();i++)
-                    {
-                        int oldIndexInWishList = elementOfRecycModelArrayList.get(i).getIndexInShoeWish();
-                        if ( oldIndexInWishList > currentIndex)
-                        {
-                            elementOfRecycModelArrayList.get(i).setIndexInShoeWish(oldIndexInWishList - 1);
-                        }
-                    }
-
-                    DataManager.shoeInWishAdapter.notifyDataSetChanged();
-
-
-                    holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                    Toast.makeText(view.getContext(),"Please sign in",Toast.LENGTH_LONG).show();
                 }
-                else
-                {
-                    String docName = listProduct.get(position).getProductId();
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    Map<String, Object> s = new HashMap<>();
-                    s.put("ResourceID",listProduct.get(position).getResourceID());
-                    s.put("productId",listProduct.get(position).getProductId());
-                    s.put("productName",listProduct.get(position).getProductName());
-                    s.put("productPrice",listProduct.get(position).getProductPrice());
-                    s.put("shoeAmount","1");
-                    // s.put("shoeStatus",shoeInBagList.get(getAdapterPosition()).getShoeStatus());
-                    s.put("shoeSize",null);
-                    db.collection("InBag/aaa/ShoeList").document(docName)
-                            .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
+                else {
+                    if (currentItem.isLike()) {
+                        currentItem.setLike(false);
+
+                        String docName = listProduct.get(position).getProductId();
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        db.collection("InWish/" + DataManager.host.getId() + "/ShoeinWish").document(docName)
+                                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                            }
+                        });
+
+                        int currentIndex = currentItem.getIndexInShoeWish();
+                        DataManager.shoeInWish.remove(currentIndex);
+                        currentItem.setIndexInShoeWish(-1);
+                        for (int i = 0; i < elementOfRecycModelArrayList.size(); i++) {
+                            int oldIndexInWishList = elementOfRecycModelArrayList.get(i).getIndexInShoeWish();
+                            if (oldIndexInWishList > currentIndex) {
+                                elementOfRecycModelArrayList.get(i).setIndexInShoeWish(oldIndexInWishList - 1);
+                            }
                         }
-                    });
 
-                    DataManager.shoeInWish.add((new ShoeInBag(currentItemProDuct.getProductId(),
-                            currentItemProDuct.getProductName(),
-                            currentItemProDuct.getProductPrice(),
-                            currentItemProDuct.getProductBrand(),
-                            currentItemProDuct.getProductType(),
-                            currentItemProDuct.getResourceID(),
-                            currentItemProDuct.getRemainingAmount(),
-                            currentItemProDuct.getType(),null,"1")));
-                    DataManager.shoeInWishAdapter.notifyDataSetChanged();
-                    db.collection("InWish/aaaaa/ShoeinWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                        }
-                    });
+                        DataManager.shoeInWishAdapter.notifyDataSetChanged();
 
-                    currentItem.setLike(true);
-                    currentItem.setIndexInShoeWish(DataManager.shoeInWish.size()-1);
 
-                    holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_24);
+                        holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                    } else {
+                        String docName = listProduct.get(position).getProductId();
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        Map<String, Object> s = new HashMap<>();
+                        s.put("ResourceID", listProduct.get(position).getResourceID());
+                        s.put("productId", listProduct.get(position).getProductId());
+                        s.put("productName", listProduct.get(position).getProductName());
+                        s.put("productPrice", listProduct.get(position).getProductPrice());
+                        s.put("shoeAmount", "1");
+                        s.put("shoeSize", "5 UK");
+//                    db.collection("InBag/aaa/ShoeList").document(docName)
+//                            .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//                        }
+//                    });
+
+                        DataManager.shoeInWish.add((new ShoeInBag(currentItemProDuct.getProductId(),
+                                currentItemProDuct.getProductName(),
+                                currentItemProDuct.getProductPrice(),
+                                currentItemProDuct.getProductBrand(),
+                                currentItemProDuct.getProductType(),
+                                currentItemProDuct.getResourceID(),
+                                currentItemProDuct.getRemainingAmount(),
+                                currentItemProDuct.getType(), "5 UK", "1")));
+                        DataManager.shoeInWishAdapter.notifyDataSetChanged();
+                        db.collection("InWish/" + DataManager.host.getId() + "/ShoeinWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                            }
+                        });
+
+                        currentItem.setLike(true);
+                        currentItem.setIndexInShoeWish(DataManager.shoeInWish.size() - 1);
+
+                        holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_24);
+                    }
                 }
             }
         });
