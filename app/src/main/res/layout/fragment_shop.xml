@@ -19,16 +19,17 @@
 
     <Button
         android:id="@+id/settle_place"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_width="364dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="26dp"
         android:background="@drawable/custombutton_detailproduct"
         android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_black"
         android:paddingEnd="100dp"
         android:text="SETTLE"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shop_fragment_rcv"
         tools:ignore="MissingConstraints"></Button>

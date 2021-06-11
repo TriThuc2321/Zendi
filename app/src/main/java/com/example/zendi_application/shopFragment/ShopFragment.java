@@ -53,7 +53,7 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         DataManager.shoeInBagAdapter = new ShoeInBagAdapter();
         settle = view.findViewById(R.id.settle_place);
-        settle.setText(total());
+        settle.setTextKeepState(total());
         recyclerView = view.findViewById(R.id.shop_fragment_rcv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(),recyclerView.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);;
@@ -167,13 +167,17 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.settle_place){
+        if(v.getId()==R.id.settle_place ){
                 openDialog();
-        }
+            }
     }
-
     private void openDialog() {
-        OrderInfoDialog dia = new OrderInfoDialog();
-        dia.show(getFragmentManager(),"Order Information");
+        if(DataManager.list.size() != 0){
+            OrderInfoDialog dia = new OrderInfoDialog();
+            dia.show(getFragmentManager(),"Order Information");
+        }else{
+            Toast.makeText(getContext(),"Let's get shoe in your bag first", Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
 }

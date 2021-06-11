@@ -70,7 +70,7 @@ public class WishlistFragment extends Fragment implements RecyclerViewClickInter
         return view;
     }
 
-    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.DOWN) {
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.DOWN| ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
@@ -80,26 +80,23 @@ public class WishlistFragment extends Fragment implements RecyclerViewClickInter
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
             switch (direction){
+                case ItemTouchHelper.LEFT:
+                    deleteItem(DataManager.shoeInWish.get(position));
+                    DataManager.shoeInWish.remove(DataManager.shoeInWish.get(position));
+                    DataManager.shoeInWishAdapter.notifyDataSetChanged();
+                    Toast.makeText(getContext(), "Deleted it", LENGTH_LONG).show();
+                case ItemTouchHelper.RIGHT:
+                    deleteItem(DataManager.shoeInWish.get(position));
+                    DataManager.shoeInWish.remove(DataManager.shoeInWish.get(position));
+                    DataManager.shoeInWishAdapter.notifyDataSetChanged();
+                    Toast.makeText(getContext(), "Deleted it", LENGTH_LONG).show();
+                    break;
                 case ItemTouchHelper.DOWN:
                     deleteItem(DataManager.shoeInWish.get(position));
                     DataManager.shoeInWish.remove(DataManager.shoeInWish.get(position));
                     DataManager.shoeInWishAdapter.notifyDataSetChanged();
-                    Toast.makeText(getContext(), "Unliked it", LENGTH_LONG).show();
-                    break;
-                case ItemTouchHelper.LEFT:
-                    return;
+                    Toast.makeText(getContext(), "Deleted it", LENGTH_LONG).show();
             }
-        }
-
-        @Override
-        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                    .addSwipeLeftBackgroundColor(R.color.com_facebook_messenger_blue)
-                    .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_forever_24)
-                    .addSwipeLeftLabel("Delete from your favourite")
-                    .create()
-                    .decorate();
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
     };
 

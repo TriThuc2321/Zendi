@@ -616,8 +616,8 @@ public class DataManager {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     host = snapshot.getValue(User.class);
-                    getShoeInBagFromFirestone("InBag/aaa/ShoeList",DataManager.list);
-                    getShoeInWishFromFirestone("InWish/aaaaa/ShoeList",DataManager.shoeInWish);
+                    getShoeInBagFromFirestone("InBag/" +DataManager.host.getId()+"/ShoeList",DataManager.list);
+                    getShoeInWishFromFirestone("InWish/"+DataManager.host.getId()+"/ShoeList",DataManager.shoeInWish);
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
