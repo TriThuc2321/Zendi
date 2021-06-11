@@ -2,10 +2,12 @@ package com.example.zendi_application.shopFragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -17,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.example.zendi_application.ActivityAccount.ConfirmEmail.GmailSender;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class OrderInfoDialog extends AppCompatDialogFragment {
     private TextInputEditText editaddress;
@@ -38,6 +42,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
     public String con;
     public String mail;
     public String reciever;
+    public String total = total();
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -65,8 +70,9 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                             con = editcontact.getText().toString();
                             reciever = editName.getText().toString();
                             mail = editMail.getText().toString();
-                            upBilltoFireStore(add,con,mail,reciever);
                             sendEmail(mail);
+                            upBilltoFireStore(add,con,mail,reciever);
+                            Toast.makeText(getContext(),"Ordered successfully.",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -126,7 +132,25 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
     }
 
     public void sendEmail(String email){
-
+        Thread sender = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    GmailSender sender = new GmailSender("zendiapplication@gmail.com", "ThucThienThangHuynh123");
+                    sender.sendMail("Order in Zendi",
+                            "Thanks for ordering our product and choosing Zendi as your best Shoe Shop." +
+                                    " Your bill's value is: " + total + ". " +
+                                    "Please check your phone or email to be announced within the next days. " +
+                                    "To get more information of your bill, please Contact us with this email address. " +
+                                    "Faithfully you !",
+                            "zendiapplication@gmail.com",
+                            email);
+                } catch (Exception e) {
+                    Log.e("mylog", "Error: " + e.getMessage());
+                }
+            }
+        });
+        sender.start();
     }
     public static String total(){
         String total_ ="$";
