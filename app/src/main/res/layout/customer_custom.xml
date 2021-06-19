@@ -45,7 +45,7 @@
                 android:id="@+id/emailCustomerTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="zendiapplication@gmail.com"
+                android:text="Email"
                 android:layout_marginLeft="20dp"
                 android:textSize="10dp"
                 />
