@@ -140,7 +140,7 @@ public class DetailProductFragment extends Fragment {
             dropCaption.setText(parent.getCaption());
         else
             dropCaption.setText("");
-        productPrice.setText(mproduct.getProductPrice());
+        productPrice.setText("$ " + mproduct.getProductPrice());
         productName.setText(mproduct.getProductName());
 
 
