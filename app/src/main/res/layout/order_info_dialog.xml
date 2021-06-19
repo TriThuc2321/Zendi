@@ -22,9 +22,9 @@
         android:hint="Address"
         android:textColorHint="@color/gold"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-<!--        app:helperText="*Require"-->
-<!--        app:helperTextTextColor="#FF0000">-->
+        android:layout_height="wrap_content"
+        app:helperText="*Require"
+        app:helperTextTextColor="#FF0000">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,27 +36,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Contact"
-        android:textColorHint="@color/gold">
-<!--        app:helperText="*Require"-->
-<!--        app:helperTextTextColor="#FF0000">-->
+        android:textColorHint="@color/gold"
+        app:helperText="*Require"
+        app:helperTextTextColor="#FF0000">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:id="@+id/edit_contact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/gold" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        android:textColorHint="@color/gold"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@color/gold" />

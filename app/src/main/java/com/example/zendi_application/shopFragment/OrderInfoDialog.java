@@ -37,10 +37,8 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
     private TextInputEditText editaddress;
     private TextInputEditText editcontact;
     private TextInputEditText editName;
-    private TextInputEditText editMail;
     public String add;
     public String con;
-    public String mail;
     public String reciever;
     public String total = total();
     @NonNull
@@ -52,7 +50,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.order_info_dialog, null);
 
         builder.setView(view)
-                .setTitle("Order information")
+                .setTitle("Ordering information")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -69,16 +67,14 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                             add = editaddress.getText().toString();
                             con = editcontact.getText().toString();
                             reciever = editName.getText().toString();
-                            mail = editMail.getText().toString();
-                            sendEmail(mail);
-                            upBilltoFireStore(add,con,mail,reciever);
+                            sendEmail(DataManager.host.getEmail());
+                            upBilltoFireStore(add,con,DataManager.host.getEmail(),reciever);
                             Toast.makeText(getContext(),"Ordered successfully.",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
         editaddress = view.findViewById(R.id.edit_address);
         editcontact = view.findViewById(R.id.edit_contact);
-        editMail = view.findViewById(R.id.edit_email);
         editName = view.findViewById(R.id.edit_receiver);
         return builder.create();
     }
