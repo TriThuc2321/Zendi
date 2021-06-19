@@ -41,6 +41,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
     public String con;
     public String reciever;
     public String total = total();
+    public String ss = ListShoeBought();
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -127,6 +128,13 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         DataManager.shoeInBagAdapter.notifyDataSetChanged();
     }
 
+    public String ListShoeBought(){
+        String var = "";
+        for(ShoeInBag ite: DataManager.list){
+            var = var + ite.getProductName() + " Size: " + ite.getShoeSize() + " Quantity: " + ite.getShoeAmount() + "\n";
+        }
+        return var;
+    }
     public void sendEmail(String email){
         Thread sender = new Thread(new Runnable() {
             @Override
@@ -134,11 +142,14 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                 try {
                     GmailSender sender = new GmailSender("zendiapplication@gmail.com", "ThucThienThangHuynh123");
                     sender.sendMail("Order in Zendi",
-                            "Thanks for ordering our product and choosing Zendi as your best Shoe Shop." +
-                                    " Your bill's value is: " + total + ". " +
-                                    "Please check your phone or email to be announced within the next days. " +
-                                    "To get more information of your bill, please Contact us with this email address. " +
-                                    "Faithfully you !",
+                             "Dear " + reciever + ";\n" +
+                                   "Thanks for ordering our product and choosing Zendi as your best Shoe Shop.\n" +
+                                   "You have just bought:\n" +
+                                   ss +
+                                   "Your bill's value is: " + total + ".\n" +
+                                   "Please check your phone or email to be announced within the next days.\n" +
+                                   "To get more information of your bill, please Contact us with this email address.\n" +
+                                   "Faithfully you !",
                             "zendiapplication@gmail.com",
                             email);
                 } catch (Exception e) {
