@@ -102,8 +102,7 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
                 // Process add the shoe added
                 if (ite.getProductId().compareTo(shoeInWishList.get(getAdapterPosition()).getProductId()) == 0 && ite.getShoeSize().compareTo(shoeInWishList.get(getAdapterPosition()).getShoeSize()) == 0 )
                 {
-
-                    db.collection("InWish/aaaaa/ShoeinWish").document(docName)
+                    db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName)
                             .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -129,7 +128,7 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
             s.put("productType",shoeInWishList.get(getAdapterPosition()).getProductType());
             s.put("productBrand",shoeInWishList.get(getAdapterPosition()).getProductBrand());
 
-            db.collection("InWish/aaaaa/ShoeinWish").document(docName)
+            db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName)
                     .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -141,7 +140,7 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
             DataManager.shoeInWishAdapter.notifyDataSetChanged();
             DataManager.shoeInBagAdapter.notifyDataSetChanged();
 
-            db.collection("InBag/aaa/ShoeList").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
+            db.collection("InBag/"+DataManager.host.getId()+"/ShoeList").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                 }

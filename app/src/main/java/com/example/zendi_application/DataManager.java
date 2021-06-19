@@ -589,6 +589,7 @@ public class DataManager {
     }
     private static DatabaseReference dataBase;
     public static void loadUser(){
+        listUsers.clear();
         dataBase = FirebaseDatabase.getInstance().getReference();
         dataBase.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
@@ -619,8 +620,8 @@ public class DataManager {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     host = snapshot.getValue(User.class);
-                    getShoeInBagFromFirestone("InBag/" + DataManager.host.getId() + "/ShoeList",DataManager.list);
-                    getShoeInWishFromFirestone("InWish/" + DataManager.host.getId() + "/ShoeList",DataManager.shoeInWish);
+                    getShoeInBagFromFirestone("InBag/" +DataManager.host.getId()+"/ShoeList",DataManager.list);
+                    getShoeInWishFromFirestone("InWish/"+DataManager.host.getId()+"/ShoeList",DataManager.shoeInWish);
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {

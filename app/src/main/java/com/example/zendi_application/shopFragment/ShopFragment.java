@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -18,7 +19,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.DataManager;
+import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
+import com.example.zendi_application.wishFragment.FragmentDialogBox;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -27,18 +30,21 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 import static android.widget.Toast.LENGTH_LONG;
 
-public class ShopFragment extends Fragment implements RecyclerViewClickInterface{
+public class ShopFragment extends Fragment implements RecyclerViewClickInterface, View.OnClickListener{
 
-    Button settle;
+    public Button settle;
     RecyclerView recyclerView;
 
     @Nullable
@@ -47,7 +53,7 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         DataManager.shoeInBagAdapter = new ShoeInBagAdapter();
         settle = view.findViewById(R.id.settle_place);
-        settle.setText(total());
+        settle.setTextKeepState(total());
         recyclerView = view.findViewById(R.id.shop_fragment_rcv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(),recyclerView.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);;
@@ -58,7 +64,7 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(DataManager.shoeInBagAdapter);
-
+        settle.setOnClickListener(this);
         return view;
     }
     String increaseAmount = "One more or swipe down to delete";
@@ -138,7 +144,7 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
     public  void deleteItem(final ShoeInBag shoe){
         String docName = shoe.getProductId() + "_" + shoe.getShoeSize();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("InBag/aaa/ShoeList").document(docName)
+        db.collection("InBag/"+DataManager.host.getId()+"/ShoeList").document(docName)
                 .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -147,7 +153,7 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
     }
     public void upAmount(ShoeInBag shoe, String amount){
         String docName = shoe.getProductId() + "_" + shoe.getShoeSize();
-        final DocumentReference docRef = FirebaseFirestore.getInstance().collection("InBag/aaa/ShoeList")
+        final DocumentReference docRef = FirebaseFirestore.getInstance().collection("InBag/"+DataManager.host.getId()+"/ShoeList")
                 .document(docName);
         Map<String, Object> map = new HashMap<>();
         map.put("shoeAmount",amount);
@@ -157,5 +163,21 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
 
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId()==R.id.settle_place ){
+                openDialog();
+            }
+    }
+    private void openDialog() {
+        if(DataManager.list.size() != 0){
+            OrderInfoDialog dia = new OrderInfoDialog();
+            dia.show(getFragmentManager(),"Order Information");
+        }else{
+            Toast.makeText(getContext(),"Let's get shoe in your bag first", Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
 }

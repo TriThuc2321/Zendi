@@ -9,10 +9,19 @@
         android:visible="false"
         />
     <item
+        android:id="@+id/staff_manager_item"
+        android:icon="@drawable/ic_baseline_people_outline_24"
+        android:title="Staff manager"
+        android:contentDescription="Setting For Your Account"
+        app:showAsAction="ifRoom"
+        android:visible="true"
+        />
+    <item
         android:id="@+id/account"
         android:icon="@drawable/ic_baseline_perm_identity_24"
         android:title="Account"
         android:contentDescription="Setting For Your Account"
         app:showAsAction="ifRoom" />
+
 
 </menu>

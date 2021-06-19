@@ -42,12 +42,21 @@ public class LoginRegisterActivity extends AppCompatActivity {
         findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(RESULT_CANCELED);
                 LoginRegisterActivity.super.onBackPressed();
             }
         });
 
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.btnLogin).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginRegisterActivity.this, Account_Activity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        findViewById(R.id.btnRegister).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginRegisterActivity.this, Account_Activity.class);

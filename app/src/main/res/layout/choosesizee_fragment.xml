@@ -22,16 +22,16 @@
 
     <ImageView
         android:id="@+id/imgofShoe"
-        android:layout_width="395dp"
-        android:layout_height="380dp"
-        android:layout_margin="10dp"></ImageView>
+        android:layout_width="388dp"
+        android:layout_height="348dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"></ImageView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/custom_for_detailproduct"
         android:orientation="vertical">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,14 +102,14 @@
 
         <Button
             android:id="@+id/shopnowbtn"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_width="382dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="0dp"
             android:background="@drawable/custombutton_detailproduct"
             android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_black"
             android:text="GET NOW"
-            android:textStyle="italic"
-          ></Button>
+            android:textStyle="italic"></Button>
 
 
     </LinearLayout>

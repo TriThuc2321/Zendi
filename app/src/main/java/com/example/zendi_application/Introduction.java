@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -41,7 +42,7 @@ public class Introduction extends AppCompatActivity {
         DataManager.LoadDropInformation("Collection/",DataManager.listDrop);  // load products
         DataManager.LoadProductInformation("Product",DataManager.listProduct); // load categors
         DataManager.loadUser();
-        DataManager.GetUser(); // load list User
+        DataManager.GetUser();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

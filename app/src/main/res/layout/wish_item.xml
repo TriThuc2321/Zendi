@@ -63,10 +63,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp">
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/ic_baseline_favorite_24" />
+
                 <Button
                     android:id="@+id/shop_btn"
                     android:layout_width="25dp"

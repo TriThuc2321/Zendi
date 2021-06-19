@@ -158,8 +158,6 @@ public class DetailProductFragment extends Fragment {
             @Override
             public void onClick(View v) {
             getFragmentManager().popBackStack();
-
-
             }
         });
         getbtn.setOnClickListener(new View.OnClickListener() {
