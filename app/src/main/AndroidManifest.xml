@@ -20,7 +20,14 @@
         android:roundIcon="@mipmap/zendi_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Zendi_Application">
-        <activity android:name=".Location.Location"></activity>
+        <activity android:name=".ActivityAccount.edit_deleteProductPackage.edit_deleteProduct">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".Location.Location" />
         <activity android:name=".ActivityAccount.StaffManager" />
         <activity android:name=".searchfragment.MyDetailProduct" />
         <!--

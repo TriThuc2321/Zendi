@@ -47,6 +47,7 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
     public Button settle;
     RecyclerView recyclerView;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

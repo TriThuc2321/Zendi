@@ -90,6 +90,7 @@ public class AddDrop extends AppCompatActivity {
         category_ordinalEdit = findViewById(R.id.categoryordinal_adddrop);
         drop_ordinalEdit = findViewById(R.id.dropordinal_adddrop);
         productList_spinner = (Spinner) findViewById(R.id.spinner_productlist);
+
         progressBar_adddrop = findViewById(R.id.progress_bar_adddrop);
         load_dropimage = findViewById(R.id.load_dropimage);
         toolbar_adddrop = findViewById(R.id.toorbar_adddrop);
@@ -128,6 +129,7 @@ public class AddDrop extends AppCompatActivity {
 
         adddropimagebtn = findViewById(R.id.adddropimagebtn_adddrop);
         pushbtn = findViewById(R.id.pushdropbtn_adddrop);
+
 
         addbtn = findViewById(R.id.addproduct_adddrop);
         deletebtn = findViewById(R.id.delete_adddrop);
