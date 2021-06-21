@@ -187,11 +187,13 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_EXIT) {
-            //if (resultCode == RESULT_OK) {
+        /*if (requestCode == REQUEST_EXIT) {
+            if (resultCode == RESULT_OK) {
                 this.finish();
-
-            //}
+            }
+        }*/
+        if (resultCode == REQUEST_EXIT) {
+            this.finish();
         }
     }
 
@@ -221,10 +223,10 @@ public class HomeScreen extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     User user = snapshot.getValue(User.class);
 
-                    if(user.getShopOwner()==1){
+                    if(user.getShopOwner() == 1){
                         mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(true);
                     }
-                    else if(user.getShopOwner()==2){
+                    else if(user.getShopOwner() == 2){
                         mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(true);
                         mAppBarTop.getMenu().findItem(R.id.staff_manager_item).setVisible(true);
                     }

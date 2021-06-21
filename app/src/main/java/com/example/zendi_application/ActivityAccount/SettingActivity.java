@@ -349,7 +349,7 @@ public class SettingActivity extends AppCompatActivity {
         sizeSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                sizeTxt.setText(progress+ 3+ "");
+                sizeTxt.setText((float)progress/2 + 5 + "");
             }
 
             @Override
