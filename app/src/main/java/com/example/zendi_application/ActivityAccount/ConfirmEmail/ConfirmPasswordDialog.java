@@ -69,8 +69,10 @@ public class ConfirmPasswordDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 String b = verifyCodeEdt.getText().toString();
+                int c = Integer.parseInt(b);
                 String a = verifyCode + "";
-                if( b.compareTo(a) == 0){
+
+                if( c == verifyCode){
                     isConfirm = true;
 
                     openConfirmDialogBtn.setVisibility(View.GONE);
