@@ -143,8 +143,9 @@ public class SettingActivity extends AppCompatActivity {
                 LoginManager.getInstance().logOut();
 
                 DataManager.host = null;
-                setResult(RESULT_OK, null);
                 setResult(99);
+                //setResult(RESULT_OK, null);
+
                 finish();
                 startActivity(new Intent(SettingActivity.this, HomeScreen.class));
             }
@@ -348,7 +349,7 @@ public class SettingActivity extends AppCompatActivity {
         sizeSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                sizeTxt.setText(progress+ 3+ "");
+                sizeTxt.setText((float)progress/2 + 5 + "");
             }
 
             @Override

@@ -104,5 +104,14 @@ public class StaffManager extends AppCompatActivity {
             dataBase.child("Users").child(listCustomer.get(i).getId()).setValue(listCustomer.get(i));
         }
     }
+    protected void onStop() {
+        setResult(0);
+        super.onStop();
+    }
+    @Override
+    protected void onDestroy() {
+        setResult(0);
+        super.onDestroy();
+    }
 
 }
