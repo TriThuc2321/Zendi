@@ -69,14 +69,17 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                             con = editcontact.getText().toString();
                             reciever = editName.getText().toString();
                             sendEmail(DataManager.host.getEmail());
-                            upBilltoFireStore(add,con,DataManager.host.getEmail(),reciever);
-                            Toast.makeText(getContext(),"Ordered successfully.",Toast.LENGTH_SHORT).show();
+                            upBilltoFireStore(add, con, DataManager.host.getEmail(), reciever);
+                            Toast.makeText(getContext(), "Ordered successfully.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
         editaddress = view.findViewById(R.id.edit_address);
+        editaddress.setText(DataManager.host.getAddress());
         editcontact = view.findViewById(R.id.edit_contact);
+        editcontact.setText(DataManager.host.getPhoneNumber());
         editName = view.findViewById(R.id.edit_receiver);
+        editName.setText(DataManager.host.getName());
         return builder.create();
     }
     public void upBilltoFireStore(String address, String contact, String email, String name){
