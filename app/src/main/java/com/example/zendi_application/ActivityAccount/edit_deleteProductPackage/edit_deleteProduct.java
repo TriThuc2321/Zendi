@@ -165,7 +165,8 @@ public class edit_deleteProduct extends AppCompatActivity {
                                 temp1.getRemainingAmount().set(13,Integer.parseInt(remaining12edit.getText().toString()));
                                 DataManager.edit_Object_To_FireStone((edit_deleteProduct)v.getContext(), "Product", temp.getProductId(), temp);
                                 DataManager.Update_drop_after_edit_product((edit_deleteProduct) v.getContext(),temp1);
-                                DataManager.Edit_Product_ShopinBag(temp1,"edit");
+                                DataManager.Edit_Product_ShoeinBag(temp1,"edit");
+                                DataManager.Edit_Product_InWish(temp1,"edit");
                                 for (int i = 0; i < DataManager.list.size();i ++)
                                 {
                                     if (DataManager.list.get(i).getProductId().compareTo(selectedProductId) == 0)
@@ -191,6 +192,34 @@ public class edit_deleteProduct extends AppCompatActivity {
 
                                         DataManager.shoeInBagAdapter.setData(DataManager.list);
                                         DataManager.shoeInBagAdapter.notifyDataSetChanged();
+
+                                    }
+                                }
+                                for (int i = 0; i < DataManager.shoeInWish.size();i ++)
+                                {
+                                    if (DataManager.shoeInWish.get(i).getProductId().compareTo(selectedProductId) == 0)
+                                    {
+                                        DataManager.shoeInWish.get(i).setProductName(temp1.getProductName());
+                                        DataManager.shoeInWish.get(i).setProductBrand(temp1.getProductBrand());
+                                        DataManager.shoeInWish.get(i).setProductPrice(temp1.getProductPrice());
+                                        DataManager.shoeInWish.get(i).setProductType(temp1.getProductType());
+                                        DataManager.shoeInWish.get(i).getRemainingAmount().set(0,temp1.getRemainingAmount().get(0));
+                                        DataManager.shoeInWish.get(i).getRemainingAmount().set(1,temp1.getRemainingAmount().get(1));
+                                        DataManager.shoeInWish.get(i).getRemainingAmount().set(2,temp1.getRemainingAmount().get(2));
+                                        DataManager.shoeInWish.get(i).getRemainingAmount().set(3,temp1.getRemainingAmount().get(3));
+                                        DataManager.shoeInWish.get(i).getRemainingAmount().set(4,temp1.getRemainingAmount().get(4));
+                                        DataManager.shoeInWish.get(i).getRemainingAmount().set(5,temp1.getRemainingAmount().get(5));
+                                        DataManager.shoeInWish.get(i).getRemainingAmount().set(6,temp1.getRemainingAmount().get(6));
+                                        DataManager.shoeInWish.get(i).getRemainingAmount().set(7,temp1.getRemainingAmount().get(7));
+                                        DataManager.shoeInWish.get(i).getRemainingAmount().set(8,temp1.getRemainingAmount().get(8));
+                                        DataManager.shoeInWish.get(i).getRemainingAmount().set(9,temp1.getRemainingAmount().get(9));
+                                        DataManager.shoeInWish.get(i).getRemainingAmount().set(10,temp1.getRemainingAmount().get(10));
+                                        DataManager.shoeInWish.get(i).getRemainingAmount().set(11,temp1.getRemainingAmount().get(11));
+                                        DataManager.shoeInWish.get(i).getRemainingAmount().set(12,temp1.getRemainingAmount().get(12));
+                                        DataManager.shoeInWish.get(i).getRemainingAmount().set(13,temp1.getRemainingAmount().get(13));
+
+                                        DataManager.shoeInWishAdapter.setData(DataManager.shoeInWish);
+                                        DataManager.shoeInWishAdapter.notifyDataSetChanged();
 
                                     }
                                 }
@@ -248,7 +277,9 @@ public class edit_deleteProduct extends AppCompatActivity {
                                 for (product2 temp : processedList) {
                                     if (temp.getProductId() == selectedProductId) {
                                         DataManager.Delete_product_to_Firestone((edit_deleteProduct) v.getContext(), temp);
-                                        DataManager.Edit_Product_ShopinBag(temp,"delete");
+                                        DataManager.Edit_Product_ShoeinBag(temp,"delete");
+                                        DataManager.Edit_Product_InWish(temp,"delete");
+
                                         processedList.remove(temp);
                                         break;
                                     }
@@ -268,6 +299,16 @@ public class edit_deleteProduct extends AppCompatActivity {
                                         DataManager.list.remove(i);
                                         DataManager.shoeInBagAdapter.setData(DataManager.list);
                                         DataManager.shoeInBagAdapter.notifyDataSetChanged();
+                                        i--;
+                                    }
+                                }
+                                for (int i = 0; i < DataManager.shoeInWish.size();i ++)
+                                {
+                                    if (DataManager.shoeInWish.get(i).getProductId().compareTo(selectedProductId) == 0)
+                                    {
+                                        DataManager.shoeInWish.remove(i);
+                                        DataManager.shoeInWishAdapter.setData(DataManager.shoeInWish);
+                                        DataManager.shoeInWishAdapter.notifyDataSetChanged();
                                         i--;
                                     }
                                 }

@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.zendi_application.ActivityAccount.edit_deleteDropPackage.edit_deleteDrop;
+import com.example.zendi_application.ActivityAccount.edit_deleteProductPackage.edit_deleteProduct;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.drop.drop;
@@ -43,7 +45,7 @@ public class AddDrop extends AppCompatActivity {
     public static imageAddDropAdapter imageproductlistAdapter_ = new imageAddDropAdapter();
     public static imageAddDropAdapter2 imageProductInDropAdapter_ = new imageAddDropAdapter2();
     EditText dropcaptionEdit, dropstatusEdit, droptypeEdit,category_ordinalEdit,drop_ordinalEdit;
-    Button pushbtn,backbtn, addbtn,deletebtn,adddropimagebtn;
+    Button pushbtn,backbtn, addbtn,deletebtn,adddropimagebtn,editbtn;
     public ProgressBar progressBar_adddrop;
     Spinner productList_spinner;
     String selectedproductId;
@@ -215,6 +217,14 @@ public class AddDrop extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 OpenImage();
+            }
+        });
+
+        editbtn = findViewById(R.id.editbtn_adddrop);
+        editbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AddDrop.this, edit_deleteDrop.class));
             }
         });
 

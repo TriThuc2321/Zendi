@@ -268,7 +268,7 @@ public class DataManager {
         });
 
     }
-    public static void Edit_Product_ShopinBag(product2 shoe, String which)
+    public static void Edit_Product_ShoeinBag(product2 shoe, String which)
     {
         List<String> listUser = new ArrayList<>();
         FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
@@ -329,6 +329,103 @@ public class DataManager {
                                         temp1.getRemainingAmount().set(13,shoe.getRemainingAmount().get(13));
                                         FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
                                         firestonePutProduct.collection("InBag/" + temp + "/ShoeList").document(ShoeinbagID).set(temp1)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+//
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+
+                                            }
+                                        });
+                                    }
+                                }
+
+                            }
+
+
+                        }
+
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+
+/////////////
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+    public static void Edit_Product_InWish(product2 shoe, String which)
+    {
+        List<String> listUser = new ArrayList<>();
+        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
+        firestoneGetProduct.collection("InWish").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                    listUser.add(documentSnapshot.getId());
+                }
+/////////////////////////////////////////
+                for (String temp : listUser) {
+                    firestoneGetProduct.collection("InWish/" + temp + "/ShoeinWish").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                ShoeInBag temp1 = documentSnapshot.toObject(ShoeInBag.class);
+                                String ShoeinbagID = documentSnapshot.getId();
+                                if (which == "delete")
+                                {
+                                    if (temp1.getProductId().compareTo(shoe.getProductId()) == 0)
+                                    {
+                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                        db.collection("InWish/" + temp + "/ShoeinWish").document(ShoeinbagID)
+                                                .delete()
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                    }
+                                                });
+                                    }
+
+                                }
+                                else if (which == "edit")
+                                {
+                                    if (temp1.getProductId().compareTo(shoe.getProductId()) == 0) {
+                                        temp1.setProductName(shoe.getProductName());
+                                        temp1.setProductBrand(shoe.getProductBrand());
+                                        temp1.setProductPrice(shoe.getProductPrice());
+                                        temp1.setProductType(shoe.getProductType());
+                                        temp1.getRemainingAmount().set(0,shoe.getRemainingAmount().get(0));
+                                        temp1.getRemainingAmount().set(1,shoe.getRemainingAmount().get(1));
+                                        temp1.getRemainingAmount().set(2,shoe.getRemainingAmount().get(2));
+                                        temp1.getRemainingAmount().set(3,shoe.getRemainingAmount().get(3));
+                                        temp1.getRemainingAmount().set(4,shoe.getRemainingAmount().get(4));
+                                        temp1.getRemainingAmount().set(5,shoe.getRemainingAmount().get(5));
+                                        temp1.getRemainingAmount().set(6,shoe.getRemainingAmount().get(6));
+                                        temp1.getRemainingAmount().set(7,shoe.getRemainingAmount().get(7));
+                                        temp1.getRemainingAmount().set(8,shoe.getRemainingAmount().get(8));
+                                        temp1.getRemainingAmount().set(9,shoe.getRemainingAmount().get(9));
+                                        temp1.getRemainingAmount().set(10,shoe.getRemainingAmount().get(10));
+                                        temp1.getRemainingAmount().set(11,shoe.getRemainingAmount().get(11));
+                                        temp1.getRemainingAmount().set(12,shoe.getRemainingAmount().get(12));
+                                        temp1.getRemainingAmount().set(13,shoe.getRemainingAmount().get(13));
+                                        FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
+                                        firestonePutProduct.collection("InWish/" + temp + "/ShoeinWish").document(ShoeinbagID).set(temp1)
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
@@ -836,7 +933,7 @@ public class DataManager {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     host = snapshot.getValue(User.class);
                     getShoeInBagFromFirestone("InBag/" +DataManager.host.getId()+"/ShoeList",DataManager.list);
-                    getShoeInWishFromFirestone("InWish/"+DataManager.host.getId()+"/ShoeList",DataManager.shoeInWish);
+                    getShoeInWishFromFirestone("InWish/"+DataManager.host.getId()+"/ShoeinWish",DataManager.shoeInWish);
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
