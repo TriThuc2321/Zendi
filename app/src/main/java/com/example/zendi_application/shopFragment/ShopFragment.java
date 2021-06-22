@@ -173,7 +173,7 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
     }
     private void openDialog() {
         if(TextUtils.equals(DataManager.host.getEmail(), "")|| TextUtils.equals(DataManager.host.getEmail(), null) ){
-            Toast.makeText(getContext(),"Have not provided your email in case that you will be informed of your bill", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),"Have not provided your email in case that you will be informed of your bill", Toast.LENGTH_SHORT).show();
             return;
         }
         if(DataManager.list.size() != 0){
