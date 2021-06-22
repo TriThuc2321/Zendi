@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,7 +36,7 @@ public class ConfirmPasswordDialog extends Dialog {
 
     Button confirmBtn;
     Button resendBtn;
-    EditText emailEdt;
+    TextView emailTxt;
     EditText verifyCodeEdt;
 
     String email;
@@ -58,18 +59,19 @@ public class ConfirmPasswordDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.confirm_password_layout);
 
-        emailEdt = findViewById(R.id.emailEdtDialog);
+        emailTxt = findViewById(R.id.emailEdtDialog);
         verifyCodeEdt = findViewById(R.id.verifyEdtDialog);
         confirmBtn = findViewById(R.id.confirmBtnDialog);
         resendBtn = findViewById(R.id.resendBtnDialog);
 
-        emailEdt.setText(email);
+        emailTxt.setText(email);
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String b = verifyCodeEdt.getText().toString();
-                int c = Integer.parseInt(b);
+                int c = -1;
+                if (b!= null)  c = Integer.parseInt(b);
                 String a = verifyCode + "";
 
                 if( c == verifyCode){
@@ -90,15 +92,7 @@ public class ConfirmPasswordDialog extends Dialog {
         resendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(emailEdt.getText() == null || emailEdt.getText().toString() == ""){
-                    Toast.makeText(getApplicationContext(), "Enter email to continue", Toast.LENGTH_LONG).show();
-                }
-                else if(existEmail(emailEdt.getText().toString())){
-                    Toast.makeText(getApplicationContext(), "Email already used", Toast.LENGTH_LONG).show();
-                }
-                else{
                     sendEmail();
-                }
             }
         });
     }
@@ -117,7 +111,7 @@ public class ConfirmPasswordDialog extends Dialog {
                     sender.sendMail("Verify code",
                             "Thank for using Zendi Application, this is you verify code: " + randomCode,
                             "zendiapplication@gmail.com",
-                            emailEdt.getText().toString());
+                            emailTxt.getText().toString());
                     dialog.dismiss();
                 } catch (Exception e) {
                     Log.e("mylog", "Error: " + e.getMessage());
@@ -134,7 +128,7 @@ public class ConfirmPasswordDialog extends Dialog {
     public boolean existEmail(String email){
         for(int i =0; i< listUsers.size(); i++){
             String a = listUsers.get(i).getEmail();
-            if(a == null) break;
+            if(a == null) continue;
             if(a.compareTo(email) == 0){
                 return true;
             }

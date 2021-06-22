@@ -110,14 +110,14 @@ public class HomeScreen extends AppCompatActivity {
                 }
                 else if (item.getItemId() == R.id.shop_owner_item) {
                     Intent intent = new Intent(HomeScreen.this, uploadData.class);
-                    startActivityForResult(intent, REQUEST_EXIT);
+                    startActivity(intent);
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
                 }
                 else if(item.getItemId() == R.id.staff_manager_item){
                     listUsers.clear();
                     DataManager.loadUser();
                     Intent intent = new Intent(HomeScreen.this, StaffManager.class);
-                    startActivityForResult(intent, REQUEST_EXIT);
+                    startActivity(intent);
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
                 }
                 return true;
@@ -187,13 +187,10 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*if (requestCode == REQUEST_EXIT) {
-            if (resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_EXIT) {
+            //if (resultCode == RESULT_OK) {
                 this.finish();
-            }
-        }*/
-        if (resultCode == REQUEST_EXIT) {
-            this.finish();
+            //}
         }
     }
 
