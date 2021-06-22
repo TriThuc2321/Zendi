@@ -626,8 +626,9 @@ public class DataManager {
                    String status_ = documentSnapshot.get("status").toString();
                    String type_ = documentSnapshot.get("type").toString();
                    String categoryName_ = documentSnapshot.get("categoryNumber").toString();
+                   String dropName_ = documentSnapshot.get("dropNumber").toString();
                    List<String> productNameList = documentSnapshot.toObject(ProductNameList.class).listProductName;
-                    drop2 sample = new drop2(processed_image,caption_,status_,type_,categoryName_,productNameList,productList_);
+                    drop2 sample = new drop2(processed_image,caption_,status_,type_,categoryName_,dropName_,productNameList,productList_);
                     listDrop.add(sample);
                     if (listCategory.get(categoryName_) == null)
                     {
@@ -641,7 +642,22 @@ public class DataManager {
                     }
                     int a = 2;
                 }
-
+                for (String key : DataManager.listCategory.keySet())
+                {
+                    for (int i = 0; i < listCategory.get(key).size()-1; i++)
+                    {
+                        if (Integer.parseInt(listCategory.get(key).get(i).getDropNumber()) > Integer.parseInt(listCategory.get(key).get(i+1).getDropNumber()))
+                        {
+                            drop2 a = new drop2(listCategory.get(key).get(i).getImage(),
+                                    listCategory.get(key).get(i).getCaption(),listCategory.get(key).get(i).getStatus(),
+                                    listCategory.get(key).get(i).getType(), listCategory.get(key).get(i).getCategoryNumber(),
+                                    listCategory.get(key).get(i).getDropNumber(),listCategory.get(key).get(i).getListProductName(),
+                                    listCategory.get(key).get(i).getProductList());
+                            listCategory.get(key).set(i,listCategory.get(key).get(i+1));
+                            listCategory.get(key).set(i+1,a);
+                        }
+                    }
+                }
                int a = 0;
 
             }

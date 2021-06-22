@@ -12,7 +12,7 @@
 
 
         <ImageView
-            android:id="@+id/image_drop"
+            android:id="@+id/image_drop_editdropitem"
             android:layout_width="match_parent"
             android:layout_height="240dp"
             android:scaleType="centerCrop"
@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/type_drop"
+            android:id="@+id/type_editdropitem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +38,7 @@
             />
 
         <TextView
-            android:id="@+id/caption_drop"
+            android:id="@+id/caption_editdropitem"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:background="@color/white"
@@ -55,7 +55,7 @@
             app:layout_constraintVertical_bias="0.576" />
 
         <TextView
-            android:id="@+id/status_drop"
+            android:id="@+id/status_editdropitem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -83,6 +83,7 @@
 
 
             <Button
+                android:id="@+id/editbtn_editdropitem"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
@@ -92,6 +93,7 @@
                 android:textStyle="bold"></Button>
 
             <Button
+                android:id="@+id/deletebtn_editdropitem"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"

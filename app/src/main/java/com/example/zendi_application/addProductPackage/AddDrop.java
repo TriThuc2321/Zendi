@@ -190,7 +190,7 @@ public class AddDrop extends AppCompatActivity {
                         }
                     }
                     drop2 a = new drop2(null, dropcaptionEdit.getText().toString(), dropstatusEdit.getText().toString(), droptypeEdit.getText().toString()
-                            , category_ordinalEdit.getText().toString(), selected_productlist, productList);
+                            , category_ordinalEdit.getText().toString(),drop_ordinalEdit.getText().toString(), selected_productlist, productList);
                     String temp = "Drop_" + category_ordinalEdit.getText().toString() + "_" + drop_ordinalEdit.getText().toString() + "/";
 //                DataManager.Push_Image(temp,"Collection/Category_1/","",listURL);
                     /// txt1 chua stt category, txt2 chua ten drop, txt3 chua stt cua drop

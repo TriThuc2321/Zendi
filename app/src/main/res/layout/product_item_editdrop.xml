@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="200dp"
-    android:layout_height="165dp"
+    android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="8dp"
     android:layout_margin="8dp">
@@ -13,7 +13,7 @@
 
 
         <ImageView
-            android:id="@+id/image_drop"
+            android:id="@+id/imageproduct_editdropitem"
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:scaleType="centerCrop"
@@ -26,7 +26,7 @@
 
 
         <TextView
-            android:id="@+id/nameproduct_edirdrop"
+            android:id="@+id/nameproduct_editdropitem"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginEnd="44dp"
@@ -46,7 +46,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="30dp"
             android:orientation="horizontal"
             android:weightSum="2"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -55,25 +55,14 @@
 
 
             <Button
-                android:id="@+id/editbtn_product_editdrop"
+                android:id="@+id/deletebtn_product_editdropitem"
                 android:layout_width="0dp"
-                android:textSize="12dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_margin="2dp"
-                android:layout_weight="1"
-                android:background="@drawable/custom_black_stroke"
-                android:text="Edit"
-                android:textStyle="bold"></Button>
-
-            <Button
-                android:id="@+id/deletebtn_product_editdrop"
-                android:layout_width="0dp"
-                android:textSize="12dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:background="@drawable/delete_button"
                 android:text="Delete"
+                android:textSize="20dp"
                 android:textStyle="bold"></Button>
 
 

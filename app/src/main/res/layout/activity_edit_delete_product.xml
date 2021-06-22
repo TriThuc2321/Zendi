@@ -123,6 +123,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/priceproduct_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -141,6 +142,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/typeproduct_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -159,6 +161,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/remaining5.5_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -177,6 +180,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/remaining6_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -195,6 +199,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/remaining6.5_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -213,6 +218,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/remaining7_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -231,6 +237,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/remaining7.5_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -249,6 +256,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/remaining8_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -267,6 +275,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/remaining8.5_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -285,6 +294,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/remaining9_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -303,6 +313,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/remaining9.5_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -321,6 +332,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/remaining10_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -339,6 +351,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/remaining10.5_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -357,6 +370,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/remaining11_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -375,6 +389,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/remaining11.5_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -393,6 +408,7 @@
                     android:textStyle="bold"
                     ></TextView>
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/remaining12_editproduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
