@@ -172,6 +172,7 @@
                             android:scaleType="centerCrop"
                             ></ImageView>
                         <Button
+                            android:id="@+id/loadimagedrop_editdrop"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="  Load Image Drop  "
@@ -216,6 +217,7 @@
                     android:layout_height="wrap_content"
                     ></Spinner>
                 <Button
+                    android:id="@+id/addproductindrop_editdrop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" Add Product "
@@ -237,17 +239,9 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="2dp"
         android:weightSum="2">
+
         <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_black_stroke"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_margin="2dp"
-            android:text="Add Product"
-            android:layout_weight="1"
-            ></Button>
-        <Button
+            android:id="@+id/savebtn1_editdrop"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_black_stroke"
@@ -255,7 +249,7 @@
             android:textStyle="bold"
             android:layout_margin="2dp"
             android:text="Save"
-            android:layout_weight="1"
+            android:layout_weight="2"
             ></Button>
 
     </LinearLayout>

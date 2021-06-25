@@ -1,13 +1,16 @@
 package com.example.zendi_application.ActivityAccount.edit_deleteDropPackage;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -41,6 +44,21 @@ public class productAdapter_editdrop  extends RecyclerView.Adapter<productAdapte
             Glide.with(mcontext).load(product_.getResourceID().get(0)).into(holder.imageproduct_editdropitem);
             holder.nameproduct_editdropitem.setText(product_.getProductName());
         }
+        holder.deletebtn_editdropitem.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                if (edit_deleteDrop.selectedListProductName.contains(product_.getProductName()) == true)
+                {
+                    edit_deleteDrop.selectedListProduct.removeIf(p -> (p.getProductName() == product_.getProductName()));
+                    edit_deleteDrop.selectedListProductName.removeIf(p -> (p == product_.getProductName()));
+                    edit_deleteDrop.productAdapter_editdrop.SetData(edit_deleteDrop.selectedListProduct,(edit_deleteDrop) v.getContext());
+                    Toast.makeText(v.getContext(), "Delete Successfully !", Toast.LENGTH_SHORT).show();
+                }
+                else  Toast.makeText(v.getContext(), "Delete Failed !", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     @Override

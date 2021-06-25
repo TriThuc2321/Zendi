@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 
 import com.example.zendi_application.ActivityAccount.User;
+import com.example.zendi_application.ActivityAccount.edit_deleteDropPackage.edit_deleteDrop;
 import com.example.zendi_application.ActivityAccount.edit_deleteProductPackage.edit_deleteProduct;
 import com.example.zendi_application.addProductPackage.AddDrop;
 import com.example.zendi_application.addProductPackage.ProductList;
@@ -136,6 +137,71 @@ public class DataManager {
             });
         }
     }
+    public static void push_drop_To_FireStone_editdrop(edit_deleteDrop parent, String dropname, drop2 object, Uri imageUri )
+    {
+
+        /// Push List Image to Storage and Get List of ImageURL
+//        parent.progressBar_adddrop.setVisibility(View.VISIBLE);
+        if (imageUri != null) {
+            FirebaseStorage firebaseStorage = FirebaseStorage.getInstance(); // Init reference
+            StorageReference storageReference_ = firebaseStorage.getReference();
+            StorageReference processPutFile = storageReference_.child("Collection/" + dropname);
+            processPutFile.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    processPutFile.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            //// After getting Url of images, we add Urls to Image
+                            object.setImage(uri.toString());
+                            FirebaseFirestore firestonedb1 = FirebaseFirestore.getInstance();
+                            String path2 = "Collection/";
+                            DocumentReference documentReference = firestonedb1.collection(path2).document(dropname);
+                            documentReference.update("image", FieldValue.arrayUnion(uri.toString()));
+                            String temp = uri.toString();
+                            for (drop2 drop_ : DataManager.listDrop) {
+                            if (drop_.getCategoryNumber().compareTo(edit_deleteDrop.selectedDrop_categoryNumber) == 0 && drop_.getDropNumber().compareTo(edit_deleteDrop.selectedDrop_dropNumber) == 0)
+                            {
+                                drop_.setImage(temp);
+                                edit_deleteDrop.dropAdapter_editdrop.SetData(DataManager.listDrop,parent);
+                                edit_deleteDrop.dropAdapter_editdrop.notifyDataSetChanged();
+                                edit_deleteDrop.URLimage = temp;
+                                break;
+                            }
+                            }
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                }
+            });
+        }
+
+        /// After converting  List of ImageURI to List of ImageURL,we push data to Firestone with path : collectionName/productName.
+
+        FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
+        firestonePutProduct.collection("Collection/" ).document(dropname).set(object)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+//                        parent.progressBar_adddrop.setVisibility(View.INVISIBLE);
+                        Toast.makeText(parent, "Update drop successfully !", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+    }
+
 
     public static void push_drop_To_FireStone(AddDrop parent, String dropname, String ordinal , drop2 object, List<Uri> listURI )
     {
@@ -187,6 +253,7 @@ public class DataManager {
         });
 
     }
+
     public static void Update_Amount(ShoeInBag selectedShoe)
     {
         FirebaseFirestore firestonedb1 = FirebaseFirestore.getInstance();

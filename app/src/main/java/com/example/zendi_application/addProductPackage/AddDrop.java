@@ -121,6 +121,7 @@ public class AddDrop extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedproductId = productId.get(position);
+
             }
 
             @Override
