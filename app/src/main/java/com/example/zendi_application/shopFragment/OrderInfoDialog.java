@@ -42,6 +42,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
     public String reciever;
     public String total = total();
     public String ss = ListShoeBought();
+    public String totalHost = addTotalToHost();
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                             con = editcontact.getText().toString();
                             reciever = editName.getText().toString();
                             sendEmail(DataManager.host.getEmail());
+                            DataManager.host.setTotal(totalHost);
                             upBilltoFireStore(add, con, DataManager.host.getEmail(), reciever);
                             Toast.makeText(getContext(), "Ordered successfully.", Toast.LENGTH_SHORT).show();
                         }
@@ -82,6 +84,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         editName.setText(DataManager.host.getName());
         return builder.create();
     }
+
     public void upBilltoFireStore(String address, String contact, String email, String name){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyyHHmmss"); //Bill document se duoc luu duoi dang  userIDngay thang nam gio phut giay dat hang
@@ -161,6 +164,16 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
             }
         });
         sender.start();
+    }
+    public String addTotalToHost(){
+        String total = "$" + DataManager.host.getTotal();
+        Integer temp = Integer.parseInt(DataManager.host.getTotal());
+        for (ShoeInBag a : DataManager.list)
+        {
+            temp += Integer.parseInt(a.getShoeAmount())*Integer.parseInt(a.getProductPrice());
+        }
+        total += temp.toString();
+        return total;
     }
     public static String total(){
         String total_ ="$";
