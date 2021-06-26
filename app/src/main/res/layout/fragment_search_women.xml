@@ -45,7 +45,7 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardview1"
+                android:id="@+id/card_adidas_women"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_for_article_card">
 
@@ -106,7 +106,7 @@
                 android:orientation="horizontal" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/newArrival_cardview"
+                android:id="@+id/card_nike_women"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_for_article_card"
                 android:clickable="false">
@@ -169,7 +169,7 @@
                 android:orientation="horizontal" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/topSeller_cardview"
+                android:id="@+id/card_puma_women"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_for_article_card">
 
@@ -230,7 +230,7 @@
                 android:orientation="horizontal" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/exclusives_cardview"
+                android:id="@+id/card_converse_women"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_for_article_card">
 
@@ -291,7 +291,7 @@
                 android:orientation="horizontal" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/ultraboost_cardview"
+                android:id="@+id/card_ree_women"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_for_article_card">
 
@@ -352,7 +352,7 @@
                 android:orientation="horizontal" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/adicolor_cardview"
+                android:id="@+id/card_balance_women"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_for_article_card">
 
@@ -413,7 +413,7 @@
                 android:orientation="horizontal" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardvoew"
+                android:id="@+id/card_vans_women"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_for_article_card">
 
