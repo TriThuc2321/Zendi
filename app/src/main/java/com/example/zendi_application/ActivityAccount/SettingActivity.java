@@ -457,7 +457,15 @@ public class SettingActivity extends AppCompatActivity {
                         mGender = 2;
                     }
                     setData(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(), mGender, currentUser.getUid(), nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
+
+                    for (int i = 0; i < listUsers.size(); i++) {
+                        if(listUsers.get(i).getId() == user.getId()) {
+                            user = new User(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(), mGender, currentUser.getUid(), nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
+                            listUsers.set(i, user);
+                        }
+                    }
                 }
+
                 else {
                     Toast.makeText(getApplicationContext(),"Email is not confirm",Toast.LENGTH_LONG).show();
                 }
