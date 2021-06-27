@@ -25,6 +25,8 @@ import com.example.zendi_application.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.common.util.concurrent.internal.InternalFutureFailureAccess;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -71,6 +73,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                             reciever = editName.getText().toString();
                             sendEmail(DataManager.host.getEmail());
                             DataManager.host.setTotal(totalHost);
+                            upTotalToFirebase(totalHost);
                             upBilltoFireStore(add, con, DataManager.host.getEmail(), reciever);
                             Toast.makeText(getContext(), "Ordered successfully.", Toast.LENGTH_SHORT).show();
                         }
@@ -166,14 +169,17 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         sender.start();
     }
     public String addTotalToHost(){
-        String total = "$" + DataManager.host.getTotal();
         Integer temp = Integer.parseInt(DataManager.host.getTotal());
         for (ShoeInBag a : DataManager.list)
         {
             temp += Integer.parseInt(a.getShoeAmount())*Integer.parseInt(a.getProductPrice());
         }
-        total += temp.toString();
-        return total;
+       String last = temp.toString();
+        return last;
+    }
+    public void upTotalToFirebase(String totalHost){
+        DatabaseReference dt = FirebaseDatabase.getInstance().getReference();
+        dt.child("Users").child(DataManager.host.getId()).child("total").setValue(totalHost);
     }
     public static String total(){
         String total_ ="$";
