@@ -2,6 +2,7 @@ package com.example.zendi_application.shopFragment;
 
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -164,7 +165,6 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
             }
         });
     }
-
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.settle_place ){
@@ -172,13 +172,14 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
             }
     }
     private void openDialog() {
+        if(TextUtils.equals(DataManager.host.getEmail(), "")|| TextUtils.equals(DataManager.host.getEmail(), null) ){
+            Toast.makeText(getContext(),"Have not provided your email in case that you will be informed of your bill", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(DataManager.list.size() != 0){
-            if(DataManager.host.getEmail() == null){
-                Toast.makeText(getContext(),"You have not provided your email to us in case that you will be informed of your bill", Toast.LENGTH_SHORT).show();
-                return;
-            }
             OrderInfoDialog dia = new OrderInfoDialog();
             dia.show(getFragmentManager(),"Order Information");
+            settle.setText(total());
         }else{
             Toast.makeText(getContext(),"Let's get shoe in your bag first", Toast.LENGTH_SHORT).show();
             return;

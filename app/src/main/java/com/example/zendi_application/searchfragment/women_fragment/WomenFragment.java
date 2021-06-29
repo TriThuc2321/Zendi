@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,6 +60,13 @@ public class WomenFragment extends Fragment {
     private Button bt_converse_shoe;
     private Button bt_balance_shoe;
 
+    private CardView cv_adidas;
+    private CardView cv_vans;
+    private CardView cv_nike;
+    private CardView cv_balance;
+    private CardView cv_puma;
+    private CardView cv_ree;
+    private CardView cv_converse;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -75,6 +83,7 @@ public class WomenFragment extends Fragment {
         rcvAddidas.setHasFixedSize(true);
         rcvAddidas.setLayoutManager(layoutAddidas);
         rcvAddidas.setAdapter(adtAddidas);
+        cv_adidas = view.findViewById(R.id.card_adidas_women);
 
         layoutBalance = new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false);
         adtBalance = new RecycleAdapter(MyEnum.Brand.NEW_BALANCE,MyEnum.Sex.WOMEN);
@@ -82,6 +91,7 @@ public class WomenFragment extends Fragment {
         rcvBalance.setHasFixedSize(true);
         rcvBalance.setLayoutManager(layoutBalance);
         rcvBalance.setAdapter(adtBalance);
+        cv_balance = view.findViewById(R.id.card_balance_women);
 
         layoutNike = new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false);
         adtNike = new RecycleAdapter(MyEnum.Brand.NIKE,MyEnum.Sex.WOMEN);
@@ -89,6 +99,7 @@ public class WomenFragment extends Fragment {
         rcvNike.setHasFixedSize(true);
         rcvNike.setLayoutManager(layoutNike);
         rcvNike.setAdapter(adtNike);
+        cv_nike = view.findViewById(R.id.card_nike_women);
 
         layoutConverse = new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false);
         adtConverse = new RecycleAdapter(MyEnum.Brand.CONVERSE,MyEnum.Sex.WOMEN);
@@ -96,6 +107,7 @@ public class WomenFragment extends Fragment {
         rcvConverse.setHasFixedSize(true);
         rcvConverse.setLayoutManager(layoutConverse);
         rcvConverse.setAdapter(adtConverse);
+        cv_converse = view.findViewById(R.id.card_converse_women);
 
         layoutVans = new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false);
         adtVans = new RecycleAdapter(MyEnum.Brand.VANS,MyEnum.Sex.WOMEN);
@@ -103,6 +115,7 @@ public class WomenFragment extends Fragment {
         rcvVans.setHasFixedSize(true);
         rcvVans.setLayoutManager(layoutVans);
         rcvVans.setAdapter(adtVans);
+        cv_vans = view.findViewById(R.id.card_vans_women);
 
         layoutPuma = new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false);
         adtPuma = new RecycleAdapter(MyEnum.Brand.PUMA,MyEnum.Sex.WOMEN);
@@ -110,6 +123,7 @@ public class WomenFragment extends Fragment {
         rcvPuma.setHasFixedSize(true);
         rcvPuma.setLayoutManager(layoutPuma);
         rcvPuma.setAdapter(adtPuma);
+        cv_puma = view.findViewById(R.id.card_puma_women);
 
         layoutRee = new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false);
         adtRee = new RecycleAdapter(MyEnum.Brand.REEBOOK,MyEnum.Sex.WOMEN);
@@ -117,6 +131,7 @@ public class WomenFragment extends Fragment {
         rcvRee.setHasFixedSize(true);
         rcvRee.setLayoutManager(layoutRee);
         rcvRee.setAdapter(adtRee);
+        cv_ree = view.findViewById(R.id.card_ree_women);
 
         bt_all_shoe = view.findViewById(R.id.shoes_button_women);
         bt_all_shoe.setOnClickListener(new View.OnClickListener() {
@@ -205,6 +220,97 @@ public class WomenFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        if(adtAddidas.getItemCount() == 0)
+        {
+            rcvAddidas.setVisibility(View.GONE);
+            bt_adidas_shoe.setVisibility(View.GONE);
+            cv_adidas.setVisibility(View.GONE);
+        }
+        else
+        {
+            rcvAddidas.setVisibility(View.VISIBLE);
+            bt_adidas_shoe.setVisibility(View.VISIBLE);
+            cv_adidas.setVisibility(View.VISIBLE);
+        }
+
+        if(adtNike.getItemCount() == 0)
+        {
+            rcvNike.setVisibility(View.GONE);
+            bt_nike_shoe.setVisibility(View.GONE);
+            cv_nike.setVisibility(View.GONE);
+        }
+        else
+        {
+            rcvNike.setVisibility(View.VISIBLE);
+            bt_nike_shoe.setVisibility(View.VISIBLE);
+            cv_nike.setVisibility(View.VISIBLE);
+        }
+
+        if(adtRee.getItemCount() == 0)
+        {
+            rcvRee.setVisibility(View.GONE);
+            bt_ree_shoe.setVisibility(View.GONE);
+            cv_ree.setVisibility(View.GONE);
+        }
+        else
+        {
+            rcvRee.setVisibility(View.VISIBLE);
+            bt_ree_shoe.setVisibility(View.VISIBLE);
+            cv_ree.setVisibility(View.VISIBLE);
+        }
+
+        if(adtPuma.getItemCount() == 0)
+        {
+            rcvPuma.setVisibility(View.GONE);
+            bt_puma_shoe.setVisibility(View.GONE);
+            cv_puma.setVisibility(View.GONE);
+        }
+        else
+        {
+            rcvPuma.setVisibility(View.VISIBLE);
+            bt_puma_shoe.setVisibility(View.VISIBLE);
+            cv_puma.setVisibility(View.VISIBLE);
+        }
+
+        if(adtVans.getItemCount() == 0)
+        {
+            rcvVans.setVisibility(View.GONE);
+            bt_vans_shoe.setVisibility(View.GONE);
+            cv_vans.setVisibility(View.GONE);
+        }
+        else
+        {
+            rcvVans.setVisibility(View.VISIBLE);
+            bt_vans_shoe.setVisibility(View.VISIBLE);
+            cv_vans.setVisibility(View.VISIBLE);
+        }
+
+        if(adtConverse.getItemCount() == 0)
+        {
+            rcvConverse.setVisibility(View.GONE);
+            bt_converse_shoe.setVisibility(View.GONE);
+            cv_converse.setVisibility(View.GONE);
+        }
+        else
+        {
+            rcvConverse.setVisibility(View.VISIBLE);
+            bt_converse_shoe.setVisibility(View.VISIBLE);
+            cv_converse.setVisibility(View.VISIBLE);
+        }
+
+        if(adtBalance.getItemCount() == 0)
+        {
+            rcvBalance.setVisibility(View.GONE);
+            bt_balance_shoe.setVisibility(View.GONE);
+            cv_balance.setVisibility(View.GONE);
+        }
+        else
+        {
+            rcvBalance.setVisibility(View.VISIBLE);
+            bt_balance_shoe.setVisibility(View.VISIBLE);
+            cv_balance.setVisibility(View.VISIBLE);
+        }
         return view;
     }
 }

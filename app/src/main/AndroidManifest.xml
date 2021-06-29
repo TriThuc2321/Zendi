@@ -25,6 +25,10 @@
         <activity android:name=".Location.Location" />
         <activity android:name=".ActivityAccount.Admin.StaffManager" />
         <activity android:name=".searchfragment.MyDetailProduct" />
+
+        <activity android:name=".Location.Location" android:screenOrientation="portrait"></activity>
+        <activity android:name=".ActivityAccount.StaffManager" android:screenOrientation="portrait"/>
+        <activity android:name=".searchfragment.MyDetailProduct" android:screenOrientation="portrait"/>
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
@@ -36,7 +40,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCmXt990NNTsptk8ILcCMGCeoBnZZEfpv0" />
 
-        <activity android:name=".addProductPackage.AddDrop">
+        <activity android:name=".addProductPackage.AddDrop" android:screenOrientation="portrait">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -45,9 +49,9 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".ActivityAccount.LoginRegisterActivity" />
-        <activity android:name=".ActivityAccount.SettingActivity" />
-        <activity android:name=".addProductPackage.uploadData">
+        <activity android:name=".ActivityAccount.LoginRegisterActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ActivityAccount.SettingActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".addProductPackage.uploadData" android:screenOrientation="portrait">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -56,17 +60,17 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".ActivityAccount.Account_Activity" />
-        <activity android:name=".searchfragment.allShoe.AllShoeActivity" />
-        <activity android:name=".HomeScreen" />
-        <activity android:name=".Introduction">
+        <activity android:name=".ActivityAccount.Account_Activity" android:screenOrientation="portrait"/>
+        <activity android:name=".searchfragment.allShoe.AllShoeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".HomeScreen" android:screenOrientation="portrait"/>
+        <activity android:name=".Introduction" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".dropFragment.collection_drop" />
+        <activity android:name=".dropFragment.collection_drop" android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="preloaded_fonts"
@@ -76,10 +80,12 @@
             android:value="@string/facebook_app_id" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
