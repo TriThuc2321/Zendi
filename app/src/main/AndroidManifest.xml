@@ -26,9 +26,9 @@
         <activity android:name=".ActivityAccount.Admin.StaffManager" />
         <activity android:name=".searchfragment.MyDetailProduct" />
 
-        <activity android:name=".Location.Location" android:screenOrientation="portrait"></activity>
-        <activity android:name=".ActivityAccount.StaffManager" android:screenOrientation="portrait"/>
-        <activity android:name=".searchfragment.MyDetailProduct" android:screenOrientation="portrait"/>
+        <!--<activity android:name=".Location.Location" android:screenOrientation="portrait"></activity>
+        <activity android:name=".ActivityAccount.Admin.StaffManager" android:screenOrientation="portrait"/>
+        <activity android:name=".searchfragment.MyDetailProduct" android:screenOrientation="portrait"/>-->
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
