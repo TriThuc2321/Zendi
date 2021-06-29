@@ -1,4 +1,4 @@
-package com.example.zendi_application.ActivityAccount;
+package com.example.zendi_application.ActivityAccount.Admin;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,19 +11,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.R;
 
-import java.util.List;
+import static com.example.zendi_application.ActivityAccount.Admin.StaffManager.listCustomer;
+import static com.example.zendi_application.ActivityAccount.Admin.StaffManager.listStaff;
+import static com.example.zendi_application.ActivityAccount.Admin.StaffManager.saveBtn;
 
-import static com.example.zendi_application.ActivityAccount.StaffManager.listCustomer;
-import static com.example.zendi_application.ActivityAccount.StaffManager.listStaff;
-import static com.example.zendi_application.ActivityAccount.StaffManager.saveBtn;
-
-public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHolder>{
+public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.ViewHolder>{
 
     private Context mContext;
 
-    public CustomerAdapter(Context mContext) {
+
+    public StaffAdapter(Context mContext) {
         this.mContext = mContext;
     }
     public void SetData(){
@@ -34,16 +34,16 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View customerView = inflater.inflate(R.layout.customer_custom, parent, false);
-        CustomerAdapter.ViewHolder viewHolder = new CustomerAdapter.ViewHolder(customerView);
+        View staffView = inflater.inflate(R.layout.staff_custom, parent, false);
+        ViewHolder viewHolder = new ViewHolder(staffView);
         return viewHolder;
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        User user = listCustomer.get(position);
+        User user = listStaff.get(position);
         holder.nameTxt.setText(user.getName());
-        holder.emailTxt.setText(user.getEmail());
         holder.phoneNumberTxt.setText(user.getPhoneNumber());
         holder.addressTxt.setText(user.getAddress());
         holder.birthdayTxt.setText(user.getDOB());
@@ -55,11 +55,11 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        if(listCustomer == null) return 0;
-        return listCustomer.size();
+        if(listStaff == null) return 0;
+        return listStaff.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder{
         TextView nameTxt;
         Button subtractBtn;
         TextView emailTxt;
@@ -74,28 +74,22 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            nameTxt = itemView.findViewById(R.id.name_customer);
-            subtractBtn = (Button) itemView.findViewById(R.id.subtract_customer_btn);
-            emailTxt = itemView.findViewById(R.id.emailCustomerTxt);
-            birthdayTxt = itemView.findViewById(R.id.birthdayCustomerTxt);
-            addressTxt = itemView.findViewById(R.id.addressCustomerTxt);
-            genderTxt = itemView.findViewById(R.id.genderCustomerTxt);
-            phoneNumberTxt = itemView.findViewById(R.id.phoneNumberCustomerTxt);
-
-            infoLayout = itemView.findViewById(R.id.infoCustomerLayout);
+            nameTxt = itemView.findViewById(R.id.name_staff);
+            subtractBtn = (Button) itemView.findViewById(R.id.subtract_staff_btn);
+            emailTxt = itemView.findViewById(R.id.emailStaffTxt);
+            birthdayTxt = itemView.findViewById(R.id.birthdayStaffTxt);
+            addressTxt = itemView.findViewById(R.id.addressStaffTxt);
+            genderTxt = itemView.findViewById(R.id.genderStaffTxt);
+            phoneNumberTxt = itemView.findViewById(R.id.phoneNumberStaffTxt);
+            infoLayout = itemView.findViewById(R.id.infoStaffLayout);
 
             subtractBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    subtractBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            saveBtn.setVisibility(View.VISIBLE);
-                            listStaff.add(listCustomer.get(getAdapterPosition()));
-                            listCustomer.remove(getAdapterPosition());
-                            SetData();
-                        }
-                    });
+                    saveBtn.setVisibility(View.VISIBLE);
+                    listCustomer.add(listStaff.get(getAdapterPosition()));
+                    listStaff.remove(getAdapterPosition());
+                    SetData();
                 }
             });
 
@@ -110,7 +104,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
                         infoLayout.setVisibility(View.GONE);
                         flag = true;
                     }
-
                 }
             });
         }

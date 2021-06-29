@@ -4,10 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -19,16 +16,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.bumptech.glide.load.model.ModelLoader;
-import com.example.zendi_application.ActivityAccount.Account_Activity;
+import com.example.zendi_application.ActivityAccount.Admin.AdminActivity;
 import com.example.zendi_application.ActivityAccount.LoginRegisterActivity;
-import com.example.zendi_application.ActivityAccount.StaffManager;
 import com.example.zendi_application.ActivityAccount.User;
-import com.example.zendi_application.Location.Location;
 import com.example.zendi_application.addProductPackage.uploadData;
-import com.example.zendi_application.dropFragment.DetailDropFragment;
-import com.example.zendi_application.dropFragment.drop.drop;
-import com.example.zendi_application.dropFragment.product_package.product2;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -39,8 +30,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.List;
 
 import static com.example.zendi_application.DataManager.listUsers;
 
@@ -116,7 +105,7 @@ public class HomeScreen extends AppCompatActivity {
                 else if(item.getItemId() == R.id.staff_manager_item){
                     listUsers.clear();
                     DataManager.loadUser();
-                    Intent intent = new Intent(HomeScreen.this, StaffManager.class);
+                    Intent intent = new Intent(HomeScreen.this, AdminActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
                 }

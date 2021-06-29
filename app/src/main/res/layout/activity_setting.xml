@@ -11,7 +11,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/profileInfo"
-            android:layout_marginTop="4dp">
+            android:layout_marginTop="4dp"
+            android:layout_margin="10dp">
                 <View
                     android:id="@+id/turnBack"
                     android:layout_width="40dp"

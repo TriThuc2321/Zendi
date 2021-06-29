@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 
+import com.example.zendi_application.ActivityAccount.Admin.Ordered;
 import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.addProductPackage.AddDrop;
 import com.example.zendi_application.addProductPackage.ProductList;
@@ -68,6 +69,7 @@ public class DataManager {
     public static HashMap<String,Integer> sizeConvert = new HashMap<>();
     public static List<ShoeInBag> list = new ArrayList<>();
     public static List<ShoeInBag> shoeInWish = new ArrayList<>();
+    public static List<Ordered> orderedList = new ArrayList<>();
     // Attributes
     private Uri imageUri;
     private FirebaseStorage storage;
@@ -633,4 +635,24 @@ public class DataManager {
 
     }
 
+    public static void getListOrderedFromFirestone() {
+        firestonedb.collection("Ordered").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                orderedList.clear();
+                for (DocumentSnapshot documentSnapshot : task.getResult())
+                {
+                    // U have to need default constructor in ShIB class to use the sequence below
+                    Ordered temp = documentSnapshot.toObject(Ordered.class);
+                    orderedList.add(temp);
+                    //((ShopFragment)parent).shoeInBagAdapter.notifyDataSetChanged();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
 }

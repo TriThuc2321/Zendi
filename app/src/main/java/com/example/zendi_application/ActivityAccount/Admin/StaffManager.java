@@ -1,4 +1,4 @@
-package com.example.zendi_application.ActivityAccount;
+package com.example.zendi_application.ActivityAccount.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.example.zendi_application.DataManager;
+import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
