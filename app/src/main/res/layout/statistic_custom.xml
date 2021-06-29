@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/infoOrderedLayout"
             android:orientation="vertical"
-            android:visibility="visible"
+            android:visibility="gone"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -111,7 +111,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/productOrdered"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"

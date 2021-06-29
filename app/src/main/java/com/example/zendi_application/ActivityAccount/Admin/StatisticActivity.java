@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.example.zendi_application.ActivityAccount.User;
@@ -26,6 +27,7 @@ public class StatisticActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerStatistic;
     private StatisticAdapter mStatisticAdapter ;
+    View turnBackBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +37,18 @@ public class StatisticActivity extends AppCompatActivity {
 
         Innit();
 
+        turnBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     private void Innit() {
         mRecyclerStatistic = findViewById(R.id.list_statistic_recyclerView);
+        turnBackBtn = findViewById(R.id.turnBack_statistic);
 
         mStatisticAdapter = new StatisticAdapter(this);
         mStatisticAdapter.SetData(DataManager.orderedList);

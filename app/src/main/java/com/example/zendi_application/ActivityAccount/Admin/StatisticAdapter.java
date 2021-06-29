@@ -51,10 +51,11 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
         holder.emailTxt.setText(ordered.getEmail());
         holder.totalTxt.setText(ordered.getTotal());
 
+
         holder.mOrderedAdapter = new OrderedAdapter(mContext);
         holder.mOrderedAdapter.SetData(ordered.getShoeList());
         holder.mRecyclerView.setAdapter(holder.mOrderedAdapter);
-        holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext,RecyclerView.HORIZONTAL,false));
     }
 
     @Override

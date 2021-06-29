@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/account"
+        android:icon="@drawable/ic_baseline_perm_identity_24"
+        android:title="Account"
+        android:contentDescription="Setting For Your Account"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/shop_owner_item"
+        android:title=""
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/storage_icon2"
+        android:visible="false"
+        />
+
     <item
         android:id="@+id/staff_manager_item"
         android:icon="@drawable/ic_outline_settings_24"
@@ -9,19 +25,5 @@
         app:showAsAction="ifRoom"
         android:visible="false"
         />
-    <item
-        android:id="@+id/shop_owner_item"
-        android:title=""
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/storage_icon2"
-        android:visible="false"
-        />
-    <item
-        android:id="@+id/account"
-        android:icon="@drawable/ic_baseline_perm_identity_24"
-        android:title="Account"
-        android:contentDescription="Setting For Your Account"
-        app:showAsAction="ifRoom" />
-
 
 </menu>
