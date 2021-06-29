@@ -647,6 +647,7 @@ public class DataManager {
                     orderedList.add(temp);
                     //((ShopFragment)parent).shoeInBagAdapter.notifyDataSetChanged();
                 }
+                int a = orderedList.size();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

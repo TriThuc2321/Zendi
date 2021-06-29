@@ -32,7 +32,7 @@ public class StaffManager extends AppCompatActivity {
     private CustomerAdapter mCustomerAdapter;
 
     public static Button saveBtn;
-    View turnbackBtn;
+    private View turnBackBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class StaffManager extends AppCompatActivity {
         Init();
 
 
-        turnbackBtn.setOnClickListener(new View.OnClickListener() {
+        turnBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setResult(RESULT_CANCELED);
@@ -64,7 +64,7 @@ public class StaffManager extends AppCompatActivity {
         listStaff.clear();
 
         dataBase = FirebaseDatabase.getInstance().getReference();
-        turnbackBtn = findViewById(R.id.turn_back_staff_manager);
+        turnBackBtn = findViewById(R.id.turn_back_staff_manager);
 
         mRecyclerStaff = findViewById(R.id.list_staff_recyclerView);
         mRecyclerCustomer = findViewById(R.id.list_customer_recyclerView);

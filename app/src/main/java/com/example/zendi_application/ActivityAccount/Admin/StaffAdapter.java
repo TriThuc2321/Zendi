@@ -44,6 +44,7 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = listStaff.get(position);
         holder.nameTxt.setText(user.getName());
+        holder.emailTxt.setText(user.getEmail());
         holder.phoneNumberTxt.setText(user.getPhoneNumber());
         holder.addressTxt.setText(user.getAddress());
         holder.birthdayTxt.setText(user.getDOB());
