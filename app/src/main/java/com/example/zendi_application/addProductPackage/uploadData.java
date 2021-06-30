@@ -216,4 +216,14 @@ public class uploadData extends AppCompatActivity {
             }
 
     }
+
+    protected void onStop() {
+        setResult(0);
+        super.onStop();
+    }
+    @Override
+    protected void onDestroy() {
+        setResult(0);
+        super.onDestroy();
+    }
 }

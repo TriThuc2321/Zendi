@@ -25,6 +25,8 @@ import com.example.zendi_application.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.common.util.concurrent.internal.InternalFutureFailureAccess;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -37,12 +39,12 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
     private TextInputEditText editaddress;
     private TextInputEditText editcontact;
     private TextInputEditText editName;
-    private TextInputEditText editMail;
     public String add;
     public String con;
-    public String mail;
     public String reciever;
     public String total = total();
+    public String ss = ListShoeBought();
+    public String totalHost = addTotalToHost();
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -52,7 +54,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.order_info_dialog, null);
 
         builder.setView(view)
-                .setTitle("Order information")
+                .setTitle("Ordering information")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -69,19 +71,23 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                             add = editaddress.getText().toString();
                             con = editcontact.getText().toString();
                             reciever = editName.getText().toString();
-                            mail = editMail.getText().toString();
-                            sendEmail(mail);
-                            upBilltoFireStore(add,con,mail,reciever);
-                            Toast.makeText(getContext(),"Ordered successfully.",Toast.LENGTH_SHORT).show();
+                            sendEmail(DataManager.host.getEmail());
+                            DataManager.host.setTotal(totalHost);
+                            upTotalToFirebase(totalHost);
+                            upBilltoFireStore(add, con, DataManager.host.getEmail(), reciever);
+                            Toast.makeText(getContext(), "Ordered successfully.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
         editaddress = view.findViewById(R.id.edit_address);
+        editaddress.setText(DataManager.host.getAddress());
         editcontact = view.findViewById(R.id.edit_contact);
-        editMail = view.findViewById(R.id.edit_email);
+        editcontact.setText(DataManager.host.getPhoneNumber());
         editName = view.findViewById(R.id.edit_receiver);
+        editName.setText(DataManager.host.getName());
         return builder.create();
     }
+
     public void upBilltoFireStore(String address, String contact, String email, String name){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyyHHmmss"); //Bill document se duoc luu duoi dang  userIDngay thang nam gio phut giay dat hang
@@ -131,6 +137,13 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         DataManager.shoeInBagAdapter.notifyDataSetChanged();
     }
 
+    public String ListShoeBought(){
+        String var = "";
+        for(ShoeInBag ite: DataManager.list){
+            var = var + ite.getProductName() + " Size: " + ite.getShoeSize() + " Quantity: " + ite.getShoeAmount() + "\n";
+        }
+        return var;
+    }
     public void sendEmail(String email){
         Thread sender = new Thread(new Runnable() {
             @Override
@@ -138,11 +151,14 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                 try {
                     GmailSender sender = new GmailSender("zendiapplication@gmail.com", "ThucThienThangHuynh123");
                     sender.sendMail("Order in Zendi",
-                            "Thanks for ordering our product and choosing Zendi as your best Shoe Shop." +
-                                    " Your bill's value is: " + total + ". " +
-                                    "Please check your phone or email to be announced within the next days. " +
-                                    "To get more information of your bill, please Contact us with this email address. " +
-                                    "Faithfully you !",
+                             "Dear " + reciever + ";\n" +
+                                   "Thanks for ordering our product and choosing Zendi as your best Shoe Shop.\n" +
+                                   "You have just bought:\n" +
+                                   ss +
+                                   "Your bill's value is: " + total + ".\n" +
+                                   "Please check your phone or email to be announced within the next days.\n" +
+                                   "To get more information of your bill, please Contact us with this email address.\n" +
+                                   "Faithfully you !",
                             "zendiapplication@gmail.com",
                             email);
                 } catch (Exception e) {
@@ -151,6 +167,19 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
             }
         });
         sender.start();
+    }
+    public String addTotalToHost(){
+        Integer temp = Integer.parseInt(DataManager.host.getTotal());
+        for (ShoeInBag a : DataManager.list)
+        {
+            temp += Integer.parseInt(a.getShoeAmount())*Integer.parseInt(a.getProductPrice());
+        }
+       String last = temp.toString();
+        return last;
+    }
+    public void upTotalToFirebase(String totalHost){
+        DatabaseReference dt = FirebaseDatabase.getInstance().getReference();
+        dt.child("Users").child(DataManager.host.getId()).child("total").setValue(totalHost);
     }
     public static String total(){
         String total_ ="$";

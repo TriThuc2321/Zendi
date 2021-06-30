@@ -342,7 +342,7 @@
                                     android:id="@+id/sizeSb"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:max="16"
+                                    android:max="14"
 
                                     android:visibility="gone"
                                     android:scrollbarStyle="insideInset"
@@ -367,7 +367,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="TOTAL"
+                                    android:text="TOTAL ($)"
                                     android:textSize="15dp"
                                     android:textStyle="bold"
                                     />
