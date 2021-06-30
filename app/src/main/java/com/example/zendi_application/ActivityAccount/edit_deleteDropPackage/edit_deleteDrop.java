@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
+import android.widget.Toolbar;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -42,6 +43,7 @@ public class edit_deleteDrop extends AppCompatActivity {
     public RecyclerView rcv_drop;
     public RecyclerView rcv_product;
     public Spinner productlist_spinner;
+    public Toolbar toolbar;
     public ImageView image_editdrop;
     public List<String> productName = new ArrayList<>();
     public String selectedproductId;
@@ -73,6 +75,15 @@ public class edit_deleteDrop extends AppCompatActivity {
         rcv_drop = findViewById(R.id.rcv_drop_editdrop);
         rcv_product = findViewById(R.id.rcv_product_editdrop);
         image_editdrop = findViewById(R.id.imagedrop_editdrop);
+
+        toolbar = findViewById(R.id.toorbar_editdrop);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                finish();
+            }
+        });
         productlist_spinner = (Spinner) findViewById(R.id.spinner_productlist_editdrop);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
@@ -157,6 +168,12 @@ public class edit_deleteDrop extends AppCompatActivity {
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (selectedDrop_dropNumber== null && selectedDrop_categoryNumber == null)
+                {
+                    Toast.makeText(v.getContext(), "Please choose the drop !", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Integer count = 0;
                 String temp1 = dropnumber_editdrop.getText().toString();
                 String temp2 = categorynumber_editdrop.getText().toString();
