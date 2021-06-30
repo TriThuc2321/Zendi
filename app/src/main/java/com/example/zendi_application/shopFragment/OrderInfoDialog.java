@@ -90,17 +90,22 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
 
     public void upBilltoFireStore(String address, String contact, String email, String name){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyyHHmmss"); //Bill document se duoc luu duoi dang  userIDngay thang nam gio phut giay dat hang
+        SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyyHHmmss");
+        SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
+        Date date2 = new Date();
+        String dated = formatter2.format(date2);
         String datetime = formatter.format(date);
         String docName = DataManager.host.getId() + datetime;
         Map<String, Object> s1 = new HashMap<>();
         s1.put("BillId", docName);
+        s1.put("BillDate", dated);
         s1.put("Email", email);
         s1.put("Name", name);
         s1.put("Address",address);
         s1.put("Contact", contact);
         s1.put("Total",total());
+        s1.put("BillStatus","0"); //0: not yet delivered 1: delivered
         db.collection("Ordered" ).document(docName).set(s1).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
