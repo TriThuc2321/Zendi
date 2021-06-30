@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 
 import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.DataManager;
@@ -51,9 +54,12 @@ public class StatisticActivity extends AppCompatActivity {
         turnBackBtn = findViewById(R.id.turnBack_statistic);
 
         mStatisticAdapter = new StatisticAdapter(this);
+        mRecyclerStatistic.setLayoutManager(new LinearLayoutManager(this));
+
+        LayoutAnimationController leftToRight = AnimationUtils.loadLayoutAnimation(this,R.anim.layout_animation_left_to_right);
+        mRecyclerStatistic.setLayoutAnimation(leftToRight);
         mStatisticAdapter.SetData(DataManager.orderedList);
         mRecyclerStatistic.setAdapter(mStatisticAdapter);
-        mRecyclerStatistic.setLayoutManager(new LinearLayoutManager(this));
     }
 
 

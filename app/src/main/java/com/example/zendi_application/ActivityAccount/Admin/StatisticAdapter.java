@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -11,13 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.zendi_application.DataManager.orderedList;
 
 public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.ViewHolder>{
 
@@ -74,6 +73,14 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
         TextView totalTxt;
         LinearLayout infoLayout;
 
+        Animation rotateRight;
+        Animation rotateLeft;
+        Animation topToBottom;
+        Animation bottomToTop;
+
+        LinearLayout show;
+        View dropDown;
+
         RecyclerView mRecyclerView;
         OrderedAdapter mOrderedAdapter;
         boolean flag=true;
@@ -88,17 +95,32 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
             totalTxt = itemView.findViewById(R.id.totalOrderedTxt);
             mRecyclerView = itemView.findViewById(R.id.productOrdered);
             infoLayout = itemView.findViewById(R.id.infoOrderedLayout);
+            show = itemView.findViewById(R.id.show_order);
+            dropDown = itemView.findViewById(R.id.drop_down);
 
-            nameTxt.setOnClickListener(new View.OnClickListener() {
+            rotateRight = AnimationUtils.loadAnimation(mContext, R.anim.rotate_right_animation);
+            rotateLeft = AnimationUtils.loadAnimation(mContext, R.anim.rotate_left_animation);
+            topToBottom = AnimationUtils.loadAnimation(mContext, R.anim.slide_top_to_bottom);
+            bottomToTop = AnimationUtils.loadAnimation(mContext, R.anim.slide_bottom_to_top);
+
+
+            rotateRight.setFillAfter(true);
+            rotateLeft.setFillAfter(true);
+
+            show.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(flag){
                         infoLayout.setVisibility(View.VISIBLE);
+                        infoLayout.startAnimation(topToBottom);
+                        dropDown.startAnimation(rotateRight);
                         flag = false;
                     }
                     else{
                         infoLayout.setVisibility(View.GONE);
+                        dropDown.startAnimation(rotateLeft);
                         flag = true;
+
                     }
 
                 }
