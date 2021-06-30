@@ -3,6 +3,7 @@ package com.example.zendi_application;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import com.example.zendi_application.ActivityAccount.Admin.Ordered;
 import com.example.zendi_application.ActivityAccount.Admin.ShoeOrderedList;
 import com.example.zendi_application.ActivityAccount.User;
+import com.example.zendi_application.ActivityAccount.edit_deleteDropPackage.edit_deleteDrop;
+import com.example.zendi_application.ActivityAccount.edit_deleteProductPackage.edit_deleteProduct;
 import com.example.zendi_application.addProductPackage.AddDrop;
 import com.example.zendi_application.addProductPackage.ProductList;
 import com.example.zendi_application.addProductPackage.ProductNameList;
@@ -137,6 +140,71 @@ public class DataManager {
             });
         }
     }
+    public static void push_drop_To_FireStone_editdrop(edit_deleteDrop parent, String dropname, drop2 object, Uri imageUri )
+    {
+
+        /// Push List Image to Storage and Get List of ImageURL
+//        parent.progressBar_adddrop.setVisibility(View.VISIBLE);
+        if (imageUri != null) {
+            FirebaseStorage firebaseStorage = FirebaseStorage.getInstance(); // Init reference
+            StorageReference storageReference_ = firebaseStorage.getReference();
+            StorageReference processPutFile = storageReference_.child("Collection/" + dropname);
+            processPutFile.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    processPutFile.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            //// After getting Url of images, we add Urls to Image
+                            object.setImage(uri.toString());
+                            FirebaseFirestore firestonedb1 = FirebaseFirestore.getInstance();
+                            String path2 = "Collection/";
+                            DocumentReference documentReference = firestonedb1.collection(path2).document(dropname);
+                            documentReference.update("image", FieldValue.arrayUnion(uri.toString()));
+                            String temp = uri.toString();
+                            for (drop2 drop_ : DataManager.listDrop) {
+                            if (drop_.getCategoryNumber().compareTo(edit_deleteDrop.selectedDrop_categoryNumber) == 0 && drop_.getDropNumber().compareTo(edit_deleteDrop.selectedDrop_dropNumber) == 0)
+                            {
+                                drop_.setImage(temp);
+                                edit_deleteDrop.dropAdapter_editdrop.SetData(DataManager.listDrop,parent);
+                                edit_deleteDrop.dropAdapter_editdrop.notifyDataSetChanged();
+                                edit_deleteDrop.URLimage = temp;
+                                break;
+                            }
+                            }
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                }
+            });
+        }
+
+        /// After converting  List of ImageURI to List of ImageURL,we push data to Firestone with path : collectionName/productName.
+
+        FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
+        firestonePutProduct.collection("Collection/" ).document(dropname).set(object)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+//                        parent.progressBar_adddrop.setVisibility(View.INVISIBLE);
+                        Toast.makeText(parent, "Update drop successfully !", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+    }
+
 
     public static void push_drop_To_FireStone(AddDrop parent, String dropname, String ordinal , drop2 object, List<Uri> listURI )
     {
@@ -188,6 +256,7 @@ public class DataManager {
         });
 
     }
+
     public static void Update_Amount(ShoeInBag selectedShoe)
     {
         FirebaseFirestore firestonedb1 = FirebaseFirestore.getInstance();
@@ -210,7 +279,7 @@ public class DataManager {
         }
         String a = new_amount.toString();
         documentReference.update("shoeAmount",a);
-        Toast.makeText(mContext,"Product is Added !!",Toast.LENGTH_SHORT);
+        Toast.makeText(mContext,"Product is Added !!",Toast.LENGTH_SHORT).show();
         /// Update admount
        //Update_Amount(selectedShoe);
     }
@@ -223,16 +292,246 @@ public class DataManager {
                     public void onComplete(@NonNull Task<Void> task) {
 //                      Update_Amount(selectedShoe);
                         DataManager.list.add(selectedShoe);
-                        Toast.makeText(mContext,"Product is Added !!",Toast.LENGTH_SHORT);
+                        Toast.makeText(mContext,"Product is Added !!",Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(mContext,"Adding Failed !!",Toast.LENGTH_SHORT);
+                Toast.makeText(mContext,"Adding Failed !!",Toast.LENGTH_SHORT).show();
+            }
+        });
+        Map<String, Object> info = new HashMap<>();
+        info.put("Name", user.getName());
+        info.put("Id", user.getId());
+        firestonePutProduct.collection("InBag").document(user.getId()).set(info)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(mContext,"Adding Failed !!",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+    public static void edit_Object_To_FireStone(edit_deleteProduct parent, String collectionName, String productName , product2 object)
+    {
+        /// Push List Image to Storage and Get List of ImageURL
+        parent.progressBar_editproduct.setVisibility(View.VISIBLE);
+        /// After converting  List of ImageURI to List of ImageURL,we push data to Firestone with path : collectionName/productName.
+        FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
+        firestonePutProduct.collection(collectionName).document(productName).set(object)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        parent.progressBar_editproduct.setVisibility(View.INVISIBLE);
+                        //
+                        Toast.makeText(parent,"Thêm Sản Phẩm Thành Công !",Toast.LENGTH_SHORT);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+    }
+    public static void Edit_Product_ShoeinBag(product2 shoe, String which)
+    {
+        List<String> listUser = new ArrayList<>();
+        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
+        firestoneGetProduct.collection("InBag").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                    listUser.add(documentSnapshot.getId());
+                }
+/////////////////////////////////////////
+                for (String temp : listUser) {
+                    firestoneGetProduct.collection("InBag/" + temp + "/ShoeList").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                ShoeInBag temp1 = documentSnapshot.toObject(ShoeInBag.class);
+                                String ShoeinbagID = documentSnapshot.getId();
+                                if (which == "delete")
+                                {
+                                    if (temp1.getProductId().compareTo(shoe.getProductId()) == 0)
+                                    {
+                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                        db.collection("InBag/" + temp + "/ShoeList").document(ShoeinbagID)
+                                                .delete()
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                    }
+                                                });
+                                    }
+
+                                }
+                                else if (which == "edit")
+                                {
+                                    if (temp1.getProductId().compareTo(shoe.getProductId()) == 0) {
+                                        temp1.setProductName(shoe.getProductName());
+                                        temp1.setProductBrand(shoe.getProductBrand());
+                                        temp1.setProductPrice(shoe.getProductPrice());
+                                        temp1.setProductType(shoe.getProductType());
+                                        temp1.getRemainingAmount().set(0,shoe.getRemainingAmount().get(0));
+                                        temp1.getRemainingAmount().set(1,shoe.getRemainingAmount().get(1));
+                                        temp1.getRemainingAmount().set(2,shoe.getRemainingAmount().get(2));
+                                        temp1.getRemainingAmount().set(3,shoe.getRemainingAmount().get(3));
+                                        temp1.getRemainingAmount().set(4,shoe.getRemainingAmount().get(4));
+                                        temp1.getRemainingAmount().set(5,shoe.getRemainingAmount().get(5));
+                                        temp1.getRemainingAmount().set(6,shoe.getRemainingAmount().get(6));
+                                        temp1.getRemainingAmount().set(7,shoe.getRemainingAmount().get(7));
+                                        temp1.getRemainingAmount().set(8,shoe.getRemainingAmount().get(8));
+                                        temp1.getRemainingAmount().set(9,shoe.getRemainingAmount().get(9));
+                                        temp1.getRemainingAmount().set(10,shoe.getRemainingAmount().get(10));
+                                        temp1.getRemainingAmount().set(11,shoe.getRemainingAmount().get(11));
+                                        temp1.getRemainingAmount().set(12,shoe.getRemainingAmount().get(12));
+                                        temp1.getRemainingAmount().set(13,shoe.getRemainingAmount().get(13));
+                                        FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
+                                        firestonePutProduct.collection("InBag/" + temp + "/ShoeList").document(ShoeinbagID).set(temp1)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+//
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+
+                                            }
+                                        });
+                                    }
+                                }
+
+                            }
+
+
+                        }
+
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+
+/////////////
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
             }
         });
     }
+    public static void Edit_Product_InWish(product2 shoe, String which)
+    {
+        List<String> listUser = new ArrayList<>();
+        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
+        firestoneGetProduct.collection("InWish").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                    listUser.add(documentSnapshot.getId());
+                }
+/////////////////////////////////////////
+                for (String temp : listUser) {
+                    firestoneGetProduct.collection("InWish/" + temp + "/ShoeinWish").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                ShoeInBag temp1 = documentSnapshot.toObject(ShoeInBag.class);
+                                String ShoeinbagID = documentSnapshot.getId();
+                                if (which == "delete")
+                                {
+                                    if (temp1.getProductId().compareTo(shoe.getProductId()) == 0)
+                                    {
+                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                        db.collection("InWish/" + temp + "/ShoeinWish").document(ShoeinbagID)
+                                                .delete()
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                    }
+                                                });
+                                    }
 
+                                }
+                                else if (which == "edit")
+                                {
+                                    if (temp1.getProductId().compareTo(shoe.getProductId()) == 0) {
+                                        temp1.setProductName(shoe.getProductName());
+                                        temp1.setProductBrand(shoe.getProductBrand());
+                                        temp1.setProductPrice(shoe.getProductPrice());
+                                        temp1.setProductType(shoe.getProductType());
+                                        temp1.getRemainingAmount().set(0,shoe.getRemainingAmount().get(0));
+                                        temp1.getRemainingAmount().set(1,shoe.getRemainingAmount().get(1));
+                                        temp1.getRemainingAmount().set(2,shoe.getRemainingAmount().get(2));
+                                        temp1.getRemainingAmount().set(3,shoe.getRemainingAmount().get(3));
+                                        temp1.getRemainingAmount().set(4,shoe.getRemainingAmount().get(4));
+                                        temp1.getRemainingAmount().set(5,shoe.getRemainingAmount().get(5));
+                                        temp1.getRemainingAmount().set(6,shoe.getRemainingAmount().get(6));
+                                        temp1.getRemainingAmount().set(7,shoe.getRemainingAmount().get(7));
+                                        temp1.getRemainingAmount().set(8,shoe.getRemainingAmount().get(8));
+                                        temp1.getRemainingAmount().set(9,shoe.getRemainingAmount().get(9));
+                                        temp1.getRemainingAmount().set(10,shoe.getRemainingAmount().get(10));
+                                        temp1.getRemainingAmount().set(11,shoe.getRemainingAmount().get(11));
+                                        temp1.getRemainingAmount().set(12,shoe.getRemainingAmount().get(12));
+                                        temp1.getRemainingAmount().set(13,shoe.getRemainingAmount().get(13));
+                                        FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
+                                        firestonePutProduct.collection("InWish/" + temp + "/ShoeinWish").document(ShoeinbagID).set(temp1)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+//
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+
+                                            }
+                                        });
+                                    }
+                                }
+
+                            }
+
+
+                        }
+
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+
+/////////////
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
     public static void push_Object_To_FireStone(uploadData parent, String collectionName, String productName , product2 object, List<Uri> listURI )
     {
         /// Push List Image to Storage and Get List of ImageURL
@@ -397,8 +696,9 @@ public class DataManager {
                    String status_ = documentSnapshot.get("status").toString();
                    String type_ = documentSnapshot.get("type").toString();
                    String categoryName_ = documentSnapshot.get("categoryNumber").toString();
+                   String dropName_ = documentSnapshot.get("dropNumber").toString();
                    List<String> productNameList = documentSnapshot.toObject(ProductNameList.class).listProductName;
-                    drop2 sample = new drop2(processed_image,caption_,status_,type_,categoryName_,productNameList,productList_);
+                    drop2 sample = new drop2(processed_image,caption_,status_,type_,categoryName_,dropName_,productNameList,productList_);
                     listDrop.add(sample);
                     if (listCategory.get(categoryName_) == null)
                     {
@@ -412,7 +712,22 @@ public class DataManager {
                     }
                     int a = 2;
                 }
-
+                for (String key : DataManager.listCategory.keySet())
+                {
+                    for (int i = 0; i < listCategory.get(key).size()-1; i++)
+                    {
+                        if (Integer.parseInt(listCategory.get(key).get(i).getDropNumber()) > Integer.parseInt(listCategory.get(key).get(i+1).getDropNumber()))
+                        {
+                            drop2 a = new drop2(listCategory.get(key).get(i).getImage(),
+                                    listCategory.get(key).get(i).getCaption(),listCategory.get(key).get(i).getStatus(),
+                                    listCategory.get(key).get(i).getType(), listCategory.get(key).get(i).getCategoryNumber(),
+                                    listCategory.get(key).get(i).getDropNumber(),listCategory.get(key).get(i).getListProductName(),
+                                    listCategory.get(key).get(i).getProductList());
+                            listCategory.get(key).set(i,listCategory.get(key).get(i+1));
+                            listCategory.get(key).set(i+1,a);
+                        }
+                    }
+                }
                int a = 0;
 
             }
@@ -422,6 +737,86 @@ public class DataManager {
 
             }
         });
+    }
+    public static void Delete_product_to_Firestone(edit_deleteProduct parent,product2 temp)
+    {
+        parent.progressBar_editproduct.setVisibility(View.VISIBLE);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Product").document(temp.getProductId())
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        parent.progressBar_editproduct.setVisibility(View.INVISIBLE);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+        for (Map.Entry<String, List<drop2>> entry : DataManager.listCategory.entrySet()) {
+            for (Integer i = 0; i < entry.getValue().size();i ++)
+            {
+                for (int j = 0; j< entry.getValue().get(i).getProductList().size(); j++)
+                {
+                    String a = entry.getValue().get(i).getProductList().get(j).getProductId();
+                    if ( a.compareTo(temp.getProductId()) == 0 ) {
+                        entry.getValue().get(i).getProductList().remove(j);
+                        if (  entry.getValue().get(i).getListProductName().get(j) != null)
+                        entry.getValue().get(i).getListProductName().remove(j);
+                        Integer dropNUmber = i + 1;
+                        String temp_address = "Drop_" + entry.getValue().get(i).getCategoryNumber() + "_" + dropNUmber.toString() + "/";
+                        DataManager.push_drop_To_FireStone_1(parent, temp_address, entry.getValue().get(i));
+                    }
+                }
+            }
+        }
+
+    }
+    public static void Update_drop_after_delete_product(edit_deleteProduct parent,product2 temp)
+    {
+
+    }
+    public static void Update_drop_after_edit_product(edit_deleteProduct parent,product2 temp)
+    {
+        for (Map.Entry<String, List<drop2>> entry : DataManager.listCategory.entrySet()) {
+           for (Integer i = 0; i < entry.getValue().size();i ++)
+           {
+               for (int j = 0; j< entry.getValue().get(i).getProductList().size(); j++)
+               {
+                   String a = entry.getValue().get(i).getProductList().get(j).getProductId();
+                  if ( a.compareTo(temp.getProductId()) == 0 ) {
+                      entry.getValue().get(i).getProductList().set(j, temp);
+                      Integer dropNUmber = i + 1;
+                      String temp_address = "Drop_" + entry.getValue().get(i).getCategoryNumber() + "_" + dropNUmber.toString() + "/";
+                      DataManager.push_drop_To_FireStone_1(parent, temp_address, entry.getValue().get(i));
+                  }
+               }
+           }
+        }
+    }
+    public static void push_drop_To_FireStone_1(edit_deleteProduct parent, String dropname, drop2 object)
+    {
+        /// Push List Image to Storage and Get List of ImageURL
+        parent.progressBar_editproduct.setVisibility(View.VISIBLE);
+        /// After converting  List of ImageURI to List of ImageURL,we push data to Firestone with path : collectionName/productName.
+
+        FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
+        firestonePutProduct.collection("Collection/" ).document(dropname).set(object)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        parent.progressBar_editproduct.setVisibility(View.INVISIBLE);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
     }
     public static void getImgUrlFromFirestone1(Context parent,String collection, List<product2> productList) {
         ((uploadData)parent).progressBar.setVisibility(View.VISIBLE);
@@ -624,7 +1019,7 @@ public class DataManager {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     host = snapshot.getValue(User.class);
                     getShoeInBagFromFirestone("InBag/" +DataManager.host.getId()+"/ShoeList",DataManager.list);
-                    getShoeInWishFromFirestone("InWish/"+DataManager.host.getId()+"/ShoeList",DataManager.shoeInWish);
+                    getShoeInWishFromFirestone("InWish/"+DataManager.host.getId()+"/ShoeinWish",DataManager.shoeInWish);
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {

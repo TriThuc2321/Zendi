@@ -2,6 +2,7 @@ package com.example.zendi_application.shopFragment;
 
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.Log;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,12 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
 
     public Button settle;
     RecyclerView recyclerView;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        settle.setText(total());
+    }
 
     @Nullable
     @Override

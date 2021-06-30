@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.example.zendi_application.ActivityAccount.edit_deleteProductPackage.edit_deleteProduct;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
@@ -30,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class uploadData extends AppCompatActivity {
-    private Button btnload,btnloadimg,btngetdata,btnpushdrop;
+    private Button btnload,btnloadimg,btngetdata,btnpushdrop,editbtn;
     public ImageView imgview;
     public EditText idEdit,captionEdit,priceEdit,brandEdit,typeEdit,txtposition;
     public DataManager dataManager;
@@ -45,7 +47,12 @@ public class uploadData extends AppCompatActivity {
     private RecyclerView imageRecycleView2;
     public static imageAdapter imageAdapter_;
     public static imageAdapter2 imageAdapter2_;
-
+    protected void onResume() {
+        super.onResume();
+        uploadData.imageAdapter_.SetData(DataManager.listProduct,99);
+        uploadData.imageAdapter_.notifyDataSetChanged();
+        Log.d("MainActivity Lifecycle", "===== onResume =====");
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,8 +119,8 @@ public class uploadData extends AppCompatActivity {
                 && priceEdit.getText().length() > 0 && idEdit.getText().length() > 0 && listURL.size() == 4) {
                     dataManager.getInstance();
                     List<Integer> b = new ArrayList<>();
-                    for (int i = 0; i <= 14; i++) {
-                        b.add(10);
+                    for (int i = 0; i <= 13; i++) {
+                        b.add(20);
                     }
                     product2 mproduct = new product2(idEdit.getText().toString(), captionEdit.getText().toString(),
                             priceEdit.getText().toString(), brandEdit.getText().toString(), typeEdit.getText().toString(), new ArrayList<String>(), b, 1);
@@ -167,6 +174,14 @@ public class uploadData extends AppCompatActivity {
             public void onClick(View v) {
                    startActivity(new Intent(uploadData.this,AddDrop.class));
                    AddDrop.imageproductlistAdapter_.notifyDataSetChanged();
+            }
+        });
+        editbtn = findViewById(R.id.editbtn_uploaddata);
+        editbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(uploadData.this, edit_deleteProduct.class));
+
             }
         });
     }

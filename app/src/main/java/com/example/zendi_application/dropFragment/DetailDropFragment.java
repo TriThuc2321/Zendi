@@ -83,7 +83,7 @@ public class DetailDropFragment extends Fragment {
         rcv_collection.setAdapter(ProductAdapter);
 
         typebtn.setText(dropp.getType());
-        nameDropbtn.setText(dropp.getCaption());
+        nameDropbtn.setText(" " + dropp.getCaption() + " ");
 
         /////////////////////
 //        rcv_collection.addOnScrollListener(new RecyclerView.OnScrollListener() {

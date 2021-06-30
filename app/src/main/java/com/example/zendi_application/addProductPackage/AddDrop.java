@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.zendi_application.ActivityAccount.edit_deleteDropPackage.edit_deleteDrop;
+import com.example.zendi_application.ActivityAccount.edit_deleteProductPackage.edit_deleteProduct;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.drop.drop;
@@ -43,7 +45,7 @@ public class AddDrop extends AppCompatActivity {
     public static imageAddDropAdapter imageproductlistAdapter_ = new imageAddDropAdapter();
     public static imageAddDropAdapter2 imageProductInDropAdapter_ = new imageAddDropAdapter2();
     EditText dropcaptionEdit, dropstatusEdit, droptypeEdit,category_ordinalEdit,drop_ordinalEdit;
-    Button pushbtn,backbtn, addbtn,deletebtn,adddropimagebtn;
+    Button pushbtn,backbtn, addbtn,deletebtn,adddropimagebtn,editbtn;
     public ProgressBar progressBar_adddrop;
     Spinner productList_spinner;
     String selectedproductId;
@@ -90,6 +92,7 @@ public class AddDrop extends AppCompatActivity {
         category_ordinalEdit = findViewById(R.id.categoryordinal_adddrop);
         drop_ordinalEdit = findViewById(R.id.dropordinal_adddrop);
         productList_spinner = (Spinner) findViewById(R.id.spinner_productlist);
+
         progressBar_adddrop = findViewById(R.id.progress_bar_adddrop);
         load_dropimage = findViewById(R.id.load_dropimage);
         toolbar_adddrop = findViewById(R.id.toorbar_adddrop);
@@ -118,6 +121,7 @@ public class AddDrop extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedproductId = productId.get(position);
+
             }
 
             @Override
@@ -128,6 +132,7 @@ public class AddDrop extends AppCompatActivity {
 
         adddropimagebtn = findViewById(R.id.adddropimagebtn_adddrop);
         pushbtn = findViewById(R.id.pushdropbtn_adddrop);
+
 
         addbtn = findViewById(R.id.addproduct_adddrop);
         deletebtn = findViewById(R.id.delete_adddrop);
@@ -186,7 +191,7 @@ public class AddDrop extends AppCompatActivity {
                         }
                     }
                     drop2 a = new drop2(null, dropcaptionEdit.getText().toString(), dropstatusEdit.getText().toString(), droptypeEdit.getText().toString()
-                            , category_ordinalEdit.getText().toString(), selected_productlist, productList);
+                            , category_ordinalEdit.getText().toString(),drop_ordinalEdit.getText().toString(), selected_productlist, productList);
                     String temp = "Drop_" + category_ordinalEdit.getText().toString() + "_" + drop_ordinalEdit.getText().toString() + "/";
 //                DataManager.Push_Image(temp,"Collection/Category_1/","",listURL);
                     /// txt1 chua stt category, txt2 chua ten drop, txt3 chua stt cua drop
@@ -213,6 +218,14 @@ public class AddDrop extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 OpenImage();
+            }
+        });
+
+        editbtn = findViewById(R.id.editbtn_adddrop);
+        editbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AddDrop.this, edit_deleteDrop.class));
             }
         });
 

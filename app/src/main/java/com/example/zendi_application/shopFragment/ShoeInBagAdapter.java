@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -110,6 +111,7 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
                             .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+
                         }
                     });
                     DataManager.list.remove(getAdapterPosition());
@@ -144,6 +146,19 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
                 db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        Map<String, Object> info = new HashMap<>();
+                        info.put("Name", DataManager.host.getName());
+                        info.put("Id", DataManager.host.getId());
+                        db.collection("InWish").document(DataManager.host.getId()).set(info)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                            }
+                        });
                     }
                 });
             }
