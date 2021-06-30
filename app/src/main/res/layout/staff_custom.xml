@@ -28,7 +28,7 @@
         android:id="@+id/infoStaffLayout"
         android:layout_below="@+id/name_staff"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         >
         <LinearLayout
             android:layout_width="match_parent"

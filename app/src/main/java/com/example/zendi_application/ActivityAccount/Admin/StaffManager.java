@@ -1,4 +1,4 @@
-package com.example.zendi_application.ActivityAccount;
+package com.example.zendi_application.ActivityAccount.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.example.zendi_application.DataManager;
+import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -32,7 +32,7 @@ public class StaffManager extends AppCompatActivity {
     private CustomerAdapter mCustomerAdapter;
 
     public static Button saveBtn;
-    View turnbackBtn;
+    private View turnBackBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class StaffManager extends AppCompatActivity {
         Init();
 
 
-        turnbackBtn.setOnClickListener(new View.OnClickListener() {
+        turnBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setResult(RESULT_CANCELED);
@@ -64,7 +64,7 @@ public class StaffManager extends AppCompatActivity {
         listStaff.clear();
 
         dataBase = FirebaseDatabase.getInstance().getReference();
-        turnbackBtn = findViewById(R.id.turn_back_staff_manager);
+        turnBackBtn = findViewById(R.id.turn_back_staff_manager);
 
         mRecyclerStaff = findViewById(R.id.list_staff_recyclerView);
         mRecyclerCustomer = findViewById(R.id.list_customer_recyclerView);

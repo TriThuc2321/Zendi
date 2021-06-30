@@ -13,6 +13,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/back_ground_login_register"
     android:scaleType="centerCrop"
+        android:layout_marginBottom="100dp"
     />
     <View
         android:id="@+id/cancelBtn"

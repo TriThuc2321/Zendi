@@ -11,7 +11,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/profileInfo"
-            android:layout_marginTop="4dp">
+            android:layout_marginTop="4dp"
+            android:layout_margin="10dp">
                 <View
                     android:id="@+id/turnBack"
                     android:layout_width="40dp"
@@ -24,9 +25,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:text="PERSONAL INFORMATION"
-                    android:textSize="25dp"
+                    android:textSize="22dp"
                     android:textStyle="bold"
                     android:layout_toRightOf="@+id/arrowLeft"
+                    android:layout_gravity="center_vertical"
                     />
         </LinearLayout>
 
@@ -90,11 +92,13 @@
                             android:layout_below="@+id/name"
                             android:layout_marginLeft="30dp"
                             android:layout_marginRight="30dp"
+                            android:weightSum="10"
                             >
                                 <LinearLayout
-                                    android:layout_width="280dp"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+                                    android:orientation="vertical"
+                                    android:layout_weight="9">
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
@@ -123,19 +127,23 @@
 
                                 <Button
                                     android:id="@+id/open_confirm_dialog_btn"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="0dp"
                                     android:layout_height="30dp"
                                     android:background="@drawable/ic_outline_mail_24"
                                     android:backgroundTint="@color/common_google_signin_btn_text_light"
                                     android:layout_margin="5dp"
                                     android:gravity="center_horizontal"
+                                    android:layout_weight="1"
                                     />
                                 <ImageView
                                     android:id="@+id/lockImg"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:background="@drawable/ic_outline_lock_24"
                                     android:layout_margin="5dp"
+                                    android:layout_weight="1"
+                                    android:layout_gravity="center"
+                                    android:scaleType="fitCenter"
                                     />
 
                         </LinearLayout>
@@ -208,7 +216,6 @@
                                     android:layout_height="wrap_content"
                                     android:text="Phone number"
                                     android:textSize="15dp"
-
                                     />
 
                                 <EditText

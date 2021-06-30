@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityAccount.StaffManager">
+    tools:context=".ActivityAccount.Admin.StaffManager">
     <View
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="85dp"
         android:background="@drawable/custom_black_stroke"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -17,7 +17,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:layout_marginTop="335dp"
+        android:layout_marginTop="342dp"
         android:background="@drawable/custom_black_stroke"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -27,7 +27,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/staff_manager"
-        android:layout_marginTop="4dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+
+        >
         <View
             android:id="@+id/turn_back_staff_manager"
             android:layout_width="40dp"
@@ -47,7 +50,7 @@
     </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="0dp"
         android:layout_below="@id/staff_manager"
         android:background="@color/black"
         android:id="@+id/bar"

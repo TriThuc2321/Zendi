@@ -338,7 +338,7 @@ public class SettingActivity extends AppCompatActivity {
                     sizeSb.setProgress(0);
                 }
                 else{
-                    sizeSb.setProgress(Integer.parseInt(sizeTxt.getText().toString()) - 3);
+                    sizeSb.setProgress((int) ((Float.parseFloat(sizeTxt.getText().toString()) -5)*2 ));
                 }
                 setEdtToTxt();
                 sizeSb.setVisibility(View.VISIBLE);
@@ -457,7 +457,15 @@ public class SettingActivity extends AppCompatActivity {
                         mGender = 2;
                     }
                     setData(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(), mGender, currentUser.getUid(), nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
+
+                    for (int i = 0; i < listUsers.size(); i++) {
+                        if(listUsers.get(i).getId() == user.getId()) {
+                            user = new User(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(), mGender, currentUser.getUid(), nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
+                            listUsers.set(i, user);
+                        }
+                    }
                 }
+
                 else {
                     Toast.makeText(getApplicationContext(),"Email is not confirm",Toast.LENGTH_LONG).show();
                 }
@@ -469,7 +477,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(emailTxt.getText() == null || emailTxt.getText().toString() == ""){
+                if( TextUtils.isEmpty(emailTxt.getText().toString()) ){
                     Toast.makeText(getApplicationContext(), "Enter email to continue", Toast.LENGTH_LONG).show();
                 }
                 else if(existEmail(emailTxt.getText().toString())){
@@ -477,8 +485,7 @@ public class SettingActivity extends AppCompatActivity {
                 }
                 else{
                     sendEmail();
-                    ConfirmPasswordDialog confirmPasswordDialog = new ConfirmPasswordDialog(SettingActivity.this, emailTxt.getText().toString(), randomCode);
-                    confirmPasswordDialog.show();
+
                 }
             }
         });
@@ -577,7 +584,7 @@ public class SettingActivity extends AppCompatActivity {
     public boolean existEmail(String email){
         for(int i =0; i< listUsers.size(); i++){
             String a = listUsers.get(i).getEmail();
-            if(a == null) break;
+            if(a == null) continue;
             if(a.compareTo(email) == 0){
                 return true;
             }
@@ -655,11 +662,14 @@ public class SettingActivity extends AppCompatActivity {
                             emailTxt.getText().toString());
                     dialog.dismiss();
 
+
                 } catch (Exception e) {
                     Log.e("mylog", "Error: " + e.getMessage());
                 }
             }
         });
         sender.start();
+        ConfirmPasswordDialog confirmPasswordDialog = new ConfirmPasswordDialog(SettingActivity.this, emailTxt.getText().toString(), randomCode);
+        confirmPasswordDialog.show();
     }
 }

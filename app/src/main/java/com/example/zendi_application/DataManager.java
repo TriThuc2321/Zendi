@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 
+import com.example.zendi_application.ActivityAccount.Admin.Ordered;
+import com.example.zendi_application.ActivityAccount.Admin.ShoeOrderedList;
 import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.ActivityAccount.edit_deleteDropPackage.edit_deleteDrop;
 import com.example.zendi_application.ActivityAccount.edit_deleteProductPackage.edit_deleteProduct;
@@ -71,6 +73,7 @@ public class DataManager {
     public static HashMap<String,Integer> sizeConvert = new HashMap<>();
     public static List<ShoeInBag> list = new ArrayList<>();
     public static List<ShoeInBag> shoeInWish = new ArrayList<>();
+    public static List<Ordered> orderedList = new ArrayList<>();
     // Attributes
     private Uri imageUri;
     private FirebaseStorage storage;
@@ -1027,5 +1030,57 @@ public class DataManager {
         }
 
     }
+    public static List<ShoeInBag> listShoe;
+    public static void getListOrderedFromFirestone() {
+        firestonedb.collection("Ordered/").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                orderedList.clear();
+                for (DocumentSnapshot documentSnapshot : task.getResult())
+                {
+                    /*Ordered temp = documentSnapshot.toObject(Ordered.class);
+                    orderedList.add(temp);*/
+                    /*Ordered temp = new Ordered();
+                    temp.setAddress(documentSnapshot.get("Address").toString());
+                    temp.setBillId(documentSnapshot.get("BillId").toString());
+                    temp.setContact(documentSnapshot.get("Contact").toString());
+                    temp.setEmail(documentSnapshot.get("Email").toString());
+                    temp.setTotal(documentSnapshot.get("Total").toString());
+                    temp.setName(documentSnapshot.get("Name").toString());*/
 
+                    Ordered temp = documentSnapshot.toObject(Ordered.class);
+                     listShoe= new ArrayList<>();
+                    getListShoeOrderFromFirestone("Ordered/" + documentSnapshot.get("BillId").toString()+"/ShoeList", listShoe);
+                    temp.setShoeList(listShoe);
+                    orderedList.add(temp);
+                }
+                int a = orderedList.size();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+    public static void getListShoeOrderFromFirestone(String collection, List<ShoeInBag> shoeList) {
+        firestonedb.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                shoeList.clear();
+                for (DocumentSnapshot documentSnapshot : task.getResult())
+                {
+                    // U have to need default constructor in ShIB class to use the sequence below
+                    ShoeInBag temp = documentSnapshot.toObject(ShoeInBag.class);
+                    shoeList.add(temp);
+                    //((ShopFragment)parent).shoeInBagAdapter.notifyDataSetChanged();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
 }

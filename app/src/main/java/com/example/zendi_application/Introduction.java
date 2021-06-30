@@ -43,6 +43,7 @@ public class Introduction extends AppCompatActivity {
         DataManager.LoadProductInformation("Product",DataManager.listProduct); // load categors
         DataManager.loadUser();
         DataManager.GetUser();
+        DataManager.getListOrderedFromFirestone();
 
         new Handler().postDelayed(new Runnable() {
             @Override
