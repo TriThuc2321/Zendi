@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="500dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="380dp"
+    android:layout_height="290dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="8dp"
     android:layout_margin="8dp">
@@ -11,16 +12,19 @@
 
 
         <ImageView
-            android:id="@+id/image_drop"
+            android:id="@+id/image_drop_editdropitem"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_height="240dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/categorytest"/>
+            android:src="@drawable/categorytest"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/type_drop"
+            android:id="@+id/type_editdropitem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,58 +38,72 @@
             />
 
         <TextView
-            android:id="@+id/caption_drop"
+            android:id="@+id/caption_editdropitem"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:background="@color/white"
             android:paddingStart="5dp"
             android:paddingEnd="20dp"
             android:text="STAN SMITH, FOREVER"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.212"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.736" />
-
-        <TextView
-            android:id="@+id/status_drop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:background="@color/white"
-            android:text="JUST DROPPED"
-            android:padding="5dp"
-            android:paddingStart="10dp"
             android:textSize="15dp"
-            android:textStyle="italic"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.123"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.81" />
+            app:layout_constraintVertical_bias="0.576" />
 
-        <Button
-            android:id="@+id/btn_drop"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/status_editdropitem"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginTop="30dp"
             android:background="@color/white"
-            android:text="SHOP NOW"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
+            android:padding="5dp"
+            android:paddingStart="10dp"
+            android:text="JUST DROPPED"
+            android:textSize="12dp"
             android:textStyle="italic"
-            android:paddingEnd="160dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintHorizontal_bias="0.084"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.97"
-           ></Button>
+            app:layout_constraintVertical_bias="0.699" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_drop">
+
+
+            <Button
+                android:id="@+id/editbtn_editdropitem"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_black_stroke"
+                android:text="Edit"
+                android:textStyle="bold"></Button>
+
+            <Button
+                android:id="@+id/deletebtn_editdropitem"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/delete_button"
+                android:text="Delete"
+                android:textStyle="bold"></Button>
+
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

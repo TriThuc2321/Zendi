@@ -5,19 +5,20 @@
     android:layout_height="500dp"
     android:layout_marginTop="10dp"
     android:layout_marginEnd="10dp"
+    app:cardCornerRadius="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ede3b9"
+
         >
 
         <ImageView
             android:id="@+id/img_collection_type1_big"
             android:layout_width="match_parent"
             android:layout_height="450dp"
-            android:background="@drawable/custom_imageview"
             android:scaleType="centerCrop"
+            android:background="@drawable/custom_black_stroke"
             android:src="@drawable/categorytest"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,25 +30,25 @@
 
         <ImageView
             android:id="@+id/background_collection_type1"
-            android:layout_width="330dp"
-            android:layout_height="120dp"
+            android:layout_width="342dp"
+            android:layout_height="108dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="348dp"
-            android:background="#c1b378"
+
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/img_collection_type1_small"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="4dp"
+            android:layout_width="143dp"
+            android:layout_height="153dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="324dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/nikeshos1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/custom_imageview1"
-            android:src="@drawable/nikeshos1"
 
             />
 
@@ -57,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="168dp"
             android:layout_marginTop="360dp"
-            android:text="2.400.000 VND"
+            android:text="  2.400 $"
             android:padding="5dp"
             android:textColor="@color/black"
             android:textSize="20dp"
@@ -82,10 +83,10 @@
 
         <Button
             android:id="@+id/btn_collection_type1"
-            android:layout_width="220dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="436dp"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="440dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@color/black"

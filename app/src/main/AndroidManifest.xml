@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/zendi_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Zendi_Application">
+
         <activity android:name=".ActivityAccount.Admin.StatisticActivity"></activity>
         <activity android:name=".ActivityAccount.Admin.AdminActivity" />
         <activity android:name=".Location.Location" />
@@ -28,6 +29,18 @@
 
         <!--<activity android:name=".Location.Location" android:screenOrientation="portrait"></activity>   -->
         <activity android:name=".searchfragment.MyDetailProduct" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ActivityAccount.edit_deleteDropPackage.edit_deleteDrop"></activity>
+        <activity android:name=".ActivityAccount.edit_deleteProductPackage.edit_deleteProduct">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.

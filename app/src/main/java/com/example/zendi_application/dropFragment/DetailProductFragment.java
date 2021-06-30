@@ -124,7 +124,6 @@ public class DetailProductFragment extends Fragment {
                     shoeInBag = new ShoeInBag(mproduct.getProductId(), mproduct.getProductName(), mproduct.getProductPrice()
                             , mproduct.getProductBrand(), mproduct.getProductType(), mproduct.getResourceID(), mproduct.getRemainingAmount()
                             , mproduct.getType(), selectedSize, "1");
-                    Toast.makeText(mview.getContext(),"DRAGGED INTO BAG SUCCESSFULLY !!",Toast.LENGTH_SHORT).show();
                 }
                 else
                     Toast.makeText(mview.getContext(),"Sold out !!",Toast.LENGTH_SHORT).show();
@@ -141,7 +140,7 @@ public class DetailProductFragment extends Fragment {
             dropCaption.setText(parent.getCaption());
         else
             dropCaption.setText("");
-        productPrice.setText(mproduct.getProductPrice());
+        productPrice.setText("$ " + mproduct.getProductPrice());
         productName.setText(mproduct.getProductName());
 
 
@@ -196,6 +195,7 @@ public class DetailProductFragment extends Fragment {
                             Integer processed_amount = amount_of_product - Integer.parseInt(shoeInBag.getShoeAmount());
                             shoeInBag.getRemainingAmount().set(DataManager.sizeConvert.get(selectedSize),processed_amount);
                             DataManager.push_Shoe_To_Bag(shoeInBag, DataManager.host, v.getContext());
+
                             for (ShoeInBag ite : DataManager.list)
                             {
                                 if (ite.getProductId() == shoeInBag.getProductId()) {

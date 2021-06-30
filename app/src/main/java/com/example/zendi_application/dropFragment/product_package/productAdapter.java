@@ -84,7 +84,7 @@ public class productAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 //            productType1ViewHolder.imgsmall_type1.setImageResource(mproduct.getResourceID().get(0));
             //productType1ViewHolder.background_type1.setBackgroundColor(#c1b378);
             productType1ViewHolder.nameproduct_type1.setText(mproduct.getProductName());
-            productType1ViewHolder.priceproduct_type1.setText(mproduct.getProductPrice());
+            productType1ViewHolder.priceproduct_type1.setText("  " + mproduct.getProductPrice() +" $");
 
 //            Glide.with(mContext).load(mproduct.getResourceID().get(0)).into(productType1ViewHolder.imgsmall_type1);
 //            Glide.with(mContext).load(mproduct.getResourceID().get(1)).into(productType1ViewHolder.imgbig_type1);
@@ -106,7 +106,7 @@ public class productAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             Glide.with(mContext).load(mproduct.getResourceID().get(0)).into(productType2ViewHolder.imgsmall_type2);
             //productType1ViewHolder.background_type1.setBackgroundColor(#c1b378);
             productType2ViewHolder.nameproduct_type2.setText(mproduct.getProductName());
-            productType2ViewHolder.priceproduct_type2.setText(mproduct.getProductPrice());
+            productType2ViewHolder.priceproduct_type2.setText("  " + mproduct.getProductPrice()  +" $");
 //            Glide.with(mContext).load(mproduct.getResourceID().get(0)).into(productType2ViewHolder.imgsmall_type2);
 //            Glide.with(mContext).load(mproduct.getResourceID().get(1)).into(productType2ViewHolder.imgbig_type2);
 
@@ -128,7 +128,7 @@ public class productAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             Glide.with(mContext).load(mproduct.getResourceID().get(1)).into(productType3ViewHolder.imgbig_type3);
             //productType1ViewHolder.background_type1.setBackgroundColor(#c1b378);
             productType3ViewHolder.nameproduct_type3.setText(mproduct.getProductName());
-            productType3ViewHolder.priceproduct_type3.setText(mproduct.getProductPrice());
+            productType3ViewHolder.priceproduct_type3.setText("  " + mproduct.getProductPrice()  +" $");
 
 //            Glide.with(mContext).load(mproduct.getResourceID().get(1)).into(productType3ViewHolder.imgbig_type3);
 

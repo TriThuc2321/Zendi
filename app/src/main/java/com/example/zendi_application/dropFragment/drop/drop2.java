@@ -12,18 +12,22 @@ public class drop2 {
     private String status;
     private String type;
     private String categoryNumber;
+    private String dropNumber;
     private List<String> listProductName;
     private List<product2> productList ;
 
-    public drop2(String image, String caption, String status, String type, String categoryNumber, List<String> listProductName, List<product2> productList) {
+    public drop2(String image, String caption, String status, String type, String categoryNumber, String dropNumber, List<String> listProductName, List<product2> productList) {
         this.image = image;
         this.caption = caption;
         this.status = status;
         this.type = type;
         this.categoryNumber = categoryNumber;
+        this.dropNumber = dropNumber;
         this.listProductName = listProductName;
         this.productList = productList;
     }
+
+
     public String getCategoryNumber() {
         return categoryNumber;
     }
@@ -85,7 +89,11 @@ public class drop2 {
     }
 
 
+    public String getDropNumber() {
+        return dropNumber;
+    }
 
-
-
+    public void setDropNumber(String dropNumber) {
+        this.dropNumber = dropNumber;
+    }
 }

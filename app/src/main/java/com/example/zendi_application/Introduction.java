@@ -44,6 +44,7 @@ public class Introduction extends AppCompatActivity {
         DataManager.loadUser();
         DataManager.GetUser();
         DataManager.getListOrderedFromFirestone();
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

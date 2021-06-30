@@ -48,6 +48,7 @@ public class HomeScreen extends AppCompatActivity {
         setShopOwner();
         this.appBarLayout.setVisibility(View.VISIBLE);
         this.mNavigationView.setVisibility(View.VISIBLE);
+
         Log.d("MainActivity Lifecycle", "===== onResume =====");
     }
     protected void onStart() {
