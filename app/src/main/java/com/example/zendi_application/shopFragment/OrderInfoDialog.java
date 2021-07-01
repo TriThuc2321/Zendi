@@ -174,7 +174,13 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         sender.start();
     }
     public String addTotalToHost(){
-        Integer temp = Integer.parseInt(DataManager.host.getTotal());
+        Integer temp;
+        String tempTotal =  DataManager.host.getTotal();
+        if(tempTotal == null || tempTotal.compareTo("") == 0){
+            temp = 0;
+        }
+        else temp = Integer.parseInt(DataManager.host.getTotal());
+
         for (ShoeInBag a : DataManager.list)
         {
             temp += Integer.parseInt(a.getShoeAmount())*Integer.parseInt(a.getProductPrice());
