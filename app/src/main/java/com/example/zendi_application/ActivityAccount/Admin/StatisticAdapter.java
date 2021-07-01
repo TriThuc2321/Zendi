@@ -49,7 +49,11 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
         holder.addressTxt.setText(ordered.getAddress());
         holder.emailTxt.setText(ordered.getEmail());
         holder.totalTxt.setText(ordered.getTotal());
+        holder.billDateTxt.setText(ordered.getBillDate());
 
+        String a = ordered.getBillStatus();
+        if(a.compareTo("0") == 0) holder.billStatusTxt.setText("Not yet delivered");
+        else if(a.compareTo("1") == 0) holder.billStatusTxt.setText("Delivered");
 
         holder.mOrderedAdapter = new OrderedAdapter(mContext);
         holder.mOrderedAdapter.SetData(ordered.getShoeList());
@@ -71,6 +75,8 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
         TextView nameTxt;
         TextView phoneNumberTxt;
         TextView totalTxt;
+        TextView billStatusTxt;
+        TextView billDateTxt;
         LinearLayout infoLayout;
 
         Animation rotateRight;
@@ -93,6 +99,9 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
             nameTxt = itemView.findViewById(R.id.nameOrdered);
             phoneNumberTxt = itemView.findViewById(R.id.phoneNumberOrderedTxt);
             totalTxt = itemView.findViewById(R.id.totalOrderedTxt);
+            billDateTxt = itemView.findViewById(R.id.billDateOrderedTxt);
+            billStatusTxt = itemView.findViewById(R.id.billStatusOrderedTxt);
+
             mRecyclerView = itemView.findViewById(R.id.productOrdered);
             infoLayout = itemView.findViewById(R.id.infoOrderedLayout);
             show = itemView.findViewById(R.id.show_order);

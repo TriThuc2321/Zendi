@@ -11,6 +11,37 @@ public class Ordered {
     private String Contact;
     private String Email;
     private String Name;
+    private String BillDate;
+    private String BillStatus;
+
+    public Ordered(List<ShoeInBag> shoeList, String billId, String address, String contact, String email, String name, String billDate, String billStatus, String total) {
+        ShoeList = shoeList;
+        BillId = billId;
+        Address = address;
+        Contact = contact;
+        Email = email;
+        Name = name;
+        BillDate = billDate;
+        BillStatus = billStatus;
+        Total = total;
+    }
+
+    public String getBillStatus() {
+        return BillStatus;
+    }
+
+    public void setBillStatus(String billStatus) {
+        BillStatus = billStatus;
+    }
+
+    public String getBillDate() {
+        return BillDate;
+    }
+
+    public void setBillDate(String billDate) {
+        BillDate = billDate;
+    }
+
     private String Total;
 
     public List<ShoeInBag> getShoeList() {
@@ -69,15 +100,6 @@ public class Ordered {
         Total = total;
     }
 
-    public Ordered(List<ShoeInBag> shoeList, String billId, String address, String contact, String email, String name, String total) {
-        ShoeList = shoeList;
-        BillId = billId;
-        Address = address;
-        Contact = contact;
-        Email = email;
-        Name = name;
-        Total = total;
-    }
     public  Ordered(){
 
     }
