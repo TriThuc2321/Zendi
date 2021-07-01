@@ -76,6 +76,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                             upTotalToFirebase(totalHost);
                             upBilltoFireStore(add, con, DataManager.host.getEmail(), reciever);
                             Toast.makeText(getContext(), "Ordered successfully.", Toast.LENGTH_SHORT).show();
+                            ShopFragment.settle.setText(ShopFragment.total());
                         }
                     }
                 });

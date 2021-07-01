@@ -24,6 +24,7 @@ import com.example.zendi_application.dropFragment.product_package.product2;
 import com.example.zendi_application.shopFragment.RecyclerViewClickInterface;
 import com.example.zendi_application.shopFragment.ShoeInBag;
 import com.example.zendi_application.shopFragment.ShoeInBagAdapter;
+import com.example.zendi_application.shopFragment.ShopFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -144,6 +145,7 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
             DataManager.shoeInWish.remove(getAdapterPosition());
             DataManager.shoeInWishAdapter.notifyDataSetChanged();
             DataManager.shoeInBagAdapter.notifyDataSetChanged();
+            ShopFragment.settle.setText(ShopFragment.total());
 
             db.collection("InBag/"+DataManager.host.getId()+"/ShoeList").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override

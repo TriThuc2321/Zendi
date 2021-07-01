@@ -46,7 +46,7 @@ import static android.widget.Toast.LENGTH_LONG;
 
 public class ShopFragment extends Fragment implements RecyclerViewClickInterface, View.OnClickListener{
 
-    public Button settle;
+    public static Button settle;
     RecyclerView recyclerView;
 
     @Override
@@ -61,7 +61,7 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         DataManager.shoeInBagAdapter = new ShoeInBagAdapter();
         settle = view.findViewById(R.id.settle_place);
-        settle.setTextKeepState(total());
+        settle.setText(total());
         recyclerView = view.findViewById(R.id.shop_fragment_rcv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(),recyclerView.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);;
