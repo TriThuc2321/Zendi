@@ -54,7 +54,10 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +77,7 @@ public class DataManager {
     public static List<ShoeInBag> list = new ArrayList<>();
     public static List<ShoeInBag> shoeInWish = new ArrayList<>();
     public static List<Ordered> orderedList = new ArrayList<>();
+    public static List<Ordered> orderedListByDay = new ArrayList<>();
     // Attributes
     private Uri imageUri;
     private FirebaseStorage storage;
@@ -1082,5 +1086,13 @@ public class DataManager {
 
             }
         });
+    }
+
+
+    public static String getCurrentDay(){
+        SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        String dated = formatter2.format(date);
+        return dated;
     }
 }

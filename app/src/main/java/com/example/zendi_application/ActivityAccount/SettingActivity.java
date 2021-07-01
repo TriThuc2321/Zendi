@@ -277,11 +277,8 @@ public class SettingActivity extends AppCompatActivity {
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 birthdayTxt.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();

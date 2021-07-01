@@ -12,6 +12,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 public class Introduction extends AppCompatActivity {
     Animation topAim,bottomAim;
     ImageView background,logo;
