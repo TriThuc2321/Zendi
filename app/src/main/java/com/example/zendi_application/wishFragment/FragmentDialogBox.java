@@ -40,7 +40,7 @@ import java.util.List;
 public class FragmentDialogBox extends Fragment {
 
     ShoeInBag shoeInBag, shoe;
-    private TextView productName,productPrice, choose, brandname;
+    private TextView productName,productPrice, brandname;
     private Button backbtn,shopnowbtn;
     private ImageView shoeIM;
     private Spinner sizeSpinner;
@@ -67,7 +67,6 @@ public class FragmentDialogBox extends Fragment {
         shopnowbtn = mview.findViewById(R.id.shopnowbtn);
         sizeSpinner = mview.findViewById(R.id.sizespinner);
         shoeIM = mview.findViewById(R.id.imgofShoe);
-        choose =mview.findViewById(R.id.choose);
         brandname = mview.findViewById(R.id.brandName);
         selectedSize ="5 UK";
 
@@ -129,7 +128,6 @@ public class FragmentDialogBox extends Fragment {
             }
         });
         Picasso.get().load(shoeInBag.getResourceID().get(0)).into(shoeIM);
-        choose.setText("Choose size: ");
         productPrice.setText(new StringBuilder("Price: $").append(shoeInBag.getProductPrice()));
         brandname.setText(shoeInBag.getProductBrand());
         productName.setText(shoeInBag.getProductName());
