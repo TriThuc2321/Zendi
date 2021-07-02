@@ -135,7 +135,11 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
         //thắng
-        DataManager.GetUser();
+        if(DataManager.host.getId() != null)
+        {
+            DataManager.shoeInWish.clear();
+            DataManager.getShoeInWishFromFirestone("InWish/"+DataManager.host.getId()+"/ShoeinWish",DataManager.shoeInWish);
+        }
     }
     private void setUpViewPager(){
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
