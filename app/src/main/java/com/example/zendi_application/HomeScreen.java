@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.zendi_application.DataManager.GetUser;
 import static com.example.zendi_application.DataManager.listUsers;
 
 public class HomeScreen extends AppCompatActivity {
@@ -133,7 +134,8 @@ public class HomeScreen extends AppCompatActivity {
                 return true;
             }
         });
-
+        //thắng
+        DataManager.GetUser();
     }
     private void setUpViewPager(){
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
