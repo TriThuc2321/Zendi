@@ -82,17 +82,47 @@ public class WishlistFragment extends Fragment implements RecyclerViewClickInter
             switch (direction){
                 case ItemTouchHelper.LEFT:
                     deleteItem(DataManager.shoeInWish.get(position));
+                    //thang
+                    String docName = DataManager.shoeInWish.get(position).getProductId();
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("InWish/" + DataManager.host.getId() + "/ShoeinWish").document(docName)
+                            .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        }
+                    });
+                    //
                     DataManager.shoeInWish.remove(DataManager.shoeInWish.get(position));
                     DataManager.shoeInWishAdapter.notifyDataSetChanged();
                     Toast.makeText(getContext(), "Deleted it", LENGTH_LONG).show();
                 case ItemTouchHelper.RIGHT:
                     deleteItem(DataManager.shoeInWish.get(position));
+                    //thang
+                    String docName2 = DataManager.shoeInWish.get(position).getProductId();
+                    FirebaseFirestore db2 = FirebaseFirestore.getInstance();
+                    db2.collection("InWish/" + DataManager.host.getId() + "/ShoeinWish").document(docName2)
+                            .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        }
+                    });
+                    //
                     DataManager.shoeInWish.remove(DataManager.shoeInWish.get(position));
                     DataManager.shoeInWishAdapter.notifyDataSetChanged();
                     Toast.makeText(getContext(), "Deleted it", LENGTH_LONG).show();
                     break;
                 case ItemTouchHelper.DOWN:
                     deleteItem(DataManager.shoeInWish.get(position));
+                    //thang
+                    String docName3 = DataManager.shoeInWish.get(position).getProductId();
+                    FirebaseFirestore db3 = FirebaseFirestore.getInstance();
+                    db3.collection("InWish/" + DataManager.host.getId() + "/ShoeinWish").document(docName3)
+                            .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        }
+                    });
+                    //
                     DataManager.shoeInWish.remove(DataManager.shoeInWish.get(position));
                     DataManager.shoeInWishAdapter.notifyDataSetChanged();
                     Toast.makeText(getContext(), "Deleted it", LENGTH_LONG).show();

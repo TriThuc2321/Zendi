@@ -135,7 +135,7 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
         //thắng
-        if(DataManager.host.getId() != null)
+        if(DataManager.host != null && DataManager.host.getId() != null)
         {
             DataManager.shoeInWish.clear();
             DataManager.getShoeInWishFromFirestone("InWish/"+DataManager.host.getId()+"/ShoeinWish",DataManager.shoeInWish);

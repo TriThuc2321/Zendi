@@ -167,6 +167,9 @@ public class FragmentDialogBox extends Fragment {
                             {
                                 DataManager.update_Amount_Of_Shoe_In_Bag(shoe,ite,DataManager.host,v.getContext());
                                 String docName = shoeInBag.getProductId() + "_" + shoeInBag.getShoeSize() ;
+                                //thang
+                                String docName2 = shoeInBag.getProductId();
+                                //
                                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                                 db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName)
                                         .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -174,6 +177,14 @@ public class FragmentDialogBox extends Fragment {
                                     public void onSuccess(Void aVoid) {
                                     }
                                 });
+                                //thang
+                                db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName2)
+                                        .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                    }
+                                });
+                                //
                                 DataManager.shoeInWish.remove(shoeInBag);
                                 DataManager.shoeInWishAdapter.notifyDataSetChanged();
                                 DataManager.shoeInBagAdapter.notifyDataSetChanged();
@@ -197,6 +208,15 @@ public class FragmentDialogBox extends Fragment {
                                 public void onSuccess(Void aVoid) {
                                 }
                             });
+                            //thang
+                            String docName2 = shoeInBag.getProductId();
+                            db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName2)
+                                    .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                }
+                            });
+                            //
                             DataManager.shoeInWish.remove(shoeInBag);
                             DataManager.shoeInWishAdapter.notifyDataSetChanged();
                             for (ShoeInBag ite : DataManager.list)

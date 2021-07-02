@@ -145,7 +145,7 @@ public class MyDetailProduct extends AppCompatActivity {
                 else
                 {
                     /// Process not log in
-                    if (DataManager.host.getId() == null)
+                    if (DataManager.host == null || DataManager.host.getId() == null)
                     {
                         Toast.makeText(v.getContext(),"Please Log In To Get Product !!", Toast.LENGTH_SHORT).show();
                     }

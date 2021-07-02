@@ -105,7 +105,7 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
         holder.heartView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (DataManager.host.getId() == null)
+                if (DataManager.host == null || DataManager.host.getId() == null)
                 {
                     Toast.makeText(view.getContext(),"Please sign in",Toast.LENGTH_LONG).show();
                 }
