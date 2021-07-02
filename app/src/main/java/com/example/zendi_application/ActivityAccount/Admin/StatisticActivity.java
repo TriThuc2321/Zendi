@@ -12,9 +12,13 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.zendi_application.ActivityAccount.SettingActivity;
 import com.example.zendi_application.ActivityAccount.User;
@@ -40,11 +44,14 @@ import static com.example.zendi_application.DataManager.orderedListByDay;
 public class StatisticActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerStatistic;
-    private StatisticAdapter mStatisticAdapter ;
+    private StatisticAdapter mStatisticAdapter;
     View turnBackBtn;
 
     Button showAll;
     TextView dateShow;
+    Spinner orderBySpinner;
+
+    List<String> listSp = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +102,38 @@ public class StatisticActivity extends AppCompatActivity {
                 loadList(0);
             }
         });
+        createListSpinner();
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,listSp);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        orderBySpinner.setAdapter(arrayAdapter);
+        orderBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                /*if (mproduct.getRemainingAmount().get(DataManager.sizeConvert.get(selectedSize)) != 0)
+                {
+                    selectedSize = sizeSpinner.getSelectedItem().toString();
+                    shoeInBag = new ShoeInBag(mproduct.getProductId(), mproduct.getProductName(), mproduct.getProductPrice()
+                            , mproduct.getProductBrand(), mproduct.getProductType(), mproduct.getResourceID(), mproduct.getRemainingAmount()
+                            , mproduct.getType(), selectedSize, "1");
+                }
+                else
+                    Toast.makeText(mview.getContext(),"Sold out !!",Toast.LENGTH_SHORT).show();*/
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void createListSpinner() {
+        listSp.add("Show All");
+        listSp.add("Order by Day");
+        listSp.add("Order by Month");
+        listSp.add("Order by Year");
     }
 
     void loadList(int isShowAll){
@@ -123,6 +162,7 @@ public class StatisticActivity extends AppCompatActivity {
         turnBackBtn = findViewById(R.id.turnBack_statistic);
         showAll = findViewById(R.id.show_all_ordered_btn);
         dateShow = findViewById(R.id.bill_date_statistic_txt);
+        orderBySpinner = findViewById(R.id.orderBy_spinner);
 
         dateShow.setText(DataManager.getCurrentDay());
 

@@ -35,7 +35,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp">
-
+        <Spinner
+            android:id="@+id/orderBy_spinner"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            />
         <Button
             android:id="@+id/show_all_ordered_btn"
             android:textColor="@color/white"
@@ -45,7 +52,9 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:visibility="gone"
+            />
 
         <TextView
             android:id="@+id/bill_date_statistic_txt"
