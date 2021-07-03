@@ -143,6 +143,7 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
                 DataManager.list.remove(getAdapterPosition());
                 DataManager.shoeInWishAdapter.notifyDataSetChanged();
                 DataManager.shoeInBagAdapter.notifyDataSetChanged();
+                ShopFragment.settle.setText(ShopFragment.total());
                 db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

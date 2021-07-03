@@ -3,16 +3,13 @@ package com.example.zendi_application;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.ItemTouchHelper;
 
 import com.example.zendi_application.ActivityAccount.Admin.Ordered;
-import com.example.zendi_application.ActivityAccount.Admin.ShoeOrderedList;
 import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.ActivityAccount.edit_deleteDropPackage.edit_deleteDrop;
 import com.example.zendi_application.ActivityAccount.edit_deleteProductPackage.edit_deleteProduct;
@@ -20,17 +17,12 @@ import com.example.zendi_application.addProductPackage.AddDrop;
 import com.example.zendi_application.addProductPackage.ProductList;
 import com.example.zendi_application.addProductPackage.ProductNameList;
 import com.example.zendi_application.addProductPackage.uploadData;
-import com.example.zendi_application.dropFragment.DetailProductFragment;
-import com.example.zendi_application.dropFragment.DropFragment;
 import com.example.zendi_application.dropFragment.ModelSupportLoad;
-import com.example.zendi_application.dropFragment.category_drop.category;
-import com.example.zendi_application.dropFragment.drop.drop;
 import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
 import com.example.zendi_application.shopFragment.ShoeInBag;
 import com.example.zendi_application.shopFragment.ShoeInBagAdapter;
-import com.example.zendi_application.shopFragment.ShopFragment;
 import com.example.zendi_application.wishFragment.ShoeInWishAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -47,7 +39,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -61,7 +52,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class DataManager {
     // Instance

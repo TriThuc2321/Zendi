@@ -98,14 +98,14 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
         if (currentItem.isLike())
             holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_24);
         else
-            holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+            holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_border_24_white_fill);
         Picasso.get().load(currentItemProDuct.getResourceID().get(0)).into(holder.imageView);
         holder.Charge.setText(currentItemProDuct.getProductPrice());
         holder.NameOfElement.setText(currentItemProDuct.getProductName());
         holder.heartView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (DataManager.host.getId() == null)
+                if (DataManager.host == null || DataManager.host.getId() == null)
                 {
                     Toast.makeText(view.getContext(),"Please sign in",Toast.LENGTH_LONG).show();
                 }
@@ -135,7 +135,7 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
                         DataManager.shoeInWishAdapter.notifyDataSetChanged();
 
 
-                        holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                        holder.heartView.setImageResource(R.drawable.ic_baseline_favorite_border_24_white_fill);
                     } else {
                         String docName = listProduct.get(position).getProductId();
                         FirebaseFirestore db = FirebaseFirestore.getInstance();

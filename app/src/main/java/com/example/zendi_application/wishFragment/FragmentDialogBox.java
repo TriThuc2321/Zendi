@@ -40,7 +40,7 @@ import java.util.List;
 public class FragmentDialogBox extends Fragment {
 
     ShoeInBag shoeInBag, shoe;
-    private TextView productName,productPrice, choose, brandname;
+    private TextView productName,productPrice, brandname;
     private Button backbtn,shopnowbtn;
     private ImageView shoeIM;
     private Spinner sizeSpinner;
@@ -67,7 +67,6 @@ public class FragmentDialogBox extends Fragment {
         shopnowbtn = mview.findViewById(R.id.shopnowbtn);
         sizeSpinner = mview.findViewById(R.id.sizespinner);
         shoeIM = mview.findViewById(R.id.imgofShoe);
-        choose =mview.findViewById(R.id.choose);
         brandname = mview.findViewById(R.id.brandName);
         selectedSize ="5 UK";
 
@@ -129,7 +128,6 @@ public class FragmentDialogBox extends Fragment {
             }
         });
         Picasso.get().load(shoeInBag.getResourceID().get(0)).into(shoeIM);
-        choose.setText("Choose size: ");
         productPrice.setText(new StringBuilder("Price: $").append(shoeInBag.getProductPrice()));
         brandname.setText(shoeInBag.getProductBrand());
         productName.setText(shoeInBag.getProductName());
@@ -167,6 +165,9 @@ public class FragmentDialogBox extends Fragment {
                             {
                                 DataManager.update_Amount_Of_Shoe_In_Bag(shoe,ite,DataManager.host,v.getContext());
                                 String docName = shoeInBag.getProductId() + "_" + shoeInBag.getShoeSize() ;
+                                //thang
+                                String docName2 = shoeInBag.getProductId();
+                                //
                                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                                 db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName)
                                         .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -174,6 +175,14 @@ public class FragmentDialogBox extends Fragment {
                                     public void onSuccess(Void aVoid) {
                                     }
                                 });
+                                //thang
+                                db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName2)
+                                        .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                    }
+                                });
+                                //
                                 DataManager.shoeInWish.remove(shoeInBag);
                                 DataManager.shoeInWishAdapter.notifyDataSetChanged();
                                 DataManager.shoeInBagAdapter.notifyDataSetChanged();
@@ -197,6 +206,15 @@ public class FragmentDialogBox extends Fragment {
                                 public void onSuccess(Void aVoid) {
                                 }
                             });
+                            //thang
+                            String docName2 = shoeInBag.getProductId();
+                            db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName2)
+                                    .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                }
+                            });
+                            //
                             DataManager.shoeInWish.remove(shoeInBag);
                             DataManager.shoeInWishAdapter.notifyDataSetChanged();
                             for (ShoeInBag ite : DataManager.list)

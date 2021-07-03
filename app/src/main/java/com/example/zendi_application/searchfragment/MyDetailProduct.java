@@ -98,7 +98,6 @@ public class MyDetailProduct extends AppCompatActivity {
                     shoeInBag = new ShoeInBag(mproduct.getProductId(), mproduct.getProductName(), mproduct.getProductPrice()
                             , mproduct.getProductBrand(), mproduct.getProductType(), mproduct.getResourceID(), mproduct.getRemainingAmount()
                             , mproduct.getType(), selectedSize, "1");
-                    Toast.makeText(getApplicationContext(),"DRAGGED INTO BAG SUCCESSFULLY !!",Toast.LENGTH_SHORT).show();
                 }
                 else
                     Toast.makeText(getApplicationContext(),"Sold out !!",Toast.LENGTH_SHORT).show();
@@ -115,7 +114,7 @@ public class MyDetailProduct extends AppCompatActivity {
             dropCaption.setText(parent.getCaption());
         else
             dropCaption.setText("");
-        productPrice.setText(mproduct.getProductPrice());
+        productPrice.setText("$ " + mproduct.getProductPrice());
         productName.setText(mproduct.getProductName());
 
 
@@ -146,7 +145,7 @@ public class MyDetailProduct extends AppCompatActivity {
                 else
                 {
                     /// Process not log in
-                    if (DataManager.host.getId() == null)
+                    if (DataManager.host == null || DataManager.host.getId() == null)
                     {
                         Toast.makeText(v.getContext(),"Please Log In To Get Product !!", Toast.LENGTH_SHORT).show();
                     }
@@ -171,6 +170,7 @@ public class MyDetailProduct extends AppCompatActivity {
                             Integer processed_amount = amount_of_product - Integer.parseInt(shoeInBag.getShoeAmount());
                             shoeInBag.getRemainingAmount().set(DataManager.sizeConvert.get(selectedSize),processed_amount);
                             DataManager.push_Shoe_To_Bag(shoeInBag, DataManager.host, v.getContext());
+
                             for (ShoeInBag ite : DataManager.list)
                             {
                                 if (ite.getProductId() == shoeInBag.getProductId()) {
