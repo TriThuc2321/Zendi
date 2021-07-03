@@ -8,10 +8,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -45,6 +49,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
     public String total = total();
     public String ss = ListShoeBought();
     public String totalHost = addTotalToHost();
+    TextView totaltv;
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -80,13 +85,22 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                         }
                     }
                 });
+        totaltv = view.findViewById(R.id.totaltxt);
+        totaltv.setText(total());
         editaddress = view.findViewById(R.id.edit_address);
         editaddress.setText(DataManager.host.getAddress());
         editcontact = view.findViewById(R.id.edit_contact);
         editcontact.setText(DataManager.host.getPhoneNumber());
         editName = view.findViewById(R.id.edit_receiver);
         editName.setText(DataManager.host.getName());
-        return builder.create();
+
+        AlertDialog dialog = builder.create();
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams layoutParams = window.getAttributes();
+        layoutParams.gravity = Gravity.BOTTOM;
+        window.setAttributes(layoutParams);
+
+        return dialog;
     }
 
     public void upBilltoFireStore(String address, String contact, String email, String name){

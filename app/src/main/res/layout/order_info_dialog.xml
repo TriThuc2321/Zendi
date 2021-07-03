@@ -1,9 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bottom_sheet_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:padding="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Total"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryText"
+            android:layout_marginStart="20dp"/>
+        <TextView
+            android:id="@+id/totaltxt"
+            android:padding="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="$100"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryText"
+            android:layout_marginLeft="6dp"/>
+
+    </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:hint="Name"
@@ -48,5 +75,13 @@
             android:layout_height="wrap_content"
             android:textColorHint="@color/gold" />
     </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:padding="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textStyle="italic"
+        android:text="By clicking the Place an order button, I consent to the use of my personal information for advertising, marketing and other commercial purposes as well as sharing, disclosing, transferring. them to any third party."
+        />
 
 </LinearLayout>
