@@ -63,6 +63,7 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
 
     @Override
     public int getItemCount() {
+        if(mlist == null) return 0;
         return mlist.size();
     }
 

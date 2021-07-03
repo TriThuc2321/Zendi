@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.example.zendi_application.DataManager.getCurrentDay;
 import static com.example.zendi_application.DataManager.orderedList;
 import static com.example.zendi_application.DataManager.orderedListByDay;
 
@@ -45,13 +47,22 @@ public class StatisticActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerStatistic;
     private StatisticAdapter mStatisticAdapter;
+    LayoutAnimationController leftToRight;
     View turnBackBtn;
 
     Button showAll;
     TextView dateShow;
     Spinner orderBySpinner;
+    Spinner monthSpinner;
+    Spinner yearSpinner;
+
+    LinearLayout monthSpinnerLayout;
+    LinearLayout yearSpinnerLayout;
+    LinearLayout dateShowLayout;
 
     List<String> listSp = new ArrayList<>();
+    List<String> listMonthSp = new ArrayList<>();
+    List<String> listYearSp = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +71,115 @@ public class StatisticActivity extends AppCompatActivity {
         setContentView(R.layout.activity_statistic);
 
         Init();
+        setButton();
+        createListSpinner();
+        setAdapterSpinner();
 
+    }
+
+    private void setAdapterSpinner() {
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listSp);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        orderBySpinner.setAdapter(arrayAdapter);
+        orderBySpinner.setSelection(3);
+        orderBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (orderBySpinner.getSelectedItem().toString()){
+                    case "Show All":
+                        monthSpinnerLayout.setVisibility(View.GONE);
+                        yearSpinnerLayout.setVisibility(View.GONE);
+                        dateShowLayout.setVisibility(View.GONE);
+
+                        mRecyclerStatistic.setLayoutAnimation(leftToRight);
+                        mStatisticAdapter.SetData(orderedList);
+                        break;
+                    case "Month":
+                        monthSpinnerLayout.setVisibility(View.VISIBLE);
+                        yearSpinnerLayout.setVisibility(View.VISIBLE);
+                        dateShowLayout.setVisibility(View.GONE);
+
+                        loadList();
+                        mRecyclerStatistic.setLayoutAnimation(leftToRight);
+                        mStatisticAdapter.SetData(orderedListByDay);
+                        break;
+                    case "Date":
+                        monthSpinnerLayout.setVisibility(View.GONE);
+                        yearSpinnerLayout.setVisibility(View.GONE);
+                        dateShowLayout.setVisibility(View.VISIBLE);
+
+                        loadList();
+                        mRecyclerStatistic.setLayoutAnimation(leftToRight);
+                        mStatisticAdapter.SetData(orderedListByDay);
+                        break;
+                    case "Year":
+                        monthSpinnerLayout.setVisibility(View.GONE);
+                        yearSpinnerLayout.setVisibility(View.VISIBLE);
+                        dateShowLayout.setVisibility(View.GONE);
+
+                        loadList();
+                        mRecyclerStatistic.setLayoutAnimation(leftToRight);
+                        mStatisticAdapter.SetData(orderedListByDay);
+                        break;
+                    default: break;
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        ArrayAdapter<String> arrayMonthAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listMonthSp);
+        arrayMonthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        monthSpinner.setAdapter(arrayMonthAdapter);
+        int m = Calendar.getInstance().get(Calendar.MONTH);
+        monthSpinner.setSelection(m);
+        monthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                loadList();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        ArrayAdapter<String> arrayYearAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listYearSp);
+        arrayYearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        yearSpinner.setAdapter(arrayYearAdapter);
+        int y = Calendar.getInstance().get(Calendar.YEAR) - 2020;
+        yearSpinner.setSelection(y);
+        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                loadList();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void setButton() {
         turnBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        showAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadList();
             }
         });
 
@@ -89,71 +204,93 @@ public class StatisticActivity extends AppCompatActivity {
                                 else  month = (monthOfYear + 1) + "";
 
                                 dateShow.setText(day + "/" + month + "/" + year);
-                                loadList(1);
+                                loadList();
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
-            }
-        });
-
-        showAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadList(0);
-            }
-        });
-        createListSpinner();
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,listSp);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        orderBySpinner.setAdapter(arrayAdapter);
-        orderBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                /*if (mproduct.getRemainingAmount().get(DataManager.sizeConvert.get(selectedSize)) != 0)
-                {
-                    selectedSize = sizeSpinner.getSelectedItem().toString();
-                    shoeInBag = new ShoeInBag(mproduct.getProductId(), mproduct.getProductName(), mproduct.getProductPrice()
-                            , mproduct.getProductBrand(), mproduct.getProductType(), mproduct.getResourceID(), mproduct.getRemainingAmount()
-                            , mproduct.getType(), selectedSize, "1");
-                }
-                else
-                    Toast.makeText(mview.getContext(),"Sold out !!",Toast.LENGTH_SHORT).show();*/
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
     }
 
     private void createListSpinner() {
         listSp.add("Show All");
-        listSp.add("Order by Day");
-        listSp.add("Order by Month");
-        listSp.add("Order by Year");
+        listSp.add("Year");
+        listSp.add("Month");
+        listSp.add("Date");
+
+        /*listMonthSp.add("January");
+        listMonthSp.add("February");
+        listMonthSp.add("March");
+        listMonthSp.add("April");
+        listMonthSp.add("May");
+        listMonthSp.add("June");
+        listMonthSp.add("July");
+        listMonthSp.add("August");
+        listMonthSp.add("September");
+        listMonthSp.add("October");
+        listMonthSp.add("November");
+        listMonthSp.add("December");*/
+
+        listMonthSp.add("01");
+        listMonthSp.add("02");
+        listMonthSp.add("03");
+        listMonthSp.add("04");
+        listMonthSp.add("05");
+        listMonthSp.add("06");
+        listMonthSp.add("07");
+        listMonthSp.add("08");
+        listMonthSp.add("09");
+        listMonthSp.add("10");
+        listMonthSp.add("11");
+        listMonthSp.add("12");
+
+        for(int i =2020; i< 2100; i++){
+            listYearSp.add(i + "");
+        }
     }
 
-    void loadList(int isShowAll){
-        if(isShowAll == 1){
-            getListOrderedByDay(dateShow.getText().toString());
-            mStatisticAdapter.SetData(orderedListByDay);
+    void loadList(){
+        if(orderBySpinner.getSelectedItem().toString() == "Date") {
+            getListOrderedByDay(dateShow.getText().toString(), 0);
         }
-        else{
+        else if(orderBySpinner.getSelectedItem().toString() == "Year"){
+            getListOrderedByDay("01/01/" + yearSpinner.getSelectedItem().toString(), 1);
+        }
+        else if(orderBySpinner.getSelectedItem().toString() == "Month"){
+            getListOrderedByDay("01/" + monthSpinner.getSelectedItem().toString() + "/" + yearSpinner.getSelectedItem().toString(), 2);
+        }
+        else if(orderBySpinner.getSelectedItem().toString() == "Show All"){
             mStatisticAdapter.SetData(orderedList);
-            dateShow.setText("DD/MM/YY");
         }
     }
 
-    public void getListOrderedByDay(String date){
+    public void getListOrderedByDay(String date, int type){
         orderedListByDay.clear();
-        for (int i =0; i<orderedList.size(); i++){
-            if(date.compareTo(orderedList.get(i).getBillDate()) == 0){
-                orderedListByDay.add(orderedList.get(i));
+        if(type == 0){
+            for (int i =0; i<orderedList.size(); i++){
+                if(date.compareTo(orderedList.get(i).getBillDate()) == 0){
+                    orderedListByDay.add(orderedList.get(i));
+                }
             }
         }
+        else if(type == 1){
+            for(int i =0; i<orderedList.size(); i++){
+                String[] temp = orderedList.get(i).getBillDate().split("/");
+                if(temp[2].compareTo(yearSpinner.getSelectedItem().toString()) == 0) {
+                    orderedListByDay.add(orderedList.get(i));
+                }
+            }
+        }
+        else if(type == 2){
+            for(int i =0; i<orderedList.size(); i++){
+                String[] temp = orderedList.get(i).getBillDate().split("/");
+                if(temp[1].compareTo(monthSpinner.getSelectedItem().toString()) == 0 && temp[2].compareTo(yearSpinner.getSelectedItem().toString()) == 0) {
+                    orderedListByDay.add(orderedList.get(i));
+                }
+            }
+        }
+
+        mStatisticAdapter.SetData(orderedListByDay);
 
     }
 
@@ -163,17 +300,24 @@ public class StatisticActivity extends AppCompatActivity {
         showAll = findViewById(R.id.show_all_ordered_btn);
         dateShow = findViewById(R.id.bill_date_statistic_txt);
         orderBySpinner = findViewById(R.id.orderBy_spinner);
+        monthSpinner = findViewById(R.id.month_spinner);
+        yearSpinner = findViewById(R.id.year_spinner);
+
+        monthSpinnerLayout = findViewById(R.id.month_spinner_layout);
+        yearSpinnerLayout = findViewById(R.id.year_spinner_layout);
+        dateShowLayout = findViewById(R.id.bill_date_statistic_layout);
+
 
         dateShow.setText(DataManager.getCurrentDay());
 
         mStatisticAdapter = new StatisticAdapter(this);
         mRecyclerStatistic.setLayoutManager(new LinearLayoutManager(this));
 
-        LayoutAnimationController leftToRight = AnimationUtils.loadLayoutAnimation(this,R.anim.layout_animation_left_to_right);
+        leftToRight = AnimationUtils.loadLayoutAnimation(this,R.anim.layout_animation_left_to_right);
         mRecyclerStatistic.setLayoutAnimation(leftToRight);
 
-        getListOrderedByDay(DataManager.getCurrentDay());
-        mStatisticAdapter.SetData(orderedListByDay);
+        //getListOrderedByDay(DataManager.getCurrentDay(), 0);  // 0 date   1 year   2 month year
+        mStatisticAdapter.SetData(null);
         mRecyclerStatistic.setAdapter(mStatisticAdapter);
     }
 

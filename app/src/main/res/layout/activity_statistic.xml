@@ -34,15 +34,30 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <Spinner
-            android:id="@+id/orderBy_spinner"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            />
+        android:layout_height="50dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order by"
+                android:layout_marginLeft="10dp"
+                android:textSize="10dp"
+                />
+            <Spinner
+                android:id="@+id/orderBy_spinner"
+                android:layout_width="140dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                />
+        </LinearLayout>
+
+
         <Button
             android:id="@+id/show_all_ordered_btn"
             android:textColor="@color/white"
@@ -56,15 +71,79 @@
             android:visibility="gone"
             />
 
-        <TextView
-            android:id="@+id/bill_date_statistic_txt"
-            android:layout_alignParentRight="true"
+        <LinearLayout
+            android:id="@+id/bill_date_statistic_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="DD/MM/YY"
-            android:layout_marginTop="12dp"
-        />
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textSize="10dp"
+                />
+            <TextView
+                android:id="@+id/bill_date_statistic_txt"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:text="DD/MM/YY"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/month_spinner_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/year_spinner_layout"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Month"
+                android:textSize="10dp"
+
+                />
+            <Spinner
+                android:id="@+id/month_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:text="January"
+
+                android:visibility="visible"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/year_spinner_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Year"
+                android:textSize="10dp"
+                />
+            <Spinner
+                android:id="@+id/year_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:text="DD/MM/YY"
+                android:visibility="visible"
+                />
+        </LinearLayout>
+
+
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

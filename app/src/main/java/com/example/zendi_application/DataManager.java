@@ -1042,16 +1042,6 @@ public class DataManager {
                 orderedList.clear();
                 for (DocumentSnapshot documentSnapshot : task.getResult())
                 {
-                    /*Ordered temp = documentSnapshot.toObject(Ordered.class);
-                    orderedList.add(temp);*/
-                    /*Ordered temp = new Ordered();
-                    temp.setAddress(documentSnapshot.get("Address").toString());
-                    temp.setBillId(documentSnapshot.get("BillId").toString());
-                    temp.setContact(documentSnapshot.get("Contact").toString());
-                    temp.setEmail(documentSnapshot.get("Email").toString());
-                    temp.setTotal(documentSnapshot.get("Total").toString());
-                    temp.setName(documentSnapshot.get("Name").toString());*/
-
                     Ordered temp = documentSnapshot.toObject(Ordered.class);
                      listShoe= new ArrayList<>();
                     getListShoeOrderFromFirestone("Ordered/" + documentSnapshot.get("BillId").toString()+"/ShoeList", listShoe);
@@ -1087,7 +1077,6 @@ public class DataManager {
             }
         });
     }
-
 
     public static String getCurrentDay(){
         SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
