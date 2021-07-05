@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".dropFragment.DetailProductFragment"
     android:orientation="vertical"
-    android:background="#D8D8D6">
+    android:background="@color/white">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,8 +15,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="back"
             android:drawableLeft="@drawable/ic_baseline_keyboard_arrow_left_black"
+            android:background="@color/white"
             android:id="@+id/backbtn"
             android:layout_gravity="right"></Button>
     </LinearLayout>
