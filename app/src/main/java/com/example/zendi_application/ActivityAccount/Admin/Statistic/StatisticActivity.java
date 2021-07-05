@@ -293,8 +293,7 @@ public class StatisticActivity extends AppCompatActivity {
         monthSpinnerLayout = findViewById(R.id.month_spinner_layout);
         yearSpinnerLayout = findViewById(R.id.year_spinner_layout);
         dateShowLayout = findViewById(R.id.bill_date_statistic_layout);
-
-
+        
         dateShow.setText(DataManager.getCurrentDay());
 
         mStatisticAdapter = new StatisticAdapter(this);
