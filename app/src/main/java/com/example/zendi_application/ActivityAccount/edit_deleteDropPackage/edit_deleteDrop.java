@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
@@ -43,6 +44,7 @@ public class edit_deleteDrop extends AppCompatActivity {
     public RecyclerView rcv_product;
     public Spinner productlist_spinner;
     public ImageView image_editdrop;
+    public Toolbar toolbar;
     public List<String> productName = new ArrayList<>();
     public String selectedproductId;
     public Button addproductbtn, savebtn, loadbtn;
@@ -108,6 +110,15 @@ public class edit_deleteDrop extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        toolbar = findViewById(R.id.toorbar_editdrop);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                finish();
             }
         });
 
