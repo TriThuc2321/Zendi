@@ -12,4 +12,13 @@
         android:layout_alignParentBottom="true"
         android:orientation="vertical" />
 
+    <TextView
+        android:id="@+id/emptyText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:text="YOUR WISHLIST IS EMPTY"
+        android:textAlignment="center" />
+
 </RelativeLayout>

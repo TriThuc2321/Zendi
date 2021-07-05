@@ -43,15 +43,17 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
 
     ItemClickListener itemClickListener;
     List<ShoeInBag> shoeInWishList;
+    TextView emptyNotify;
     public void setData(List<ShoeInBag> list){
         this.shoeInWishList = list;
         notifyDataSetChanged();
     }
 
     public ShoeInWishAdapter(){};
-    public ShoeInWishAdapter( List<ShoeInBag> shoeInWishList, ItemClickListener listener) {
+    public ShoeInWishAdapter( TextView emptyNotify,List<ShoeInBag> shoeInWishList, ItemClickListener listener) {
         this.itemClickListener = listener;
         this.shoeInWishList = shoeInWishList;
+        this.emptyNotify = emptyNotify;
     }
     @NonNull
     @Override
@@ -75,6 +77,12 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
 
     @Override
     public int getItemCount() {
+        if(shoeInWishList == null || shoeInWishList.size() == 0)
+        {
+            emptyNotify.setVisibility(View.VISIBLE);
+        }
+        else
+            emptyNotify.setVisibility(View.GONE);
         if(shoeInWishList != null) return shoeInWishList.size();
         return 0;
     }

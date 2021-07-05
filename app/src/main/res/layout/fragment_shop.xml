@@ -28,4 +28,13 @@
         android:layout_marginRight="40dp"
         android:textStyle="italic" />
 
+    <TextView
+        android:id="@+id/emptyNotifyBag_text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp"
+        android:text="YOUR BAG IS EMPTY"
+        android:textAlignment="center" />
+
 </RelativeLayout>

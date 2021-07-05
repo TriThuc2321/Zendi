@@ -304,7 +304,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
-                        android:text="REEBOOK"
+                        android:text="REEBOK"
                         android:textColor="@color/black"
                         android:textSize="@dimen/size_of_article"
                         android:textStyle="bold"

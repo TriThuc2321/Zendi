@@ -7,6 +7,7 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,19 +39,20 @@ import static android.widget.Toast.LENGTH_LONG;
 
 public class WishlistFragment extends Fragment implements RecyclerViewClickInterface {
     RecyclerView recyclerView;
+    TextView emptyText;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wishlist, container, false);
-
+        emptyText = view.findViewById(R.id.emptyText);
         DataManager.shoeInWishAdapter = new ShoeInWishAdapter();
 
         recyclerView = view.findViewById(R.id.wishListrcv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), recyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
-        DataManager.shoeInWishAdapter = new ShoeInWishAdapter(DataManager.shoeInWish, new ShoeInWishAdapter.ItemClickListener() {
+        DataManager.shoeInWishAdapter = new ShoeInWishAdapter(emptyText,DataManager.shoeInWish, new ShoeInWishAdapter.ItemClickListener() {
             @Override
             public void onItemClick(ShoeInBag shoe) {
                 AppCompatActivity activity = (AppCompatActivity)getContext();

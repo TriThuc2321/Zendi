@@ -41,6 +41,7 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
 
     Context context;
     List<ShoeInBag> shoeInBagList;
+    TextView emptyNotify;
 
     public void setData(List<ShoeInBag> list) {
         this.shoeInBagList = list;
@@ -49,7 +50,10 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
 
     public ShoeInBagAdapter() {
     }
-
+    public ShoeInBagAdapter(TextView emptyNotify)
+    {
+        this.emptyNotify = emptyNotify;
+    }
     ;
 
     public ShoeInBagAdapter(Context context, List<ShoeInBag> shoeInBagList) {
@@ -76,6 +80,12 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
 
     @Override
     public int getItemCount() {
+        if(shoeInBagList == null || shoeInBagList.size() == 0)
+        {
+            emptyNotify.setVisibility(View.VISIBLE);
+        }
+        else
+            emptyNotify.setVisibility(View.GONE);
         if (shoeInBagList != null) return shoeInBagList.size();
         return 0;
     }

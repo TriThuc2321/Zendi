@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,7 +51,7 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
 
     public static Button settle;
     RecyclerView recyclerView;
-
+    TextView emptyNotify;
     @Override
     public void onResume() {
         super.onResume();
@@ -61,7 +62,8 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
-        DataManager.shoeInBagAdapter = new ShoeInBagAdapter();
+        emptyNotify = view.findViewById(R.id.emptyNotifyBag_text);
+        DataManager.shoeInBagAdapter = new ShoeInBagAdapter(emptyNotify);
         settle = view.findViewById(R.id.settle_place);
         settle.setText(total());
         recyclerView = view.findViewById(R.id.shop_fragment_rcv);

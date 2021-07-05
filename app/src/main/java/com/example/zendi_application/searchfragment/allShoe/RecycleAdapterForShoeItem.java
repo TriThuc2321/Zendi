@@ -57,7 +57,7 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
             case NEW_BALANCE:brandstring = "NEW BALANCE";break;
             case VANS:brandstring = "VANS";break;
             case ADDIDAS:brandstring = "ADIDAS";break;
-            case REEBOOK:brandstring = "REEBOOK";break;
+            case REEBOOK:brandstring = "REEBOK";break;
             default: brandstring = "ALL";
         }
 

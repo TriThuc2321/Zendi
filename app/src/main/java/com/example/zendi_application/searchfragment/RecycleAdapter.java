@@ -55,7 +55,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.RecycleV
             case NEW_BALANCE:brandstring = "NEW BALANCE";break;
             case VANS:brandstring = "VANS";break;
             case ADDIDAS:brandstring = "ADIDAS";break;
-            default :brandstring = "REEBOOK";
+            default :brandstring = "REEBOK";
         }
 
         switch (sex)
