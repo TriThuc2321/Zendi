@@ -1,4 +1,4 @@
-package com.example.zendi_application.ActivityAccount.Admin;
+package com.example.zendi_application.ActivityAccount.Admin.Statistic;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -47,6 +47,13 @@ public class OrderedAdapter extends RecyclerView.Adapter<OrderedAdapter.ViewHold
         holder.name.setText(ordered.getProductName());
         holder.size.setText(ordered.getShoeSize());
         holder.price.setText(new StringBuilder("$").append(ordered.getProductPrice()));
+
+        if(ordered.getShoeAmount().compareTo("0") != 1){
+            holder.amount.setText(ordered.getShoeAmount());
+
+            holder.amount.setVisibility(View.VISIBLE);
+            holder.x_ordered.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -57,7 +64,7 @@ public class OrderedAdapter extends RecyclerView.Adapter<OrderedAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView shoeImg;
-        TextView name,  size, price;
+        TextView name,  size, price, amount, x_ordered;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +73,8 @@ public class OrderedAdapter extends RecyclerView.Adapter<OrderedAdapter.ViewHold
             name = itemView.findViewById(R.id.shoe_name_ordered);
             size = itemView.findViewById(R.id.shoe_size_ordered);
             price = itemView.findViewById(R.id.shoe_price_ordered);
+            amount = itemView.findViewById(R.id.amount_ordered);
+            x_ordered = itemView.findViewById(R.id.x_ordered);
         }
     }
 }

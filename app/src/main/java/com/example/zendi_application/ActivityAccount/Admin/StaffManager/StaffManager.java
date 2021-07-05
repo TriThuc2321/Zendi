@@ -1,4 +1,4 @@
-package com.example.zendi_application.ActivityAccount.Admin;
+package com.example.zendi_application.ActivityAccount.Admin.StaffManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

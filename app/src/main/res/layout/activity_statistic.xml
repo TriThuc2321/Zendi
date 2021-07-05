@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityAccount.Admin.StatisticActivity"
+    tools:context=".ActivityAccount.Admin.Statistic.StatisticActivity"
     android:orientation="vertical">
 
     <LinearLayout

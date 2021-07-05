@@ -1,39 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/name_staff"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Tran Tri Thuc"
-        android:textSize="15dp"
-        android:layout_marginLeft="20dp"
-        android:gravity="center_vertical"
-        android:layout_toLeftOf="@+id/subtract_staff_btn"
-        />
-    <Button
-        android:id="@+id/subtract_staff_btn"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/ic_baseline_swap_vert_24"
-        android:layout_margin="5dp"/>
+    android:layout_height="match_parent"
+    tools:context=".ActivityAccount.Admin.Statistic.DetailOrdered"
+    android:orientation="vertical"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/infoStaffLayout"
-        android:layout_below="@+id/name_staff"
+        android:id="@+id/profileInfo"
+        android:layout_marginTop="4dp"
+        android:layout_margin="10dp">
+        <View
+            android:id="@+id/turnBack_detail"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            />
+        <TextView
+            android:id="@+id/nameDetailOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Name"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/arrowLeft"
+            android:layout_gravity="center_vertical"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:layout_below="@+id/profileInfo"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             >
             <TextView
                 android:layout_width="70dp"
@@ -43,7 +53,7 @@
                 android:textSize="10dp"
                 />
             <TextView
-                android:id="@+id/emailStaffTxt"
+                android:id="@+id/emailDetailOrderedTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Email"
@@ -64,7 +74,7 @@
                 android:textSize="10dp"
                 />
             <TextView
-                android:id="@+id/phoneNumberStaffTxt"
+                android:id="@+id/phoneNumberDetailOrderedTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Phone number"
@@ -85,7 +95,7 @@
                 android:textSize="10dp"
                 />
             <TextView
-                android:id="@+id/addressStaffTxt"
+                android:id="@+id/addressDetailOrderedTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Address"
@@ -101,15 +111,15 @@
             <TextView
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:text="Birthday: "
+                android:text="Bill Date: "
                 android:layout_marginLeft="40dp"
                 android:textSize="10dp"
                 />
             <TextView
-                android:id="@+id/birthdayStaffTxt"
+                android:id="@+id/billDateDetailOrderedTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Birthday"
+                android:text="date"
                 android:layout_marginLeft="20dp"
                 android:textSize="10dp"
                 />
@@ -122,22 +132,53 @@
             <TextView
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:text="Gender: "
+                android:text="Total: "
                 android:layout_marginLeft="40dp"
                 android:textSize="10dp"
                 />
             <TextView
-                android:id="@+id/genderStaffTxt"
+                android:id="@+id/totalDetailOrderedTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gender"
+                android:text="Total"
                 android:layout_marginLeft="20dp"
                 android:textSize="10dp"
                 />
         </LinearLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/productDetailOrdered"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="10dp"
+            />
+
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detail"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        >
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_outline_cancel_24"
+            android:layout_marginRight="5dp"
+            />
+        <TextView
+            android:id="@+id/billStatusDetailOrderedTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Not yet delivered"
+            />
+
+    </LinearLayout>
 
 
 </RelativeLayout>

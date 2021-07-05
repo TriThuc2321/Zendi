@@ -1,6 +1,7 @@
-package com.example.zendi_application.ActivityAccount.Admin;
+package com.example.zendi_application.ActivityAccount.Admin.Statistic;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,16 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
         holder.mOrderedAdapter.SetData(ordered.getShoeList());
         holder.mRecyclerView.setAdapter(holder.mOrderedAdapter);
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext,RecyclerView.HORIZONTAL,false));
+
+        holder.detailOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, DetailOrdered.class);
+                intent.putExtra("id", ordered.getBillId());
+                mContext.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -79,6 +90,7 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
         TextView billStatusTxt;
         TextView billDateTxt;
         LinearLayout infoLayout;
+        View detailOrder;
 
         Animation rotateRight;
         Animation rotateLeft;
@@ -107,6 +119,7 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
             infoLayout = itemView.findViewById(R.id.infoOrderedLayout);
             show = itemView.findViewById(R.id.show_order);
             dropDown = itemView.findViewById(R.id.drop_down);
+            detailOrder = itemView.findViewById(R.id.detailOrdered);
 
             rotateRight = AnimationUtils.loadAnimation(mContext, R.anim.rotate_right_animation);
             rotateLeft = AnimationUtils.loadAnimation(mContext, R.anim.rotate_left_animation);
@@ -132,6 +145,7 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
                         flag = true;
 
                     }
+
 
                 }
             });

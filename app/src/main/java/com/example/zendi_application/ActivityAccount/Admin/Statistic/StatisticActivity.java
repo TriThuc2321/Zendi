@@ -1,6 +1,5 @@
-package com.example.zendi_application.ActivityAccount.Admin;
+package com.example.zendi_application.ActivityAccount.Admin.Statistic;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +8,6 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
@@ -19,27 +17,14 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.zendi_application.ActivityAccount.SettingActivity;
-import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
-import com.example.zendi_application.shopFragment.ShoeInBag;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.badge.BadgeUtils;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import static com.example.zendi_application.DataManager.getCurrentDay;
 import static com.example.zendi_application.DataManager.orderedList;
 import static com.example.zendi_application.DataManager.orderedListByDay;
 
@@ -100,8 +85,8 @@ public class StatisticActivity extends AppCompatActivity {
                         dateShowLayout.setVisibility(View.GONE);
 
                         loadList();
-                        mRecyclerStatistic.setLayoutAnimation(leftToRight);
-                        mStatisticAdapter.SetData(orderedListByDay);
+                        /*mRecyclerStatistic.setLayoutAnimation(leftToRight);
+                        mStatisticAdapter.SetData(orderedListByDay);*/
                         break;
                     case "Date":
                         monthSpinnerLayout.setVisibility(View.GONE);
@@ -109,8 +94,8 @@ public class StatisticActivity extends AppCompatActivity {
                         dateShowLayout.setVisibility(View.VISIBLE);
 
                         loadList();
-                        mRecyclerStatistic.setLayoutAnimation(leftToRight);
-                        mStatisticAdapter.SetData(orderedListByDay);
+                        /*mRecyclerStatistic.setLayoutAnimation(leftToRight);
+                        mStatisticAdapter.SetData(orderedListByDay);*/
                         break;
                     case "Year":
                         monthSpinnerLayout.setVisibility(View.GONE);
@@ -118,8 +103,8 @@ public class StatisticActivity extends AppCompatActivity {
                         dateShowLayout.setVisibility(View.GONE);
 
                         loadList();
-                        mRecyclerStatistic.setLayoutAnimation(leftToRight);
-                        mStatisticAdapter.SetData(orderedListByDay);
+                        /*mRecyclerStatistic.setLayoutAnimation(leftToRight);
+                        mStatisticAdapter.SetData(orderedListByDay);*/
                         break;
                     default: break;
                 }
@@ -289,7 +274,7 @@ public class StatisticActivity extends AppCompatActivity {
                 }
             }
         }
-
+        mRecyclerStatistic.setLayoutAnimation(leftToRight);
         mStatisticAdapter.SetData(orderedListByDay);
 
     }

@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import com.example.zendi_application.ActivityAccount.Admin.StaffManager.StaffManager;
+import com.example.zendi_application.ActivityAccount.Admin.Statistic.StatisticActivity;
 import com.example.zendi_application.R;
 
 public class AdminActivity extends AppCompatActivity {
