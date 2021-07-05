@@ -245,7 +245,9 @@ public class StatisticActivity extends AppCompatActivity {
             getListOrderedByDay("01/" + monthSpinner.getSelectedItem().toString() + "/" + yearSpinner.getSelectedItem().toString(), 2);
         }
         else if(orderBySpinner.getSelectedItem().toString() == "Show All"){
-            mStatisticAdapter.SetData(orderedList);
+            orderedListByDay = new ArrayList<>(orderedList);
+            mStatisticAdapter.SetData(orderedListByDay);
+
         }
     }
 
@@ -306,6 +308,10 @@ public class StatisticActivity extends AppCompatActivity {
         mRecyclerStatistic.setAdapter(mStatisticAdapter);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-
+        loadList();
+    }
 }
