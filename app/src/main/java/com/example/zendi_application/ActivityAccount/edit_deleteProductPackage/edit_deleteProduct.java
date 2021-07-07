@@ -157,9 +157,9 @@ public class edit_deleteProduct extends AppCompatActivity {
                         CheckValidEditText(remaining105edit.getText().toString()) == true &&
                         CheckValidEditText(remaining115edit.getText().toString()) == true &&
                         CheckValidEditText(priceedit.getText().toString()) == true &&
-                        CheckValidEditText(typeedit.getText().toString()) == true &&
-                        !nameedit.getText().toString().isEmpty() &&
-                        !brandedit.getText().toString().isEmpty()
+                        /*CheckValidEditText(typeedit.getText().toString()) == true &&*/
+                        !nameedit.getText().toString().isEmpty()
+                        /*!brandedit.getText().toString().isEmpty()*/
                 ))
                 {
                     Toast.makeText(v.getContext(),"Invalid information, please check", Toast.LENGTH_SHORT).show();
@@ -426,6 +426,7 @@ public class edit_deleteProduct extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_custom, brandSpinnerList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         brandSpinner.setAdapter(arrayAdapter);
+    }
     public boolean CheckValidEditText(String object)
     {
         String a = object;

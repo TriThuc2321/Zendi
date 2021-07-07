@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/gold"
-        android:subtitleTextColor="@color/black"
+        android:subtitleTextColor="#737373"
         android:navigationIcon="?attr/homeAsUpIndicator"
         />
 
@@ -42,7 +42,7 @@
         android:layout_height="40dp"
         android:layout_margin="5dp"
         android:background="@color/white"
-        android:text="PushDrop"
+        android:text="Add Drop"
         android:textSize="10dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/toorbar_uploaddata"
