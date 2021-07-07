@@ -34,8 +34,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -49,7 +51,9 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
     public String total = total();
     public String ss = ListShoeBought();
     public String totalHost = addTotalToHost();
+    public static List<String> ChangedProductID = new ArrayList<>();
     TextView totaltv;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -69,22 +73,21 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Place an order", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(TextUtils.isEmpty(editaddress.getText().toString()) || TextUtils.isEmpty(editcontact.getText().toString()))
-                        {
-                            Toast.makeText(getContext(),"Please give fully your information",Toast.LENGTH_SHORT).show();
-                        }
-                        else if((editcontact.getText().toString().length()!=10 && editcontact.getText().toString().length()!=11) || !android.text.TextUtils.isDigitsOnly(editcontact.getText().toString())){
-                            Toast.makeText(getContext(),"Invalid phone number",Toast.LENGTH_SHORT).show();
-                        }
-                        else {
+                        if (TextUtils.isEmpty(editaddress.getText().toString()) || TextUtils.isEmpty(editcontact.getText().toString())) {
+                            Toast.makeText(getContext(), "Please give fully your information", Toast.LENGTH_SHORT).show();
+                        } else if ((editcontact.getText().toString().length() != 10 && editcontact.getText().toString().length() != 11) || !android.text.TextUtils.isDigitsOnly(editcontact.getText().toString())) {
+                            Toast.makeText(getContext(), "Invalid phone number", Toast.LENGTH_SHORT).show();
+                        } else {
+
                             add = editaddress.getText().toString();
                             con = editcontact.getText().toString();
                             reciever = editName.getText().toString();
                             sendEmail(DataManager.host.getEmail());
                             DataManager.host.setTotal(totalHost);
-                            upTotalToFirebase(totalHost);
-                            upBilltoFireStore(add, con, DataManager.host.getEmail(), reciever);
-                            Toast.makeText(getContext(), "Ordered successfully.", Toast.LENGTH_SHORT).show();
+                            DataManager.LoadProductInformation_CheckremaningShoe(getContext(), "Product", DataManager.listProduct, DataManager.list, add, con, DataManager.host.getEmail(), reciever, totalHost);
+//                            upTotalToFirebase(totalHost);
+//                            upBilltoFireStore(add, con, DataManager.host.getEmail(), reciever);
+                            //Toast.makeText(getContext(), "Ordered successfully.", Toast.LENGTH_SHORT).show();
                             ShopFragment.settle.setText(ShopFragment.total());
                         }
                     }
@@ -107,7 +110,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         return dialog;
     }
 
-    public void upBilltoFireStore(String address, String contact, String email, String name){
+    public static void upBilltoFireStore(String address, String contact, String email, String name) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyyHHmmss");
         SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
@@ -121,30 +124,30 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         s1.put("BillDate", dated);
         s1.put("Email", email);
         s1.put("Name", name);
-        s1.put("Address",address);
+        s1.put("Address", address);
         s1.put("Contact", contact);
-        s1.put("Total",total());
-        s1.put("BillStatus","0"); //0: not yet delivered 1: delivered
-        db.collection("Ordered" ).document(docName).set(s1).addOnSuccessListener(new OnSuccessListener<Void>() {
+        s1.put("Total", total());
+        s1.put("BillStatus", "0"); //0: not yet delivered 1: delivered
+        db.collection("Ordered").document(docName).set(s1).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
 
             }
         });
-        for(ShoeInBag ite: DataManager.list){
+        for (ShoeInBag ite : DataManager.list) {
             String docShoe = ite.getProductId() + "_" + ite.getShoeSize();
             Map<String, Object> s = new HashMap<>();
-            s.put("ResourceID",ite.getResourceID());
-            s.put("productId",ite.getProductId());
-            s.put("productName",ite.getProductName());
-            s.put("productPrice",ite.getProductPrice());
-            s.put("shoeAmount",ite.getShoeAmount());
-            s.put("shoeSize",ite.getShoeSize());
-            s.put("remainingAmount",ite.getRemainingAmount());
-            s.put("type",ite.getType());
-            s.put("productType",ite.getProductType());
-            s.put("productBrand",ite.getProductBrand());
-            db.collection("Ordered/" + docName + "/ShoeList" ).document(docShoe).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
+            s.put("ResourceID", ite.getResourceID());
+            s.put("productId", ite.getProductId());
+            s.put("productName", ite.getProductName());
+            s.put("productPrice", ite.getProductPrice());
+            s.put("shoeAmount", ite.getShoeAmount());
+            s.put("shoeSize", ite.getShoeSize());
+            s.put("remainingAmount", ite.getRemainingAmount());
+            s.put("type", ite.getType());
+            s.put("productType", ite.getProductType());
+            s.put("productBrand", ite.getProductBrand());
+            db.collection("Ordered/" + docName + "/ShoeList").document(docShoe).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
 
@@ -161,28 +164,29 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         DataManager.shoeInBagAdapter.notifyDataSetChanged();
     }
 
-    public String ListShoeBought(){
+    public String ListShoeBought() {
         String var = "";
-        for(ShoeInBag ite: DataManager.list){
+        for (ShoeInBag ite : DataManager.list) {
             var = var + ite.getProductName() + " Size: " + ite.getShoeSize() + " Quantity: " + ite.getShoeAmount() + "\n";
         }
         return var;
     }
-    public void sendEmail(String email){
+
+    public void sendEmail(String email) {
         Thread sender = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     GmailSender sender = new GmailSender("zendiapplication@gmail.com", "ThucThienThangHuynh123");
                     sender.sendMail("Order in Zendi",
-                             "Dear " + reciever + ";\n" +
-                                   "Thanks for ordering our product and choosing Zendi as your best Shoe Shop.\n" +
-                                   "You have just bought:\n" +
-                                   ss +
-                                   "Your bill's value is: " + total + ".\n" +
-                                   "Please check your phone or email to be announced within the next days.\n" +
-                                   "To get more information of your bill, please Contact us with this email address.\n" +
-                                   "Faithfully you !",
+                            "Dear " + reciever + ";\n" +
+                                    "Thanks for ordering our product and choosing Zendi as your best Shoe Shop.\n" +
+                                    "You have just bought:\n" +
+                                    ss +
+                                    "Your bill's value is: " + total + ".\n" +
+                                    "Please check your phone or email to be announced within the next days.\n" +
+                                    "To get more information of your bill, please Contact us with this email address.\n" +
+                                    "Faithfully you !",
                             "zendiapplication@gmail.com",
                             email);
                 } catch (Exception e) {
@@ -192,33 +196,34 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         });
         sender.start();
     }
-    public String addTotalToHost(){
-        Integer temp;
-        String tempTotal =  DataManager.host.getTotal();
-        if(tempTotal == null || tempTotal.compareTo("") == 0){
-            temp = 0;
-        }
-        else temp = Integer.parseInt(DataManager.host.getTotal());
 
-        for (ShoeInBag a : DataManager.list)
-        {
-            temp += Integer.parseInt(a.getShoeAmount())*Integer.parseInt(a.getProductPrice());
+    public String addTotalToHost() {
+        Integer temp;
+        String tempTotal = DataManager.host.getTotal();
+        if (tempTotal == null || tempTotal.compareTo("") == 0) {
+            temp = 0;
+        } else temp = Integer.parseInt(DataManager.host.getTotal());
+
+        for (ShoeInBag a : DataManager.list) {
+            temp += Integer.parseInt(a.getShoeAmount()) * Integer.parseInt(a.getProductPrice());
         }
-       String last = temp.toString();
+        String last = temp.toString();
         return last;
     }
-    public void upTotalToFirebase(String totalHost){
+
+    public static void upTotalToFirebase(String totalHost) {
         DatabaseReference dt = FirebaseDatabase.getInstance().getReference();
         dt.child("Users").child(DataManager.host.getId()).child("total").setValue(totalHost);
     }
-    public static String total(){
-        String total_ ="$";
+
+    public static String total() {
+        String total_ = "$";
         Integer temp = 0;
-        for (ShoeInBag a : DataManager.list)
-         {
-            temp += Integer.parseInt(a.getShoeAmount())*Integer.parseInt(a.getProductPrice());
+        for (ShoeInBag a : DataManager.list) {
+            temp += Integer.parseInt(a.getShoeAmount()) * Integer.parseInt(a.getProductPrice());
         }
-        total_+= temp.toString();
-        return total_ ;
+        total_ += temp.toString();
+        return total_;
     }
 }
+
