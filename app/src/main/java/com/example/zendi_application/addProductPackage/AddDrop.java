@@ -186,7 +186,7 @@ public class AddDrop extends AppCompatActivity {
                     Toast.makeText(v.getContext(),"Invalid information, please check !! ",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (listURL.size() == 0)
+                if (listURL.size() == 0 && listURL != null)
                 {
                     Toast.makeText(v.getContext(),"Add drop's image, please",Toast.LENGTH_SHORT).show();
                     return;
