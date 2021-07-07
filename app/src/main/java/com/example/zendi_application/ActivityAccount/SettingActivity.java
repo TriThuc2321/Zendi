@@ -142,6 +142,9 @@ public class SettingActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
 
+                DataManager.shoeInWish.clear();
+                DataManager.list.clear();
+
                 DataManager.host = new User();
                 setResult(99);
                 //setResult(RESULT_OK, null);
