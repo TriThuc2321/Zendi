@@ -53,7 +53,6 @@ public class edit_deleteDrop extends AppCompatActivity {
     public static List<product2> selectedListProduct = new ArrayList<>();
     public static List<String> selectedListProductName = new ArrayList<>();
     public static String URLimage;
-
     public static String selectedDrop_categoryNumber, selectedDrop_dropNumber;
     public static Uri URIimage;
 
@@ -158,6 +157,16 @@ public class edit_deleteDrop extends AppCompatActivity {
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!(CheckValidEditText(dropnumber_editdrop.getText().toString()) == true &&
+                        CheckValidEditText(categorynumber_editdrop.getText().toString()) == true &&
+                        !caption_editdrop.getText().toString().isEmpty() == true &&
+                        !status_editdrop.getText().toString().isEmpty() == true))
+                {
+                    Toast.makeText(v.getContext(),"Invalid information, please check",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Integer count = 0;
                 String temp1 = dropnumber_editdrop.getText().toString();
                 String temp2 = categorynumber_editdrop.getText().toString();
@@ -281,5 +290,9 @@ public class edit_deleteDrop extends AppCompatActivity {
             image_editdrop.setImageURI(data.getData());
         }
 
+    }
+    public boolean CheckValidEditText(String object)
+    {
+        return (!object.isEmpty() && android.text.TextUtils.isDigitsOnly(object));
     }
 }
