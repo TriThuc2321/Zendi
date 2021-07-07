@@ -242,9 +242,6 @@ public class Account_Activity extends AppCompatActivity  {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-
-
-
                             //setData("","DD/ MM/ YY", mAuth.getCurrentUser().getEmail(),2, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","", 0);
                                openProfile();
                         } else {
@@ -256,8 +253,6 @@ public class Account_Activity extends AppCompatActivity  {
                     }
                 });
     }
-
-
     @Override
     protected void onStart() {
         super.onStart();

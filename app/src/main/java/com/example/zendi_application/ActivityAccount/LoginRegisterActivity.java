@@ -44,6 +44,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setResult(RESULT_CANCELED);
                 LoginRegisterActivity.super.onBackPressed();
+                startActivity(new Intent(LoginRegisterActivity.this, HomeScreen.class));
             }
         });
 
@@ -53,7 +54,6 @@ public class LoginRegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginRegisterActivity.this, Account_Activity.class);
                 startActivity(intent);
-                finish();
             }
         });
         findViewById(R.id.btnRegister).setOnClickListener(new View.OnClickListener() {
@@ -61,10 +61,8 @@ public class LoginRegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginRegisterActivity.this, Account_Activity.class);
                 startActivity(intent);
-                finish();
             }
         });
-
     }
 
     @Override

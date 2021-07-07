@@ -10,7 +10,6 @@
         android:background="@color/gold"
         android:subtitleTextColor="@color/black"
         android:navigationIcon="?attr/homeAsUpIndicator"
-
       />
 
     <TextView
@@ -149,15 +148,16 @@
         android:hint="Brand"
         android:layout_below="@+id/edit3" />
 
-    <EditText
+    <Spinner
         android:id="@+id/edit5"
-        android:layout_width="95dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:hint="Type"
         android:layout_below="@+id/edit3"
         android:layout_toRightOf="@id/edit4"
         android:layout_marginLeft="10dp"
+
         />
     <ImageView
         android:id="@+id/img_load"
@@ -167,6 +167,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="40dp"
         android:layout_marginTop="20dp"
+
         />
     <Button
         android:id="@+id/btnloadiamge"

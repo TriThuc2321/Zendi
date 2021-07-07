@@ -159,6 +159,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         }
         DataManager.list.clear();
         DataManager.shoeInBagAdapter.notifyDataSetChanged();
+        DataManager.getListOrderedFromFirestone();
     }
 
     public String ListShoeBought(){
@@ -199,7 +200,6 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
             temp = 0;
         }
         else temp = Integer.parseInt(DataManager.host.getTotal());
-
         for (ShoeInBag a : DataManager.list)
         {
             temp += Integer.parseInt(a.getShoeAmount())*Integer.parseInt(a.getProductPrice());

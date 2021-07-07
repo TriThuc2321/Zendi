@@ -1006,7 +1006,6 @@ public class DataManager {
     public static void GetUser(){
         dataBase = FirebaseDatabase.getInstance().getReference();
         if(currentUser!= null){
-
             dataBase.child("Users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -1015,13 +1014,15 @@ public class DataManager {
                     getShoeInWishFromFirestone("InWish/"+DataManager.host.getId()+"/ShoeinWish",DataManager.shoeInWish);
                 }
                 @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                public void onCancelled(@NonNull DatabaseError error){
 
                 }
             });
-
         }
-
+        else {
+            DataManager.shoeInWish.clear();
+            DataManager.list.clear();
+        }
     }
     public static List<ShoeInBag> listShoe;
     public static void getListOrderedFromFirestone() {
@@ -1037,7 +1038,6 @@ public class DataManager {
                     temp.setShoeList(listShoe);
                     orderedList.add(temp);
                 }
-                int a = orderedList.size();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -1045,6 +1045,7 @@ public class DataManager {
 
             }
         });
+
     }
     public static void getListShoeOrderFromFirestone(String collection, List<ShoeInBag> shoeList) {
         firestonedb.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
