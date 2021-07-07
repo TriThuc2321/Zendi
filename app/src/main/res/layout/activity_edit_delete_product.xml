@@ -13,7 +13,7 @@
         android:subtitleTextColor="@color/black"
         android:title="Edit Product"
         android:navigationIcon="?attr/homeAsUpIndicator"
-        android:titleTextColor="#575656"
+        android:titleTextColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></Toolbar>
