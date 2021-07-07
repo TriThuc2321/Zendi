@@ -312,6 +312,11 @@ public class AddDrop extends AppCompatActivity {
             listURL.clear();
             listimg.clear();
             selected_productlist.clear();
+            //
+            selected_productlist2.clear();
+            imageProductInDropAdapter_.SetData(selected_productlist2);
+            imageProductInDropAdapter_.notifyDataSetChanged();
+            //
             drop_ordinalEdit.setText("");
             dropcaptionEdit.setText("");
             droptypeEdit.setText("");
