@@ -161,7 +161,8 @@ public class edit_deleteDrop extends AppCompatActivity {
                 if (!(CheckValidEditText(dropnumber_editdrop.getText().toString()) == true &&
                         CheckValidEditText(categorynumber_editdrop.getText().toString()) == true &&
                         !caption_editdrop.getText().toString().isEmpty() == true &&
-                        !status_editdrop.getText().toString().isEmpty() == true))
+                        !status_editdrop.getText().toString().isEmpty() == true &&
+                        !type_editdrop.getText().toString().isEmpty() == true))
                 {
                     Toast.makeText(v.getContext(),"Invalid information, please check",Toast.LENGTH_SHORT).show();
                     return;
