@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Toolbar
+        android:id="@+id/toorbar_uploaddata"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/gold"
+        android:subtitleTextColor="@color/black"
+        android:navigationIcon="?attr/homeAsUpIndicator"
+
+      />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:textStyle="bold"
+        android:text=" Product List "
+        android:textSize="20dp"
+        android:layout_below="@+id/toorbar_uploaddata"
+        />
+
+    <EditText
+        android:id="@+id/position_"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:hint="Posision"
+        android:text="position"
+        android:textSize="13dp"
+        android:layout_below="@+id/toorbar_uploaddata"
+        android:layout_toRightOf="@+id/textView2"
+        />
+
+    <Button
+        android:id="@+id/pushdrop"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:background="@color/white"
+        android:text="PushDrop"
+        android:textSize="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/toorbar_uploaddata"
+        />
+
+    <Button
+        android:id="@+id/btngetdata"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:background="@color/white"
+        android:text="Show"
+        android:textSize="10dp"
+        android:layout_below="@+id/toorbar_uploaddata"
+        android:layout_toLeftOf="@+id/pushdrop"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleview_imageofproductlist"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/pushdrop"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+       />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/black"
+        android:orientation="horizontal"
+        android:layout_below="@+id/recycleview_imageofproductlist"/>
+    <Button
+        android:id="@+id/editbtn_uploaddata"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text=" Edit Product "
+        android:background="@color/black"
+        android:textColor="@color/white"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentRight="true"
+       />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textStyle="bold"
+        android:text=" New Product "
+        android:textSize="20dp"
+        android:layout_below="@+id/linearLayout"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleview_imageofnewproduct"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/editbtn_uploaddata"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        />
+
+    <EditText
+        android:id="@+id/edit1"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:hint="ID"
+        android:layout_below="@+id/recycleview_imageofnewproduct"
+        />
+    <EditText
+        android:id="@+id/edit2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/edit1"
+        android:hint="Name"
+        />
+
+    <EditText
+        android:id="@+id/edit3"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:inputType="number"
+        android:hint="Price"
+        android:layout_below="@+id/edit2"
+        />
+
+    <EditText
+        android:id="@+id/edit4"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:hint="Brand"
+        android:layout_below="@+id/edit3" />
+
+    <EditText
+        android:id="@+id/edit5"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Type"
+        android:layout_below="@+id/edit3"
+        android:layout_toRightOf="@id/edit4"
+        android:layout_marginLeft="10dp"
+        />
+    <ImageView
+        android:id="@+id/img_load"
+        android:layout_width="86dp"
+        android:layout_height="87dp"
+        android:layout_above="@+id/btnloadiamge"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        />
+    <Button
+        android:id="@+id/btnloadiamge"
+        android:layout_width="115dp"
+        android:layout_height="45dp"
+        android:background="@color/black"
+        android:text="Load Image"
+        android:layout_above="@+id/btnloaddata"
+        android:textColor="@color/white"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="15dp"
+        />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recycleview_imageofnewproduct"
+        android:layout_marginRight="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        />
+
+    <Button
+        android:id="@+id/btnloaddata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Push New Product"
+        android:layout_margin="10dp"
+        android:background="@color/gold"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

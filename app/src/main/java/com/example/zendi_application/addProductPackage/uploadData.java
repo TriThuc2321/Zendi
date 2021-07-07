@@ -60,7 +60,7 @@ public class uploadData extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_upload_data);
+        setContentView(R.layout.activity_upload_data2);
         btnload = findViewById(R.id.btnloaddata);
         btnloadimg = findViewById(R.id.btnloadiamge);
         btngetdata = findViewById(R.id.btngetdata);
@@ -119,15 +119,16 @@ public class uploadData extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 /// Check dieu kien trung ID
-                if (typeEdit.getText().toString().isEmpty() || android.text.TextUtils.isDigitsOnly(typeEdit.getText().toString()) == false)
+                if (idEdit.getText().toString().isEmpty() )
                 {
-                    Toast.makeText(v.getContext(),"Invalid information, please check !! ",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(),"Invalid information",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                for (product2 temp : DataManager.listProduct)
-                {
-                    if (temp.getProductId().compareTo(idEdit.getText().toString()) == 0)
+                int i =0;
+                for( i = 0; i<DataManager.listProduct.size(); i++){
+                    if (DataManager.listProduct.get(i).getProductId().compareTo(idEdit.getText().toString()) == 0)
                     {
+                        int a = 0;
                         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -140,10 +141,11 @@ public class uploadData extends AppCompatActivity {
                             }
                         };
                         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                        builder.setMessage("Here already have product with the same ID, Are you sure you want to change, the process of changing may cause data loss ??").setPositiveButton("Yes", dialogClickListener)
+                        builder.setMessage("Here already have product with the same ID. Are you sure you want to change, the process of changing may cause data loss?").setPositiveButton("Yes", dialogClickListener)
                                 .setNegativeButton("No", dialogClickListener).show();
                     }
                 }
+                if(i == DataManager.listProduct.size()) PushProduct();
 
 //                if (captionEdit.getText().length()>0 && typeEdit.getText().length()>0 && brandEdit.getText().length()>0
 //                        && priceEdit.getText().length() > 0 && idEdit.getText().length() > 0 && listURL.size() == 4) {
@@ -260,7 +262,7 @@ public class uploadData extends AppCompatActivity {
     }
     private void PushProduct()
     {
-        if (captionEdit.getText().length()>0 && typeEdit.getText().length()>0 && brandEdit.getText().length()>0
+        if (captionEdit.getText().length() > 0 && typeEdit.getText().length()>0 && brandEdit.getText().length()>0
                 && priceEdit.getText().length() > 0 && idEdit.getText().length() > 0 && listURL.size() == 4) {
             dataManager.getInstance();
             List<Integer> b = new ArrayList<>();
@@ -277,6 +279,12 @@ public class uploadData extends AppCompatActivity {
             imgview.setImageURI(null);
             imageAdapter2_.SetData(null);
             imageAdapter2_.notifyDataSetChanged();
+
+            idEdit.setText("");
+            priceEdit.setText("");
+            brandEdit.setText("");
+            typeEdit.setText("");
+            captionEdit.setText("");
         }
         else
         {
