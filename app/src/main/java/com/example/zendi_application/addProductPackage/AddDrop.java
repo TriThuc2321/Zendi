@@ -1,5 +1,6 @@
 package com.example.zendi_application.addProductPackage;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -178,40 +180,70 @@ public class AddDrop extends AppCompatActivity {
         pushbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (dropstatusEdit.getText().length() != 0 && dropcaptionEdit.getText().length() != 0
-                && droptypeEdit.getText().length() != 0 && drop_ordinalEdit.getText().length() != 0
-                && category_ordinalEdit.getText().length() != 0 && listimg.size() != 0 && selected_productlist != null) {
-                    List<product2> productList = new ArrayList<>();
-                    for (int i = 0; i < DataManager.listProduct.size(); i++) {
-                        for (int j = 0; j < selected_productlist.size(); j++) {
-                            if (DataManager.listProduct.get(i).getProductId().compareTo(selected_productlist.get(j)) == 0) {
-                                productList.add(DataManager.listProduct.get(i));
-                                continue;
-                            }
-                        }
-                    }
-                    drop2 a = new drop2(null, dropcaptionEdit.getText().toString(), dropstatusEdit.getText().toString(), droptypeEdit.getText().toString()
-                            , category_ordinalEdit.getText().toString(),drop_ordinalEdit.getText().toString(), selected_productlist, productList);
-                    String temp = "Drop_" + category_ordinalEdit.getText().toString() + "_" + drop_ordinalEdit.getText().toString() + "/";
-//                DataManager.Push_Image(temp,"Collection/Category_1/","",listURL);
-                    /// txt1 chua stt category, txt2 chua ten drop, txt3 chua stt cua drop
-                    DataManager.push_drop_To_FireStone((AddDrop) v.getContext(), temp, drop_ordinalEdit.getText().toString(), a, listURL);
-
-                    listURL.clear();
-                    listimg.clear();
-                    selected_productlist.clear();
-                    drop_ordinalEdit.setText("");
-                    dropcaptionEdit.setText("");
-                    droptypeEdit.setText("");
-                    dropstatusEdit.setText("");
-                    category_ordinalEdit.setText("");
-                    load_dropimage.setImageURI(null);
-                    Toast.makeText(v.getContext(),"Drop is Loaded !!",Toast.LENGTH_SHORT);
-                }
-                else
+                if (android.text.TextUtils.isDigitsOnly(category_ordinalEdit.getText().toString()) == false
+                && android.text.TextUtils.isDigitsOnly(drop_ordinalEdit.getText().toString()) == false)
                 {
-                    Toast.makeText(v.getContext(),"Please fill in all the information !!",Toast.LENGTH_SHORT);
+                    Toast.makeText(v.getContext(),"Invalid information, please check !! ",Toast.LENGTH_SHORT);
+                    return;
                 }
+
+                for (drop2 temp : DataManager.listDrop)
+                {
+                    if (temp.getCategoryNumber().compareTo(category_ordinalEdit.getText().toString()) == 0
+                    && temp.getDropNumber().compareTo(drop_ordinalEdit.getText().toString())==0)
+                    {
+                        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which) {
+                                    case DialogInterface.BUTTON_POSITIVE:
+                                        PushDrop();
+                                    case DialogInterface.BUTTON_NEGATIVE:
+                                        return;
+                                }
+                            }
+                        };
+                        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                        builder.setMessage("Here already have  drop with the same CategoryNumber and DropNumber, Are you sure you want to change, the process of changing may cause data loss ??").setPositiveButton("Yes", dialogClickListener)
+                                .setNegativeButton("No", dialogClickListener).show();
+                    }
+                }
+
+
+//                if (dropstatusEdit.getText().length() != 0 && dropcaptionEdit.getText().length() != 0
+//                && droptypeEdit.getText().length() != 0 && drop_ordinalEdit.getText().length() != 0
+//                && category_ordinalEdit.getText().length() != 0 && listimg.size() != 0 && selected_productlist != null) {
+//                    List<product2> productList = new ArrayList<>();
+//                    for (int i = 0; i < DataManager.listProduct.size(); i++) {
+//                        for (int j = 0; j < selected_productlist.size(); j++) {
+//                            if (DataManager.listProduct.get(i).getProductId().compareTo(selected_productlist.get(j)) == 0) {
+//                                productList.add(DataManager.listProduct.get(i));
+//                                continue;
+//                            }
+//                        }
+//                    }
+//                    drop2 a = new drop2(null, dropcaptionEdit.getText().toString(), dropstatusEdit.getText().toString(), droptypeEdit.getText().toString()
+//                            , category_ordinalEdit.getText().toString(),drop_ordinalEdit.getText().toString(), selected_productlist, productList);
+//                    String temp = "Drop_" + category_ordinalEdit.getText().toString() + "_" + drop_ordinalEdit.getText().toString() + "/";
+////                DataManager.Push_Image(temp,"Collection/Category_1/","",listURL);
+//                    /// txt1 chua stt category, txt2 chua ten drop, txt3 chua stt cua drop
+//                    DataManager.push_drop_To_FireStone((AddDrop) v.getContext(), temp, drop_ordinalEdit.getText().toString(), a, listURL);
+//
+//                    listURL.clear();
+//                    listimg.clear();
+//                    selected_productlist.clear();
+//                    drop_ordinalEdit.setText("");
+//                    dropcaptionEdit.setText("");
+//                    droptypeEdit.setText("");
+//                    dropstatusEdit.setText("");
+//                    category_ordinalEdit.setText("");
+//                    load_dropimage.setImageURI(null);
+//                    Toast.makeText(v.getContext(),"Drop is Loaded !!",Toast.LENGTH_SHORT);
+//                }
+//                else
+//                {
+//                    Toast.makeText(v.getContext(),"Please fill in all the information !!",Toast.LENGTH_SHORT);
+//                }
             }
         });
         adddropimagebtn.setOnClickListener(new View.OnClickListener() {
@@ -248,5 +280,42 @@ public class AddDrop extends AppCompatActivity {
             load_dropimage.setImageURI(data.getData());
         }
 
+    }
+    private void PushDrop()
+    {
+        if (dropstatusEdit.getText().length() != 0 && dropcaptionEdit.getText().length() != 0
+                && droptypeEdit.getText().length() != 0 && drop_ordinalEdit.getText().length() != 0
+                && category_ordinalEdit.getText().length() != 0 && listimg.size() != 0 && selected_productlist != null) {
+            List<product2> productList = new ArrayList<>();
+            for (int i = 0; i < DataManager.listProduct.size(); i++) {
+                for (int j = 0; j < selected_productlist.size(); j++) {
+                    if (DataManager.listProduct.get(i).getProductId().compareTo(selected_productlist.get(j)) == 0) {
+                        productList.add(DataManager.listProduct.get(i));
+                        continue;
+                    }
+                }
+            }
+            drop2 a = new drop2(null, dropcaptionEdit.getText().toString(), dropstatusEdit.getText().toString(), droptypeEdit.getText().toString()
+                    , category_ordinalEdit.getText().toString(),drop_ordinalEdit.getText().toString(), selected_productlist, productList);
+            String temp = "Drop_" + category_ordinalEdit.getText().toString() + "_" + drop_ordinalEdit.getText().toString() + "/";
+//                DataManager.Push_Image(temp,"Collection/Category_1/","",listURL);
+            /// txt1 chua stt category, txt2 chua ten drop, txt3 chua stt cua drop
+            DataManager.push_drop_To_FireStone(this, temp, drop_ordinalEdit.getText().toString(), a, listURL);
+            DataManager.listDrop.add(a);
+            listURL.clear();
+            listimg.clear();
+            selected_productlist.clear();
+            drop_ordinalEdit.setText("");
+            dropcaptionEdit.setText("");
+            droptypeEdit.setText("");
+            dropstatusEdit.setText("");
+            category_ordinalEdit.setText("");
+            load_dropimage.setImageURI(null);
+            Toast.makeText(this,"Drop is Loaded !!",Toast.LENGTH_SHORT);
+        }
+        else
+        {
+            Toast.makeText(this,"Please fill in all the information !!",Toast.LENGTH_SHORT);
+        }
     }
 }

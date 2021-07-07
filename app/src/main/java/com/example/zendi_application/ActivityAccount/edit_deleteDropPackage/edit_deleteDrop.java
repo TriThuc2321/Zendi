@@ -132,16 +132,6 @@ public class edit_deleteDrop extends AppCompatActivity {
                         if (selectedproductId.compareTo(temp.getProductId())== 0) {
                             product2 selectedproduct = new product2(temp.getProductId(), temp.getProductName(), temp.getProductPrice()
                                     , temp.getProductBrand(), temp.getProductType(), temp.getResourceID(), temp.getRemainingAmount(), temp.getType());
-//                            for (drop2 ite : DataManager.listDrop)
-//                            {
-//                                if (ite.getDropNumber() == selectedDrop_dropNumber && ite.getCategoryNumber() == selectedDrop_categoryNumber)
-//                                {
-//                                    ite.getListProductName().add(selectedproduct.getProductName());
-//                                    ite.getProductList().add(selectedproduct);
-//                                    edit_deleteDrop.productAdapter_editdrop.SetData(ite.getProductList(),(edit_deleteDrop) v.getContext());
-//                                    break;
-//                                }
-//                            }
                             if (selectedListProductName.contains(selectedproduct.getProductName()) == false) {
                                 selectedListProduct.add(selectedproduct);
                                 selectedListProductName.add(selectedproduct.getProductName());

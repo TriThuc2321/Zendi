@@ -1,10 +1,12 @@
 package com.example.zendi_application.addProductPackage;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import com.example.zendi_application.DataManager;
 import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.drop.drop2;
+import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
 
 import java.util.ArrayList;
@@ -115,44 +118,84 @@ public class uploadData extends AppCompatActivity {
         btnload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (captionEdit.getText().length()>0 && typeEdit.getText().length()>0 && brandEdit.getText().length()>0
-                && priceEdit.getText().length() > 0 && idEdit.getText().length() > 0 && listURL.size() == 4) {
-                    dataManager.getInstance();
-                    List<Integer> b = new ArrayList<>();
-                    for (int i = 0; i <= 13; i++) {
-                        b.add(20);
-                    }
-                    product2 mproduct = new product2(idEdit.getText().toString(), captionEdit.getText().toString(),
-                            priceEdit.getText().toString(), brandEdit.getText().toString(), typeEdit.getText().toString(), new ArrayList<String>(), b, 1);
-                    DataManager.listProduct.add(mproduct);
-
-                    DataManager.push_Object_To_FireStone((uploadData)v.getContext(), "Product", idEdit.getText().toString(), mproduct, listURL);
-                    listURL.clear();
-                    listimg.clear();
-                    imgview.setImageURI(null);
-                }
-                else
+                /// Check dieu kien trung ID
+                if (android.text.TextUtils.isDigitsOnly(typeEdit.getText().toString()) == false)
                 {
-                    if (captionEdit.getText().length()== 0 || typeEdit.getText().length() == 0 || brandEdit.getText().length() == 0
-                            || priceEdit.getText().length() == 0 || idEdit.getText().length() == 0 )
+                    Toast.makeText(v.getContext(),"Invalid information, please check !! ",Toast.LENGTH_SHORT);
+                    return;
+                }
+                for (product2 temp : DataManager.listProduct)
+                {
+                    if (temp.getProductId().compareTo(idEdit.getText().toString()) == 0)
                     {
-                            Toast.makeText(v.getContext(),"Bạn Vừa Bỏ Sót Thông Tin Sản Phẩm !!",Toast.LENGTH_SHORT);
-
-                    }
-                    else
-                    if (listURL.size() < 4)
-                    {
-                        Toast.makeText(v.getContext(),"Mỗi Sản Phẩm Nên Có Đủ 4 Tấm Hình !!",Toast.LENGTH_SHORT);
+                        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which) {
+                                    case DialogInterface.BUTTON_POSITIVE:
+                                        PushProduct();
+                                    case DialogInterface.BUTTON_NEGATIVE:
+                                        return;
+                                }
+                            }
+                        };
+                        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                        builder.setMessage("Here already have product with the same ID, Are you sure you want to change, the process of changing may cause data loss ??").setPositiveButton("Yes", dialogClickListener)
+                                .setNegativeButton("No", dialogClickListener).show();
                     }
                 }
 
-
+//                if (captionEdit.getText().length()>0 && typeEdit.getText().length()>0 && brandEdit.getText().length()>0
+//                        && priceEdit.getText().length() > 0 && idEdit.getText().length() > 0 && listURL.size() == 4) {
+//                    dataManager.getInstance();
+//                    List<Integer> b = new ArrayList<>();
+//                    for (int i = 0; i <= 13; i++) {
+//                        b.add(20);
+//                    }
+//                    product2 mproduct = new product2(idEdit.getText().toString(), captionEdit.getText().toString(),
+//                            priceEdit.getText().toString(), brandEdit.getText().toString(), typeEdit.getText().toString(), new ArrayList<String>(), b, 1);
+//                    DataManager.listProduct.add(mproduct);
+//
+//                    DataManager.push_Object_To_FireStone((uploadData)v.getContext(), "Product", idEdit.getText().toString(), mproduct, listURL);
+//                    listURL.clear();
+//                    listimg.clear();
+//                    imgview.setImageURI(null);
+//                    imageAdapter2_.SetData(null);
+//                    imageAdapter2_.notifyDataSetChanged();
+//                }
+//                else
+//                {
+//                    if (captionEdit.getText().length()== 0 || typeEdit.getText().length() == 0 || brandEdit.getText().length() == 0
+//                            || priceEdit.getText().length() == 0 || idEdit.getText().length() == 0 )
+//                    {
+//                        Toast.makeText(v.getContext(),"You are missing information, please complete it !!",Toast.LENGTH_SHORT);
+//
+//                    }
+//                    else
+//                    if (listURL.size() < 4)
+//                    {
+//                        Toast.makeText(v.getContext(), "Each product should have 4 pictures !!",Toast.LENGTH_SHORT);
+//                    }
+//                    if (listURL.size() > 4)
+//                    {
+//                        Toast.makeText(v.getContext(), "Each product should have 4 pictures, u added too many !!",Toast.LENGTH_SHORT);
+//                        listURL.clear();
+//                        imageAdapter2_.SetData(listURL);
+//                        imageAdapter2_.notifyDataSetChanged();
+//
+//                    }
+//                }
             }
         });
 
         btngetdata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (txtposition.getText().toString().isEmpty() == true || android.text.TextUtils.isDigitsOnly(txtposition.getText().toString()) == false)
+                {
+                    Toast.makeText(v.getContext(), "Please choose position of shoe !!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 List<product2> c = new ArrayList<>();
                 int n = 99;
                 DataManager.getImgUrlFromFirestone1(v.getContext(),"Product",c);
@@ -164,8 +207,6 @@ public class uploadData extends AppCompatActivity {
                 imageAdapter_.SetData(c,n);
                 imageAdapter_.notifyDataSetChanged();
                 imageRecycleView.setAdapter(imageAdapter_);
-
-                int d = 0;
             }
         });
 
@@ -191,6 +232,7 @@ public class uploadData extends AppCompatActivity {
     private void OpenImage() {
         if (listimg == null) listimg = new ArrayList<>();
         if (listURL == null) listURL = new ArrayList<>();
+
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -216,7 +258,50 @@ public class uploadData extends AppCompatActivity {
             }
 
     }
+    private void PushProduct()
+    {
+        if (captionEdit.getText().length()>0 && typeEdit.getText().length()>0 && brandEdit.getText().length()>0
+                && priceEdit.getText().length() > 0 && idEdit.getText().length() > 0 && listURL.size() == 4) {
+            dataManager.getInstance();
+            List<Integer> b = new ArrayList<>();
+            for (int i = 0; i <= 13; i++) {
+                b.add(20);
+            }
+            product2 mproduct = new product2(idEdit.getText().toString(), captionEdit.getText().toString(),
+                    priceEdit.getText().toString(), brandEdit.getText().toString(), typeEdit.getText().toString(), new ArrayList<String>(), b, 1);
+            DataManager.listProduct.add(mproduct);
 
+            DataManager.push_Object_To_FireStone(this, "Product", idEdit.getText().toString(), mproduct, listURL);
+            listURL.clear();
+            listimg.clear();
+            imgview.setImageURI(null);
+            imageAdapter2_.SetData(null);
+            imageAdapter2_.notifyDataSetChanged();
+        }
+        else
+        {
+            if (captionEdit.getText().length()== 0 || typeEdit.getText().length() == 0 || brandEdit.getText().length() == 0
+                    || priceEdit.getText().length() == 0 || idEdit.getText().length() == 0 )
+            {
+                Toast.makeText(this,"You are missing information, please complete it !!",Toast.LENGTH_SHORT);
+
+            }
+            else
+            if (listURL.size() < 4)
+            {
+                Toast.makeText(this, "Each product should have 4 pictures !!",Toast.LENGTH_SHORT);
+            }
+            if (listURL.size() > 4)
+            {
+                Toast.makeText(this, "Each product should have 4 pictures, u added too many !!",Toast.LENGTH_SHORT);
+                listURL.clear();
+                listimg.clear();
+                imgview.setImageURI(null);
+                imageAdapter2_.SetData(listURL);
+                imageAdapter2_.notifyDataSetChanged();
+            }
+        }
+    }
     protected void onStop() {
         setResult(0);
         super.onStop();
