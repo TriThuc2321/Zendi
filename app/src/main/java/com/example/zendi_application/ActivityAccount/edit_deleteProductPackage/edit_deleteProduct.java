@@ -20,6 +20,7 @@ import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 import com.example.zendi_application.addProductPackage.uploadData;
 import com.example.zendi_application.dropFragment.product_package.product2;
+import com.example.zendi_application.searchfragment.Transactor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -287,6 +288,9 @@ public class edit_deleteProduct extends AppCompatActivity {
                                 // xoa tren list tong
                                 for (product2 temp : DataManager.listProduct) {
                                     if (temp.getProductId() == selectedProductId) {
+                                        //thang
+                                        Transactor.getInstance().notifyDeleteProduct(temp);
+                                        //
                                         DataManager.listProduct.remove(temp);
                                         break;
                                     }
