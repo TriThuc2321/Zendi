@@ -33,11 +33,15 @@ public class edit_deleteProduct extends AppCompatActivity {
     List<product2> processedList = new ArrayList<>();
     List<String> changedProductList = new ArrayList<>();
     Button deletebtn,savebtn;
-    EditText nameedit, brandedit, priceedit, typeedit, remaining55edit, remaining6edit,
+    EditText nameedit, priceedit,  remaining55edit, remaining6edit,
             remaining65edit, remaining7edit, remaining75edit, remaining8edit, remaining85edit,
             remaining9edit,  remaining95edit,  remaining10edit,  remaining105edit,  remaining11edit,
             remaining115edit,  remaining12edit;
     String selectedProduct,selectedProductId;
+
+    List<String> typeSpinnerList = new ArrayList<>();
+    List<String> brandSpinnerList = new ArrayList<>();
+    Spinner brandSpinner, typeSpinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +49,9 @@ public class edit_deleteProduct extends AppCompatActivity {
         setContentView(R.layout.activity_edit_delete_product);
 
         nameedit = findViewById(R.id.nameproduct_editproduct);
-        brandedit = findViewById(R.id.brandproduct_editproduct);
+        brandSpinner = findViewById(R.id.brandproduct_editproduct);
         priceedit = findViewById(R.id.priceproduct_editproduct);
-        typeedit = findViewById(R.id.typeproduct_editproduct);
+        typeSpinner = findViewById(R.id.typeproduct_editproduct);
         progressBar_editproduct = findViewById(R.id.progress_bar_editproduct);
 
         remaining55edit = findViewById(R.id.remaining5_5_editproduct);
@@ -63,6 +67,8 @@ public class edit_deleteProduct extends AppCompatActivity {
         remaining105edit = findViewById(R.id.remaining10_5_editproduct);
         remaining11edit = findViewById(R.id.remaining11_editproduct);
 
+        createSpinnerType();
+        createSpinnerBrand();
 
         deletebtn = findViewById(R.id.deletebtn_editproduct);
         savebtn = findViewById(R.id.savebtn_editproduct);
@@ -88,8 +94,6 @@ public class edit_deleteProduct extends AppCompatActivity {
                 selectedProduct = processedList.get(position).getProductName();
                 selectedProductId = processedList.get(position).getProductId();
                 nameedit.setText(processedList.get(position).getProductName());
-                brandedit.setText(processedList.get(position).getProductBrand());
-                typeedit.setText(processedList.get(position).getProductType());
                 priceedit.setText(processedList.get(position).getProductPrice());
                 remaining55edit.setText(processedList.get(position).getRemainingAmount().get(0).toString());
                 remaining6edit.setText(processedList.get(position).getRemainingAmount().get(1).toString());
@@ -105,6 +109,28 @@ public class edit_deleteProduct extends AppCompatActivity {
                 remaining11edit.setText(processedList.get(position).getRemainingAmount().get(11).toString());
                 remaining115edit.setText(processedList.get(position).getRemainingAmount().get(12).toString());
                 remaining12edit.setText(processedList.get(position).getRemainingAmount().get(13).toString());
+
+                int i;
+                String temp = processedList.get(position).getProductBrand();
+                for(i =0; i< brandSpinnerList.size(); i++){
+                    if(temp.compareTo(brandSpinnerList.get(i)) == 0){
+                        break;
+                    }
+                }
+                brandSpinner.setSelection(i);
+
+                if(processedList.get(position).getProductType() == "1"){
+                    typeSpinner.setSelection(1);
+                }
+
+                else if(processedList.get(position).getProductType() == "2"){
+                    typeSpinner.setSelection(2);
+                }
+                else typeSpinner.setSelection(0);
+
+
+                /*brandedit.setText(processedList.get(position).getProductBrand());
+                typeedit.setText(processedList.get(position).getProductType());*/
             }
 
             @Override
@@ -120,9 +146,9 @@ public class edit_deleteProduct extends AppCompatActivity {
                     if (temp.getProductName() == selectedProduct)
                     {
                         temp.setProductName(nameedit.getText().toString());
-                        temp.setProductBrand(brandedit.getText().toString());
+                        temp.setProductBrand(brandSpinner.getSelectedItem().toString());
                         temp.setProductPrice(priceedit.getText().toString());
-                        temp.setProductType(typeedit.getText().toString());
+                        temp.setProductType(typeSpinner.getSelectedItem().toString());
                         temp.getRemainingAmount().set(0,Integer.parseInt(remaining55edit.getText().toString()));
                         temp.getRemainingAmount().set(1,Integer.parseInt(remaining6edit.getText().toString()));
                         temp.getRemainingAmount().set(2,Integer.parseInt(remaining65edit.getText().toString()));
@@ -147,9 +173,9 @@ public class edit_deleteProduct extends AppCompatActivity {
 //                                DataManager.listProduct.remove(temp1);
 //                                DataManager.listProduct.add(temp);
                                 temp1.setProductName(nameedit.getText().toString());
-                                temp1.setProductBrand(brandedit.getText().toString());
+                                temp1.setProductBrand(brandSpinner.getSelectedItem().toString());
                                 temp1.setProductPrice(priceedit.getText().toString());
-                                temp1.setProductType(typeedit.getText().toString());
+                                temp1.setProductType(typeSpinner.getSelectedItem().toString());
                                 temp1.getRemainingAmount().set(0,Integer.parseInt(remaining55edit.getText().toString()));
                                 temp1.getRemainingAmount().set(1,Integer.parseInt(remaining6edit.getText().toString()));
                                 temp1.getRemainingAmount().set(2,Integer.parseInt(remaining65edit.getText().toString()));
@@ -344,5 +370,29 @@ public class edit_deleteProduct extends AppCompatActivity {
             }
         });
 
+    }
+    private void createSpinnerType() {
+        typeSpinnerList.add("Both");
+        typeSpinnerList.add("Male");
+        typeSpinnerList.add("Female");
+        typeSpinner.setSelection(0);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_custom, typeSpinnerList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(arrayAdapter);
+    }
+
+    private void createSpinnerBrand() {
+        brandSpinnerList.add("ADIDAS");
+        brandSpinnerList.add("NIKE");
+        brandSpinnerList.add("PUMA");
+        brandSpinnerList.add("CONVERSE");
+        brandSpinnerList.add("REEBOK");
+        brandSpinnerList.add("NEW BALANCE");
+        brandSpinnerList.add("VANS");
+        brandSpinnerList.add("Other");
+        brandSpinner.setSelection(0);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_custom, brandSpinnerList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        brandSpinner.setAdapter(arrayAdapter);
     }
 }
