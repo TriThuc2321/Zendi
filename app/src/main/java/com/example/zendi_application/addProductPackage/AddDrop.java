@@ -323,11 +323,11 @@ public class AddDrop extends AppCompatActivity {
             dropstatusEdit.setText("");
             category_ordinalEdit.setText("");
             load_dropimage.setImageURI(null);
-            Toast.makeText(this,"Drop is Loaded !!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Drop is Loaded",Toast.LENGTH_SHORT).show();
         }
         else
         {
-            Toast.makeText(this,"Please fill in all the information !!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Please fill in all the information",Toast.LENGTH_SHORT).show();
         }
     }
 }
