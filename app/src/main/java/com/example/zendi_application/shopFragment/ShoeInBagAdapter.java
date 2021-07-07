@@ -109,7 +109,7 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
 
         @Override
         public void onClick(View v) {
-            String docName2 = shoeInBagList.get(getAdapterPosition()).getProductId();//thang
+
             String docName = shoeInBagList.get(getAdapterPosition()).getProductId() + "_" + shoeInBagList.get(getAdapterPosition()).getShoeSize();
             String docName2 = shoeInBagList.get(getAdapterPosition()).getProductId() ;
             FirebaseFirestore db = FirebaseFirestore.getInstance();
