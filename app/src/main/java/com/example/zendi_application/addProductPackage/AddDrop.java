@@ -148,7 +148,7 @@ public class AddDrop extends AppCompatActivity {
                     if (ite.getProductId().compareTo(selectedproductId) == 0)
                     {
                         selected_productlist2.remove(ite);
-                    Toast.makeText(v.getContext(),"Deleted Successfully",Toast.LENGTH_SHORT);
+                    Toast.makeText(v.getContext(),"Deleted Successfully",Toast.LENGTH_SHORT).show();
                     imageProductInDropAdapter_.SetData(selected_productlist2);
                     imageProductInDropAdapter_.notifyDataSetChanged();
                     selected_productlist.remove(selectedproductId);
@@ -166,7 +166,7 @@ public class AddDrop extends AppCompatActivity {
                     for (product2 ite : DataManager.listProduct) {
                         if (ite.getProductId() == selectedproductId)
                         {
-                            Toast.makeText(v.getContext(),"Added Successfully",Toast.LENGTH_SHORT);
+                            Toast.makeText(v.getContext(),"Added Successfully",Toast.LENGTH_SHORT).show();
                             selected_productlist2.add(ite);
                             imageProductInDropAdapter_.SetData(selected_productlist2);
                             imageProductInDropAdapter_.notifyDataSetChanged();
@@ -183,7 +183,12 @@ public class AddDrop extends AppCompatActivity {
                 if (android.text.TextUtils.isDigitsOnly(category_ordinalEdit.getText().toString()) == false
                 || android.text.TextUtils.isDigitsOnly(drop_ordinalEdit.getText().toString()) == false)
                 {
-                    Toast.makeText(v.getContext(),"Invalid information, please check !! ",Toast.LENGTH_SHORT);
+                    Toast.makeText(v.getContext(),"Invalid information, please check !! ",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (listURL.size() == 0)
+                {
+                    Toast.makeText(v.getContext(),"Add drop's image, please",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Integer count = 0;
@@ -313,11 +318,11 @@ public class AddDrop extends AppCompatActivity {
             dropstatusEdit.setText("");
             category_ordinalEdit.setText("");
             load_dropimage.setImageURI(null);
-            Toast.makeText(this,"Drop is Loaded !!",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Drop is Loaded !!",Toast.LENGTH_SHORT).show();
         }
         else
         {
-            Toast.makeText(this,"Please fill in all the information !!",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Please fill in all the information !!",Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -51,15 +51,15 @@ public class imageAdapter extends RecyclerView.Adapter<imageAdapter.imageViewHol
 
     @Override
     public int getItemCount() {
-        if (mListString != null && mtype != 99) return 4;
-        if (mListproduct!= null && mtype == 99) return mListproduct.size();
+        if (mListString != null && mtype != 999) return 4;
+        if (mListproduct!= null && mtype == 999) return mListproduct.size();
         return 0;
     }
 
     @Override
     public void onBindViewHolder(@NonNull imageViewHolder holder, int position) {
         /// load tam dau tien cua tat ca product
-        if (mtype == 99) {
+        if (mtype == 999) {
             product2 product2_ = mListproduct.get(position);
             if (product2_ == null) return;
 
@@ -67,7 +67,7 @@ public class imageAdapter extends RecyclerView.Adapter<imageAdapter.imageViewHol
             holder.imgname.setText(product2_.getProductName());
         }
         /// load tat ca anh cua 1 product chinh dinh
-        else if (mtype != 99) // mtype la so product do
+        else if (mtype != 999) // mtype la so product do
         {
             if (mListproduct.size() > mtype){
                 mListString = mListproduct.get(mtype).getResourceID();
