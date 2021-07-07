@@ -68,10 +68,12 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
         Glide.with(holder.shoeimg).load(shoeInWishList.get(position).getResourceID().get(0)).into(holder.shoeimg);
         holder.name.setText(shoeInWishList.get(position).getProductName());
         holder.size.setText(shoeInWishList.get(position).getShoeSize());
-        holder.price.setText(new StringBuilder("$").append(shoeInWishList.get(position).getProductPrice()));
+        holder.price.setText(new StringBuilder("$ Price").append(shoeInWishList.get(position).getProductPrice()));
         holder.itemView.setOnClickListener(view ->{
             itemClickListener.onItemClick(shoeInWishList.get(position));
         });
+        holder.shopBtn.setVisibility(View.INVISIBLE);
+        holder.size.setVisibility(View.INVISIBLE);
     }
 
 
@@ -90,7 +92,7 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
     public interface ItemClickListener{
         void onItemClick(ShoeInBag shoe);
     }
-    public class ShoeInWishViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ShoeInWishViewHolder extends RecyclerView.ViewHolder  { //implements View.OnClickListener
         ImageView shoeimg;
         TextView name,  size, price;
         Button shopBtn;
@@ -101,85 +103,85 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
             size = itemView.findViewById(R.id.shoe_size);
             price = itemView.findViewById(R.id.shoe_price);
             shopBtn = itemView.findViewById(R.id.shop_btn);
-            shopBtn.setOnClickListener(this);
+           // shopBtn.setOnClickListener(this);
     }
 
-        @Override
-        public void onClick(View v) {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            String docName = shoeInWishList.get(getAdapterPosition()).getProductId() + "_" + shoeInWishList.get(getAdapterPosition()).getShoeSize() ;
-            //thang
-            String docName2 = shoeInWishList.get(getAdapterPosition()).getProductId();
-            //
-            Integer test = 0;
-            for (ShoeInBag ite : DataManager.list)
-            {
-                //thang
-                db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName2)
-                        .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                    }
-                });
-                //
-                // Process add the shoe added
-                if (ite.getProductId().compareTo(shoeInWishList.get(getAdapterPosition()).getProductId()) == 0 && ite.getShoeSize().compareTo(shoeInWishList.get(getAdapterPosition()).getShoeSize()) == 0 )
-                {
-                    db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName)
-                            .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-
-
-                        }
-                    });
-                    DataManager.shoeInWish.remove(getAdapterPosition());
-                    DataManager.shoeInWishAdapter.notifyDataSetChanged();
-                    DataManager.shoeInBagAdapter.notifyDataSetChanged();
-                    test = 1;
-                    break;
-                }
-            }
-            if ( test == 0 ) {
-                Map<String, Object> s = new HashMap<>();
-            s.put("ResourceID",shoeInWishList.get(getAdapterPosition()).getResourceID());
-            s.put("productId",shoeInWishList.get(getAdapterPosition()).getProductId());
-            s.put("productName",shoeInWishList.get(getAdapterPosition()).getProductName());
-            s.put("productPrice",shoeInWishList.get(getAdapterPosition()).getProductPrice());
-            s.put("shoeAmount",shoeInWishList.get(getAdapterPosition()).getShoeAmount());
-            s.put("shoeSize",shoeInWishList.get(getAdapterPosition()).getShoeSize());
-            s.put("remainingAmount",shoeInWishList.get(getAdapterPosition()).getRemainingAmount());
-            s.put("type",shoeInWishList.get(getAdapterPosition()).getType());
-            s.put("productType",shoeInWishList.get(getAdapterPosition()).getProductType());
-            s.put("productBrand",shoeInWishList.get(getAdapterPosition()).getProductBrand());
-
-            db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName)
-                    .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                }
-            });
-            //thang
-                db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName2)
-                        .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                    }
-                });
-                //
-            DataManager.list.add(DataManager.shoeInWish.get(getAdapterPosition()));
-            DataManager.shoeInWish.remove(getAdapterPosition());
-            DataManager.shoeInWishAdapter.notifyDataSetChanged();
-            DataManager.shoeInBagAdapter.notifyDataSetChanged();
-            ShopFragment.settle.setText(ShopFragment.total());
-
-            db.collection("InBag/"+DataManager.host.getId()+"/ShoeList").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-
-                }
-            });
-            }
-        }
+//        @Override
+//        public void onClick(View v) {
+//            FirebaseFirestore db = FirebaseFirestore.getInstance();
+//            String docName = shoeInWishList.get(getAdapterPosition()).getProductId() + "_" + shoeInWishList.get(getAdapterPosition()).getShoeSize() ;
+//            //thang
+//            String docName2 = shoeInWishList.get(getAdapterPosition()).getProductId();
+//            //
+//            Integer test = 0;
+//            for (ShoeInBag ite : DataManager.list)
+//            {
+//                //thang
+//                db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName2)
+//                        .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                    }
+//                });
+//                //
+//                // Process add the shoe added
+//                if (ite.getProductId().compareTo(shoeInWishList.get(getAdapterPosition()).getProductId()) == 0 && ite.getShoeSize().compareTo(shoeInWishList.get(getAdapterPosition()).getShoeSize()) == 0 )
+//                {
+//                    db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName)
+//                            .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//
+//
+//                        }
+//                    });
+//                    DataManager.shoeInWish.remove(getAdapterPosition());
+//                    DataManager.shoeInWishAdapter.notifyDataSetChanged();
+//                    DataManager.shoeInBagAdapter.notifyDataSetChanged();
+//                    test = 1;
+//                    break;
+//                }
+//            }
+//            if ( test == 0 ) {
+//                Map<String, Object> s = new HashMap<>();
+//            s.put("ResourceID",shoeInWishList.get(getAdapterPosition()).getResourceID());
+//            s.put("productId",shoeInWishList.get(getAdapterPosition()).getProductId());
+//            s.put("productName",shoeInWishList.get(getAdapterPosition()).getProductName());
+//            s.put("productPrice",shoeInWishList.get(getAdapterPosition()).getProductPrice());
+//            s.put("shoeAmount",shoeInWishList.get(getAdapterPosition()).getShoeAmount());
+//            s.put("shoeSize",shoeInWishList.get(getAdapterPosition()).getShoeSize());
+//            s.put("remainingAmount",shoeInWishList.get(getAdapterPosition()).getRemainingAmount());
+//            s.put("type",shoeInWishList.get(getAdapterPosition()).getType());
+//            s.put("productType",shoeInWishList.get(getAdapterPosition()).getProductType());
+//            s.put("productBrand",shoeInWishList.get(getAdapterPosition()).getProductBrand());
+//
+//            db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName)
+//                    .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                @Override
+//                public void onSuccess(Void aVoid) {
+//                }
+//            });
+//            //thang
+//                db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName2)
+//                        .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                    }
+//                });
+//                //
+//            DataManager.list.add(DataManager.shoeInWish.get(getAdapterPosition()));
+//            DataManager.shoeInWish.remove(getAdapterPosition());
+//            DataManager.shoeInWishAdapter.notifyDataSetChanged();
+//            DataManager.shoeInBagAdapter.notifyDataSetChanged();
+//            ShopFragment.settle.setText(ShopFragment.total());
+//
+//            db.collection("InBag/"+DataManager.host.getId()+"/ShoeList").document(docName).set(s).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                @Override
+//                public void onSuccess(Void aVoid) {
+//
+//                }
+//            });
+//           }
+//        }
     }
 }
