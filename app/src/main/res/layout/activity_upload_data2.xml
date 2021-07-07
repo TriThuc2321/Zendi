@@ -30,7 +30,6 @@
         android:layout_height="40dp"
         android:layout_margin="5dp"
         android:hint="Posision"
-        android:text="position"
         android:textSize="13dp"
         android:layout_below="@+id/toorbar_uploaddata"
         android:layout_toRightOf="@+id/textView2"
