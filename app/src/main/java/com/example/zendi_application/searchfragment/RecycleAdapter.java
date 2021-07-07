@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.RecycleViewHolder> {
-    private List<product2> product2List = new ArrayList<>();
+    public List<product2> product2List = new ArrayList<>();
     public static class RecycleViewHolder extends RecyclerView.ViewHolder{
         public ImageView imageView;
         public TextView NameOfElement;
@@ -65,7 +65,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.RecycleV
         }
         for(product2 product : DataManager.listProduct)
         {
-            if (brandstring.equals(product.getProductBrand()) && (sexstring.equals(product.getProductType()) || product.getProductType().equals("3")) && product2List.size() < 5)
+            if (brandstring.equals(product.getProductBrand().toUpperCase()) && (sexstring.equals(product.getProductType()) || product.getProductType().equals("3")) && product2List.size() < 5)
                 product2List.add(product);
         }
     }

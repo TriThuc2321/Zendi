@@ -30,6 +30,7 @@ import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
+import com.example.zendi_application.searchfragment.Transactor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -272,7 +273,9 @@ public class uploadData extends AppCompatActivity {
             product2 mproduct = new product2(idEdit.getText().toString(), captionEdit.getText().toString(),
                     priceEdit.getText().toString(), brandEdit.getText().toString(), typeEdit.getText().toString(), new ArrayList<String>(), b, 1);
             DataManager.listProduct.add(mproduct);
-
+            //thang
+            Transactor.getInstance().notifyAddProduct(mproduct);
+            //
             DataManager.push_Object_To_FireStone(this, "Product", idEdit.getText().toString(), mproduct, listURL);
             listURL.clear();
             listimg.clear();

@@ -1,5 +1,7 @@
 package com.example.zendi_application.searchfragment;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.dropFragment.product_package.product2;
 import com.example.zendi_application.searchfragment.allShoe.MyEnum;
@@ -11,6 +13,20 @@ public class Transactor {
     public static MyEnum.Sex sex;
     public static MyEnum.Brand brand;
     public static Transactor instance;
+    public RecycleAdapter adtAdidasMen;
+    public RecycleAdapter adtNikeMen;
+    public RecycleAdapter adtPumaMen;
+    public RecycleAdapter adtVansMen;
+    public RecycleAdapter adtReeMen;
+    public RecycleAdapter adtNewMen;
+    public RecycleAdapter adtConverseMen;
+    public RecycleAdapter adtAdidasWoMen;
+    public RecycleAdapter adtNikeWoMen;
+    public RecycleAdapter adtPumaWoMen;
+    public RecycleAdapter adtVansWoMen;
+    public RecycleAdapter adtReeWoMen;
+    public RecycleAdapter adtNewWoMen;
+    public RecycleAdapter adtConverseWoMen;
     public static Transactor getInstance() {
         if (instance == null) instance = new Transactor();
         return instance;
@@ -24,5 +40,80 @@ public class Transactor {
                 return i;
         }
         return -1;
+    }
+    public void menAdapter(RecyclerView.Adapter adidas, RecyclerView.Adapter vans, RecyclerView.Adapter cons, RecyclerView.Adapter ree, RecyclerView.Adapter news, RecyclerView.Adapter puma, RecyclerView.Adapter nike)
+    {
+        adtAdidasMen = (RecycleAdapter) adidas;
+        adtConverseMen = (RecycleAdapter) cons;
+        adtNewMen = (RecycleAdapter) news;
+        adtNikeMen = (RecycleAdapter) nike;
+        adtPumaMen = (RecycleAdapter) puma;
+        adtReeMen = (RecycleAdapter) ree;
+        adtVansMen = (RecycleAdapter) vans;
+    }
+    public void womenAdapter(RecyclerView.Adapter adidas, RecyclerView.Adapter vans, RecyclerView.Adapter cons, RecyclerView.Adapter ree, RecyclerView.Adapter news, RecyclerView.Adapter puma, RecyclerView.Adapter nike)
+    {
+        adtAdidasWoMen = (RecycleAdapter) adidas;
+        adtConverseWoMen = (RecycleAdapter) cons;
+        adtNewWoMen = (RecycleAdapter) news;
+        adtNikeWoMen = (RecycleAdapter) nike;
+        adtPumaWoMen = (RecycleAdapter) puma;
+        adtReeWoMen = (RecycleAdapter) ree;
+        adtVansWoMen = (RecycleAdapter) vans;
+    }
+    public void notifyAddProduct(product2 newProduct)
+    {
+        if(newProduct.getProductType().equals("1"))
+        {
+            //men
+            switch (newProduct.getProductBrand().toUpperCase())
+            {
+                case "ADIDAS": adtAdidasMen.product2List.add(newProduct);adtAdidasMen.notifyDataSetChanged();break;
+                case "NIKE": adtNikeMen.product2List.add(newProduct);adtNikeMen.notifyDataSetChanged();break;
+                case "PUMA": adtPumaMen.product2List.add(newProduct);adtPumaMen.notifyDataSetChanged();break;
+                case "NEW BALANCE": adtNewMen.product2List.add(newProduct);adtNewMen.notifyDataSetChanged();break;
+                case "REEBOK": adtReeMen.product2List.add(newProduct);adtReeMen.notifyDataSetChanged();break;
+                case "VANS": adtVansMen.product2List.add(newProduct);adtVansMen.notifyDataSetChanged();break;
+                default: adtConverseMen.product2List.add(newProduct);adtConverseMen.notifyDataSetChanged();
+            }
+        }
+        else if(newProduct.getProductType().equals("2"))
+        {
+            //women
+            switch (newProduct.getProductBrand().toUpperCase())
+            {
+                case "ADIDAS": adtAdidasWoMen.product2List.add(newProduct);adtAdidasWoMen.notifyDataSetChanged();break;
+                case "NIKE": adtNikeWoMen.product2List.add(newProduct);adtNikeWoMen.notifyDataSetChanged();break;
+                case "PUMA": adtPumaWoMen.product2List.add(newProduct);adtPumaWoMen.notifyDataSetChanged();break;
+                case "NEW BALANCE": adtNewWoMen.product2List.add(newProduct);adtNewWoMen.notifyDataSetChanged();break;
+                case "REEBOK": adtReeWoMen.product2List.add(newProduct);adtReeWoMen.notifyDataSetChanged();break;
+                case "VANS": adtVansWoMen.product2List.add(newProduct);adtVansWoMen.notifyDataSetChanged();break;
+                default: adtConverseWoMen.product2List.add(newProduct);adtConverseWoMen.notifyDataSetChanged();
+            }
+        }
+        else if(newProduct.getProductType().equals("3"))
+        {
+            //men and women
+            switch (newProduct.getProductBrand().toUpperCase())
+            {
+                case "ADIDAS": adtAdidasMen.product2List.add(newProduct);adtAdidasMen.notifyDataSetChanged();break;
+                case "NIKE": adtNikeMen.product2List.add(newProduct);adtNikeMen.notifyDataSetChanged();break;
+                case "PUMA": adtPumaMen.product2List.add(newProduct);adtPumaMen.notifyDataSetChanged();break;
+                case "NEW BALANCE": adtNewMen.product2List.add(newProduct);adtNewMen.notifyDataSetChanged();break;
+                case "REEBOK": adtReeMen.product2List.add(newProduct);adtReeMen.notifyDataSetChanged();break;
+                case "VANS": adtVansMen.product2List.add(newProduct);adtVansMen.notifyDataSetChanged();break;
+                default: adtConverseMen.product2List.add(newProduct);adtConverseMen.notifyDataSetChanged();
+            }
+            switch (newProduct.getProductBrand().toUpperCase())
+            {
+                case "ADIDAS": adtAdidasWoMen.product2List.add(newProduct);adtAdidasWoMen.notifyDataSetChanged();break;
+                case "NIKE": adtNikeWoMen.product2List.add(newProduct);adtNikeWoMen.notifyDataSetChanged();break;
+                case "PUMA": adtPumaWoMen.product2List.add(newProduct);adtPumaWoMen.notifyDataSetChanged();break;
+                case "NEW BALANCE": adtNewWoMen.product2List.add(newProduct);adtNewWoMen.notifyDataSetChanged();break;
+                case "REEBOK": adtReeWoMen.product2List.add(newProduct);adtReeWoMen.notifyDataSetChanged();break;
+                case "VANS": adtVansWoMen.product2List.add(newProduct);adtVansWoMen.notifyDataSetChanged();break;
+                default: adtConverseWoMen.product2List.add(newProduct);adtConverseWoMen.notifyDataSetChanged();
+            }
+        }
     }
 }

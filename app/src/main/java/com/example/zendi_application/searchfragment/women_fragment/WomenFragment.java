@@ -311,6 +311,7 @@ public class WomenFragment extends Fragment {
             bt_balance_shoe.setVisibility(View.VISIBLE);
             cv_balance.setVisibility(View.VISIBLE);
         }
+        Transactor.getInstance().womenAdapter(adtAddidas, adtVans, adtConverse, adtRee, adtBalance, adtPuma, adtNike);
         return view;
     }
 }
