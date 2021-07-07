@@ -77,7 +77,7 @@ public class AdapterForSuggestion extends RecyclerView.Adapter<AdapterForSuggest
         else
         {
             for (product2 product : DataManager.listProduct) {
-                if (product.getProductName().toLowerCase(Locale.getDefault()).contains(charText)) {
+                if (product.getProductName().toLowerCase(Locale.getDefault()).contains(charText.toLowerCase())) {
                     arraylist.add(product);
                 }
             }
