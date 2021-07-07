@@ -14,11 +14,13 @@ import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -38,7 +40,8 @@ import java.util.List;
 public class uploadData extends AppCompatActivity {
     private Button btnload,btnloadimg,btngetdata,btnpushdrop,editbtn;
     public ImageView imgview;
-    public EditText idEdit,captionEdit,priceEdit,brandEdit,typeEdit,txtposition;
+    public EditText idEdit,captionEdit,priceEdit,brandEdit,txtposition;
+    public Spinner typeSpinner;
     public DataManager dataManager;
     private static  final  int IMAGE_REQUEST = 2;
     private Toolbar toolbar;
@@ -51,6 +54,9 @@ public class uploadData extends AppCompatActivity {
     private RecyclerView imageRecycleView2;
     public static imageAdapter imageAdapter_;
     public static imageAdapter2 imageAdapter2_;
+
+    List<String> typeSpinnerList = new ArrayList<>();
+
     protected void onResume() {
         super.onResume();
         uploadData.imageAdapter_.SetData(DataManager.listProduct,99);
@@ -70,7 +76,7 @@ public class uploadData extends AppCompatActivity {
         captionEdit = findViewById(R.id.edit2);
         priceEdit = findViewById(R.id.edit3);
         brandEdit = findViewById(R.id.edit4);
-        typeEdit = findViewById(R.id.edit5);
+        typeSpinner = findViewById(R.id.edit5);
         btnpushdrop = findViewById(R.id.pushdrop);
         txtposition = (EditText) findViewById(R.id.position_);
         progressBar = findViewById(R.id.progress_bar);
@@ -96,6 +102,13 @@ public class uploadData extends AppCompatActivity {
         imageRecycleView2.setAdapter(imageAdapter2_);
        // DataManager.GetNumberofCategory();
 
+        typeSpinnerList.add("Male");
+        typeSpinnerList.add("Female");
+        typeSpinnerList.add("Both");
+        typeSpinner.setSelection(0);
+        ArrayAdapter<String> arrayYearAdapter = new ArrayAdapter<String>(this, R.layout.spinner_custom, typeSpinnerList);
+        arrayYearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(arrayYearAdapter);
 
         /////
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -263,15 +276,20 @@ public class uploadData extends AppCompatActivity {
     }
     private void PushProduct()
     {
-        if (captionEdit.getText().length() > 0 && typeEdit.getText().length()>0 && brandEdit.getText().length()>0
+        if (captionEdit.getText().length() > 0  && brandEdit.getText().length()>0
                 && priceEdit.getText().length() > 0 && idEdit.getText().length() > 0 && listURL.size() == 4) {
             dataManager.getInstance();
             List<Integer> b = new ArrayList<>();
             for (int i = 0; i <= 13; i++) {
                 b.add(20);
             }
+            String tempType;
+            if(typeSpinner.getSelectedItem().toString() == "Male") tempType = "1";
+            else if(typeSpinner.getSelectedItem().toString() == "Female") tempType = "2";
+            else tempType = "3";
+
             product2 mproduct = new product2(idEdit.getText().toString(), captionEdit.getText().toString(),
-                    priceEdit.getText().toString(), brandEdit.getText().toString(), typeEdit.getText().toString(), new ArrayList<String>(), b, 1);
+                    priceEdit.getText().toString(), brandEdit.getText().toString(), tempType, new ArrayList<String>(), b, 1);
             DataManager.listProduct.add(mproduct);
             //thang
             Transactor.getInstance().notifyAddProduct(mproduct);
@@ -286,12 +304,12 @@ public class uploadData extends AppCompatActivity {
             idEdit.setText("");
             priceEdit.setText("");
             brandEdit.setText("");
-            typeEdit.setText("");
+            typeSpinner.setSelection(0);
             captionEdit.setText("");
         }
         else
         {
-            if (captionEdit.getText().length()== 0 || typeEdit.getText().length() == 0 || brandEdit.getText().length() == 0
+            if (captionEdit.getText().length()== 0 || brandEdit.getText().length() == 0
                     || priceEdit.getText().length() == 0 || idEdit.getText().length() == 0 )
             {
                 Toast.makeText(this,"You are missing information, please complete it !!",Toast.LENGTH_SHORT).show();
@@ -322,4 +340,7 @@ public class uploadData extends AppCompatActivity {
         setResult(0);
         super.onDestroy();
     }
+
+
+
 }
