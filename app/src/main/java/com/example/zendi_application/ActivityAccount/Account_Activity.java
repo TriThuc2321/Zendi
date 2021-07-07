@@ -256,8 +256,6 @@ public class Account_Activity extends AppCompatActivity  {
                     }
                 });
     }
-
-
     @Override
     protected void onStart() {
         super.onStart();
