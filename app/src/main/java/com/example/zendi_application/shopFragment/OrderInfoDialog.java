@@ -162,6 +162,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         }
         DataManager.list.clear();
         DataManager.shoeInBagAdapter.notifyDataSetChanged();
+        DataManager.getListOrderedFromFirestone();
     }
 
     public String ListShoeBought() {

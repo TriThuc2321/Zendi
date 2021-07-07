@@ -37,10 +37,8 @@
 
         <Spinner
             android:id="@+id/spinner_productlist_editproduct"
-            android:layout_width="250dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"></Spinner>
-
-
 
         <Button
             android:id="@+id/deletebtn_editproduct"
@@ -79,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:text="Name: "
                     android:layout_marginLeft="10dp"
@@ -97,25 +95,28 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:text="Brand: "
                     android:layout_marginLeft="10dp"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     ></TextView>
-                <EditText
+
+                <Spinner
                     android:id="@+id/brandproduct_editproduct"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"></EditText>
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"
+
+                    />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:text="Price: "
                     android:layout_marginLeft="10dp"
@@ -134,26 +135,26 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="65dp"
                     android:layout_height="wrap_content"
                     android:text="Type: "
                     android:layout_marginLeft="10dp"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     ></TextView>
-                <EditText
+                <Spinner
                     android:inputType="number"
                     android:id="@+id/typeproduct_editproduct"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"></EditText>
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:text="5.5UK remaining: "
                     android:layout_marginLeft="10dp"
@@ -172,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:text="6UK remaining: "
                     android:layout_marginLeft="10dp"
@@ -191,7 +192,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:text="6.5UK remaining: "
                     android:layout_marginLeft="10dp"
@@ -210,7 +211,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:text="7UK remaining: "
                     android:layout_marginLeft="10dp"
@@ -229,7 +230,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:text="7.5UK remaining: "
                     android:layout_marginLeft="10dp"
@@ -248,7 +249,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:text="8UK remaining: "
                     android:layout_marginLeft="10dp"
@@ -267,7 +268,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:text="8.5UK remaining: "
                     android:layout_marginLeft="10dp"
@@ -286,7 +287,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:text="9UK remaining: "
                     android:layout_marginLeft="10dp"
@@ -305,7 +306,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:text="9.5UK remaining: "
                     android:layout_marginLeft="10dp"
@@ -324,7 +325,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:text="10UK remaining: "
                     android:layout_marginLeft="10dp"
@@ -343,7 +344,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:text="10.5UK remaining: "
                     android:layout_marginLeft="10dp"
@@ -362,7 +363,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:text="11UK remaining: "
                     android:layout_marginLeft="10dp"
@@ -381,7 +382,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:text="11.5UK remaining: "
                     android:layout_marginLeft="10dp"
@@ -400,7 +401,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:text="12UK remaining: "
                     android:layout_marginLeft="10dp"
