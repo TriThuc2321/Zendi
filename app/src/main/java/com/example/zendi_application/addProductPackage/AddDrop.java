@@ -181,17 +181,18 @@ public class AddDrop extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (android.text.TextUtils.isDigitsOnly(category_ordinalEdit.getText().toString()) == false
-                && android.text.TextUtils.isDigitsOnly(drop_ordinalEdit.getText().toString()) == false)
+                || android.text.TextUtils.isDigitsOnly(drop_ordinalEdit.getText().toString()) == false)
                 {
                     Toast.makeText(v.getContext(),"Invalid information, please check !! ",Toast.LENGTH_SHORT);
                     return;
                 }
-
+                Integer count = 0;
                 for (drop2 temp : DataManager.listDrop)
                 {
                     if (temp.getCategoryNumber().compareTo(category_ordinalEdit.getText().toString()) == 0
                     && temp.getDropNumber().compareTo(drop_ordinalEdit.getText().toString())==0)
                     {
+                        count = 1;
                         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -208,6 +209,7 @@ public class AddDrop extends AppCompatActivity {
                                 .setNegativeButton("No", dialogClickListener).show();
                     }
                 }
+                if (count == 0) PushDrop();
 
 
 //                if (dropstatusEdit.getText().length() != 0 && dropcaptionEdit.getText().length() != 0

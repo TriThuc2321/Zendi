@@ -115,6 +115,31 @@ public class edit_deleteProduct extends AppCompatActivity {
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!(CheckValidEditText(remaining6edit.getText().toString()) == true &&
+                CheckValidEditText(remaining7edit.getText().toString()) == true &&
+                CheckValidEditText(remaining8edit.getText().toString()) == true &&
+                CheckValidEditText(remaining9edit.getText().toString()) == true &&
+                CheckValidEditText(remaining10edit.getText().toString()) == true &&
+                CheckValidEditText(remaining11edit.getText().toString()) == true &&
+                CheckValidEditText(remaining12edit.getText().toString()) == true &&
+                CheckValidEditText(remaining55edit.getText().toString())== true &&
+                CheckValidEditText(remaining65edit.getText().toString()) == true &&
+                        CheckValidEditText(remaining75edit.getText().toString()) == true &&
+                        CheckValidEditText(remaining85edit.getText().toString()) == true &&
+                        CheckValidEditText(remaining95edit.getText().toString()) == true &&
+                        CheckValidEditText(remaining105edit.getText().toString()) == true &&
+                        CheckValidEditText(remaining115edit.getText().toString()) == true &&
+                        CheckValidEditText(priceedit.getText().toString()) == true &&
+                        CheckValidEditText(typeedit.getText().toString()) == true &&
+                        !nameedit.getText().toString().isEmpty() &&
+                        !brandedit.getText().toString().isEmpty()
+                ))
+                {
+                    Toast.makeText(v.getContext(),"Invalid information, please check", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 for (product2 temp : processedList)
                 {
                     if (temp.getProductName() == selectedProduct)
@@ -344,5 +369,10 @@ public class edit_deleteProduct extends AppCompatActivity {
             }
         });
 
+    }
+    public boolean CheckValidEditText(String object)
+    {
+        String a = object;
+        return (!object.isEmpty() && android.text.TextUtils.isDigitsOnly(object));
     }
 }
