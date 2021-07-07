@@ -1006,7 +1006,6 @@ public class DataManager {
     public static void GetUser(){
         dataBase = FirebaseDatabase.getInstance().getReference();
         if(currentUser!= null){
-
             dataBase.child("Users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -1015,11 +1014,14 @@ public class DataManager {
                     getShoeInWishFromFirestone("InWish/"+DataManager.host.getId()+"/ShoeinWish",DataManager.shoeInWish);
                 }
                 @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                public void onCancelled(@NonNull DatabaseError error){
 
                 }
             });
-
+        }
+        else {
+            DataManager.shoeInWish.clear();
+            DataManager.list.clear();
         }
 
     }
