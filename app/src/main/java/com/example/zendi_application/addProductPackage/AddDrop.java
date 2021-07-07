@@ -183,10 +183,10 @@ public class AddDrop extends AppCompatActivity {
                 if (android.text.TextUtils.isDigitsOnly(category_ordinalEdit.getText().toString()) == false
                 || android.text.TextUtils.isDigitsOnly(drop_ordinalEdit.getText().toString()) == false)
                 {
-                    Toast.makeText(v.getContext(),"Invalid information, please check !! ",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(),"Invalid information, please check ",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (listURL.size() == 0 && listURL != null)
+                if (listURL == null || listURL.size() == 0 )
                 {
                     Toast.makeText(v.getContext(),"Add drop's image, please",Toast.LENGTH_SHORT).show();
                     return;
