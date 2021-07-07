@@ -119,6 +119,11 @@ public class edit_deleteProduct extends AppCompatActivity {
                 {
                     if (temp.getProductName() == selectedProduct)
                     {
+                        //thang
+                        Transactor.getInstance().oldID = temp.getProductId().toLowerCase();
+                        Transactor.getInstance().oldBranch = temp.getProductBrand().toLowerCase();
+                        Transactor.getInstance().oldType = temp.getProductType().toLowerCase();
+                        //
                         temp.setProductName(nameedit.getText().toString());
                         temp.setProductBrand(brandedit.getText().toString());
                         temp.setProductPrice(priceedit.getText().toString());
@@ -139,11 +144,13 @@ public class edit_deleteProduct extends AppCompatActivity {
                         temp.getRemainingAmount().set(13,Integer.parseInt(remaining12edit.getText().toString()));
                         if (changedProductList.contains(temp.getProductId()) == false)
                                 changedProductList.add(temp.getProductId());
-
+                        //thang
+                        Transactor.getInstance().notifyEdit(temp);
+                        //
                         for (product2 temp1 : DataManager.listProduct)
                         {
                             if ( temp1.getProductId() == temp.getProductId())
-                            {
+                              {
 //                                DataManager.listProduct.remove(temp1);
 //                                DataManager.listProduct.add(temp);
                                 temp1.setProductName(nameedit.getText().toString());
