@@ -68,7 +68,7 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
         Glide.with(holder.shoeimg).load(shoeInWishList.get(position).getResourceID().get(0)).into(holder.shoeimg);
         holder.name.setText(shoeInWishList.get(position).getProductName());
         holder.size.setText(shoeInWishList.get(position).getShoeSize());
-        holder.price.setText(new StringBuilder("Price: $").append(shoeInWishList.get(position).getProductPrice()));
+        holder.price.setText(new StringBuilder("$ Price").append(shoeInWishList.get(position).getProductPrice()));
         holder.itemView.setOnClickListener(view ->{
             itemClickListener.onItemClick(shoeInWishList.get(position));
         });
