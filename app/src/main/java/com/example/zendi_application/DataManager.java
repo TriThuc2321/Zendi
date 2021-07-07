@@ -21,6 +21,7 @@ import com.example.zendi_application.dropFragment.ModelSupportLoad;
 import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
+import com.example.zendi_application.shopFragment.OrderInfoDialog;
 import com.example.zendi_application.shopFragment.ShoeInBag;
 import com.example.zendi_application.shopFragment.ShoeInBagAdapter;
 import com.example.zendi_application.wishFragment.ShoeInWishAdapter;
@@ -667,6 +668,56 @@ public class DataManager {
             }
         });
     }
+    public static void LoadProductInformation_CheckremaningShoe(Context parent ,String path, List<product2> productList,List<ShoeInBag> shoeInBagList,String address, String contact, String email, String name,String totalHost)
+    {
+        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
+        firestoneGetProduct.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                productList.clear();
+                for (DocumentSnapshot documentSnapshot : task.getResult())
+                {
+                    // U have to need default constructor in product2 class to use the sequence below
+                    product2 temp = documentSnapshot.toObject(product2.class);
+                    productList.add(temp);
+                    int d = 1;
+                }
+
+                for (ShoeInBag temp : shoeInBagList)
+                {
+                    for (product2 temp2 : productList)
+                    {
+                        if (temp2.getProductId().compareTo(temp.getProductId()) == 0)
+                        {
+                            Integer size = DataManager.sizeConvert.get(temp.getShoeSize());
+                            Integer shoeamout = Integer.parseInt(temp.getShoeAmount());
+                            if ((Integer.parseInt(temp2.getRemainingAmount().get(size).toString()) - shoeamout) >= 0 )
+                            {
+                                temp2.getRemainingAmount().set(size,(Integer.parseInt(temp2.getRemainingAmount().get(size).toString()) - shoeamout));
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                db.collection("Product").document(temp2.getProductId()).set(temp2);
+                            }
+                            else
+                            {
+                                Toast.makeText(parent,temp.getProductName() + " has been out of stock",Toast.LENGTH_SHORT).show();;
+                                return;
+                            }
+                        }
+                    }
+                }
+                OrderInfoDialog.upTotalToFirebase(totalHost);
+                OrderInfoDialog.upBilltoFireStore(address,contact,email,name);
+                Toast.makeText(parent, "Ordered successfully.", Toast.LENGTH_SHORT).show();
+                AddDrop.imageproductlistAdapter_.notifyDataSetChanged();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+
 
     public static void LoadDropInformation(String path, List<drop2> listDrop)
     {
