@@ -119,9 +119,9 @@ public class uploadData extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 /// Check dieu kien trung ID
-                if (android.text.TextUtils.isDigitsOnly(typeEdit.getText().toString()) == false)
+                if (typeEdit.getText().toString().isEmpty() || android.text.TextUtils.isDigitsOnly(typeEdit.getText().toString()) == false)
                 {
-                    Toast.makeText(v.getContext(),"Invalid information, please check !! ",Toast.LENGTH_SHORT);
+                    Toast.makeText(v.getContext(),"Invalid information, please check !! ",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 for (product2 temp : DataManager.listProduct)
@@ -283,17 +283,17 @@ public class uploadData extends AppCompatActivity {
             if (captionEdit.getText().length()== 0 || typeEdit.getText().length() == 0 || brandEdit.getText().length() == 0
                     || priceEdit.getText().length() == 0 || idEdit.getText().length() == 0 )
             {
-                Toast.makeText(this,"You are missing information, please complete it !!",Toast.LENGTH_SHORT);
+                Toast.makeText(this,"You are missing information, please complete it !!",Toast.LENGTH_SHORT).show();
 
             }
             else
             if (listURL.size() < 4)
             {
-                Toast.makeText(this, "Each product should have 4 pictures !!",Toast.LENGTH_SHORT);
+                Toast.makeText(this, "Each product should have 4 pictures !!",Toast.LENGTH_SHORT).show();
             }
             if (listURL.size() > 4)
             {
-                Toast.makeText(this, "Each product should have 4 pictures, u added too many !!",Toast.LENGTH_SHORT);
+                Toast.makeText(this, "Each product should have 4 pictures, u added too many !!",Toast.LENGTH_SHORT).show();
                 listURL.clear();
                 listimg.clear();
                 imgview.setImageURI(null);

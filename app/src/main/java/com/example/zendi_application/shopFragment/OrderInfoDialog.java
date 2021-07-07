@@ -72,7 +72,11 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                         if(TextUtils.isEmpty(editaddress.getText().toString()) || TextUtils.isEmpty(editcontact.getText().toString()))
                         {
                             Toast.makeText(getContext(),"Please give fully your information",Toast.LENGTH_SHORT).show();
-                        }else {
+                        }
+                        else if((editcontact.getText().toString().length()!=10 && editcontact.getText().toString().length()!=11) || !android.text.TextUtils.isDigitsOnly(editcontact.getText().toString())){
+                            Toast.makeText(getContext(),"Invalid phone number",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
                             add = editaddress.getText().toString();
                             con = editcontact.getText().toString();
                             reciever = editName.getText().toString();

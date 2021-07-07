@@ -99,11 +99,6 @@ public class HomeScreen extends AppCompatActivity {
                     
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
                 }
-                else if (item.getItemId() == R.id.shop_owner_item) {
-                    Intent intent = new Intent(HomeScreen.this, uploadData.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
-                }
                 else if(item.getItemId() == R.id.staff_manager_item){
                     listUsers.clear();
                     DataManager.loadUser();
@@ -208,7 +203,7 @@ public class HomeScreen extends AppCompatActivity {
 
     void setShopOwner(){
         if(currentUser == null){
-            mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(false);
+            mAppBarTop.getMenu().findItem(R.id.staff_manager_item).setVisible(false);
         }
         else {
             dataBase.child("Users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
@@ -216,16 +211,11 @@ public class HomeScreen extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     User user = snapshot.getValue(User.class);
 
-                    if(user.getShopOwner() == 1){
-                        mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(true);
-                    }
-                    else if(user.getShopOwner() == 2){
-                        mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(true);
+                    if(user.getShopOwner() == 2 || user.getShopOwner() == 1){
                         mAppBarTop.getMenu().findItem(R.id.staff_manager_item).setVisible(true);
                     }
                     else{
                         mAppBarTop.getMenu().findItem(R.id.staff_manager_item).setVisible(false);
-                        mAppBarTop.getMenu().findItem(R.id.shop_owner_item).setVisible(false);
                     }
                 }
                 @Override

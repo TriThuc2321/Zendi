@@ -59,6 +59,32 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/shoe_manager_btn"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/custom_black_stroke"
+        >
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/storage_icon_admin"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shoe manager"
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/statistics_btn"
         android:layout_width="match_parent"
         android:layout_height="70dp"

@@ -8,14 +8,7 @@
         android:title="Account"
         android:contentDescription="Setting For Your Account"
         app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/shop_owner_item"
-        android:title=""
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/storage_icon2"
-        android:visible="false"
-        />
+    
 
     <item
         android:id="@+id/staff_manager_item"
