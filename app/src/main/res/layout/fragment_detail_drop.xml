@@ -29,17 +29,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"></ImageView>
 
-        <Button
-            android:id="@+id/back_detailfragment"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="12dp"
-            android:background="@null"
-            android:drawableLeft="@drawable/ic_baseline_keyboard_arrow_left_24_back_detail_drop"
-            app:layout_constraintLeft_toLeftOf="@+id/img_drop_collection"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/img_drop_collection"></Button>
+
 
         <Button
             android:id="@+id/namedrop"
@@ -56,8 +46,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/img_drop_collection">
 
-        </Button>
 
+        </Button>
+        <Button
+            android:id="@+id/back_detailfragment"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/ic_baseline_keyboard_arrow_left_24_back_detail_drop"
+            app:layout_constraintLeft_toLeftOf="@+id/img_drop_collection"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/img_drop_collection"></Button>
         <Button
             android:id="@+id/type_drop_collection"
             android:layout_width="wrap_content"

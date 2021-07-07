@@ -191,7 +191,8 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
             OrderInfoDialog dia = new OrderInfoDialog();
             dia.show(getFragmentManager(),"Order Information");
             settle.setText(total());
-        }else{
+        }
+        else{
             Toast.makeText(getContext(),"Let's get shoe in your bag first", Toast.LENGTH_SHORT).show();
             return;
         }

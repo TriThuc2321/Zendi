@@ -13,6 +13,9 @@ public class Transactor {
     public static MyEnum.Sex sex;
     public static MyEnum.Brand brand;
     public static Transactor instance;
+    public String oldBranch = "";
+    public String oldType = "";
+    public String oldID = "";
     public RecycleAdapter adtAdidasMen;
     public RecycleAdapter adtNikeMen;
     public RecycleAdapter adtPumaMen;
@@ -182,4 +185,40 @@ public class Transactor {
             }
         }
     }
+    public void notifyEdit(product2 newProduct)
+    {
+        product2 oldProduct = new product2();
+        oldProduct.setProductId(oldID.toUpperCase());
+        oldProduct.setProductBrand(oldBranch.toUpperCase());
+        oldProduct.setProductType(oldType.toUpperCase());
+        notifyDeleteProduct(oldProduct);
+        notifyAddProduct(newProduct);
+    }
+//    public void editInAdapter(product2 editProduct,RecycleAdapter adt)
+//    {
+//        for(product2 item : adt.product2List)
+//        {
+//            if(item.getProductId().equals(editProduct.getProductId()))
+//            {
+//                item.setProductName(editProduct.getProductName());
+//                item.setProductBrand(editProduct.getProductBrand());
+//                item.setProductPrice(editProduct.getProductPrice());
+//                item.setProductType(editProduct.getProductType());
+//                item.getRemainingAmount().set(0,Integer.parseInt(remaining55edit.getText().toString()));
+//                item.getRemainingAmount().set(1,Integer.parseInt(remaining6edit.getText().toString()));
+//                item.getRemainingAmount().set(2,Integer.parseInt(remaining65edit.getText().toString()));
+//                item.getRemainingAmount().set(3,Integer.parseInt(remaining7edit.getText().toString()));
+//                item.getRemainingAmount().set(4,Integer.parseInt(remaining75edit.getText().toString()));
+//                item.getRemainingAmount().set(5,Integer.parseInt(remaining8edit.getText().toString()));
+//                item.getRemainingAmount().set(6,Integer.parseInt(remaining85edit.getText().toString()));
+//                item.getRemainingAmount().set(7,Integer.parseInt(remaining9edit.getText().toString()));
+//                item.getRemainingAmount().set(8,Integer.parseInt(remaining95edit.getText().toString()));
+//                item.getRemainingAmount().set(9,Integer.parseInt(remaining10edit.getText().toString()));
+//                item.getRemainingAmount().set(10,Integer.parseInt(remaining105edit.getText().toString()));
+//                item.getRemainingAmount().set(11,Integer.parseInt(remaining11edit.getText().toString()));
+//                item.getRemainingAmount().set(12,Integer.parseInt(remaining115edit.getText().toString()));
+//                item.getRemainingAmount().set(13,Integer.parseInt(remaining12edit.getText().toString()));
+//            }
+//        }
+//    }
 }
