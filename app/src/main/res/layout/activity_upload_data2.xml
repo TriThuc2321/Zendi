@@ -10,7 +10,7 @@
         android:background="@color/gold"
         android:subtitleTextColor="@color/black"
         android:navigationIcon="?attr/homeAsUpIndicator"
-      />
+        />
 
     <TextView
         android:id="@+id/textView2"
@@ -68,7 +68,7 @@
         android:layout_below="@+id/pushdrop"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-       />
+        />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -87,7 +87,7 @@
         android:textColor="@color/white"
         android:layout_below="@+id/linearLayout"
         android:layout_alignParentRight="true"
-       />
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -108,90 +108,96 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         />
-
-    <EditText
-        android:id="@+id/edit1"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:hint="ID"
-        android:layout_below="@+id/recycleview_imageofnewproduct"
-        />
-    <EditText
-        android:id="@+id/edit2"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_below="@id/edit1"
-        android:hint="Name"
-        />
-
-    <EditText
-        android:id="@+id/edit3"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:inputType="number"
-        android:hint="Price"
-        android:layout_below="@+id/edit2"
-        />
-
-    <EditText
-        android:id="@+id/edit4"
-        android:layout_width="95dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:hint="Brand"
-        android:layout_below="@+id/edit3" />
-
-    <Spinner
-        android:id="@+id/edit5"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="Type"
-        android:layout_below="@+id/edit3"
-        android:layout_toRightOf="@id/edit4"
-        android:layout_marginLeft="10dp"
-
-        />
-    <ImageView
-        android:id="@+id/img_load"
-        android:layout_width="86dp"
-        android:layout_height="87dp"
-        android:layout_above="@+id/btnloadiamge"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="20dp"
-
-        />
-    <Button
-        android:id="@+id/btnloadiamge"
-        android:layout_width="115dp"
-        android:layout_height="45dp"
-        android:background="@color/black"
-        android:text="Load Image"
-        android:layout_above="@+id/btnloaddata"
-        android:textColor="@color/white"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="15dp"
-        />
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/recycleview_imageofnewproduct"
-        android:layout_marginRight="60dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp"
-        />
+        android:layout_below="@+id/recycleview_imageofnewproduct"
 
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <EditText
+                android:id="@+id/edit1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:hint="ID"
+
+                />
+            <EditText
+                android:id="@+id/edit2"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/edit1"
+                android:hint="Name"
+                />
+
+            <EditText
+                android:id="@+id/edit3"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:inputType="number"
+                android:hint="Price"
+                android:layout_below="@+id/edit2"
+                />
+
+            <Spinner
+                android:id="@+id/edit4"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/edit3" />
+
+            <Spinner
+                android:id="@+id/edit5"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/edit4"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="16dp"
+                />
+
+            <ImageView
+                android:id="@+id/img_load"
+                android:layout_width="86dp"
+                android:layout_height="87dp"
+                android:layout_below="@+id/progress_bar"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="35dp"
+                />
+
+            <Button
+                android:id="@+id/btnloadiamge"
+                android:layout_width="115dp"
+                android:layout_height="45dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/img_load"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/black"
+                android:text="Load Image"
+                android:textColor="@color/white" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="55dp" />
+
+        </RelativeLayout></ScrollView>
     <Button
         android:id="@+id/btnloaddata"
         android:layout_width="match_parent"
@@ -201,4 +207,5 @@
         android:background="@color/gold"
         android:layout_alignParentBottom="true"
         />
+
 </RelativeLayout>

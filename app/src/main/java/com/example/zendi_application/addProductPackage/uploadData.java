@@ -40,8 +40,8 @@ import java.util.List;
 public class uploadData extends AppCompatActivity {
     private Button btnload,btnloadimg,btngetdata,btnpushdrop,editbtn;
     public ImageView imgview;
-    public EditText idEdit,captionEdit,priceEdit,brandEdit,txtposition;
-    public Spinner typeSpinner;
+    public EditText idEdit,captionEdit,priceEdit,txtposition;
+    public Spinner typeSpinner, brandSpinner;
     public DataManager dataManager;
     private static  final  int IMAGE_REQUEST = 2;
     private Toolbar toolbar;
@@ -56,6 +56,7 @@ public class uploadData extends AppCompatActivity {
     public static imageAdapter2 imageAdapter2_;
 
     List<String> typeSpinnerList = new ArrayList<>();
+    List<String> brandSpinnerList = new ArrayList<>();
 
     protected void onResume() {
         super.onResume();
@@ -75,8 +76,8 @@ public class uploadData extends AppCompatActivity {
         idEdit = findViewById(R.id.edit1);
         captionEdit = findViewById(R.id.edit2);
         priceEdit = findViewById(R.id.edit3);
-        brandEdit = findViewById(R.id.edit4);
         typeSpinner = findViewById(R.id.edit5);
+        brandSpinner = findViewById(R.id.edit4);
         btnpushdrop = findViewById(R.id.pushdrop);
         txtposition = (EditText) findViewById(R.id.position_);
         progressBar = findViewById(R.id.progress_bar);
@@ -102,13 +103,9 @@ public class uploadData extends AppCompatActivity {
         imageRecycleView2.setAdapter(imageAdapter2_);
        // DataManager.GetNumberofCategory();
 
-        typeSpinnerList.add("Male");
-        typeSpinnerList.add("Female");
-        typeSpinnerList.add("Both");
-        typeSpinner.setSelection(0);
-        ArrayAdapter<String> arrayYearAdapter = new ArrayAdapter<String>(this, R.layout.spinner_custom, typeSpinnerList);
-        arrayYearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeSpinner.setAdapter(arrayYearAdapter);
+        createSpinnerType();
+        createSpinnerBrand();
+
 
         /////
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -243,7 +240,30 @@ public class uploadData extends AppCompatActivity {
         });
     }
 
+    private void createSpinnerType() {
+        typeSpinnerList.add("Both");
+        typeSpinnerList.add("Male");
+        typeSpinnerList.add("Female");
+        typeSpinner.setSelection(0);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_custom, typeSpinnerList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(arrayAdapter);
+    }
 
+    private void createSpinnerBrand() {
+        brandSpinnerList.add("ADIDAS");
+        brandSpinnerList.add("NIKE");
+        brandSpinnerList.add("PUMA");
+        brandSpinnerList.add("CONVERSE");
+        brandSpinnerList.add("REEBOK");
+        brandSpinnerList.add("NEW BALANCE");
+        brandSpinnerList.add("VANS");
+        brandSpinnerList.add("Other");
+        brandSpinner.setSelection(0);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_custom, brandSpinnerList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        brandSpinner.setAdapter(arrayAdapter);
+    }
 
     private void OpenImage() {
         if (listimg == null) listimg = new ArrayList<>();
@@ -276,7 +296,7 @@ public class uploadData extends AppCompatActivity {
     }
     private void PushProduct()
     {
-        if (captionEdit.getText().length() > 0  && brandEdit.getText().length()>0
+        if (captionEdit.getText().length() > 0
                 && priceEdit.getText().length() > 0 && idEdit.getText().length() > 0 && listURL.size() == 4) {
             dataManager.getInstance();
             List<Integer> b = new ArrayList<>();
@@ -289,7 +309,7 @@ public class uploadData extends AppCompatActivity {
             else tempType = "3";
 
             product2 mproduct = new product2(idEdit.getText().toString(), captionEdit.getText().toString(),
-                    priceEdit.getText().toString(), brandEdit.getText().toString(), tempType, new ArrayList<String>(), b, 1);
+                    priceEdit.getText().toString(), brandSpinner.getSelectedItem().toString(), tempType, new ArrayList<String>(), b, 1);
             DataManager.listProduct.add(mproduct);
             //thang
             Transactor.getInstance().notifyAddProduct(mproduct);
@@ -303,13 +323,13 @@ public class uploadData extends AppCompatActivity {
 
             idEdit.setText("");
             priceEdit.setText("");
-            brandEdit.setText("");
+            brandSpinner.setSelection(0);
             typeSpinner.setSelection(0);
             captionEdit.setText("");
         }
         else
         {
-            if (captionEdit.getText().length()== 0 || brandEdit.getText().length() == 0
+            if (captionEdit.getText().length()== 0
                     || priceEdit.getText().length() == 0 || idEdit.getText().length() == 0 )
             {
                 Toast.makeText(this,"You are missing information, please complete it !!",Toast.LENGTH_SHORT).show();
