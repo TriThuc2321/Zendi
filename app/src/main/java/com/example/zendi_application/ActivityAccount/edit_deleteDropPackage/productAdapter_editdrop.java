@@ -51,6 +51,7 @@ public class productAdapter_editdrop  extends RecyclerView.Adapter<productAdapte
                 if (edit_deleteDrop.selectedListProductName.contains(product_.getProductName()) == true)
                 {
                     edit_deleteDrop.selectedListProduct.removeIf(p -> (p.getProductName() == product_.getProductName()));
+                    edit_deleteDrop.selected_producidtlist.removeIf(p -> (p == product_.getProductId()));
                     edit_deleteDrop.selectedListProductName.removeIf(p -> (p == product_.getProductName()));
                     edit_deleteDrop.productAdapter_editdrop.SetData(edit_deleteDrop.selectedListProduct,(edit_deleteDrop) v.getContext());
                     Toast.makeText(v.getContext(), "Delete Successfully !", Toast.LENGTH_SHORT).show();

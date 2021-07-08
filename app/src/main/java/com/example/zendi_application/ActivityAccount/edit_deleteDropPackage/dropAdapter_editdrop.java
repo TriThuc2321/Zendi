@@ -61,6 +61,7 @@ public class dropAdapter_editdrop extends RecyclerView.Adapter<dropAdapter_editd
 
                 edit_deleteDrop.selectedListProduct = new ArrayList<>();
                 edit_deleteDrop.selectedListProductName = new ArrayList<>();
+                edit_deleteDrop.selected_producidtlist = new ArrayList<>();
                 edit_deleteDrop.URLimage = null;
                 edit_deleteDrop.URIimage = null;
                 edit_deleteDrop.selectedDrop_categoryNumber = drop_.getCategoryNumber();
@@ -69,6 +70,7 @@ public class dropAdapter_editdrop extends RecyclerView.Adapter<dropAdapter_editd
                 for (product2 ite : drop_.getProductList()) {
                     edit_deleteDrop.selectedListProduct.add(ite);
                     edit_deleteDrop.selectedListProductName.add(ite.getProductName());
+                    edit_deleteDrop.selected_producidtlist.add(ite.getProductId());
                 }
 
                 mContext.caption_editdrop.setText(drop_.getCaption());

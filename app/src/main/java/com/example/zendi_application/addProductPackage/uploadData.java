@@ -60,7 +60,7 @@ public class uploadData extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-        uploadData.imageAdapter_.SetData(DataManager.listProduct,99);
+        uploadData.imageAdapter_.SetData(DataManager.listProduct,999);
         uploadData.imageAdapter_.notifyDataSetChanged();
         Log.d("MainActivity Lifecycle", "===== onResume =====");
     }
@@ -89,7 +89,7 @@ public class uploadData extends AppCompatActivity {
         imageAdapter_ = new imageAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
         imageRecycleView.setLayoutManager(linearLayoutManager);
-        uploadData.imageAdapter_.SetData(DataManager.listProduct,99);
+        uploadData.imageAdapter_.SetData(DataManager.listProduct,999);
         uploadData.imageAdapter_.notifyDataSetChanged();
         imageRecycleView.setAdapter(imageAdapter_);
         /////
@@ -210,9 +210,9 @@ public class uploadData extends AppCompatActivity {
                     return;
                 }
                 List<product2> c = new ArrayList<>();
-                int n = 99;
+                int n = 999;
                 DataManager.getImgUrlFromFirestone1(v.getContext(),"Product",c);
-                if (Integer.parseInt(txtposition.getText().toString()) == 99){}
+                if (Integer.parseInt(txtposition.getText().toString()) == 999){}
                 else
                 {
                     n = Integer.parseInt(txtposition.getText().toString());

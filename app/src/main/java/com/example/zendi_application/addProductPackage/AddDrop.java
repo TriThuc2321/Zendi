@@ -52,6 +52,7 @@ public class AddDrop extends AppCompatActivity {
     Spinner productList_spinner;
     String selectedproductId;
     List<String> selected_productlist = new ArrayList<>();
+
     List<product2> selected_productlist2 = new ArrayList<>();
     List<String> productName = new ArrayList<>();
     List<String> productId = new ArrayList<>();
@@ -183,7 +184,12 @@ public class AddDrop extends AppCompatActivity {
                 if (android.text.TextUtils.isDigitsOnly(category_ordinalEdit.getText().toString()) == false
                 || android.text.TextUtils.isDigitsOnly(drop_ordinalEdit.getText().toString()) == false)
                 {
-                    Toast.makeText(v.getContext(),"Invalid information, please check  ",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(),"Invalid information, please check ",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (listURL == null || listURL.size() == 0 )
+                {
+                    Toast.makeText(v.getContext(),"Add drop's image, please",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Integer count = 0;
@@ -307,6 +313,11 @@ public class AddDrop extends AppCompatActivity {
             listURL.clear();
             listimg.clear();
             selected_productlist.clear();
+            //
+            selected_productlist2.clear();
+            imageProductInDropAdapter_.SetData(selected_productlist2);
+            imageProductInDropAdapter_.notifyDataSetChanged();
+            //
             drop_ordinalEdit.setText("");
             dropcaptionEdit.setText("");
             droptypeEdit.setText("");
