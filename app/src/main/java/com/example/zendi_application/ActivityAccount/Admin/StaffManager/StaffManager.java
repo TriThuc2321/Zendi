@@ -60,8 +60,7 @@ public class StaffManager extends AppCompatActivity {
         });
     }
     void Init(){
-        listCustomer.clear();
-        listStaff.clear();
+
 
         dataBase = FirebaseDatabase.getInstance().getReference();
         turnBackBtn = findViewById(R.id.turn_back_staff_manager);
@@ -84,6 +83,9 @@ public class StaffManager extends AppCompatActivity {
         saveBtn = findViewById(R.id.saveStaffManagerBtn);
     }
     void getList(){
+        listCustomer.clear();
+        listStaff.clear();
+
         for(int i = 0; i < listUsers.size(); i++){
             if(listUsers.get(i).getShopOwner()==0) {
                 listCustomer.add(listUsers.get(i));
