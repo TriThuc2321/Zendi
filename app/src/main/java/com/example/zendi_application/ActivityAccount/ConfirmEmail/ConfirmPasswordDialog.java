@@ -71,7 +71,11 @@ public class ConfirmPasswordDialog extends Dialog {
             public void onClick(View v) {
                 String b = verifyCodeEdt.getText().toString();
                 int c = -1;
-                if (b!= null)  c = Integer.parseInt(b);
+                if (b!= null && android.text.TextUtils.isDigitsOnly(b))  c = Integer.parseInt(b);
+                else {
+                    Toast.makeText(mContext,"Incorrect verify code",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 String a = verifyCode + "";
 
                 if( c == verifyCode){
