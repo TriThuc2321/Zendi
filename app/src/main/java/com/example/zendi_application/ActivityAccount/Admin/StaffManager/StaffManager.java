@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.zendi_application.ActivityAccount.User;
+import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -47,6 +48,10 @@ public class StaffManager extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setResult(RESULT_CANCELED);
+                listCustomer.clear();
+                listStaff.clear();
+                mStaffAdapter.SetData();
+                mCustomerAdapter.SetData();
                 finish();
             }
         });
@@ -60,7 +65,6 @@ public class StaffManager extends AppCompatActivity {
         });
     }
     void Init(){
-
 
         dataBase = FirebaseDatabase.getInstance().getReference();
         turnBackBtn = findViewById(R.id.turn_back_staff_manager);
@@ -94,6 +98,7 @@ public class StaffManager extends AppCompatActivity {
                 listStaff.add(listUsers.get(i));
             }
         }
+
     }
     void updateData(){
 
