@@ -21,6 +21,8 @@ import com.example.zendi_application.R;
 import com.example.zendi_application.addProductPackage.uploadData;
 import com.example.zendi_application.dropFragment.product_package.product2;
 import com.example.zendi_application.searchfragment.Transactor;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -178,7 +180,11 @@ public class edit_deleteProduct extends AppCompatActivity {
                         temp.setProductName(nameedit.getText().toString());
                         temp.setProductBrand(brandSpinner.getSelectedItem().toString());
                         temp.setProductPrice(priceedit.getText().toString());
-                        temp.setProductType(typeSpinner.getSelectedItem().toString());
+                        String tempType;
+                        if(typeSpinner.getSelectedItem().toString() == "Male") tempType = "1";
+                        else if(typeSpinner.getSelectedItem().toString() == "Female") tempType = "2";
+                        else tempType = "3";
+                        temp.setProductType(tempType);
                         temp.getRemainingAmount().set(0,Integer.parseInt(remaining55edit.getText().toString()));
                         temp.getRemainingAmount().set(1,Integer.parseInt(remaining6edit.getText().toString()));
                         temp.getRemainingAmount().set(2,Integer.parseInt(remaining65edit.getText().toString()));
@@ -207,7 +213,11 @@ public class edit_deleteProduct extends AppCompatActivity {
                                 temp1.setProductName(nameedit.getText().toString());
                                 temp1.setProductBrand(brandSpinner.getSelectedItem().toString());
                                 temp1.setProductPrice(priceedit.getText().toString());
-                                temp1.setProductType(typeSpinner.getSelectedItem().toString());
+                                  String tempType2;
+                                  if(typeSpinner.getSelectedItem().toString() == "Male") tempType2 = "1";
+                                  else if(typeSpinner.getSelectedItem().toString() == "Female") tempType2 = "2";
+                                  else tempType2 = "3";
+                                  temp.setProductType(tempType2);
                                 temp1.getRemainingAmount().set(0,Integer.parseInt(remaining55edit.getText().toString()));
                                 temp1.getRemainingAmount().set(1,Integer.parseInt(remaining6edit.getText().toString()));
                                 temp1.getRemainingAmount().set(2,Integer.parseInt(remaining65edit.getText().toString()));
@@ -368,6 +378,16 @@ public class edit_deleteProduct extends AppCompatActivity {
                                 {
                                     if (DataManager.shoeInWish.get(i).getProductId().compareTo(selectedProductId) == 0)
                                     {
+                                        //THANG
+                                        String docName = selectedProductId;
+                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                        db.collection("InWish/" + DataManager.host.getId() + "/ShoeinWish").document(docName)
+                                                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                            }
+                                        });
+                                        //
                                         DataManager.shoeInWish.remove(i);
                                         DataManager.shoeInWishAdapter.setData(DataManager.shoeInWish);
                                         DataManager.shoeInWishAdapter.notifyDataSetChanged();

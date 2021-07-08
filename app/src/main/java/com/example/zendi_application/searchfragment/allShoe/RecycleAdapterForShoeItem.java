@@ -146,6 +146,15 @@ public class RecycleAdapterForShoeItem extends RecyclerView.Adapter<RecycleAdapt
                         s.put("productPrice", listProduct.get(position).getProductPrice());
                         s.put("shoeAmount", "1");
                         s.put("shoeSize", "5 UK");
+                        ArrayList<Integer> remainAmount = new ArrayList<Integer>();
+                        for (int i = 0;i<14;i++)
+                        {
+                            remainAmount.add(1);
+                        }
+                        s.put("remainingAmount",remainAmount);
+                        s.put("type",listProduct.get(position).getType());
+                        s.put("productType",listProduct.get(position).getProductType());
+                        s.put("productBrand",listProduct.get(position).getProductBrand());
 //                    db.collection("InBag/aaa/ShoeList").document(docName)
 //                            .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
 //                        @Override
