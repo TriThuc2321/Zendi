@@ -74,10 +74,9 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
         Glide.with(holder.shoeimg).load(shoeInBagList.get(position).getResourceID().get(0)).into(holder.shoeimg);
         holder.name.setText(shoeInBagList.get(position).getProductName());
         holder.size.setText(shoeInBagList.get(position).getShoeSize());
-        holder.price.setText(new StringBuilder("$").append(shoeInBagList.get(position).getProductPrice()));
+        holder.price.setText(new StringBuilder("Price: $").append(shoeInBagList.get(position).getProductPrice()));
         holder.amount.setText(shoeInBagList.get(position).getShoeAmount());
     }
-
     @Override
     public int getItemCount() {
         if(shoeInBagList == null || shoeInBagList.size() == 0)
@@ -109,6 +108,7 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
 
         @Override
         public void onClick(View v) {
+
             String docName = shoeInBagList.get(getAdapterPosition()).getProductId() + "_" + shoeInBagList.get(getAdapterPosition()).getShoeSize();
             String docName2 = shoeInBagList.get(getAdapterPosition()).getProductId() ;
             FirebaseFirestore db = FirebaseFirestore.getInstance();
