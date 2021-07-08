@@ -52,6 +52,7 @@ public class AddDrop extends AppCompatActivity {
     Spinner productList_spinner;
     String selectedproductId;
     List<String> selected_productlist = new ArrayList<>();
+
     List<product2> selected_productlist2 = new ArrayList<>();
     List<String> productName = new ArrayList<>();
     List<String> productId = new ArrayList<>();

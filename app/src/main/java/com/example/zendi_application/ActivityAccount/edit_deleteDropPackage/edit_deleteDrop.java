@@ -52,6 +52,7 @@ public class edit_deleteDrop extends AppCompatActivity {
     public static dropAdapter_editdrop dropAdapter_editdrop = new dropAdapter_editdrop();
     public static List<product2> selectedListProduct = new ArrayList<>();
     public static List<String> selectedListProductName = new ArrayList<>();
+    public static List<String> selected_producidtlist = new ArrayList<>();
     public static String URLimage;
     public static String selectedDrop_categoryNumber, selectedDrop_dropNumber;
     public static Uri URIimage;
@@ -129,9 +130,11 @@ public class edit_deleteDrop extends AppCompatActivity {
                     for (product2 temp : DataManager.listProduct)
                     {
                         if (selectedproductId.compareTo(temp.getProductId())== 0) {
+
                             product2 selectedproduct = new product2(temp.getProductId(), temp.getProductName(), temp.getProductPrice()
                                     , temp.getProductBrand(), temp.getProductType(), temp.getResourceID(), temp.getRemainingAmount(), temp.getType());
                             if (selectedListProductName.contains(selectedproduct.getProductName()) == false) {
+                                selected_producidtlist.add(selectedproduct.getProductId());
                                 selectedListProduct.add(selectedproduct);
                                 selectedListProductName.add(selectedproduct.getProductName());
                                 edit_deleteDrop.productAdapter_editdrop.SetData(selectedListProduct,(edit_deleteDrop) v.getContext());
@@ -248,7 +251,8 @@ public class edit_deleteDrop extends AppCompatActivity {
                 ite.setDropNumber(dropnumber_editdrop.getText().toString());
                 ite.setType(type_editdrop.getText().toString());
                 ite.setProductList(selectedListProduct);
-                ite.setListProductName(selectedListProductName);
+                //ite.setListProductName(selectedListProductName);
+                ite.setListProductName(selected_producidtlist);
                 dropAdapter_editdrop.SetData(DataManager.listDrop,this);
                 dropAdapter_editdrop.notifyDataSetChanged();
                 rcv_drop.setAdapter(dropAdapter_editdrop);
