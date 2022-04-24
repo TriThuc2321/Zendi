@@ -22,6 +22,7 @@ import com.example.zendi_application.dropFragment.product_package.product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class DropFragment extends Fragment implements View.OnClickListener {
     Button btn_type ;
@@ -29,7 +30,7 @@ public class DropFragment extends Fragment implements View.OnClickListener {
     Button btn_type2;
     public DataManager dataManager;
     private RecyclerView rcvCategory;
-    private categoryAdapter CategoryAdapter;
+    public static categoryAdapter CategoryAdapter;
     LinearLayoutManager linearLayoutManager;
     @Nullable
     @Override
@@ -64,79 +65,27 @@ public class DropFragment extends Fragment implements View.OnClickListener {
     private List<category> getListCategory()
     {
         // Test product
-        List<Integer> imglist = new ArrayList<>();
-        imglist.add(R.drawable.categorytest);
-        imglist.add(R.drawable.categorytest1);
-        imglist.add(R.drawable.categorytest3);
-
-        List<Integer> imglist1 = new ArrayList<>();
-        imglist1.add(R.drawable.nikeshos1);
-        imglist1.add(R.drawable.nike_collection);
-        imglist1.add(R.drawable.categorytest3);
-
-        List<Integer> imglist2 = new ArrayList<>();
-        imglist2.add(R.drawable.airjodan1);
-        imglist2.add(R.drawable.nikeshos1);
-        imglist2.add(R.drawable.categorytest3);
-
-        List<Integer> remainningAmount = new ArrayList<>();
-        remainningAmount.add(5);
-        remainningAmount.add(6);
-        remainningAmount.add(3);
-        remainningAmount.add(2);
-        remainningAmount.add(1);
-        ArrayList<product> productList = new ArrayList<>();
-        productList.add(new product("UIT123","ZX 2K BOOTS PURE SHOES","1.400.000 VND",imglist,remainningAmount,1));
-        productList.add(new product("UIT122","ZX 3K BOOTS PURE SHOES","1.500.000 VND",imglist1,remainningAmount,2));
-        productList.add(new product("UIT121","ZX 4K BOOTS PURE SHOES","2.000.000 VND",imglist,remainningAmount,3));
-        productList.add(new product("UIT120","ZX 5K BOOTS PURE SHOES","2.500.000 VND",imglist1,remainningAmount,1));
-        //1
-        List<category> mcategoryList = new ArrayList<>();
-
-        // init listdrop
-
-        List<drop> listDrop = new ArrayList<>();
-        listDrop.add(new drop(R.drawable.categorytest,"STAN SMITH, FOREVER"+"","JUST DROPPED","ORIGINALS",productList));
-        listDrop.add(new drop(R.drawable.categorytest1,"RUNNER, FASTER"+"","JUST DROPPED","SPORT",productList));
-        listDrop.add(new drop(R.drawable.categorytest3,"HYPEBEAST, BUMP"+"","JUST DROPPED","ORIGINALS",productList));
-        listDrop.add(new drop(R.drawable.categorytest2,"SNEAKER, FASHION"+"","JUST DROPPED","PARTY",productList));
-
-        List<drop> listDrop1 = new ArrayList<>();
-        listDrop1.add(new drop(R.drawable.airjodan1,"STAN SMITH, FOREVER"+"","JUST DROPPED","ORIGINALS",productList));
-        listDrop1.add(new drop(R.drawable.drop1,"RUNNER, FASTER"+"","JUST DROPPED","SPORT",productList));
-        listDrop1.add(new drop(R.drawable.drop2,"HYPEBEAST, BUMP"+"","JUST DROPPED","ORIGINALS",productList));
-        listDrop1.add(new drop(R.drawable.drop3,"SNEAKER, FASHION"+"","JUST DROPPED","PARTY",productList));
-
-        List<drop> listDrop2 = new ArrayList<>();
-        listDrop2.add(new drop(R.drawable.drop4,"STAN SMITH, FOREVER"+"","JUST DROPPED","ORIGINALS",productList));
-        listDrop2.add(new drop(R.drawable.drop5,"RUNNER, FASTER"+"","JUST DROPPED","SPORT",productList));
-        listDrop2.add(new drop(R.drawable.drop6,"HYPEBEAST, BUMP"+"","JUST DROPPED","ORIGINALS",productList));
-        listDrop2.add(new drop(R.drawable.drop7,"SNEAKER, FASHION"+"","JUST DROPPED","PARTY",productList));
-
-//        endregion
-
-        mcategoryList.add(new category(listDrop));
-        mcategoryList.add(new category(listDrop1));
-        mcategoryList.add(new category(listDrop2));
-
-        dataManager.getInstance().addDataForDrogFragment(1);
-        return mcategoryList;
+        List<category> categoryList = new ArrayList<>();
+        for (String key : DataManager.listCategory.keySet())
+        {
+            categoryList.add(new category(DataManager.listCategory.get(key)));
+        }
+        return categoryList;
     }
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_type)
         {
-            Toast.makeText(this.getContext(),"CAI CC BA M",Toast.LENGTH_SHORT).show();
+
         }
         if (v.getId() == R.id.btn_type1)
         {
-            Toast.makeText(this.getContext(),"C",Toast.LENGTH_SHORT).show();
             rcvCategory.smoothScrollToPosition(1);
 
         }
         if (v.getId() == R.id.btn_type2)
         {
-            Toast.makeText(this.getContext(),"CAI CC ME M",Toast.LENGTH_SHORT).show();
+
             rcvCategory.smoothScrollToPosition(2);
         }
     }

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".dropFragment.DetailProductFragment"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_baseline_keyboard_arrow_left_black"
+            android:background="@color/white"
+            android:id="@+id/backbtn"
+            android:layout_gravity="right"></Button>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/imgofShoe"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="15dp">
+    </ImageView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout2_detaildrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/custom_for_detailproduct"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+        <TextView
+            android:id="@+id/brandName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="ADIDAS ESTENTIALS"
+            android:textStyle="italic"
+            android:textColor="#6A6969"
+            android:textSize="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView"></TextView>
+
+        <TextView
+            android:id="@+id/productprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="8dp"
+            android:text="$359.00"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productname"></TextView>
+
+        <Spinner
+            android:id="@+id/sizespinner"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="228dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/productname"></Spinner>
+
+        <TextView
+            android:id="@+id/productname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:padding="15dp"
+            android:paddingStart="20dp"
+            android:text="NIKE AIR FORCE 1 LIMITED EDITION"
+            android:textColor="@color/white"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/btn_drop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.0"></TextView>
+
+        <Button
+            android:id="@+id/shopnowbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/custombutton_detailproduct"
+            android:text="GET NOW"
+            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_black"
+            android:textStyle="italic"
+            android:paddingEnd="200dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.97"
+            ></Button>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

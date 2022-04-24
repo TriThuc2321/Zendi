@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
-    />
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/shop_fragment_rcv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/settle_place"
+        android:layout_alignParentTop="true"
+        />
+
+    <Button
+        android:id="@+id/settle_place"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/custombutton_detailproduct"
+        android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_black"
+        android:paddingEnd="100dp"
+        android:text="SETTLE"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/emptyNotifyBag_text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp"
+        android:text="YOUR BAG IS EMPTY"
+        android:textAlignment="center" />
+
+</RelativeLayout>

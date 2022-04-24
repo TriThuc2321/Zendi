@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:backgroundTint="#ACACAC">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/infoOrderedLayout"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_below="@+id/title_order"
+        >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Email: "
+                    android:layout_marginLeft="40dp"
+                    android:textSize="10dp"
+                    />
+                <TextView
+                    android:id="@+id/emailOrderedTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="10dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Contact: "
+                    android:layout_marginLeft="40dp"
+                    android:textSize="10dp"
+                    />
+                <TextView
+                    android:id="@+id/phoneNumberOrderedTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Phone number"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="10dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Address: "
+                    android:layout_marginLeft="40dp"
+                    android:textSize="10dp"
+                    />
+                <TextView
+                    android:id="@+id/addressOrderedTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="10dp"
+                    />
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="Bill Date: "
+                android:layout_marginLeft="40dp"
+                android:textSize="10dp"
+                />
+            <TextView
+                android:id="@+id/billDateOrderedTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="date"
+                android:layout_marginLeft="20dp"
+                android:textSize="10dp"
+                />
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Total: "
+                    android:layout_marginLeft="40dp"
+                    android:textSize="10dp"
+                    />
+                <TextView
+                    android:id="@+id/totalOrderedTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Total"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="10dp"
+                    />
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="Bill Status: "
+                android:layout_marginLeft="40dp"
+                android:textSize="10dp"
+                />
+            <TextView
+                android:id="@+id/billStatusOrderedTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="status"
+                android:layout_marginLeft="20dp"
+                android:textSize="10dp"
+                />
+        </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/productOrdered"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="10dp"
+                />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/title_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="14"
+        android:background="@color/white"
+        android:layout_marginBottom="10dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/show_order"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:weightSum="13"
+            android:layout_weight="14"
+            >
+            <TextView
+                android:id="@+id/nameOrdered"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="Customer"
+                android:textSize="20dp"
+                android:layout_weight="13"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                />
+
+            <View
+                android:id="@+id/drop_down"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_baseline_arrow_drop_down_24"
+                android:rotation="180"
+                />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/detailOrdered"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_baseline_priority_high_24"
+            android:layout_gravity="center_vertical"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>

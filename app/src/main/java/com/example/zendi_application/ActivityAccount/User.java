@@ -4,19 +4,21 @@ public class User {
     private String Address;
     private String DOB;
     private String Email;
-    private String Gender;
+    private int Gender;
     private String Id;
     private String Name;
     private String PhoneNumber;
     private String ProfilePic;
     private String Size;
     private String Total;
+    private int ShopOwner;  //0 là k, 1 là chủ shop
+
 
     public User(){
 
     }
 
-    public User(String address, String DOB, String email, String gender, String id, String name, String phoneNumber, String profilePic, String size, String total) {
+    public User(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int shopOwner) {
         Address = address;
         this.DOB = DOB;
         Email = email;
@@ -27,6 +29,7 @@ public class User {
         ProfilePic = profilePic;
         Size = size;
         Total = total;
+        ShopOwner = shopOwner;
     }
 
     public String getAddress() {
@@ -53,11 +56,11 @@ public class User {
         Email = email;
     }
 
-    public String getGender() {
+    public int getGender() {
         return Gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         Gender = gender;
     }
 
@@ -107,5 +110,13 @@ public class User {
 
     public void setTotal(String total) {
         Total = total;
+    }
+
+    public int getShopOwner() {
+        return ShopOwner;
+    }
+
+    public void setShopOwner(int shopOwner) {
+        ShopOwner = shopOwner;
     }
 }

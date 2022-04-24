@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -42,7 +43,9 @@ public class LoginRegisterActivity extends AppCompatActivity {
         findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(RESULT_CANCELED);
                 LoginRegisterActivity.super.onBackPressed();
+                startActivity(new Intent(LoginRegisterActivity.this, HomeScreen.class));
             }
         });
 
@@ -52,17 +55,24 @@ public class LoginRegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginRegisterActivity.this, Account_Activity.class);
                 startActivity(intent);
-                finish();
             }
         });
-
+        findViewById(R.id.btnRegister).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginRegisterActivity.this, Account_Activity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser!=null) openProfile();
+
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+        if(isLoggedIn) openProfile();
     }
     private void openProfile(){
         startActivity(new Intent(LoginRegisterActivity.this, SettingActivity.class));

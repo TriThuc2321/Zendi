@@ -9,7 +9,7 @@ import java.util.List;
 public class product  {
     protected String productId,productName,productPrice;
     protected List<Integer> ResourceID; // Image list of product
-    protected List<Integer> remainingAmount; // 0 : 5 , 1 : 5,5, 2 : 6
+    protected List<Integer> remainingAmount; // Cong thuc tinh 5,5 + 0,5*position
     private Integer type;
 
 
