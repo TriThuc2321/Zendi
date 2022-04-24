@@ -50,6 +50,9 @@ import com.example.zendi_application.ActivityAccount.ConfirmEmail.GmailSender;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -67,6 +70,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.annotations.Until;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.List;
@@ -139,7 +145,6 @@ public class SettingActivity extends AppCompatActivity {
         findViewById(R.id.logOutBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
 
                 DataManager.shoeInWish.clear();
@@ -531,7 +536,32 @@ public class SettingActivity extends AppCompatActivity {
 
     }
     void getData(){
-        dataBase.child("Users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+       boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+        GraphRequest request = GraphRequest.newMeRequest (
+                accessToken ,
+                new GraphRequest .GraphJSONObjectCallback ( ) {
+                    @Override
+                    public void onCompleted (JSONObject object , GraphResponse response ) {
+                        try {
+                            String userId = object.getString("id");
+                            setUser(userId);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } });
+        Bundle parameters = new Bundle ();
+        parameters . putString ( "fields" , "id,name,link" );
+
+        request . setParameters ( parameters );
+        request . executeAsync ();
+
+
+    }
+
+    void setUser(String id){
+        dataBase.child("Users").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);

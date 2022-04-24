@@ -5,9 +5,10 @@
     <string name="action_shop">Shop</string>
     <string name="action_drops">Drops</string>
 
+    <string name="facebook_app_id">300029802148527</string>
+    <string name="fb_login_protocol_scheme">fb300029802148527</string>
+    <string name="facebook_client_token">7154effa0a1bc5e08f653aef4428a146</string>
 
-    <string name="facebook_app_id">293009389112207</string>
-    <string name="fb_login_protocol_scheme">fb293009389112207</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="server_client_id">224410556573-v22k1tm3dme7tea6runjnkuk1jmq8m7m.apps.googleusercontent.com</string>
