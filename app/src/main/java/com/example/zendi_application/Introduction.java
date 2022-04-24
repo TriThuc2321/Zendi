@@ -3,6 +3,7 @@ package com.example.zendi_application;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
@@ -18,6 +19,7 @@ public class Introduction extends AppCompatActivity {
     Animation topAim,bottomAim;
     ImageView background,logo;
     TextView appName, slogan;
+    DownloadAsynctask LoadDataTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +31,9 @@ public class Introduction extends AppCompatActivity {
         appName = findViewById(R.id.app_name);
         slogan = findViewById(R.id.slogan);
         /// set animation 1
+        LoadDataTask= new DownloadAsynctask(Introduction.this);
+        //Gọi hàm execute để kích hoạt tiến trình
+        LoadDataTask.execute();
         topAim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
         bottomAim = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
         logo.setAnimation(topAim);
@@ -40,20 +45,24 @@ public class Introduction extends AppCompatActivity {
         appName.animate().translationY(2000).setDuration(1000).setStartDelay(2000);
         slogan.animate().translationY(2000).setDuration(1000).setStartDelay(2000);
 
-        //Load data
-        DataManager.LoadDropInformation("Collection/",DataManager.listDrop);  // load products
-        DataManager.LoadProductInformation("Product",DataManager.listProduct); // load categors
-        DataManager.loadUser();
-        DataManager.GetUser();
-        DataManager.getListOrderedFromFirestone();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(Introduction.this,HomeScreen.class);
-                startActivity(intent);
-                finish();
-            }
-        },5000);
+        //Load data
+//        DataManager.LoadDropInformation("Collection/",DataManager.listDrop);  // load products
+//        DataManager.LoadProductInformation("Product",DataManager.listProduct); // load categors
+//        DataManager.loadUser();
+//        DataManager.GetUser();
+//        DataManager.getListOrderedFromFirestone();
+//
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Intent intent = new Intent(Introduction.this,HomeScreen.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        },5000);
+
     }
+
+
 }
