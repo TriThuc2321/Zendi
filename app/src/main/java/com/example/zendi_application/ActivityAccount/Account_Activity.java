@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,11 +81,23 @@ public class Account_Activity extends AppCompatActivity  {
     CallbackManager mCallbackManager;
     private static final String EMAIL = "email";
 
+    //View
+    EditText etEmail;
+    EditText etPassword;
+
+    TextView tvEmailNote;
+    TextView tvPasswordNote;
+    TextView tvForgotAcc;
+    TextView tvSignUp;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+
+        init();
 
         mAuth = FirebaseAuth.getInstance();
         dataBase = FirebaseDatabase.getInstance().getReference();
@@ -97,6 +110,15 @@ public class Account_Activity extends AppCompatActivity  {
 //        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         loginGoogle();
         loginFacebook();
+
+        tvSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent = new Intent(Account_Activity.this, RegisterActivity.class);
+                startActivity(newIntent);
+
+            }
+        });
 
     }
     private  void loginGoogle(){
@@ -211,8 +233,6 @@ public class Account_Activity extends AppCompatActivity  {
         }
     }
 
-
-
     private void openProfile(JSONObject object) throws JSONException {
         if(!existUser(object)){
             setData("","DD/ MM/ YY", "",2, object.getString("id"),object.getString("name"),"","","","", 0);
@@ -285,6 +305,15 @@ public class Account_Activity extends AppCompatActivity  {
 //        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
 //        FirebaseUser currentUser = mAuth.getCurrentUser();
 //        if(currentUser!=null) openProfile(object);
+    }
+
+    void init(){
+        etEmail = findViewById(R.id.txtLoginEmail);
+        etPassword= findViewById(R.id.txtLoginPassword);
+        tvEmailNote = findViewById(R.id.txtLoginEmailNote);
+        tvPasswordNote = findViewById(R.id.txtLoginPasswordNote);
+        tvForgotAcc = findViewById(R.id.txtLoginForgotPassword);
+        tvSignUp= findViewById(R.id.txtLoginSignUp);
     }
 }
 

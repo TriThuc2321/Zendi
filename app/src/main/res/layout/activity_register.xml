@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityAccount.RegisterActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Welcome to ZENDI"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:textColor="#4E4D4D"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:layout_marginLeft="15sp"
+                android:layout_marginRight="15sp"
+                android:textColor="@color/black"
+                android:textStyle="italic|bold"
+                android:text="First of all, please fill out these information for us to create your account!"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#595757"
+            android:layout_marginTop="10sp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
+            android:orientation="vertical">
+
+<!--            NAME-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="NAME"
+                    android:textColor="@color/zendi_color_yellow"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name"
+                    android:backgroundTint="@color/black"
+                    android:id="@+id/txtRegisterName"
+                    android:inputType="text"
+                    />
+                <TextView
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Note name"
+                    android:id="@+id/txtRegisterNameNote"
+                    android:textColor="@color/red"
+                    android:textStyle="italic"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+
+<!--            PHONE-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="PHONE NUMBER"
+                    android:textColor="@color/zendi_color_yellow"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone"
+                    android:backgroundTint="@color/black"
+                    android:id="@+id/txtRegisterPhone"
+                    android:inputType="phone"
+                    />
+                <TextView
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Note phone"
+                    android:id="@+id/txtRegisterPhoneNote"
+                    android:textColor="@color/red"
+                    android:textStyle="italic"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+
+<!--            ADDRESS-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ADDRESS"
+                    android:textSize="15dp"
+                    android:textColor="@color/zendi_color_yellow"
+                    android:textStyle="bold" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Address"
+                    android:backgroundTint="@color/black"
+                    android:id="@+id/txtRegisterAddress"
+                    android:inputType="text"
+                    />
+                <TextView
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Note address"
+                    android:id="@+id/txtRegisterAddressNote"
+                    android:textColor="@color/red"
+                    android:textStyle="italic"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+
+<!--            BIRTHDAY-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="BIRTHDAY"
+                    android:textSize="15dp"
+                    android:textColor="@color/zendi_color_yellow"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Birthday"
+                    android:text="dd/mm/yyyy"
+                    android:backgroundTint="@color/black"
+                    android:id="@+id/txtRegisterBirthday"
+                    android:inputType="text"
+                    />
+
+                <TextView
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Note birthday"
+                    android:id="@+id/txtRegisterBirthdayNote"
+                    android:textColor="@color/red"
+                    android:textStyle="italic"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+
+<!--            GENDER-->
+            <LinearLayout
+                android:id="@+id/gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="GENDER"
+                    android:textColor="@color/zendi_color_yellow"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rdRegisterMale"
+                        android:layout_width="100sp"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#777676"
+                        android:text="Male"
+                        android:textColor="#777676"
+                        android:textSize="15dp" />
+
+                    <RadioButton
+                        android:id="@+id/rdRegisterFemale"
+                        android:layout_width="100sp"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#777676"
+                        android:text="Female"
+                        android:textColor="#777676"
+                        android:textSize="15dp" />
+
+                    <RadioButton
+                        android:id="@+id/rdRegisterOther"
+                        android:layout_width="100sp"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#777676"
+                        android:text="Other"
+                        android:textColor="#777676"
+                        android:textSize="15dp" />
+                </RadioGroup>
+                <TextView
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Note gender"
+                    android:id="@+id/txtRegisterGenderNote"
+                    android:textColor="@color/red"
+                    android:textStyle="italic"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+
+<!--            EMAIL-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_marginTop="15sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="EMAIL"
+                    android:textColor="@color/zendi_color_yellow"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    android:backgroundTint="@color/black"
+                    android:id="@+id/txtRegisterEmail"
+                    android:inputType="text"
+                    />
+                <TextView
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Note email"
+                    android:id="@+id/txtRegisterEmailNote"
+                    android:textColor="@color/red"
+                    android:textStyle="italic"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+
+<!--            PASSWORD-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="PASSWORD"
+                    android:layout_marginTop="15sp"
+                    android:textColor="@color/zendi_color_yellow"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:backgroundTint="@color/black"
+                    android:id="@+id/txtRegisterPass1"
+                    />
+                <TextView
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Note password"
+                    android:id="@+id/txtRegisterPass1Note"
+                    android:textColor="@color/red"
+                    android:textStyle="italic"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+
+<!--            REPEAT PASSWORD-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="REAPEAT PASSWORD"
+                    android:layout_marginTop="15sp"
+                    android:textColor="@color/zendi_color_yellow"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:backgroundTint="@color/black"
+                    android:id="@+id/txtRegisterPass2"
+                    />
+                <TextView
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Note password"
+                    android:id="@+id/txtRegisterPass2Note"
+                    android:textColor="@color/red"
+                    android:textStyle="italic"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+
+<!--            Button Register-->
+            <Button
+                android:id="@+id/btnRegisterSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="30sp"
+                android:background="@color/black"
+                android:paddingLeft="15dp"
+                android:text="REGISTER"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="30sp"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold|italic"
+                    android:text="Already have account? "/>
+                <TextView
+                    android:id="@+id/txtRegisterSignIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:textStyle="bold|italic"
+                    android:textColor="#D4AF37"
+                    android:text="Sign in here"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
