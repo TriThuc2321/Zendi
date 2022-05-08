@@ -32,6 +32,9 @@ public class User {
         ShopOwner = shopOwner;
     }
 
+    public User(String toString, String toString1, String toString2, int mGender, String id, String toString3, String profilePic, String size, String total, int shopOwner) {
+    }
+
     public String getAddress() {
         return Address;
     }
