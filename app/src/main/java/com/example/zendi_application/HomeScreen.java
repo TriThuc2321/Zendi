@@ -20,6 +20,9 @@ import com.example.zendi_application.ActivityAccount.Admin.AdminActivity;
 import com.example.zendi_application.ActivityAccount.LoginRegisterActivity;
 import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.addProductPackage.uploadData;
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -33,6 +36,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import static com.example.zendi_application.DataManager.GetUser;
 import static com.example.zendi_application.DataManager.listUsers;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class HomeScreen extends AppCompatActivity {
     private static final int REQUEST_EXIT = 99;
@@ -202,11 +208,33 @@ public class HomeScreen extends AppCompatActivity {
     private DatabaseReference dataBase;
 
     void setShopOwner(){
-        if(currentUser == null){
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+        GraphRequest request = GraphRequest.newMeRequest (
+                accessToken ,
+                new GraphRequest .GraphJSONObjectCallback ( ) {
+                    @Override
+                    public void onCompleted (JSONObject object , GraphResponse response ) {
+                        try {
+                            String userId = object.getString("id");
+                            setUser(userId);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } });
+        Bundle parameters = new Bundle ();
+        parameters . putString ( "fields" , "id,name,link" );
+        request . setParameters ( parameters );
+        request . executeAsync ();
+
+    }
+    void setUser(String id){
+        if(id == null){
             mAppBarTop.getMenu().findItem(R.id.staff_manager_item).setVisible(false);
         }
         else {
-            dataBase.child("Users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
+            dataBase.child("Users").child(id).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     User user = snapshot.getValue(User.class);
