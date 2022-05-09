@@ -238,8 +238,7 @@ public class HomeScreen extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     User user = snapshot.getValue(User.class);
-
-                    if(user.getShopOwner() == 2 || user.getShopOwner() == 1){
+                    if( user.getShopOwner() == 2 || user.getShopOwner() == 1){
                         mAppBarTop.getMenu().findItem(R.id.staff_manager_item).setVisible(true);
                     }
                     else{
