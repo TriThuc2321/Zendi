@@ -4,7 +4,6 @@
     package="com.example.zendi_application">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-feature android:name="android.hardware.type.watch" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,6 +19,7 @@
         android:roundIcon="@mipmap/zendi_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Zendi_Application">
+
         <activity android:name=".ActivityAccount.Admin.Statistic.DetailOrdered"></activity>
         <activity android:name=".ActivityAccount.Admin.Statistic.StatisticActivity" />
         <activity android:name=".ActivityAccount.Admin.AdminActivity" />
@@ -87,12 +87,17 @@
         <activity
             android:name=".HomeScreen"
             android:screenOrientation="portrait" />
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+
         <activity
             android:name=".Introduction"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
+            <intent-filter>
+
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -103,9 +108,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
 
 <!--        facebook-->
 <!--        <activity-->

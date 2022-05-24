@@ -154,8 +154,9 @@ public class SettingActivity extends AppCompatActivity {
                 setResult(99);
                 //setResult(RESULT_OK, null);
 
-                finish();
                 startActivity(new Intent(SettingActivity.this, HomeScreen.class));
+                finish();
+
             }
         });
 
