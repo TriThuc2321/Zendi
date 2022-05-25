@@ -229,8 +229,6 @@ public class HomeScreen extends AppCompatActivity {
             request . setParameters ( parameters );
             request . executeAsync ();
 }
-
-
     }
     void setUser(String id){
         if(id == null){
