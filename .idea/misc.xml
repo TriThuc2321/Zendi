@@ -3,13 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android/Zendi/app/src/main/res/drawable/ic_outline_settings_24.xml" value="0.1815" />
-        <entry key="..\:/Android/Zendi/app/src/main/res/layout/activity_account.xml" value="0.33" />
-        <entry key="..\:/Android/Zendi/app/src/main/res/layout/activity_login_register.xml" value="0.16417272338606242" />
-        <entry key="..\:/Android/Zendi/app/src/main/res/layout/activity_register.xml" value="0.38057482656095143" />
-        <entry key="..\:/Android/Zendi/app/src/main/res/layout/activity_setting.xml" value="0.25" />
-        <entry key="..\:/Android/Zendi/app/src/main/res/menu/menu_account_top.xml" value="0.16417272338606242" />
-        <entry key="..\:/Android/Zendi/app/src/main/res/menu/menu_appbar_top.xml" value="0.16417272338606242" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_black_stroke.xml" value="0.22982456140350876" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_button.xml" value="0.22982456140350876" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_for_detailproduct.xml" value="0.22982456140350876" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_imageview.xml" value="0.22982456140350876" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_setting.xml" value="0.2" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_main.xml" value="0.8" />
       </map>
     </option>

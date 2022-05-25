@@ -21,6 +21,7 @@ import com.example.zendi_application.ActivityAccount.LoginRegisterActivity;
 import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.addProductPackage.uploadData;
 import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.google.android.material.appbar.AppBarLayout;
@@ -210,24 +211,24 @@ public class HomeScreen extends AppCompatActivity {
     void setShopOwner(){
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-
-        GraphRequest request = GraphRequest.newMeRequest (
+        if(isLoggedIn){
+            GraphRequest request = GraphRequest.newMeRequest (
                 accessToken ,
                 new GraphRequest .GraphJSONObjectCallback ( ) {
-                    @Override
-                    public void onCompleted (JSONObject object , GraphResponse response ) {
-                        try {
-                            String userId = object.getString("id");
-                            setUser(userId);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    } });
-        Bundle parameters = new Bundle ();
-        parameters . putString ( "fields" , "id,name,link" );
-        request . setParameters ( parameters );
-        request . executeAsync ();
-
+                @Override
+                public void onCompleted (JSONObject object , GraphResponse response ) {
+                    try {
+                        String userId = object.getString("id");
+                        setUser(userId);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } });
+            Bundle parameters = new Bundle ();
+            parameters . putString ( "fields" , "id,name,link" );
+            request . setParameters ( parameters );
+            request . executeAsync ();
+}
     }
     void setUser(String id){
         if(id == null){
@@ -238,8 +239,7 @@ public class HomeScreen extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     User user = snapshot.getValue(User.class);
-
-                    if(user.getShopOwner() == 2 || user.getShopOwner() == 1){
+                    if( user.getShopOwner() == 2 || user.getShopOwner() == 1){
                         mAppBarTop.getMenu().findItem(R.id.staff_manager_item).setVisible(true);
                     }
                     else{

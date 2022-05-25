@@ -8,28 +8,28 @@
     android:id="@+id/settingLayout">
 
         <LinearLayout
+            android:id="@+id/profileInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/profileInfo"
-            android:layout_marginTop="4dp"
-            android:layout_margin="10dp">
+            android:padding="5dp"
+            android:background="@color/gold">
+
                 <View
                     android:id="@+id/turnBack"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/ic_baseline_arrow_back_24"
-                    />
+                    android:background="@drawable/ic_baseline_arrow_back_24" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/arrowLeft"
                     android:text="PERSONAL INFORMATION"
                     android:textSize="22dp"
-                    android:textStyle="bold"
-                    android:layout_toRightOf="@+id/arrowLeft"
-                    android:layout_gravity="center_vertical"
-                    />
+                    android:textStyle="bold" />
         </LinearLayout>
 
         <ScrollView
@@ -41,44 +41,43 @@
                     android:layout_height="match_parent"
                     android:id="@+id/backgroundLayout"
                     >
+
                         <LinearLayout
+                            android:id="@+id/name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/name"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="15dp"
                             android:layout_marginTop="30dp"
+                            android:layout_marginRight="15dp"
                             android:background="@drawable/custom_black_stroke"
                             android:orientation="vertical"
-                            android:padding="15dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginRight="30dp"
-                            >
+                            android:padding="15dp">
+
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="NAME"
                                     android:textSize="15dp"
-                                    android:textStyle="bold"
-                                    />
+                                    android:textStyle="bold" />
+
                                 <TextView
                                     android:id="@+id/nameTxt"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Name"
                                     android:textSize="15dp"
-
                                     />
 
                                 <EditText
                                     android:id="@+id/nameEdt"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:visibility="gone"
-                                    android:imeOptions="actionDone"
-                                    android:inputType="textAutoComplete"
                                     android:clickable="true"
                                     android:focusableInTouchMode="true"
-                                    />
+                                    android:imeOptions="actionDone"
+                                    android:inputType="textAutoComplete"
+                                    android:visibility="gone" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -90,8 +89,8 @@
                             android:orientation="horizontal"
                             android:padding="15dp"
                             android:layout_below="@+id/name"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginRight="30dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
                             android:weightSum="10"
                             >
                                 <LinearLayout
@@ -149,43 +148,41 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/location"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/location"
-                            android:layout_marginTop="30dp"
                             android:layout_below="@+id/email"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginRight="15dp"
                             android:background="@drawable/custom_black_stroke"
                             android:orientation="vertical"
-                            android:padding="15dp"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginRight="30dp"
-                            >
+                            android:padding="15dp">
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="LOCATION"
                                     android:textSize="15dp"
-                                    android:textStyle="bold"
-                                    />
+                                    android:textStyle="bold" />
+
                                 <TextView
                                     android:id="@+id/locationTxt"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Location"
-                                    android:textSize="15dp"
-                                    />
+                                    android:textSize="15dp" />
 
                                 <EditText
                                     android:id="@+id/locationEdt"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textSize="15dp"
-                                    android:visibility="gone"
-                                    android:imeOptions="actionDone"
-                                    android:inputType="textAutoComplete"
                                     android:clickable="true"
                                     android:focusableInTouchMode="true"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="textAutoComplete"
+                                    android:textSize="15dp"
+                                    android:visibility="gone"
 
                                     />
                         </LinearLayout>
@@ -199,8 +196,8 @@
                             android:background="@drawable/custom_black_stroke"
                             android:orientation="vertical"
                             android:padding="15dp"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginRight="30dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
                             >
 
                                 <TextView
@@ -233,31 +230,30 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/birthday"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/birthday"
-                            android:layout_marginTop="30dp"
                             android:layout_below="@+id/phonenumber"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginRight="15dp"
                             android:background="@drawable/custom_black_stroke"
                             android:orientation="vertical"
-                            android:padding="15dp"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginRight="30dp">
+                            android:padding="15dp">
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="DATE OF BIRTH"
                                     android:textSize="15dp"
-                                    android:textStyle="bold"
-                                    />
+                                    android:textStyle="bold" />
+
                                 <TextView
                                     android:id="@+id/birthdayTxt"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="DD / MM / YY"
-                                    android:textSize="15dp"
-                                    />
+                                    android:textSize="15dp" />
 
 
                         </LinearLayout>
@@ -267,9 +263,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/birthday"
-                            android:layout_marginLeft="30dp"
+                            android:layout_marginLeft="15dp"
                             android:layout_marginTop="30dp"
-                            android:layout_marginRight="30dp"
+                            android:layout_marginRight="15dp"
                             android:background="@drawable/custom_black_stroke"
                             android:orientation="vertical"
                             android:padding="15dp">
@@ -325,8 +321,8 @@
                             android:background="@drawable/custom_black_stroke"
                             android:orientation="vertical"
                             android:padding="15dp"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginRight="30dp">
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp">
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -366,8 +362,8 @@
                             android:background="@drawable/custom_black_stroke"
                             android:orientation="vertical"
                             android:padding="15dp"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginRight="30dp">
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp">
 
                                 <TextView
                                     android:layout_width="match_parent"

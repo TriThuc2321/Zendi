@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import com.example.zendi_application.wishFragment.ShoeInWishAdapter;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -671,7 +673,7 @@ public class DataManager {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-
+            int a = 5;
             }
         });
     }
@@ -1062,6 +1064,7 @@ public class DataManager {
     private static FirebaseAuth  mAuth = FirebaseAuth.getInstance();;
 
     public static void GetUser(){
+
         dataBase = FirebaseDatabase.getInstance().getReference();
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();

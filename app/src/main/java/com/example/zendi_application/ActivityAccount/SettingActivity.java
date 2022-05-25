@@ -86,7 +86,7 @@ public class SettingActivity extends AppCompatActivity {
     private User user;
     private DatabaseReference dataBase;
     private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
+    private String userId;
 
     private RelativeLayout settingLayout;
     private LinearLayout location;
@@ -154,8 +154,9 @@ public class SettingActivity extends AppCompatActivity {
                 setResult(99);
                 //setResult(RESULT_OK, null);
 
-                finish();
                 startActivity(new Intent(SettingActivity.this, HomeScreen.class));
+                finish();
+
             }
         });
 
@@ -461,11 +462,11 @@ public class SettingActivity extends AppCompatActivity {
                     } else if (otherRad.isChecked() == true) {
                         mGender = 2;
                     }
-                    setData(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(), mGender, currentUser.getUid(), nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
+                    setData(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(), mGender, userId, nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
 
                     for (int i = 0; i < listUsers.size(); i++) {
                         if(listUsers.get(i).getId() == user.getId()) {
-                            user = new User(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(), mGender, currentUser.getUid(), nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
+                            user = new User(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(), mGender, userId, nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
                             listUsers.set(i, user);
                         }
                     }
@@ -499,7 +500,6 @@ public class SettingActivity extends AppCompatActivity {
     private void Init() {
         mAuth = FirebaseAuth.getInstance();
         dataBase = FirebaseDatabase.getInstance().getReference();
-        currentUser = mAuth.getCurrentUser();
 
         settingLayout = findViewById(R.id.settingLayout);
 
@@ -545,7 +545,7 @@ public class SettingActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted (JSONObject object , GraphResponse response ) {
                         try {
-                            String userId = object.getString("id");
+                            userId = object.getString("id");
                             setUser(userId);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -623,7 +623,7 @@ public class SettingActivity extends AppCompatActivity {
     }
     public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int isShoOwner){
         user =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total, isShoOwner);
-        dataBase.child("Users").child(currentUser.getUid()).setValue(user);
+        dataBase.child("Users").child(id).setValue(user);
     }
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
