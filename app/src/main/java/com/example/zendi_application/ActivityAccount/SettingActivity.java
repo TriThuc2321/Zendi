@@ -539,24 +539,26 @@ public class SettingActivity extends AppCompatActivity {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
 
-        GraphRequest request = GraphRequest.newMeRequest (
-                accessToken ,
-                new GraphRequest .GraphJSONObjectCallback ( ) {
-                    @Override
-                    public void onCompleted (JSONObject object , GraphResponse response ) {
-                        try {
-                            userId = object.getString("id");
-                            setUser(userId);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    } });
-        Bundle parameters = new Bundle ();
-        parameters . putString ( "fields" , "id,name,link" );
+       if(isLoggedIn){
+           GraphRequest request = GraphRequest.newMeRequest (
+                   accessToken ,
+                   new GraphRequest .GraphJSONObjectCallback ( ) {
+                       @Override
+                       public void onCompleted (JSONObject object , GraphResponse response ) {
+                           try {
+                               userId = object.getString("id");
+                               setUser(userId);
+                           } catch (JSONException e) {
+                               e.printStackTrace();
+                           }
+                       } });
+           Bundle parameters = new Bundle ();
+           parameters . putString ( "fields" , "id,name,link" );
 
-        request . setParameters ( parameters );
-        request . executeAsync ();
+           request . setParameters ( parameters );
+           request . executeAsync ();
 
+       }
 
     }
 
