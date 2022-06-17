@@ -119,138 +119,6 @@
                     />
             </LinearLayout>
 
-<!--            ADDRESS-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_marginTop="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="ADDRESS"
-                    android:textSize="15dp"
-                    android:textColor="@color/zendi_color_yellow"
-                    android:textStyle="bold" />
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Address"
-                    android:backgroundTint="@color/black"
-                    android:id="@+id/txtRegisterAddress"
-                    android:inputType="text"
-                    />
-                <TextView
-                    android:layout_marginLeft="5sp"
-                    android:layout_marginTop="5sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Note address"
-                    android:id="@+id/txtRegisterAddressNote"
-                    android:textColor="@color/red"
-                    android:textStyle="italic"
-                    android:textSize="12sp"
-                    />
-            </LinearLayout>
-
-<!--            BIRTHDAY-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_marginTop="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="BIRTHDAY"
-                    android:textSize="15dp"
-                    android:textColor="@color/zendi_color_yellow"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Birthday"
-                    android:text="dd/mm/yyyy"
-                    android:backgroundTint="@color/black"
-                    android:id="@+id/txtRegisterBirthday"
-                    android:inputType="text"
-                    />
-
-                <TextView
-                    android:layout_marginLeft="5sp"
-                    android:layout_marginTop="5sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Note birthday"
-                    android:id="@+id/txtRegisterBirthdayNote"
-                    android:textColor="@color/red"
-                    android:textStyle="italic"
-                    android:textSize="12sp"
-                    />
-            </LinearLayout>
-
-<!--            GENDER-->
-            <LinearLayout
-                android:id="@+id/gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="GENDER"
-                    android:textColor="@color/zendi_color_yellow"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-
-                <RadioGroup
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rdRegisterMale"
-                        android:layout_width="100sp"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="#777676"
-                        android:text="Male"
-                        android:textColor="#777676"
-                        android:textSize="15dp" />
-
-                    <RadioButton
-                        android:id="@+id/rdRegisterFemale"
-                        android:layout_width="100sp"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="#777676"
-                        android:text="Female"
-                        android:textColor="#777676"
-                        android:textSize="15dp" />
-
-                    <RadioButton
-                        android:id="@+id/rdRegisterOther"
-                        android:layout_width="100sp"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="#777676"
-                        android:text="Other"
-                        android:textColor="#777676"
-                        android:textSize="15dp" />
-                </RadioGroup>
-                <TextView
-                    android:layout_marginLeft="5sp"
-                    android:layout_marginTop="5sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Note gender"
-                    android:id="@+id/txtRegisterGenderNote"
-                    android:textColor="@color/red"
-                    android:textStyle="italic"
-                    android:textSize="12sp"
-                    />
-            </LinearLayout>
-
 <!--            EMAIL-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -327,7 +195,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="REAPEAT PASSWORD"
+                    android:text="CONFIRM PASSWORD"
                     android:layout_marginTop="15sp"
                     android:textColor="@color/zendi_color_yellow"
                     android:textSize="15dp"

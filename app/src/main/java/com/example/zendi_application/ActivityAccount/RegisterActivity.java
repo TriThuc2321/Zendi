@@ -1,14 +1,25 @@
 package com.example.zendi_application.ActivityAccount;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.zendi_application.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import static com.example.zendi_application.DataManager.listUsers;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +30,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -26,25 +38,16 @@ public class RegisterActivity extends AppCompatActivity {
     //view
     EditText etName;
     EditText etPhone;
-    EditText etAddress;
-    EditText etBirthday;
     EditText etEmail;
     EditText etPassword;
     EditText etRepeatPassword;
 
     TextView tvNameNote;
     TextView tvPhoneNote;
-    TextView tvAddressNote;
-    TextView tvBirthdayNote;
     TextView tvEmailNote;
     TextView tvPasswordNote;
     TextView tvRepeatPasswordNote;
-    TextView tvGenderNote;
     TextView tvSignIn;
-
-    RadioButton maleRad;
-    RadioButton femaleRad;
-    RadioButton otherRad;
 
     Button btnRegister;
 
@@ -73,33 +76,30 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validate()){
-
+                if (validate()) {
+                    setData();
                 }
             }
         });
 
     }
-    void setData(){
-        int mGender =0;
-        if (maleRad.isChecked() == true) {
-            mGender = 0;
-        } else if (femaleRad.isChecked() == true) {
-            mGender = 1;
-        } else if (otherRad.isChecked() == true) {
-            mGender = 2;
-        }
+
+    void setData() {
+        int mGender = 0;
 
         String id = "";
         String profilePic = "";
         String size = "";
         String total = "";
         int shopOwner = 0;
+        String address = "";
+        String birthday = "";
 
         user = new User(
-                etAddress.getText().toString(),
-                etBirthday.getText().toString(),
+                address,
+                birthday,
                 etEmail.getText().toString(),
+                etPassword.getText().toString(),
                 mGender,
                 id,
                 etName.getText().toString(),
@@ -108,112 +108,168 @@ public class RegisterActivity extends AppCompatActivity {
                 size,
                 total,
                 shopOwner);
-        ///Log.d(user)
-        dataBase.child("Users").child(etEmail.getText().toString()).setValue(user);
+        String string = etEmail.getText().toString();
+        String[] parts = string.split("@");
+        dataBase.child("Users").child(parts[0]).setValue(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(RegisterActivity.this, "Sign up successfully!", Toast.LENGTH_LONG).show();
+                        Intent newIntent = new Intent(RegisterActivity.this, Account_Activity.class);
+                        startActivity(newIntent);
+                    }
+                });
+
     }
-    boolean validate(){
+
+    boolean validate() {
+        refreshNote();
         boolean check = true;
-        if (etName.getText().equals("") || etName.getText().equals(null) || etName.getText().equals(" "))
-        {
+
+        if (etName.getText().toString().equals("") || etName.getText().toString().equals(null) || etName.getText().toString().equals(" ")) {
             tvNameNote.setText("Please enter your name!");
             tvNameNote.setVisibility(View.VISIBLE);
             check = false;
         }
+//        else if (!checkName(etName.getText().toString())){
+//            tvNameNote.setText("Name is not valid!");
+//            tvNameNote.setVisibility(View.VISIBLE);
+//            check = false;
+//        }
 
-        //Log.d("name", etName.getText().toString());
-        if (etPhone.getText().equals("") || etPhone.getText().equals(null)|| etPhone.getText().equals(" ")){
+        if (etPhone.getText().toString().equals("") || etPhone.getText().toString().equals(null) || etPhone.getText().toString().equals(" ")) {
             tvPhoneNote.setText("Please enter your phone number");
             tvPhoneNote.setVisibility(View.VISIBLE);
             check = false;
         }
+//        else if (!checkPhone(etPhone.getText().toString())){
+//            tvPhoneNote.setText("Phone number is not valid!");
+//            tvPhoneNote.setVisibility(View.VISIBLE);
+//            check = false;
+//        }
 
-        if (etAddress.getText().equals("") || etAddress.getText().equals(null) || etAddress.getText().equals(" ")){
-            tvAddressNote.setText("Please enter your address");
-            tvAddressNote.setVisibility(View.VISIBLE);
-            check = false;
-        }
-
-        if (etBirthday.getText().equals("") || etBirthday.getText().equals(null) || etAddress.getText().equals(" ")){
-            tvBirthdayNote.setText("Please enter your birthday");
-            tvBirthdayNote.setVisibility(View.VISIBLE);
-            check = false;
-        }
-
-        if (etEmail.getText().equals("") || etEmail.getText().equals(null) || etEmail.getText().equals(" ")){
+        if (etEmail.getText().toString().equals("") || etEmail.getText().toString().equals(null) || etEmail.getText().toString().equals(" ")) {
             tvEmailNote.setText("Please enter your email");
             tvEmailNote.setVisibility(View.VISIBLE);
             check = false;
-        }
-        else if (!isValidEmail(etEmail.getText().toString())){
+        } else if (!isValidEmail(etEmail.getText().toString())) {
             tvEmailNote.setText("Your email is invalid!");
             tvEmailNote.setVisibility(View.VISIBLE);
             check = false;
+        } else {
+            String string = etEmail.getText().toString();
+            String[] parts = string.split("@");
+//            dataBase.child("Users").child(parts[0]).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                    if (task.isSuccessful()) {
+//                        if(task.getResult().getValue() != null)
+//                        {
+//                            check = false;
+//                            tvEmailNote.setVisibility(View.VISIBLE);
+//                            tvEmailNote.setText("Email is existed!");
+//                        }
+//
+//                    }
+//                }
+//            });
+            for (int i = 0; i < listUsers.size(); i++) {
+                if (listUsers.get(i).getEmail().equals(etEmail.getText().toString())) {
+                    check = false;
+                    Log.d("trung", "3234");
+                    tvEmailNote.setVisibility(View.VISIBLE);
+                    tvEmailNote.setText("Email is existed!");
+                    break;
+                }
+            }
         }
 
-        return true;
+        boolean checkEmptyPass = false;
+        boolean checkEmptyConfirmPass = false;
+
+        if (etPassword.getText().toString().equals("") || etPassword.getText().toString().equals(null) || etPassword.getText().toString().equals(" ")) {
+            tvPasswordNote.setText("Please enter your password!");
+            tvPasswordNote.setVisibility(View.VISIBLE);
+            check = false;
+            checkEmptyPass = true;
+        } else {
+            String note = checkPassword(etPassword.getText().toString());
+            if (!note.equals("")) {
+                tvPasswordNote.setText(note);
+                check = false;
+            }
+        }
+
+        if (etRepeatPassword.getText().toString().equals("") || etRepeatPassword.getText().toString().equals(null) || etRepeatPassword.getText().toString().equals(" ")) {
+            tvRepeatPasswordNote.setText("Please enter your confirm password!");
+            tvRepeatPasswordNote.setVisibility(View.VISIBLE);
+            check = false;
+            checkEmptyConfirmPass = true;
+        }
+
+        if (!checkEmptyPass && !checkEmptyConfirmPass && !etPassword.getText().toString().equals(etRepeatPassword.getText().toString())) {
+            tvRepeatPasswordNote.setText("Password and confirm password must be similar");
+            tvRepeatPasswordNote.setVisibility(View.VISIBLE);
+            check = false;
+        }
+
+        return check;
     }
-    void init(){
-         etName = findViewById(R.id.txtRegisterName);
-         etPhone = findViewById(R.id.txtRegisterPhone);
-         etAddress = findViewById(R.id.txtRegisterAddress);
-         etBirthday = findViewById(R.id.txtRegisterBirthday);
-         etEmail = findViewById(R.id.txtRegisterEmail);
-         etPassword = findViewById(R.id.txtRegisterPass1);
-         etRepeatPassword = findViewById(R.id.txtRegisterPass2);
 
-         tvNameNote= findViewById(R.id.txtRegisterNameNote);
-         tvPhoneNote= findViewById(R.id.txtRegisterPhoneNote);
-         tvAddressNote= findViewById(R.id.txtRegisterAddressNote);
-         tvBirthdayNote= findViewById(R.id.txtRegisterBirthdayNote);
-         tvEmailNote= findViewById(R.id.txtRegisterEmailNote);
-         tvPasswordNote= findViewById(R.id.txtRegisterPass1Note);
-         tvRepeatPasswordNote= findViewById(R.id.txtRegisterPass2Note);
-         tvGenderNote= findViewById(R.id.txtRegisterGenderNote);
-         tvSignIn= findViewById(R.id.txtRegisterSignIn);
+    void init() {
+        etName = findViewById(R.id.txtRegisterName);
+        etPhone = findViewById(R.id.txtRegisterPhone);
+        etEmail = findViewById(R.id.txtRegisterEmail);
+        etPassword = findViewById(R.id.txtRegisterPass1);
+        etRepeatPassword = findViewById(R.id.txtRegisterPass2);
 
-         tvNameNote.setVisibility(View.GONE);
-         tvPhoneNote.setVisibility(View.GONE);
-         tvAddressNote.setVisibility(View.GONE);
-         tvBirthdayNote.setVisibility(View.GONE);
-         tvEmailNote.setVisibility(View.GONE);
-         tvPasswordNote.setVisibility(View.GONE);
-         tvRepeatPasswordNote.setVisibility(View.GONE);
-         tvGenderNote.setVisibility(View.GONE);
+        tvNameNote = findViewById(R.id.txtRegisterNameNote);
+        tvPhoneNote = findViewById(R.id.txtRegisterPhoneNote);
+        tvEmailNote = findViewById(R.id.txtRegisterEmailNote);
+        tvPasswordNote = findViewById(R.id.txtRegisterPass1Note);
+        tvRepeatPasswordNote = findViewById(R.id.txtRegisterPass2Note);
+        tvSignIn = findViewById(R.id.txtRegisterSignIn);
 
-         maleRad= findViewById(R.id.rdRegisterMale);
-         femaleRad= findViewById(R.id.rdRegisterFemale);
-         otherRad= findViewById(R.id.rdRegisterOther);
+        tvNameNote.setVisibility(View.GONE);
+        tvPhoneNote.setVisibility(View.GONE);
+        tvEmailNote.setVisibility(View.GONE);
+        tvPasswordNote.setVisibility(View.GONE);
+        tvRepeatPasswordNote.setVisibility(View.GONE);
 
-         btnRegister= findViewById(R.id.btnRegisterSubmit);
-
-        etBirthday.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View v) {
-                                              final Calendar c = Calendar.getInstance();
-                                              int mYear = c.get(Calendar.YEAR);
-                                              int mMonth = c.get(Calendar.MONTH);
-                                              int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-                                              DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterActivity.this, android.R.style.Theme_Holo_Dialog,
-                                                      new DatePickerDialog.OnDateSetListener() {
-
-                                                          @Override
-                                                          public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                                              etBirthday.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                                                          }
-                                                      }, mYear, mMonth, mDay);
-                                              datePickerDialog.show();
-
-
-                                          }
-                                      });
+        btnRegister = findViewById(R.id.btnRegisterSubmit);
 
         mAuth = FirebaseAuth.getInstance();
         dataBase = FirebaseDatabase.getInstance().getReference();
     }
 
-    public boolean isValidEmail(String email)
-    {
+    void refreshNote() {
+        int gone = View.GONE;
+        tvPhoneNote.setVisibility(gone);
+        tvPasswordNote.setVisibility(gone);
+        tvNameNote.setVisibility(gone);
+        tvEmailNote.setVisibility(gone);
+        tvRepeatPasswordNote.setVisibility(gone);
+    }
+
+    String checkPassword(String password) {
+        if (password.length() < 6)
+            return "Password length must be equal or more than 6 characters";
+        return "";
+    }
+
+    public boolean isValidEmail(String email) {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    boolean checkName(String name) {
+        return ((!name.equals(""))
+                && (name != null)
+                && (name.matches("^[a-zA-Z]*$")));
+    }
+
+    boolean checkPhone(String phone) {
+        return ((!phone.equals(""))
+                && (phone != null)
+                && (phone.matches("/(0+([0-9]{9})\\b)/g")));
     }
 }

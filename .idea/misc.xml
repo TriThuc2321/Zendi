@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/Zendi/app/src/main/res/layout/activity_account.xml" value="0.16417272338606242" />
+        <entry key="..\:/Android/Zendi/app/src/main/res/layout/activity_login_register.xml" value="0.16417272338606242" />
+        <entry key="..\:/Android/Zendi/app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_black_stroke.xml" value="0.22982456140350876" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_button.xml" value="0.22982456140350876" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_for_detailproduct.xml" value="0.22982456140350876" />
