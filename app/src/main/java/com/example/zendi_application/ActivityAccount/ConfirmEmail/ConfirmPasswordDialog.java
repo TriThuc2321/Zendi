@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 import static com.example.zendi_application.ActivityAccount.SettingActivity.isConfirm;
 import static com.example.zendi_application.ActivityAccount.SettingActivity.lockEmailIcon;
 import static com.example.zendi_application.ActivityAccount.SettingActivity.openConfirmDialogBtn;
-import static com.facebook.FacebookSdk.getApplicationContext;
+
 
 public class ConfirmPasswordDialog extends Dialog {
 
@@ -111,7 +111,7 @@ public class ConfirmPasswordDialog extends Dialog {
                 try {
                     int randomCode = new Random().nextInt(900000) + 100000;
                     verifyCode = randomCode;
-                    GmailSender sender = new GmailSender("zendiapplication@gmail.com", "ThucThienThangHuynh123");
+                    GmailSender sender = new GmailSender("zendiapplication", "yovmsjtkpwwfgbbv");
                     sender.sendMail("Verify code",
                             "Thank for using Zendi Application, this is you verify code: " + randomCode,
                             "zendiapplication@gmail.com",
