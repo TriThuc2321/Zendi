@@ -559,6 +559,9 @@ public class SettingActivity extends AppCompatActivity {
            request . executeAsync ();
 
        }
+       else{
+            setUser(DataManager.host.getId());
+       }
 
     }
 
@@ -580,8 +583,10 @@ public class SettingActivity extends AppCompatActivity {
                 }
 
                 DataManager.host = user;
-                DataManager.getShoeInBagFromFirestone("InBag/" + DataManager.host.getId() + "/ShoeList",DataManager.list);
-                DataManager.getShoeInWishFromFirestone("InWish/" + DataManager.host.getId() + "/ShoeList",DataManager.shoeInWish);
+                String string = user.getEmail().toString();
+                String[] parts = string.split("@");
+                DataManager.getShoeInBagFromFirestone("InBag/" + parts[0] + "/ShoeList",DataManager.list);
+                DataManager.getShoeInWishFromFirestone("InWish/" + parts[0] + "/ShoeList",DataManager.shoeInWish);
 
                 nameTxt.setText(user.getName()+"");
                 emailTxt.setText(user.getEmail());

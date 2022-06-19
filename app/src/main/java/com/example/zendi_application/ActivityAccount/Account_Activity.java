@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zendi_application.DataManager;
+import com.example.zendi_application.Introduction;
 import com.example.zendi_application.R;
 import com.example.zendi_application.ViewPagerAdapter;
 import com.facebook.AccessToken;
@@ -129,28 +130,6 @@ public class Account_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 refreshVisible();
                 if (validate()) {
-//                    String string = etEmail.getText().toString();
-//                    String[] parts = string.split("@");
-//                    dataBase.child("Users").child(parts[0]).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                            if (task.isSuccessful()) {
-//                                if(task.getResult().getValue() != null)
-//                                {
-//                                    User u = task.getResult().getValue(User.class);
-//                                    if (!u.getPassword().equals(etPassword.getText().toString())){
-//                                        tvEmailNote.setVisibility(View.VISIBLE);
-//                                        tvEmailNote.setText("Incorrect password!");
-//                                    }
-//                                }
-//                                else {
-//                                    tvPasswordNote.setVisibility(View.VISIBLE);
-//                                    tvPasswordNote.setText("Email is not existed!");
-//                                }
-//
-//                            }
-//                        }
-//                    });
                     boolean signInSuccessfully = true;
                     for (int i = 0; i < listUsers.size(); i++) {
                         User u = listUsers.get(i);
@@ -170,15 +149,39 @@ public class Account_Activity extends AppCompatActivity {
                         }
                     }
 
-                    if (signInSuccessfully){
-//                        Intent newIntent = new Intent(Account_Activity.this, Account_Activity.class);
-//                        startActivity(newIntent);
-                        Log.d("success", "loginsuccess");
+                    if (signInSuccessfully) {
+                        String string = etEmail.getText().toString();
+                        String[] parts = string.split("@");
+
+                        dataBase.child("Users").child(parts[0]).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                User u = snapshot.getValue(User.class);
+                                u.setId(parts[0]);
+                                DataManager.host = new User();
+                                DataManager.host = u;
+                                Log.d("do", "ok do");
+                                Intent newIntent = new Intent(Account_Activity.this, SettingActivity.class);
+                                startActivity(newIntent);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
                 }
             }
         });
 
+        tvForgotAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent = new Intent(Account_Activity.this, ForgotPassword_1.class);
+                startActivity(newIntent);
+            }
+        });
     }
 
     private void loginGoogle() {

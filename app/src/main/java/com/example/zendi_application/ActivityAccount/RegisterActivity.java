@@ -3,6 +3,8 @@ package com.example.zendi_application.ActivityAccount;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.zendi_application.ActivityAccount.ConfirmEmail.ConfirmPasswordDialog;
+import com.example.zendi_application.ActivityAccount.ConfirmEmail.GmailSender;
 import com.example.zendi_application.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -18,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import static com.example.zendi_application.DataManager.listUsers;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.opengl.Visibility;
 import android.os.Bundle;
@@ -33,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Random;
 
 public class RegisterActivity extends AppCompatActivity {
     //view
@@ -110,15 +114,16 @@ public class RegisterActivity extends AppCompatActivity {
                 shopOwner);
         String string = etEmail.getText().toString();
         String[] parts = string.split("@");
-        dataBase.child("Users").child(parts[0]).setValue(user)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(RegisterActivity.this, "Sign up successfully!", Toast.LENGTH_LONG).show();
-                        Intent newIntent = new Intent(RegisterActivity.this, Account_Activity.class);
-                        startActivity(newIntent);
-                    }
-                });
+        sendEmail(user);
+//        dataBase.child("Users").child(parts[0]).setValue(user)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(RegisterActivity.this, "Sign up successfully!", Toast.LENGTH_LONG).show();
+//                        Intent newIntent = new Intent(RegisterActivity.this, Account_Activity.class);
+//                        startActivity(newIntent);
+//                    }
+//                });
 
     }
 
@@ -131,22 +136,22 @@ public class RegisterActivity extends AppCompatActivity {
             tvNameNote.setVisibility(View.VISIBLE);
             check = false;
         }
-//        else if (!checkName(etName.getText().toString())){
-//            tvNameNote.setText("Name is not valid!");
-//            tvNameNote.setVisibility(View.VISIBLE);
-//            check = false;
-//        }
+        else if (!checkName(etName.getText().toString())){
+            tvNameNote.setText("Name is not valid!");
+            tvNameNote.setVisibility(View.VISIBLE);
+            check = false;
+        }
 
         if (etPhone.getText().toString().equals("") || etPhone.getText().toString().equals(null) || etPhone.getText().toString().equals(" ")) {
             tvPhoneNote.setText("Please enter your phone number");
             tvPhoneNote.setVisibility(View.VISIBLE);
             check = false;
         }
-//        else if (!checkPhone(etPhone.getText().toString())){
-//            tvPhoneNote.setText("Phone number is not valid!");
-//            tvPhoneNote.setVisibility(View.VISIBLE);
-//            check = false;
-//        }
+        else if (!checkPhone(etPhone.getText().toString())){
+            tvPhoneNote.setText("Phone number is not valid!");
+            tvPhoneNote.setVisibility(View.VISIBLE);
+            check = false;
+        }
 
         if (etEmail.getText().toString().equals("") || etEmail.getText().toString().equals(null) || etEmail.getText().toString().equals(" ")) {
             tvEmailNote.setText("Please enter your email");
@@ -159,24 +164,9 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             String string = etEmail.getText().toString();
             String[] parts = string.split("@");
-//            dataBase.child("Users").child(parts[0]).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//                @Override
-//                public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                    if (task.isSuccessful()) {
-//                        if(task.getResult().getValue() != null)
-//                        {
-//                            check = false;
-//                            tvEmailNote.setVisibility(View.VISIBLE);
-//                            tvEmailNote.setText("Email is existed!");
-//                        }
-//
-//                    }
-//                }
-//            });
             for (int i = 0; i < listUsers.size(); i++) {
                 if (listUsers.get(i).getEmail().equals(etEmail.getText().toString())) {
                     check = false;
-                    Log.d("trung", "3234");
                     tvEmailNote.setVisibility(View.VISIBLE);
                     tvEmailNote.setText("Email is existed!");
                     break;
@@ -262,14 +252,44 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     boolean checkName(String name) {
-        return ((!name.equals(""))
-                && (name != null)
-                && (name.matches("^[a-zA-Z]*$")));
+        return name.matches("^[ A-Za-z]+$");
     }
 
     boolean checkPhone(String phone) {
-        return ((!phone.equals(""))
-                && (phone != null)
-                && (phone.matches("/(0+([0-9]{9})\\b)/g")));
+        if (phone.length() != 10)
+            return false;
+        if (phone.charAt(0) != '0')
+            return  false;
+        return true;
+    }
+
+    int randomCode;
+
+    void sendEmail(User user) {
+        final ProgressDialog dialog = new ProgressDialog(RegisterActivity.this);
+        dialog.setTitle("Sending Email");
+        dialog.setMessage("Please wait");
+        dialog.show();
+        randomCode = new Random().nextInt(900000) + 100000;
+        Thread sender = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    GmailSender sender = new GmailSender("zendiapplication@gmail.com", "yovmsjtkpwwfgbbv");
+                    sender.sendMail("Verify code",
+                            "Thank you for using Zendi Application, this is you verify code: " + randomCode,
+                            "planzyapplycation@gmail.com",
+                            etEmail.getText().toString());
+                    dialog.dismiss();
+
+
+                } catch (Exception e) {
+                    Log.e("mylog", "Error: " + e.getMessage());
+                }
+            }
+        });
+        sender.start();
+        ConfirmRegister confirmRegister = new ConfirmRegister(RegisterActivity.this, etEmail.getText().toString(), randomCode, user);
+        confirmRegister.show();
     }
 }
