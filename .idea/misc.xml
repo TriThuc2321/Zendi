@@ -3,13 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android/Zendi/app/src/main/res/layout/activity_account.xml" value="0.33" />
-        <entry key="..\:/Android/Zendi/app/src/main/res/layout/activity_confirm_register.xml" value="0.38976377952755903" />
-        <entry key="..\:/Android/Zendi/app/src/main/res/layout/activity_forgot_password1.xml" value="0.25" />
-        <entry key="..\:/Android/Zendi/app/src/main/res/layout/activity_forgot_password2.xml" value="0.22" />
-        <entry key="..\:/Android/Zendi/app/src/main/res/layout/activity_login_register.xml" value="0.16417272338606242" />
-        <entry key="..\:/Android/Zendi/app/src/main/res/layout/activity_register.xml" value="0.28820960698689957" />
-        <entry key="..\:/Android/Zendi/app/src/main/res/layout/confirm_password_layout.xml" value="0.18" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_black_stroke.xml" value="0.22982456140350876" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_button.xml" value="0.22982456140350876" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_for_detailproduct.xml" value="0.22982456140350876" />
@@ -39,6 +32,7 @@
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_collection_drop.xml" value="0.14921875" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_home_screen.xml" value="0.14921875" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_main.xml" value="0.8" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_notification_place.xml" value="0.205859375" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/collection_item_type1.xml" value="0.264" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/drop_category.xml" value="0.205859375" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/drop_item.xml" value="0.152" />

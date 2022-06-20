@@ -20,6 +20,7 @@ import com.example.zendi_application.ActivityAccount.Admin.AdminActivity;
 import com.example.zendi_application.ActivityAccount.LoginRegisterActivity;
 import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.addProductPackage.uploadData;
+import com.example.zendi_application.notificationPackage.notificationPlace;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
@@ -112,6 +113,10 @@ public class HomeScreen extends AppCompatActivity {
                     Intent intent = new Intent(HomeScreen.this, AdminActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
+                }
+                else if(item.getItemId() == R.id.notifi_item){
+                    Intent intent = new Intent(HomeScreen.this, notificationPlace.class);
+                    startActivity(intent);
                 }
                 return true;
             }
