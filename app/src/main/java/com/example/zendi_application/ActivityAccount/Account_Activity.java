@@ -12,7 +12,9 @@ import androidx.viewpager.widget.ViewPager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -22,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zendi_application.DataManager;
+import com.example.zendi_application.HomeScreen;
+import com.example.zendi_application.Introduction;
 import com.example.zendi_application.R;
 import com.example.zendi_application.ViewPagerAdapter;
 import com.facebook.AccessToken;
@@ -67,9 +71,9 @@ import static com.example.zendi_application.DataManager.listUsers;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Account_Activity extends AppCompatActivity  {
+public class Account_Activity extends AppCompatActivity {
 
-    private  String TAG = "Thuc";
+    private String TAG = "Thuc";
     private FirebaseAuth mAuth;
     private DatabaseReference dataBase;
 
@@ -90,14 +94,16 @@ public class Account_Activity extends AppCompatActivity  {
     TextView tvForgotAcc;
     TextView tvSignUp;
 
+    Button btnLoginEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
         init();
+        refreshVisible();
 
         mAuth = FirebaseAuth.getInstance();
         dataBase = FirebaseDatabase.getInstance().getReference();
@@ -120,8 +126,66 @@ public class Account_Activity extends AppCompatActivity  {
             }
         });
 
+        btnLoginEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                refreshVisible();
+                if (validate()) {
+                    boolean signInSuccessfully = true;
+                    for (int i = 0; i < listUsers.size(); i++) {
+                        User u = listUsers.get(i);
+                        if (u.getEmail().equals(etEmail.getText().toString())) {
+                            if (!u.getPassword().equals(etPassword.getText().toString())) {
+                                tvPasswordNote.setVisibility(View.VISIBLE);
+                                tvPasswordNote.setText("Incorrect password!");
+                                signInSuccessfully = false;
+                            }
+                            break;
+                        } else {
+                            if (i == listUsers.size() - 1) {
+                                tvEmailNote.setVisibility(View.VISIBLE);
+                                tvEmailNote.setText("Email is not existed!");
+                                signInSuccessfully = false;
+                            }
+                        }
+                    }
+
+                    if (signInSuccessfully) {
+                        String string = etEmail.getText().toString();
+                        String[] parts = string.split("@");
+
+                        dataBase.child("Users").child(parts[0]).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                User u = snapshot.getValue(User.class);
+                                u.setId(parts[0]);
+                                DataManager.host = new User();
+                                DataManager.host = u;
+                                Log.d("do", "ok do");
+                                Intent newIntent = new Intent(Account_Activity.this, HomeScreen.class);
+                                startActivity(newIntent);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+        tvForgotAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent = new Intent(Account_Activity.this, ForgotPassword_1.class);
+                startActivity(newIntent);
+            }
+        });
     }
-    private  void loginGoogle(){
+
+    private void loginGoogle() {
         findViewById(R.id.googleTxt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,9 +210,10 @@ public class Account_Activity extends AppCompatActivity  {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
-    private void signIn(){
+
+    private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -163,7 +228,7 @@ public class Account_Activity extends AppCompatActivity  {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(),"login sucess", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "login sucess", Toast.LENGTH_LONG).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -173,10 +238,10 @@ public class Account_Activity extends AppCompatActivity  {
                 });
     }
 
-    private void loginFacebook(){
+    private void loginFacebook() {
         mCallbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = findViewById(R.id.button_sign_in);
-       // loginButton.setReadPermissions(Arrays.asList(EMAIL));
+        // loginButton.setReadPermissions(Arrays.asList(EMAIL));
         loginButton.setReadPermissions("email", "public_profile");
 
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
@@ -215,7 +280,7 @@ public class Account_Activity extends AppCompatActivity  {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RC_SIGN_IN){
+        if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 // Google Sign In was successful, authenticate with Firebase
@@ -224,40 +289,40 @@ public class Account_Activity extends AppCompatActivity  {
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Toast.makeText(getApplicationContext(),"Google sign in failed",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Google sign in failed", Toast.LENGTH_LONG).show();
                 Log.w(TAG, "Google sign in failed", e);
             }
-        }
-        else{
+        } else {
             mCallbackManager.onActivityResult(requestCode, resultCode, data);
 
         }
     }
 
     private void openProfile(JSONObject object) throws JSONException {
-        if(!existUser(object)){
-            setData("","DD/ MM/ YY", "",2, object.getString("id"),object.getString("name"),"","","","", 0);
+        if (!existUser(object)) {
+            setData("", "DD/ MM/ YY", "", "", 2, object.getString("id"), object.getString("name"), "", "", "", "", 0);
 
         }
         //DataManager.getInstance().host = new User("","DD/ MM/ YY", "",2, object.getString("id"),object.getString("name"),"","","","", 0);
         startActivity(new Intent(Account_Activity.this, SettingActivity.class));
         finish();
     }
+
     boolean existUser(JSONObject object) throws JSONException {
         //FirebaseUser currentUser = mAuth.getCurrentUser();
-        for(int i=0; i< listUsers.size(); i++){
+        for (int i = 0; i < listUsers.size(); i++) {
             //String b = currentUser.getUid();
 
             String b = object.getString("id");
             String c = listUsers.get(i).getId();
             int d = b.compareTo(c);
-            if(d == 0) return true;
+            if (d == 0) return true;
         }
         return false;
     }
 
-    public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int isShopOwner){
-        User mUser =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total, isShopOwner);
+    public void setData(String address, String DOB, String email, String password, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int isShopOwner) {
+        User mUser = new User(address, DOB, email, password, gender, id, name, phoneNumber, profilePic, size, total, isShopOwner);
         dataBase.child("Users").child(id).setValue(mUser);
     }
 
@@ -282,23 +347,25 @@ public class Account_Activity extends AppCompatActivity  {
 //                    }
 //                });
 
-        GraphRequest request = GraphRequest.newMeRequest (
-                token ,
-                new GraphRequest .GraphJSONObjectCallback ( ) {
+        GraphRequest request = GraphRequest.newMeRequest(
+                token,
+                new GraphRequest.GraphJSONObjectCallback() {
                     @Override
-                    public void onCompleted (JSONObject object , GraphResponse response ) {
+                    public void onCompleted(JSONObject object, GraphResponse response) {
                         try {
                             openProfile(object);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    } });
-                         Bundle parameters = new Bundle ();
-                    parameters . putString ( "fields" , "id,name,link" );
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,link");
 
-                    request . setParameters ( parameters );
-                    request . executeAsync ();
+        request.setParameters(parameters);
+        request.executeAsync();
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -308,13 +375,44 @@ public class Account_Activity extends AppCompatActivity  {
 //        if(currentUser!=null) openProfile(object);
     }
 
-    void init(){
+    boolean validate() {
+        boolean check = true;
+
+        if (etEmail.getText().toString().equals("")) {
+            tvEmailNote.setText("Please enter email!");
+            tvEmailNote.setVisibility(View.VISIBLE);
+            check = false;
+        } else if (!isValidEmail(etEmail.getText().toString())) {
+            tvEmailNote.setText("Invalid email!");
+            tvEmailNote.setVisibility(View.VISIBLE);
+            check = false;
+        }
+
+        if (etPassword.getText().toString().equals("")) {
+            tvPasswordNote.setText("Please enter password!");
+            tvPasswordNote.setVisibility(View.VISIBLE);
+            check = false;
+        }
+        return check;
+    }
+
+    void init() {
         etEmail = findViewById(R.id.txtLoginEmail);
-        etPassword= findViewById(R.id.txtLoginPassword);
+        etPassword = findViewById(R.id.txtLoginPassword);
         tvEmailNote = findViewById(R.id.txtLoginEmailNote);
         tvPasswordNote = findViewById(R.id.txtLoginPasswordNote);
         tvForgotAcc = findViewById(R.id.txtLoginForgotPassword);
-        tvSignUp= findViewById(R.id.txtLoginSignUp);
+        tvSignUp = findViewById(R.id.txtLoginSignUp);
+        btnLoginEmail = findViewById(R.id.btnLoginEmail);
+    }
+
+    void refreshVisible() {
+        tvEmailNote.setVisibility(View.GONE);
+        tvPasswordNote.setVisibility(View.GONE);
+    }
+
+    public boolean isValidEmail(String email) {
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }
 

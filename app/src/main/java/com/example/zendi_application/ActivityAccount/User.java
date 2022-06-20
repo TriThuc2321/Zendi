@@ -4,6 +4,7 @@ public class User {
     private String Address;
     private String DOB;
     private String Email;
+    private String Password;
     private int Gender;
     private String Id;
     private String Name;
@@ -18,10 +19,11 @@ public class User {
 
     }
 
-    public User(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int shopOwner) {
+    public User(String address, String DOB, String email, String password, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int shopOwner) {
         Address = address;
         this.DOB = DOB;
         Email = email;
+        Password = password;
         Gender = gender;
         Id = id;
         Name = name;
@@ -31,6 +33,7 @@ public class User {
         Total = total;
         ShopOwner = shopOwner;
     }
+
 
     public String getAddress() {
         return Address;
@@ -119,4 +122,7 @@ public class User {
     public void setShopOwner(int shopOwner) {
         ShopOwner = shopOwner;
     }
+
+    public void setPassword(String password){Password = password;}
+    public String getPassword(){return Password;}
 }

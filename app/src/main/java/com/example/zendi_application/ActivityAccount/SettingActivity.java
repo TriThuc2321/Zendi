@@ -466,7 +466,7 @@ public class SettingActivity extends AppCompatActivity {
 
                     for (int i = 0; i < listUsers.size(); i++) {
                         if(listUsers.get(i).getId() == user.getId()) {
-                            user = new User(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(), mGender, userId, nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
+                            user = new User(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(),"", mGender, userId, nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
                             listUsers.set(i, user);
                         }
                     }
@@ -559,6 +559,9 @@ public class SettingActivity extends AppCompatActivity {
            request . executeAsync ();
 
        }
+       else{
+            setUser(DataManager.host.getId());
+       }
 
     }
 
@@ -580,8 +583,10 @@ public class SettingActivity extends AppCompatActivity {
                 }
 
                 DataManager.host = user;
-                DataManager.getShoeInBagFromFirestone("InBag/" + DataManager.host.getId() + "/ShoeList",DataManager.list);
-                DataManager.getShoeInWishFromFirestone("InWish/" + DataManager.host.getId() + "/ShoeList",DataManager.shoeInWish);
+                String string = user.getEmail().toString();
+                String[] parts = string.split("@");
+                DataManager.getShoeInBagFromFirestone("InBag/" + parts[0] + "/ShoeList",DataManager.list);
+                DataManager.getShoeInWishFromFirestone("InWish/" + parts[0] + "/ShoeList",DataManager.shoeInWish);
 
                 nameTxt.setText(user.getName()+"");
                 emailTxt.setText(user.getEmail());
@@ -624,7 +629,7 @@ public class SettingActivity extends AppCompatActivity {
         return false;
     }
     public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int isShoOwner){
-        user =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total, isShoOwner);
+        user =  new User(address, DOB, email,"", gender, id, name,phoneNumber,profilePic,size,total, isShoOwner);
         dataBase.child("Users").child(id).setValue(user);
     }
     public void hideKeyboard(View view) {
