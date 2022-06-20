@@ -11,9 +11,33 @@
         <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_login_register.xml" value="0.1" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_register.xml" value="0.2" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_setting.xml" value="0.2" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/button_clicked.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_chevron_right_24.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_close_delete.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_delete_forever_24.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_exposure_neg_1_24.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_format_list_bulleted_24.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_24_back_detail_drop.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_black.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_priority_high_24.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_social_distance_24.xml" value="0.161328125" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_collection_drop.xml" value="0.14921875" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_home_screen.xml" value="0.14921875" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_main.xml" value="0.8" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/collection_item_type1.xml" value="0.264" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/drop_category.xml" value="0.205859375" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/drop_item.xml" value="0.152" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/fragment_detail_drop.xml" value="0.205859375" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/fragment_drops.xml" value="0.14921875" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/menu/menu_appbar_top.xml" value="0.14921875" />
       </map>
     </option>
   </component>
