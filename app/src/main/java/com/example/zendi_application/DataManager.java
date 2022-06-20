@@ -505,8 +505,6 @@ public class DataManager {
                                 }
 
                             }
-
-
                         }
 
                     }).addOnFailureListener(new OnFailureListener() {
@@ -516,7 +514,6 @@ public class DataManager {
                         }
                     });
 
-/////////////
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
