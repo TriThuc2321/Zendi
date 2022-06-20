@@ -8,9 +8,13 @@
         <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_for_detailproduct.xml" value="0.22982456140350876" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_imageview.xml" value="0.22982456140350876" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_account.xml" value="0.14649122807017545" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_admin.xml" value="0.18157894736842106" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_login_register.xml" value="0.1" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_register.xml" value="0.2" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_setting.xml" value="0.2" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_staff_manager.xml" value="0.264" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_statistic.xml" value="0.19473684210526315" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/staff_custom.xml" value="0.19473684210526315" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_main.xml" value="0.8" />
       </map>
     </option>

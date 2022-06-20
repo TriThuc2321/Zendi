@@ -1,10 +1,9 @@
-package com.example.zendi_application.ActivityAccount.Admin.StaffManager;
+package com.example.zendi_application.ActivityAccount.Admin.AccountManager;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,19 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.R;
 
-import static com.example.zendi_application.ActivityAccount.Admin.StaffManager.StaffManager.listCustomer;
-import static com.example.zendi_application.ActivityAccount.Admin.StaffManager.StaffManager.listStaff;
-import static com.example.zendi_application.ActivityAccount.Admin.StaffManager.StaffManager.saveBtn;
+import java.util.ArrayList;
+import java.util.List;
 
-public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.ViewHolder>{
+public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHolder>{
 
     private Context mContext;
+    private List<User> mlist = new ArrayList<>();
 
-
-    public StaffAdapter(Context mContext) {
+    public AccountAdapter(Context mContext) {
         this.mContext = mContext;
     }
-    public void SetData(){
+    public void SetData(List<User> list){
+        this.mlist = list;
         notifyDataSetChanged();
     }
 
@@ -42,7 +41,7 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        User user = listStaff.get(position);
+        User user = mlist.get(position);
         holder.nameTxt.setText(user.getName());
         holder.emailTxt.setText(user.getEmail());
         holder.phoneNumberTxt.setText(user.getPhoneNumber());
@@ -56,13 +55,12 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.ViewHolder>{
 
     @Override
     public int getItemCount() {
-        if(listStaff == null) return 0;
-        return listStaff.size();
+        if(mlist == null) return 0;
+        return mlist.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView nameTxt;
-        Button subtractBtn;
         TextView emailTxt;
         TextView phoneNumberTxt;
         TextView addressTxt;
@@ -76,23 +74,12 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.ViewHolder>{
             super(itemView);
 
             nameTxt = itemView.findViewById(R.id.name_staff);
-            subtractBtn = (Button) itemView.findViewById(R.id.subtract_staff_btn);
             emailTxt = itemView.findViewById(R.id.emailStaffTxt);
             birthdayTxt = itemView.findViewById(R.id.birthdayStaffTxt);
             addressTxt = itemView.findViewById(R.id.addressStaffTxt);
             genderTxt = itemView.findViewById(R.id.genderStaffTxt);
             phoneNumberTxt = itemView.findViewById(R.id.phoneNumberStaffTxt);
             infoLayout = itemView.findViewById(R.id.infoStaffLayout);
-
-            subtractBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    saveBtn.setVisibility(View.VISIBLE);
-                    listCustomer.add(listStaff.get(getAdapterPosition()));
-                    listStaff.remove(getAdapterPosition());
-                    SetData();
-                }
-            });
 
             nameTxt.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -4,110 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityAccount.Admin.StaffManager.StaffManager">
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:layout_marginTop="85dp"
-        android:background="@drawable/custom_black_stroke"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:layout_marginTop="342dp"
-        android:background="@drawable/custom_black_stroke"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
+    android:orientation="vertical"
+    tools:context=".ActivityAccount.Admin.AccountManager.AccountManager">
 
     <LinearLayout
+        android:id="@+id/staff_manager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/staff_manager"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:background="@color/gold">
 
-        >
         <View
-            android:id="@+id/turn_back_staff_manager"
+            android:id="@+id/turnBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/ic_baseline_arrow_back_24"
-            />
+            android:background="@drawable/ic_baseline_arrow_back_24" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:text="STAFF MANAGER"
-            android:textSize="25dp"
-            android:textStyle="bold"
             android:layout_toRightOf="@+id/arrowLeft"
-            />
+            android:text="ACCOUNT MANAGER"
+            android:textSize="22dp"
+            android:textStyle="bold" />
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@id/staff_manager"
-        android:background="@color/black"
-        android:id="@+id/bar"
-        />
-    <TextView
-        android:id="@+id/list_staff_textview"
+<RelativeLayout
+    android:id="@+id/header_manager"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/staff_manager">
+
+    <Button
+        android:id="@+id/new_staff_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Staff list"
-        android:layout_below="@id/bar"
-        android:fontFamily="sans-serif-black"
-        android:textSize="20dp"
-        android:layout_margin="20dp"
-        android:background="@color/white"
-        />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_staff_recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_below="@+id/list_staff_textview"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-    />
-    <TextView
-        android:id="@+id/list_customer_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Customer list"
-        android:layout_below="@id/list_staff_recyclerView"
-        android:fontFamily="sans-serif-black"
-        android:textSize="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="20dp"
-        android:background="@color/white"
-        />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_customer_recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_below="@+id/list_customer_textview"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="35dp"
+        android:text="New"
+        android:background="#272727"
+        android:textColor="#fff"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5dp"
         />
 
-<Button
-    android:id="@+id/saveStaffManagerBtn"
-    android:layout_width="60dp"
-    android:layout_height="30dp"
-    android:background="@color/black"
-    android:layout_below="@+id/list_customer_recyclerView"
-    android:layout_alignParentRight="true"
-    android:layout_marginTop="50dp"
-    android:text="SAVE"
-    android:textColor="@color/white"
-    android:layout_marginRight="30dp"
-    android:visibility="gone"
-    />
+    <Spinner
+        android:id="@+id/filter_account_spinner"
+        android:layout_width="140dp"
+        android:layout_height="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
+</RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_account_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_below="@+id/header_manager"
+        android:layout_margin="15dp" />
 
 </RelativeLayout>
