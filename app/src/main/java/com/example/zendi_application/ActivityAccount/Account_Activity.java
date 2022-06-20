@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zendi_application.DataManager;
+import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.Introduction;
 import com.example.zendi_application.R;
 import com.example.zendi_application.ViewPagerAdapter;
@@ -161,7 +162,7 @@ public class Account_Activity extends AppCompatActivity {
                                 DataManager.host = new User();
                                 DataManager.host = u;
                                 Log.d("do", "ok do");
-                                Intent newIntent = new Intent(Account_Activity.this, SettingActivity.class);
+                                Intent newIntent = new Intent(Account_Activity.this, HomeScreen.class);
                                 startActivity(newIntent);
                             }
 

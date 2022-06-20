@@ -44,7 +44,11 @@ public class ForgotPassword_1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setVisibleGone();
-                if (isValidEmail(etEmail.getText().toString())){
+                if (etEmail.getText().toString().equals("")){
+                    tvEmailNote.setVisibility(View.VISIBLE);
+                    tvEmailNote.setText("Please enter your email");
+                }
+                else if (isValidEmail(etEmail.getText().toString())){
                     boolean existed = false;
                     for (int i = 0; i < listUsers.size(); i++) {
                         if (listUsers.get(i).getEmail().equals(etEmail.getText().toString())) {
@@ -59,6 +63,7 @@ public class ForgotPassword_1 extends AppCompatActivity {
                     }
                     else{
                         sendEmail();
+                        btnConfirm.setVisibility(View.VISIBLE);
                         btnSend.setText("Resend");
                     }
                 }
@@ -87,7 +92,6 @@ public class ForgotPassword_1 extends AppCompatActivity {
                 if (c == randomCode) {
                     isConfirm = true;
                     Log.d("ConfirmRegister", "correct code");
-                    //   Toast.makeText(mContext,"Successful Confirmation",Toast.LENGTH_LONG).show();
                     Intent newIntent = new Intent(ForgotPassword_1.this, ForgotPassword_2.class);
                     newIntent.putExtra("email", etEmail.getText().toString());
                     startActivity(newIntent);
@@ -111,6 +115,7 @@ public class ForgotPassword_1 extends AppCompatActivity {
         number4 = findViewById(R.id.et_num_4);
         number5 = findViewById(R.id.et_num_5);
         number6 = findViewById(R.id.et_num_6);
+        btnConfirm.setVisibility(View.GONE);
         tvCodeNote = findViewById(R.id.txtForgotPassNoteCode);
         tvEmailNote = findViewById(R.id.txtForgotPassEmailNote);
         etEmail = findViewById(R.id.txtForgotPassEmail);

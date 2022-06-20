@@ -95,7 +95,6 @@ public class ConfirmRegister extends Dialog {
                 if (c == verifyCode) {
                     isConfirm = true;
                     Log.d("ConfirmRegister", "correct code");
-                    //   Toast.makeText(mContext,"Successful Confirmation",Toast.LENGTH_LONG).show();
 
                     String string = currentUser.getEmail();
                     String[] parts = string.split("@");
@@ -104,6 +103,7 @@ public class ConfirmRegister extends Dialog {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    Toast.makeText(mContext,"Sign up successfully!",Toast.LENGTH_LONG).show();
                                     Intent newIntent = new Intent(mContext, Account_Activity.class);
                                     mContext.startActivity(newIntent);
                                 }
@@ -111,7 +111,7 @@ public class ConfirmRegister extends Dialog {
                     dismiss();
                 } else {
                     Log.d("ConfirmRegister", "incorrect code");
-                    //Toast.makeText(mContext,"Incorrect verify code",Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext,"Incorrect verify code",Toast.LENGTH_LONG).show();
                     note.setVisibility(View.VISIBLE);
                     note.setText("Incorrect verify code!");
                 }
