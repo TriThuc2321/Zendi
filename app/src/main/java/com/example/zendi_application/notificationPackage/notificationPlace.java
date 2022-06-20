@@ -25,6 +25,7 @@ public class notificationPlace extends AppCompatActivity {
     public void getNotiList() {
         DataManager.LoadNotification();
         listNoti = DataManager.listNoti;
+        int c = 5;
     }
 
     @Override

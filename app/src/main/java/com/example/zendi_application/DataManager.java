@@ -679,8 +679,8 @@ public class DataManager {
 
     public static void LoadNotification()
     {
-        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
-        firestoneGetProduct.collection("Notification").document(host.getId()).collection("list").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        FirebaseFirestore firestoneInstance = FirebaseFirestore.getInstance();
+        firestoneInstance.collection("Notification/pvdthien/listNoti/").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
