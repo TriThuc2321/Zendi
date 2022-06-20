@@ -50,6 +50,9 @@ import com.example.zendi_application.ActivityAccount.ConfirmEmail.GmailSender;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -68,6 +71,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.annotations.Until;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
@@ -80,7 +86,7 @@ public class SettingActivity extends AppCompatActivity {
     private User user;
     private DatabaseReference dataBase;
     private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
+    private String userId;
 
     private RelativeLayout settingLayout;
     private LinearLayout location;
@@ -139,7 +145,6 @@ public class SettingActivity extends AppCompatActivity {
         findViewById(R.id.logOutBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
 
                 DataManager.shoeInWish.clear();
@@ -149,8 +154,9 @@ public class SettingActivity extends AppCompatActivity {
                 setResult(99);
                 //setResult(RESULT_OK, null);
 
-                finish();
                 startActivity(new Intent(SettingActivity.this, HomeScreen.class));
+                finish();
+
             }
         });
 
@@ -456,11 +462,11 @@ public class SettingActivity extends AppCompatActivity {
                     } else if (otherRad.isChecked() == true) {
                         mGender = 2;
                     }
-                    setData(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(), mGender, currentUser.getUid(), nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
+                    setData(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(), mGender, userId, nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
 
                     for (int i = 0; i < listUsers.size(); i++) {
                         if(listUsers.get(i).getId() == user.getId()) {
-                            user = new User(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(), mGender, currentUser.getUid(), nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
+                            user = new User(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(), mGender, userId, nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
                             listUsers.set(i, user);
                         }
                     }
@@ -494,7 +500,6 @@ public class SettingActivity extends AppCompatActivity {
     private void Init() {
         mAuth = FirebaseAuth.getInstance();
         dataBase = FirebaseDatabase.getInstance().getReference();
-        currentUser = mAuth.getCurrentUser();
 
         settingLayout = findViewById(R.id.settingLayout);
 
@@ -531,7 +536,34 @@ public class SettingActivity extends AppCompatActivity {
 
     }
     void getData(){
-        dataBase.child("Users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+       boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+       if(isLoggedIn){
+           GraphRequest request = GraphRequest.newMeRequest (
+                   accessToken ,
+                   new GraphRequest .GraphJSONObjectCallback ( ) {
+                       @Override
+                       public void onCompleted (JSONObject object , GraphResponse response ) {
+                           try {
+                               userId = object.getString("id");
+                               setUser(userId);
+                           } catch (JSONException e) {
+                               e.printStackTrace();
+                           }
+                       } });
+           Bundle parameters = new Bundle ();
+           parameters . putString ( "fields" , "id,name,link" );
+
+           request . setParameters ( parameters );
+           request . executeAsync ();
+
+       }
+
+    }
+
+    void setUser(String id){
+        dataBase.child("Users").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);
@@ -593,7 +625,7 @@ public class SettingActivity extends AppCompatActivity {
     }
     public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int isShoOwner){
         user =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total, isShoOwner);
-        dataBase.child("Users").child(currentUser.getUid()).setValue(user);
+        dataBase.child("Users").child(id).setValue(user);
     }
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -655,7 +687,7 @@ public class SettingActivity extends AppCompatActivity {
                 try {
                     randomCode = new Random().nextInt(900000) + 100000;
 
-                    GmailSender sender = new GmailSender("zendiapplication@gmail.com", "ThucThienThangHuynh123");
+                    GmailSender sender = new GmailSender("zendiapplication@gmail.com", "yovmsjtkpwwfgbbv");
                     sender.sendMail("Verify code",
                             "Thank for using Zendi Application, this is you verify code: " + randomCode,
                             "planzyapplycation@gmail.com",

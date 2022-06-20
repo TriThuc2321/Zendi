@@ -3,6 +3,8 @@ package com.example.zendi_application;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
@@ -25,6 +27,10 @@ import com.example.zendi_application.shopFragment.OrderInfoDialog;
 import com.example.zendi_application.shopFragment.ShoeInBag;
 import com.example.zendi_application.shopFragment.ShoeInBagAdapter;
 import com.example.zendi_application.wishFragment.ShoeInWishAdapter;
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,6 +51,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -661,7 +670,7 @@ public class DataManager {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-
+            int a = 5;
             }
         });
     }
@@ -1050,22 +1059,42 @@ public class DataManager {
     }
 
     private static FirebaseAuth  mAuth = FirebaseAuth.getInstance();;
-    private static FirebaseUser currentUser = mAuth.getCurrentUser();;
-    public static void GetUser(){
-        dataBase = FirebaseDatabase.getInstance().getReference();
-        if(currentUser!= null){
-            dataBase.child("Users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    host = snapshot.getValue(User.class);
-                    getShoeInBagFromFirestone("InBag/" +DataManager.host.getId()+"/ShoeList",DataManager.list);
-                    getShoeInWishFromFirestone("InWish/"+DataManager.host.getId()+"/ShoeinWish",DataManager.shoeInWish);
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error){
 
-                }
-            });
+    public static void GetUser(){
+
+        dataBase = FirebaseDatabase.getInstance().getReference();
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+        if(isLoggedIn){
+            GraphRequest request = GraphRequest.newMeRequest (
+                    accessToken ,
+                    new GraphRequest .GraphJSONObjectCallback ( ) {
+                        @Override
+                        public void onCompleted (JSONObject object , GraphResponse response ) {
+                            try {
+                                String userId = object.getString("id");
+                                dataBase.child("Users").child(userId).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        host = snapshot.getValue(User.class);
+                                        getShoeInBagFromFirestone("InBag/" +DataManager.host.getId()+"/ShoeList",DataManager.list);
+                                        getShoeInWishFromFirestone("InWish/"+DataManager.host.getId()+"/ShoeinWish",DataManager.shoeInWish);
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error){
+
+                                    }
+                                });
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } });
+            Bundle parameters = new Bundle ();
+            parameters . putString ( "fields" , "id,name,link" );
+
+            request . setParameters ( parameters );
+            request . executeAsync ();
         }
         else {
             DataManager.shoeInWish.clear();

@@ -8,6 +8,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
+
 public class DownloadAsynctask extends AsyncTask<Void, Integer, Void> {
 
     Activity contextParent;
@@ -25,6 +27,7 @@ public class DownloadAsynctask extends AsyncTask<Void, Integer, Void> {
     protected Void doInBackground(Void... params) {
         DataManager.LoadDropInformation("Collection/",DataManager.listDrop);  // load products
         DataManager.LoadProductInformation("Product",DataManager.listProduct); // load categors
+
         DataManager.loadUser();
         DataManager.GetUser();
         DataManager.getListOrderedFromFirestone();

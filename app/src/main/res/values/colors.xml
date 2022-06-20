@@ -15,4 +15,7 @@
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#757575</color>
     <color name="colorDivider">#ECECEC</color>
+    <color name="dark_red">#8B0000</color>
+    <color name="red">#FF0000</color>
+    <color name="zendi_color_yellow">#D4AF37</color>
 </resources>

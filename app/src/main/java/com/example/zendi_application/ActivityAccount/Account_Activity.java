@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,8 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -55,10 +58,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executor;
 
 import static com.example.zendi_application.DataManager.listUsers;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Account_Activity extends AppCompatActivity  {
 
@@ -72,11 +79,25 @@ public class Account_Activity extends AppCompatActivity  {
 
     //facebook
     CallbackManager mCallbackManager;
+    private static final String EMAIL = "email";
+
+    //View
+    EditText etEmail;
+    EditText etPassword;
+
+    TextView tvEmailNote;
+    TextView tvPasswordNote;
+    TextView tvForgotAcc;
+    TextView tvSignUp;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+
+        init();
 
         mAuth = FirebaseAuth.getInstance();
         dataBase = FirebaseDatabase.getInstance().getReference();
@@ -89,6 +110,15 @@ public class Account_Activity extends AppCompatActivity  {
 //        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         loginGoogle();
         loginFacebook();
+
+        tvSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent = new Intent(Account_Activity.this, RegisterActivity.class);
+                startActivity(newIntent);
+
+            }
+        });
 
     }
     private  void loginGoogle(){
@@ -146,6 +176,7 @@ public class Account_Activity extends AppCompatActivity  {
     private void loginFacebook(){
         mCallbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = findViewById(R.id.button_sign_in);
+       // loginButton.setReadPermissions(Arrays.asList(EMAIL));
         loginButton.setReadPermissions("email", "public_profile");
 
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
@@ -203,23 +234,23 @@ public class Account_Activity extends AppCompatActivity  {
         }
     }
 
-
-
-    private void openProfile(){
-        if(!existUser()){
-            setData("","DD/ MM/ YY", mAuth.getCurrentUser().getEmail(),2, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","", 0);
+    private void openProfile(JSONObject object) throws JSONException {
+        if(!existUser(object)){
+            setData("","DD/ MM/ YY", "",2, object.getString("id"),object.getString("name"),"","","","", 0);
 
         }
+        //DataManager.getInstance().host = new User("","DD/ MM/ YY", "",2, object.getString("id"),object.getString("name"),"","","","", 0);
         startActivity(new Intent(Account_Activity.this, SettingActivity.class));
         finish();
     }
-    boolean existUser(){
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+    boolean existUser(JSONObject object) throws JSONException {
+        //FirebaseUser currentUser = mAuth.getCurrentUser();
         for(int i=0; i< listUsers.size(); i++){
-            String b = currentUser.getUid();
+            //String b = currentUser.getUid();
+
+            String b = object.getString("id");
             String c = listUsers.get(i).getId();
             int d = b.compareTo(c);
-            int a = 5;
             if(d == 0) return true;
         }
         return false;
@@ -227,37 +258,63 @@ public class Account_Activity extends AppCompatActivity  {
 
     public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int isShopOwner){
         User mUser =  new User(address, DOB, email, gender, id, name,phoneNumber,profilePic,size,total, isShopOwner);
-        dataBase.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(mUser);
+        dataBase.child("Users").child(id).setValue(mUser);
     }
 
 
     private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
 
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+//        mAuth.signInWithCredential(credential)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            // Sign in success, update UI with the signed-in user's information
+//                            Log.d(TAG, "signInWithCredential:success");
+//                            //setData("","DD/ MM/ YY", mAuth.getCurrentUser().getEmail(),2, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","", 0);
+//                               openProfile();
+//                        } else {
+//                            // If sign in fails, display a message to the user.
+//                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+//                            Toast.makeText(Account_Activity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+
+        GraphRequest request = GraphRequest.newMeRequest (
+                token ,
+                new GraphRequest .GraphJSONObjectCallback ( ) {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            //setData("","DD/ MM/ YY", mAuth.getCurrentUser().getEmail(),2, mAuth.getCurrentUser().getUid(),mAuth.getCurrentUser().getDisplayName(),"","","","", 0);
-                               openProfile();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(Account_Activity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                    public void onCompleted (JSONObject object , GraphResponse response ) {
+                        try {
+                            openProfile(object);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    }
-                });
+                    } });
+                         Bundle parameters = new Bundle ();
+                    parameters . putString ( "fields" , "id,name,link" );
+
+                    request . setParameters ( parameters );
+                    request . executeAsync ();
     }
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser!=null) openProfile();
+//        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+//        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser!=null) openProfile(object);
+    }
+
+    void init(){
+        etEmail = findViewById(R.id.txtLoginEmail);
+        etPassword= findViewById(R.id.txtLoginPassword);
+        tvEmailNote = findViewById(R.id.txtLoginEmailNote);
+        tvPasswordNote = findViewById(R.id.txtLoginPasswordNote);
+        tvForgotAcc = findViewById(R.id.txtLoginForgotPassword);
+        tvSignUp= findViewById(R.id.txtLoginSignUp);
     }
 }
 
