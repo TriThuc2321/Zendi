@@ -115,6 +115,7 @@ public class SettingActivity extends AppCompatActivity {
     private EditText phoneNumberEdt;
 
     private Button saveBtn;
+    private Button changePasswordBtn;
 
     private String txtForcus;
 
@@ -496,6 +497,15 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
+
+        changePasswordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingActivity.this, ChangePassword.class);
+                intent.putExtra("email", user.getEmail());
+                startActivity(intent);
+            }
+        });
     }
 
     private void Init() {
@@ -529,6 +539,7 @@ public class SettingActivity extends AppCompatActivity {
         phoneNumberTxt = findViewById(R.id.phoneNumberTxt);
 
         saveBtn = findViewById(R.id.saveBtn);
+        changePasswordBtn = findViewById(R.id.btnSettingChangePass);
         txtForcus = "";
 
         openConfirmDialogBtn = findViewById(R.id.open_confirm_dialog_btn);
