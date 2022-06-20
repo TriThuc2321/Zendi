@@ -91,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
     void setData() {
         int mGender = 0;
 
-        String id = "";
+        String id = etEmail.getText().toString().split("@")[0];
         String profilePic = "";
         String size = "";
         String total = "";
