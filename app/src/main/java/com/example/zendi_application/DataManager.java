@@ -23,6 +23,7 @@ import com.example.zendi_application.dropFragment.ModelSupportLoad;
 import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
+import com.example.zendi_application.notificationPackage.notification.notification;
 import com.example.zendi_application.shopFragment.OrderInfoDialog;
 import com.example.zendi_application.shopFragment.ShoeInBag;
 import com.example.zendi_application.shopFragment.ShoeInBagAdapter;
@@ -67,6 +68,7 @@ public class DataManager {
     public static ShoeInBagAdapter shoeInBagAdapter;
     public static ShoeInWishAdapter shoeInWishAdapter;
     public static DataManager instance;
+    public static List<notification> listNoti = new ArrayList<>(); // All notis
     public static List<product2> listProduct = new ArrayList<>(); // All products
     public static List<drop2> listDrop = new ArrayList<>(); // All drops
     public static HashMap<String,List<drop2>> listCategory = new HashMap<>(); // All categories
@@ -674,6 +676,31 @@ public class DataManager {
             }
         });
     }
+
+    public static void LoadNotification()
+    {
+        FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
+        firestoneGetProduct.collection("Notification").document(host.getId()).collection("list").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                DataManager.listNoti.clear();
+                for (DocumentSnapshot documentSnapshot : task.getResult())
+                {
+                    // U have to need default constructor in product2 class to use the sequence below
+                    notification temp = documentSnapshot.toObject(notification.class);
+                    DataManager.listNoti.add(temp);
+                }
+                AddDrop.imageproductlistAdapter_.notifyDataSetChanged();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                int a = 5;
+            }
+        });
+    }
     public static void LoadProductInformation_CheckremaningShoe(Context parent ,String path, List<product2> productList,List<ShoeInBag> shoeInBagList,String address, String contact, String email, String name,String totalHost)
     {
         FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
@@ -778,8 +805,6 @@ public class DataManager {
                         }
                     }
                 }
-               int a = 0;
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

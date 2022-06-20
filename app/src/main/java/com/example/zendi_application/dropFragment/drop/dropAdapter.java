@@ -73,9 +73,7 @@ public class dropAdapter extends  RecyclerView.Adapter<dropAdapter.dropViewHolde
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_screen, myFragment).addToBackStack(null).commit();
             }
         });
-
     }
-
 
     @Override
     public int getItemCount() {

@@ -77,7 +77,7 @@ public class DetailDropFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mview.getContext(),RecyclerView.VERTICAL,false);
         rcv_collection.setLayoutManager(linearLayoutManager);
 
-       firstVisibleInListview = linearLayoutManager.findFirstVisibleItemPosition();  //init for variable position
+        firstVisibleInListview = linearLayoutManager.findFirstVisibleItemPosition();  //init for variable position
 
         ProductAdapter.setData(dropp.getProductList(),dropp);
         rcv_collection.setAdapter(ProductAdapter);
