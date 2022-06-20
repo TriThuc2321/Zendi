@@ -21,7 +21,6 @@ public class DownloadAsynctask extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-
     }
 
     @Override

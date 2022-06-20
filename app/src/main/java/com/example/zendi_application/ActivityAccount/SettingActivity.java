@@ -692,7 +692,7 @@ public class SettingActivity extends AppCompatActivity {
                 try {
                     randomCode = new Random().nextInt(900000) + 100000;
 
-                    GmailSender sender = new GmailSender("zendiapplication@gmail.com", "ThucThienThangHuynh123");
+                    GmailSender sender = new GmailSender("zendiapplication@gmail.com", "yovmsjtkpwwfgbbv");
                     sender.sendMail("Verify code",
                             "Thank for using Zendi Application, this is you verify code: " + randomCode,
                             "planzyapplycation@gmail.com",
