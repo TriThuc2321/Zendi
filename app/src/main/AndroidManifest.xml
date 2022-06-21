@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Zendi_Application">
         <activity
+            android:name=".ActivityAccount.Admin.AccountManager.NewAccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".notificationPackage.notificationPlace"
             android:exported="true" />
         <activity

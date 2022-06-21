@@ -562,7 +562,6 @@ public class SettingActivity extends AppCompatActivity {
        else{
             setUser(DataManager.host.getId());
        }
-
     }
 
     void setUser(String id){
