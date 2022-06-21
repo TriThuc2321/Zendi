@@ -1,5 +1,7 @@
 package com.example.zendi_application.wishFragment;
 
+import static android.widget.Toast.LENGTH_LONG;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -42,18 +44,22 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
 
 
     ItemClickListener itemClickListener;
+    DeleteFavListener deleteFavListener;
     List<ShoeInBag> shoeInWishList;
     TextView emptyNotify;
+    ImageView deleteFavBtn;
     public void setData(List<ShoeInBag> list){
         this.shoeInWishList = list;
         notifyDataSetChanged();
     }
 
     public ShoeInWishAdapter(){};
-    public ShoeInWishAdapter( TextView emptyNotify,List<ShoeInBag> shoeInWishList, ItemClickListener listener) {
+    public ShoeInWishAdapter(ImageView deleteFavBtn, TextView emptyNotify,List<ShoeInBag> shoeInWishList,DeleteFavListener deleteFavListener, ItemClickListener listener) {
         this.itemClickListener = listener;
+        this.deleteFavListener = deleteFavListener;
         this.shoeInWishList = shoeInWishList;
         this.emptyNotify = emptyNotify;
+        this.deleteFavBtn = deleteFavBtn;
     }
     @NonNull
     @Override
@@ -71,6 +77,27 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
         holder.itemView.setOnClickListener(view ->{
             itemClickListener.onItemClick(shoeInWishList.get(position));
         });
+        holder.deleteFav.setOnClickListener(view -> {
+            deleteFavListener.onDeleteFavBtnClick(shoeInWishList.get(position));
+        });
+
+    }
+    public  void deleteItem(final ShoeInBag shoe){
+        String docName = shoe.getProductId() + "_" + shoe.getShoeSize();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("InWish/"+DataManager.host.getId()+"/ShoeinWish").document(docName)
+                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+    }
+
+    public interface DeleteFavListener{
+        void onDeleteFavBtnClick(ShoeInBag shoe);
+    }
+    public interface ItemClickListener{
+        void onItemClick(ShoeInBag shoe);
     }
 
 
@@ -86,18 +113,19 @@ public class ShoeInWishAdapter extends RecyclerView.Adapter<ShoeInWishAdapter.Sh
         return 0;
     }
 
-    public interface ItemClickListener{
-        void onItemClick(ShoeInBag shoe);
-    }
+
+
     public class ShoeInWishViewHolder extends RecyclerView.ViewHolder  { //implements View.OnClickListener
         ImageView shoeimg;
         TextView name,  price;
+        ImageView deleteFav;
 
         public ShoeInWishViewHolder(@NonNull View itemView) {
             super(itemView);
             shoeimg = itemView.findViewById(R.id.shoe_img);
             name = itemView.findViewById(R.id.shoe_name);
             price = itemView.findViewById(R.id.shoe_price);
+            deleteFav = itemView.findViewById(R.id.btn_delete_fav);
             
     }
 

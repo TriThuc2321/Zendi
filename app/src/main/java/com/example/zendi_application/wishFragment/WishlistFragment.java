@@ -7,6 +7,7 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,31 +41,51 @@ import static android.widget.Toast.LENGTH_LONG;
 public class WishlistFragment extends Fragment implements RecyclerViewClickInterface {
     RecyclerView recyclerView;
     TextView emptyText;
+    ImageView deleteFav;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wishlist, container, false);
         emptyText = view.findViewById(R.id.emptyText);
+        deleteFav = view.findViewById(R.id.btn_delete_fav);
         DataManager.shoeInWishAdapter = new ShoeInWishAdapter();
 
         recyclerView = view.findViewById(R.id.wishListrcv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), recyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
-        DataManager.shoeInWishAdapter = new ShoeInWishAdapter(emptyText,DataManager.shoeInWish, new ShoeInWishAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(ShoeInBag shoe) {
-                AppCompatActivity activity = (AppCompatActivity)getContext();
-                FragmentDialogBox myFragment = new FragmentDialogBox();
-                ((FragmentDialogBox)myFragment).recieveDrop(shoe);
-                ((HomeScreen)activity).appBarLayout.setVisibility(View.INVISIBLE);
-                ((HomeScreen)activity).mNavigationView.setVisibility(View.INVISIBLE);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_screen, myFragment).addToBackStack(null).commit();
-            }
-        });
-        DataManager.shoeInWishAdapter.setData(DataManager.shoeInWish);
+        DataManager.shoeInWishAdapter = new ShoeInWishAdapter(deleteFav,emptyText,DataManager.shoeInWish, new ShoeInWishAdapter.DeleteFavListener() {
 
+                    @Override
+                    public void onDeleteFavBtnClick(ShoeInBag shoe) {
+                        deleteItem(shoe);
+                        //thang
+                        String docName3 = shoe.getProductId();
+                        FirebaseFirestore db3 = FirebaseFirestore.getInstance();
+                        db3.collection("InWish/" + DataManager.host.getId() + "/ShoeinWish").document(docName3)
+                                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                            }
+                        });
+                        DataManager.shoeInWish.remove(shoe);
+                        DataManager.shoeInWishAdapter.notifyDataSetChanged();
+                        Toast.makeText(getContext(), "Deleted it", LENGTH_LONG).show();
+                    }
+                }, new ShoeInWishAdapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(ShoeInBag shoe) {
+                        AppCompatActivity activity = (AppCompatActivity)getContext();
+                        FragmentDialogBox myFragment = new FragmentDialogBox();
+                        ((FragmentDialogBox)myFragment).recieveDrop(shoe);
+                        ((HomeScreen)activity).appBarLayout.setVisibility(View.INVISIBLE);
+                        ((HomeScreen)activity).mNavigationView.setVisibility(View.INVISIBLE);
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_screen, myFragment).addToBackStack(null).commit();
+                    }
+
+                });
+        DataManager.shoeInWishAdapter.setData(DataManager.shoeInWish);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);

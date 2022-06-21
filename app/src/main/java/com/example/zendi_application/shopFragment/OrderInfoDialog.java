@@ -13,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +55,10 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
     public String totalHost = addTotalToHost();
     public static List<String> ChangedProductID = new ArrayList<>();
     TextView totaltv;
+    private String selectedProvince, selectedDistrict, selectedCommune;
+    private TextView tvtProvinceSpinner, tvtDistrictSpinner, tvtCommuneSpinner;
+    private Spinner provinceSpinner, districtSpinner, communeSpinner;
+    private ArrayAdapter<CharSequence> provinceAdapter, districtAdapter, communeAdapter;
 
     @NonNull
     @Override
@@ -94,7 +100,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                 });
         totaltv = view.findViewById(R.id.totaltxt);
         totaltv.setText(total());
-        editaddress = view.findViewById(R.id.edit_address);
+//        editaddress = view.findViewById(R.id.edit_address);
         editaddress.setText(DataManager.host.getAddress());
         editcontact = view.findViewById(R.id.edit_contact);
         editcontact.setText(DataManager.host.getPhoneNumber());
