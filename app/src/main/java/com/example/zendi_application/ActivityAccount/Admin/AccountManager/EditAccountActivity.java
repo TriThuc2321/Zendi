@@ -2,6 +2,7 @@ package com.example.zendi_application.ActivityAccount.Admin.AccountManager;
 
 import static com.example.zendi_application.DataManager.listUsers;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -9,21 +10,26 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.zendi_application.ActivityAccount.SettingActivity;
+import com.example.zendi_application.ActivityAccount.User;
+import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
-public class NewAccountActivity extends AppCompatActivity {
+public class EditAccountActivity extends AppCompatActivity {
+    private User user;
 
     private EditText nameEdt;
     private EditText emailEdt;
@@ -39,17 +45,23 @@ public class NewAccountActivity extends AppCompatActivity {
     private RadioButton staffRad;
 
     private Button saveBtn;
+    private Button deleteBtn;
+
+
+    private DatabaseReference dataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_new_account);
+        setContentView(R.layout.activity_edit_account);
 
         init();
+        setUser();
     }
 
     void init(){
+        dataBase = FirebaseDatabase.getInstance().getReference();
+
         nameEdt = findViewById(R.id.nameEdt);
         emailEdt = findViewById(R.id.emailEdt);
         locationEdt = findViewById(R.id.locationEdt);
@@ -74,7 +86,7 @@ public class NewAccountActivity extends AppCompatActivity {
                 int mMonth = c.get(Calendar.MONTH);
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(NewAccountActivity.this, android.R.style.Theme_Holo_Dialog,
+                DatePickerDialog datePickerDialog = new DatePickerDialog(EditAccountActivity.this, android.R.style.Theme_Holo_Dialog,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -102,6 +114,42 @@ public class NewAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+    }
+
+    void setUser(){
+        String id = getIntent().getStringExtra("id");
+
+        dataBase.child("Users").child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                user = snapshot.getValue(User.class);
+
+                nameEdt.setText(user.getName()+"");
+                emailEdt.setText(user.getEmail());
+                locationEdt.setText(user.getAddress()+"");
+                birthdayTxt.setText(user.getDOB()+"");
+                phoneNumberEdt.setText(user.getPhoneNumber()+"");
+
+                if(user.getGender() == 0){
+                    maleRad.setChecked(true);
+                }
+                if( user.getGender()== 1){
+                    femaleRad.setChecked(true);
+                }
+
+                if(user.getShopOwner() == 1){
+                    staffRad.setChecked(true);
+                }
+                if(user.getShopOwner() == 2){
+                    adminRad.setChecked(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

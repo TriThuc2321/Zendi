@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../Modern%2015/AppData/Local/Android/Sdk/icons/material/materialicons/notifications/baseline_notifications_24.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialiconsoutlined/edit/outline_edit_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="d4af37" />
-                            <entry key="outputName" value="ic_baseline_notifications_24" />
+                            <entry key="color" value="3c3c3c" />
+                            <entry key="outputName" value="ic_outline_edit_24" />
                             <entry key="sourceFile" value="C:\Users\Modern 15\Documents\GitHub\Zendi" />
                           </map>
                         </option>
