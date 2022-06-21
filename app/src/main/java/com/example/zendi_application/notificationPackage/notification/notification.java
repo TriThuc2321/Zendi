@@ -1,16 +1,18 @@
 package com.example.zendi_application.notificationPackage.notification;
 
+import com.example.zendi_application.Bill;
+
 public class notification {
     private String body;
-    private String billId;
+    private Bill bill;
 
     public notification() {
 
     }
 
-    public notification(String body, String billId) {
+    public notification(String body, Bill bill) {
         this.body = body;
-        this.billId = billId;
+        this.bill = bill;
     }
     public String getBody() {
         return body;
@@ -20,12 +22,12 @@ public class notification {
         body = _body;
     }
 
-    public String getBillId() {
-        return billId;
+    public Bill getBill() {
+        return bill;
     }
 
-    public void setBillId(String _billId) {
-        billId = _billId;
+    public void setBill(Bill _bill) {
+        bill = _bill;
     }
 }
 

@@ -16,6 +16,9 @@ public class Bill {
         this.address = address;
         this.contact = contact;
     }
+    public Bill() {
+
+    }
 
     public List<ShoeInBag> getListProduct() {
         return listProduct;

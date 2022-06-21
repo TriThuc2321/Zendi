@@ -10,12 +10,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.zendi_application.ActivityAccount.Admin.Statistic.DetailOrderedAdapter;
 import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.DetailDropFragment;
+import com.example.zendi_application.notificationPackage.order.DetailOrderedAdapter_Notification;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -47,6 +50,12 @@ public class notificationAdapter extends  RecyclerView.Adapter<notificationAdapt
             return;
         }
         holder.body_txt.setText(noti.getBody());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(holder.rcv.getContext(),RecyclerView.HORIZONTAL,false);
+        holder.rcv.setLayoutManager(linearLayoutManager);
+
+//        firstVisibleInListview = linearLayoutManager.findFirstVisibleItemPosition();  //init for variable position
+        holder.adapter.SetData(noti.getBill().getListProduct());
+        holder.rcv.setAdapter(holder.adapter);
     }
 
     @Override
@@ -58,12 +67,14 @@ public class notificationAdapter extends  RecyclerView.Adapter<notificationAdapt
     public class notificationViewHolder extends RecyclerView.ViewHolder{
 
         private TextView body_txt;
+        private DetailOrderedAdapter_Notification adapter = new DetailOrderedAdapter_Notification();
+        private RecyclerView rcv;
 
 
         public notificationViewHolder(@NonNull View itemView) {
             super(itemView);
-
             body_txt = itemView.findViewById(R.id.notification_item_txt);
+            rcv = itemView.findViewById(R.id.notification_item_rcv);
         }
     }
 }

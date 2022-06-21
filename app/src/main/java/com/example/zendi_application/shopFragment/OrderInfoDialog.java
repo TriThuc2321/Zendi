@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.zendi_application.ActivityAccount.ConfirmEmail.GmailSender;
+import com.example.zendi_application.Bill;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -131,7 +132,13 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         db.collection("Ordered").document(docName).set(s1).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-
+                Bill newBill = new Bill(
+                        DataManager.list,
+                        total(),
+                        address,
+                        contact
+                );
+                DataManager.push_Notification(newBill);
             }
         });
         for (ShoeInBag ite : DataManager.list) {
@@ -160,7 +167,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                 }
             });
         }
-        DataManager.list.clear();
+//        DataManager.list.clear();
         DataManager.shoeInBagAdapter.notifyDataSetChanged();
         DataManager.getListOrderedFromFirestone();
     }

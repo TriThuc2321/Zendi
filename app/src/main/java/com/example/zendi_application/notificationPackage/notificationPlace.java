@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zendi_application.DataManager;
+import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
 import com.example.zendi_application.dropFragment.product_package.productAdapter;
 import com.example.zendi_application.notificationPackage.notification.notification;
@@ -12,13 +13,15 @@ import com.example.zendi_application.notificationPackage.notification.notificati
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class notificationPlace extends AppCompatActivity {
-    TextView testTxt;
+    Button backBtn;
     RecyclerView rcv;
     public static notificationAdapter adapter = new notificationAdapter();;
     List<notification> listNoti = new ArrayList<>();
@@ -32,8 +35,14 @@ public class notificationPlace extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_place);
-        testTxt = findViewById(R.id.notification_txt);
-        testTxt.setText(DataManager.host.getEmail());
+        backBtn = findViewById(R.id.back_notificationPlace);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               finish();
+            }
+        });
+
         rcv = findViewById(R.id.rcv_notification);
 
         getNotiList();

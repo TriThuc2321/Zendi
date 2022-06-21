@@ -535,6 +535,26 @@ public class DataManager {
             }
         });
     }
+
+    public static void push_Notification(Bill bill)
+    {
+        notification newNoti = new notification("You ordered successfully",bill);
+        FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
+        firestonePutProduct.collection("Notification").document(host.getId()).collection("listNoti")
+                .add(newNoti)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        DataManager.list.clear();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+    }
     public static void push_Object_To_FireStone(uploadData parent, String collectionName, String productName , product2 object, List<Uri> listURI )
     {
         /// Push List Image to Storage and Get List of ImageURL
