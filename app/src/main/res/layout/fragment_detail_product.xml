@@ -22,7 +22,6 @@
             android:background="@color/white"
             android:drawableLeft="@drawable/ic_baseline_keyboard_arrow_left_black"
             android:id="@+id/back_detailproduct"
-
             android:layout_gravity="right"></Button>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView

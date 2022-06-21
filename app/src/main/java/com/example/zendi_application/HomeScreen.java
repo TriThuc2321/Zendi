@@ -20,6 +20,7 @@ import com.example.zendi_application.ActivityAccount.Admin.AdminActivity;
 import com.example.zendi_application.ActivityAccount.LoginRegisterActivity;
 import com.example.zendi_application.ActivityAccount.SettingActivity;
 import com.example.zendi_application.ActivityAccount.User;
+import com.example.zendi_application.TransactionHistory.TransactionHistory;
 import com.example.zendi_application.addProductPackage.uploadData;
 import com.example.zendi_application.notificationPackage.notificationPlace;
 import com.facebook.AccessToken;
@@ -120,8 +121,24 @@ public class HomeScreen extends AppCompatActivity {
                     overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
                 }
                 else if(item.getItemId() == R.id.notifi_item){
-                    Intent intent = new Intent(HomeScreen.this, notificationPlace.class);
-                    startActivity(intent);
+                    if (DataManager.host != null && DataManager.host.getEmail() != null){
+                        Intent intent = new Intent(HomeScreen.this, notificationPlace.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        Intent intent = new Intent(HomeScreen.this, LoginRegisterActivity.class);
+                        startActivityForResult(intent, REQUEST_EXIT);
+                    }
+                }
+                else if(item.getItemId() == R.id.transactionHistory_item){
+                    if (DataManager.host != null && DataManager.host.getEmail() != null){
+                        Intent intent = new Intent(HomeScreen.this, TransactionHistory.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        Intent intent = new Intent(HomeScreen.this, LoginRegisterActivity.class);
+                        startActivityForResult(intent, REQUEST_EXIT);
+                    }
                 }
                 return true;
             }
