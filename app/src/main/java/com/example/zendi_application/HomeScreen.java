@@ -168,6 +168,7 @@ public class HomeScreen extends AppCompatActivity {
         {
             DataManager.shoeInWish.clear();
             DataManager.getShoeInWishFromFirestone("InWish/"+DataManager.host.getId()+"/ShoeinWish",DataManager.shoeInWish);
+            DataManager.getShoeInBagFromFirestone("InBag/" + DataManager.host.getId() + "/ShoeList", DataManager.list);
         }
     }
     private void setUpViewPager(){
