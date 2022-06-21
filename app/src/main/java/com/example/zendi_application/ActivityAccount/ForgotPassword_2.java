@@ -1,6 +1,7 @@
 package com.example.zendi_application.ActivityAccount;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.zendi_application.R;
 import com.google.firebase.database.DatabaseReference;
@@ -11,12 +12,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Base64;
 
 public class ForgotPassword_2 extends AppCompatActivity {
     String email;
@@ -40,10 +44,12 @@ public class ForgotPassword_2 extends AppCompatActivity {
         getUser();
 
         btnChange.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 if (validatePassword()){
-                    currentUser.setPassword(etPass1.getText().toString());
+                    String newEncodePassword = Base64.getEncoder().encodeToString(etPass1.getText().toString().getBytes());
+                    currentUser.setPassword(newEncodePassword);
 
                     String[] parts = email.split("@");
 
