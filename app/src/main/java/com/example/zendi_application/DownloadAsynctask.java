@@ -62,6 +62,6 @@ public class DownloadAsynctask extends AsyncTask<Void, Integer, Void> {
         Intent intent = new Intent((Introduction)contextParent,HomeScreen.class);
         ((Introduction)contextParent).startActivity(intent);
         ((Introduction)contextParent).finish();
-        Toast.makeText(contextParent, "Welcom to Zendi", Toast.LENGTH_SHORT).show();
+        Toast.makeText(contextParent, "Welcome to Zendi", Toast.LENGTH_SHORT).show();
     }
 }
