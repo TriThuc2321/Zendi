@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.zendi_application.ActivityAccount.Admin.AdminActivity;
 import com.example.zendi_application.ActivityAccount.LoginRegisterActivity;
+import com.example.zendi_application.ActivityAccount.SettingActivity;
 import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.addProductPackage.uploadData;
 import com.example.zendi_application.notificationPackage.notificationPlace;
@@ -98,10 +99,14 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.account) {
-
-                    Intent intent = new Intent(HomeScreen.this, LoginRegisterActivity.class);
-                    startActivityForResult(intent, REQUEST_EXIT);
-
+                    if (DataManager.host != null && DataManager.host.getEmail() != null){
+                        Intent intent = new Intent(HomeScreen.this, SettingActivity.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        Intent intent = new Intent(HomeScreen.this, LoginRegisterActivity.class);
+                        startActivityForResult(intent, REQUEST_EXIT);
+                    }
                     /*Intent intent = new Intent(HomeScreen.this, Location.class);
                     startActivityForResult(intent, REQUEST_EXIT);*/
                     
@@ -234,6 +239,12 @@ public class HomeScreen extends AppCompatActivity {
             request . setParameters ( parameters );
             request . executeAsync ();
 }
+        else{
+            if (DataManager.host !=null && DataManager.host.getEmail() != null){
+                setUser(DataManager.host.getId());
+                Log.d("HomeScreen", DataManager.host.getId());
+            }
+        }
     }
     void setUser(String id){
         if(id == null){
@@ -249,6 +260,7 @@ public class HomeScreen extends AppCompatActivity {
                     }
                     else{
                         mAppBarTop.getMenu().findItem(R.id.staff_manager_item).setVisible(false);
+                        Log.d("HomeScreen", "setVisible "+ String.valueOf(user.getShopOwner()) );
                     }
                 }
                 @Override

@@ -115,6 +115,7 @@ public class SettingActivity extends AppCompatActivity {
     private EditText phoneNumberEdt;
 
     private Button saveBtn;
+    private Button changePasswordBtn;
 
     private String txtForcus;
 
@@ -462,11 +463,12 @@ public class SettingActivity extends AppCompatActivity {
                     } else if (otherRad.isChecked() == true) {
                         mGender = 2;
                     }
-                    setData(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(), mGender, userId, nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
+                    String [] parts = emailTxt.getText().toString().split("@");
+                    setData(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(),DataManager.host.getPassword(), mGender, parts[0], nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
 
                     for (int i = 0; i < listUsers.size(); i++) {
                         if(listUsers.get(i).getId() == user.getId()) {
-                            user = new User(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(),"", mGender, userId, nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
+                            user = new User(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(),DataManager.host.getPassword(), mGender, parts[0], nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
                             listUsers.set(i, user);
                         }
                     }
@@ -493,6 +495,15 @@ public class SettingActivity extends AppCompatActivity {
                     sendEmail();
 
                 }
+            }
+        });
+
+        changePasswordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingActivity.this, ChangePassword.class);
+                intent.putExtra("email", user.getEmail());
+                startActivity(intent);
             }
         });
     }
@@ -528,6 +539,7 @@ public class SettingActivity extends AppCompatActivity {
         phoneNumberTxt = findViewById(R.id.phoneNumberTxt);
 
         saveBtn = findViewById(R.id.saveBtn);
+        changePasswordBtn = findViewById(R.id.btnSettingChangePass);
         txtForcus = "";
 
         openConfirmDialogBtn = findViewById(R.id.open_confirm_dialog_btn);
@@ -628,8 +640,8 @@ public class SettingActivity extends AppCompatActivity {
         }
         return false;
     }
-    public void setData(String address, String DOB, String email, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int isShoOwner){
-        user =  new User(address, DOB, email,"", gender, id, name,phoneNumber,profilePic,size,total, isShoOwner);
+    public void setData(String address, String DOB, String email, String password, int gender, String id, String name, String phoneNumber, String profilePic, String size, String total, int isShoOwner){
+        user =  new User(address, DOB, email,password, gender, id, name,phoneNumber,profilePic,size,total, isShoOwner);
         dataBase.child("Users").child(id).setValue(user);
     }
     public void hideKeyboard(View view) {

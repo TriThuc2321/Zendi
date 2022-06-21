@@ -19,8 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ForgotPassword_2 extends AppCompatActivity {
-   // String email = getIntent().getStringExtra("email");
-    String email="";
+    String email;
     private DatabaseReference dataBase;
 
     Button btnChange;
@@ -33,6 +32,8 @@ public class ForgotPassword_2 extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password2);
 
         initView();
+
+        email = getIntent().getExtras().getString("email");
 
         dataBase = FirebaseDatabase.getInstance().getReference();
 
