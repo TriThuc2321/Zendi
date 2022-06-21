@@ -23,6 +23,8 @@ import com.example.zendi_application.dropFragment.ModelSupportLoad;
 import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
+import com.example.zendi_application.notificationPackage.notification.notification;
+import com.example.zendi_application.notificationPackage.notificationPlace;
 import com.example.zendi_application.shopFragment.OrderInfoDialog;
 import com.example.zendi_application.shopFragment.ShoeInBag;
 import com.example.zendi_application.shopFragment.ShoeInBagAdapter;
@@ -67,6 +69,7 @@ public class DataManager {
     public static ShoeInBagAdapter shoeInBagAdapter;
     public static ShoeInWishAdapter shoeInWishAdapter;
     public static DataManager instance;
+    public static List<notification> listNoti = new ArrayList<>(); // All notis
     public static List<product2> listProduct = new ArrayList<>(); // All products
     public static List<drop2> listDrop = new ArrayList<>(); // All drops
     public static HashMap<String,List<drop2>> listCategory = new HashMap<>(); // All categories
@@ -532,6 +535,26 @@ public class DataManager {
             }
         });
     }
+
+    public static void push_Notification(Bill bill)
+    {
+        notification newNoti = new notification("You ordered successfully",bill);
+        FirebaseFirestore firestonePutProduct = FirebaseFirestore.getInstance();
+        firestonePutProduct.collection("Notification").document(host.getId()).collection("listNoti")
+                .add(newNoti)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        DataManager.list.clear();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+    }
     public static void push_Object_To_FireStone(uploadData parent, String collectionName, String productName , product2 object, List<Uri> listURI )
     {
         /// Push List Image to Storage and Get List of ImageURL
@@ -674,6 +697,30 @@ public class DataManager {
             }
         });
     }
+
+    public static void LoadNotification()
+    {
+        FirebaseFirestore firestoneInstance = FirebaseFirestore.getInstance();
+        firestoneInstance.collection("Notification").document(host.getId()).collection("listNoti").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                DataManager.listNoti.clear();
+                for (DocumentSnapshot documentSnapshot : task.getResult())
+                {
+                    // U have to need default constructor in product2 class to use the sequence below
+                    notification temp = documentSnapshot.toObject(notification.class);
+                    DataManager.listNoti.add(temp);
+                }
+                notificationPlace.adapter.notifyDataSetChanged();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                int a = 5;
+            }
+        });
+    }
     public static void LoadProductInformation_CheckremaningShoe(Context parent ,String path, List<product2> productList,List<ShoeInBag> shoeInBagList,String address, String contact, String email, String name,String totalHost)
     {
         FirebaseFirestore firestoneGetProduct = FirebaseFirestore.getInstance();
@@ -778,8 +825,6 @@ public class DataManager {
                         }
                     }
                 }
-               int a = 0;
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
