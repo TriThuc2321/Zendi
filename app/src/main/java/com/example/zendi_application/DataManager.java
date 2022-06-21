@@ -24,6 +24,7 @@ import com.example.zendi_application.dropFragment.drop.drop2;
 import com.example.zendi_application.dropFragment.product_package.product;
 import com.example.zendi_application.dropFragment.product_package.product2;
 import com.example.zendi_application.notificationPackage.notification.notification;
+import com.example.zendi_application.notificationPackage.notificationPlace;
 import com.example.zendi_application.shopFragment.OrderInfoDialog;
 import com.example.zendi_application.shopFragment.ShoeInBag;
 import com.example.zendi_application.shopFragment.ShoeInBagAdapter;
@@ -680,7 +681,7 @@ public class DataManager {
     public static void LoadNotification()
     {
         FirebaseFirestore firestoneInstance = FirebaseFirestore.getInstance();
-        firestoneInstance.collection("Notification/pvdthien/listNoti/").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firestoneInstance.collection("Notification").document(host.getId()).collection("listNoti").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
@@ -691,8 +692,7 @@ public class DataManager {
                     notification temp = documentSnapshot.toObject(notification.class);
                     DataManager.listNoti.add(temp);
                 }
-                AddDrop.imageproductlistAdapter_.notifyDataSetChanged();
-
+                notificationPlace.adapter.notifyDataSetChanged();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

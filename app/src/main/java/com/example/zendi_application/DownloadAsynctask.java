@@ -28,6 +28,7 @@ public class DownloadAsynctask extends AsyncTask<Void, Integer, Void> {
         DataManager.LoadDropInformation("Collection/",DataManager.listDrop);  // load products
         DataManager.LoadProductInformation("Product",DataManager.listProduct); // load categors
 
+
         DataManager.loadUser();
         DataManager.GetUser();
         DataManager.getListOrderedFromFirestone();

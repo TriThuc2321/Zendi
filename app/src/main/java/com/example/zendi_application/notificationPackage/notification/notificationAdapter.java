@@ -21,11 +21,10 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class notificationAdapter extends  RecyclerView.Adapter<notificationAdapter.notificationViewHolder>{
-    private Context mContext;
+
     private List<notification> mNoti;
 
-    public notificationAdapter(Context mContext) {
-        this.mContext = mContext;
+    public notificationAdapter() {
     }
 
     public void SetData(List<notification> list)

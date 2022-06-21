@@ -20,12 +20,12 @@ import java.util.List;
 public class notificationPlace extends AppCompatActivity {
     TextView testTxt;
     RecyclerView rcv;
+    public static notificationAdapter adapter = new notificationAdapter();;
     List<notification> listNoti = new ArrayList<>();
 
     public void getNotiList() {
         DataManager.LoadNotification();
         listNoti = DataManager.listNoti;
-        int c = 5;
     }
 
     @Override
@@ -38,7 +38,6 @@ public class notificationPlace extends AppCompatActivity {
 
         getNotiList();
 
-        notificationAdapter adapter = new notificationAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(rcv.getContext(),RecyclerView.VERTICAL,false);
         rcv.setLayoutManager(linearLayoutManager);
 
