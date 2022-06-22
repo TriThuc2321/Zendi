@@ -1046,7 +1046,9 @@ public class DataManager {
                     for (DataSnapshot data : snapshot.getChildren()) {
                         User temp;
                         temp = data.getValue(User.class);
-                        listUsers.add(temp);
+                        if(!listUsers.contains(temp)){
+                            listUsers.add(temp);
+                        }
                     }
                 }
             }

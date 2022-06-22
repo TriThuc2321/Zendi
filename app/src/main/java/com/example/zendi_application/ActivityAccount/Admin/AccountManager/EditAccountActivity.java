@@ -3,9 +3,13 @@ package com.example.zendi_application.ActivityAccount.Admin.AccountManager;
 import static com.example.zendi_application.DataManager.listUsers;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -17,22 +21,28 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zendi_application.ActivityAccount.ConfirmEmail.ConfirmPasswordDialog;
+import com.example.zendi_application.ActivityAccount.SettingActivity;
 import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Base64;
 import java.util.Calendar;
 
 public class EditAccountActivity extends AppCompatActivity {
     private User user;
 
     private EditText nameEdt;
-    private EditText emailEdt;
+    private TextView emailTxt;
+    private EditText passwordEdt;
     private EditText locationEdt;
     private EditText phoneNumberEdt;
     private TextView birthdayTxt;
@@ -63,7 +73,8 @@ public class EditAccountActivity extends AppCompatActivity {
         dataBase = FirebaseDatabase.getInstance().getReference();
 
         nameEdt = findViewById(R.id.nameEdt);
-        emailEdt = findViewById(R.id.emailEdt);
+        emailTxt = findViewById(R.id.emailTxt);
+        passwordEdt = findViewById(R.id.passwordEdt);
         locationEdt = findViewById(R.id.locationEdt);
         phoneNumberEdt = findViewById(R.id.phoneNumberEdt);
         birthdayTxt = findViewById(R.id.birthdayTxt);
@@ -76,6 +87,7 @@ public class EditAccountActivity extends AppCompatActivity {
         adminRad.setChecked(true);
         staffRad = findViewById(R.id.radioButton_staff);
         saveBtn = findViewById(R.id.saveBtn);
+        deleteBtn = findViewById(R.id.deleteBtn);
 
         birthdayTxt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,9 +116,19 @@ public class EditAccountActivity extends AppCompatActivity {
         });
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                checkData();
+                if(checkData()){
+                    pushData();
+                }
+            }
+        });
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteHandle();
             }
         });
 
@@ -122,12 +144,15 @@ public class EditAccountActivity extends AppCompatActivity {
         String id = getIntent().getStringExtra("id");
 
         dataBase.child("Users").child(id).addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);
 
                 nameEdt.setText(user.getName()+"");
-                emailEdt.setText(user.getEmail());
+                byte[] decodedBytes = Base64.getDecoder().decode(user.getPassword());
+                passwordEdt.setText( new String(decodedBytes));
+                emailTxt.setText(user.getEmail());
                 locationEdt.setText(user.getAddress()+"");
                 birthdayTxt.setText(user.getDOB()+"");
                 phoneNumberEdt.setText(user.getPhoneNumber()+"");
@@ -154,43 +179,88 @@ public class EditAccountActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    void pushData(){
+        String nameVal = nameEdt.getText().toString();
+        String emailVal = emailTxt.getText().toString().trim();
+        String passwordVal = passwordEdt.getText().toString();
+        String locationVal = locationEdt.getText().toString();
+        String phoneVal = phoneNumberEdt.getText().toString();
+        String  birthdayVal = birthdayTxt.getText().toString();
+        String id = emailVal.split("@")[0];
+
+        int mGender = 0;
+        if (femaleRad.isChecked() ) {
+            mGender = 1;
+        }
+
+        int shopOwner = 1;
+        if (adminRad.isChecked() ) {
+            shopOwner = 2;
+        }
+
+        String encodePassword = Base64.getEncoder().encodeToString(passwordVal.getBytes());
+        User user = new User(
+                locationVal,
+                birthdayVal,
+                emailVal,
+                encodePassword,
+                mGender,
+                id,
+                nameVal,
+                phoneVal,
+                "",
+                "0",
+                "0",
+                shopOwner);
+
+        String idRemove = getIntent().getStringExtra("id");
+        listUsers.removeIf(e -> e.getId().equals(idRemove));
+
+        dataBase.child("Users").child(id).setValue(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(),"Add new account successfully!",Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                });
+    }
+
     boolean checkData (){
         String nameVal = nameEdt.getText().toString();
-        String emailVal = emailEdt.getText().toString().trim();
+        String passwordVal = passwordEdt.getText().toString();
         String locationVal = locationEdt.getText().toString();
         String phoneVal = phoneNumberEdt.getText().toString();
         String  birthdayVal = birthdayTxt.getText().toString();
 
-        if(nameVal.isEmpty() || emailVal.isEmpty() || locationVal.isEmpty() || phoneVal.isEmpty() || birthdayVal.equals("DD / MM / YY") ){
+        if(nameVal.isEmpty() || locationVal.isEmpty() || phoneVal.isEmpty() || birthdayVal.equals("DD / MM / YY") ){
             Toast.makeText(getApplicationContext(), "Please fill out information!", Toast.LENGTH_LONG).show();
             return false;
         }
 
-        if(TextUtils.isEmpty(emailVal) || !Patterns.EMAIL_ADDRESS.matcher(emailVal).matches()){
-            Toast.makeText(getApplicationContext(), "Email invalid!", Toast.LENGTH_LONG).show();
-            return false;
-        }
 
         if(phoneVal.length()!=10 && phoneVal.length()!=11 && !android.text.TextUtils.isDigitsOnly(phoneVal)){
             Toast.makeText(getApplicationContext(), "Incorrect phone number!", Toast.LENGTH_LONG).show();
             return false;
         }
 
-        if(existEmail(emailVal)){
-            Toast.makeText(getApplicationContext(), "Email already in use", Toast.LENGTH_LONG).show();
+        if(!checkPassword(passwordVal)){
+            Toast.makeText(getApplicationContext(),  "Password length must be equal or more than 6 characters", Toast.LENGTH_LONG).show();
             return false;
         }
+
         return true;
     }
 
-    public boolean existEmail(String email){
-        for(int i =0; i< listUsers.size(); i++){
-            String a = listUsers.get(i).getEmail();
-            if(a == null) continue;
-            if(a.compareTo(email) == 0){
-                return true;
-            }
-        }
-        return false;
+    boolean checkPassword(String password) {
+        return password.length() >= 6;
     }
+
+    void deleteHandle (){
+        String id = getIntent().getStringExtra("id");
+        ConfirmDeleteDialog confirmDialog = new ConfirmDeleteDialog(EditAccountActivity.this, id);
+        confirmDialog.show();
+    }
+
 }

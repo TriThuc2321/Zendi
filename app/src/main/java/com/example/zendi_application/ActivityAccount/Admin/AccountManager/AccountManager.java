@@ -1,10 +1,12 @@
 package com.example.zendi_application.ActivityAccount.Admin.AccountManager;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -74,6 +76,7 @@ public class AccountManager extends AppCompatActivity {
             }
         });
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     void getList(String type){
         listAccount.clear();
         switch (type){
@@ -104,6 +107,7 @@ public class AccountManager extends AppCompatActivity {
                 break;
             default: break;
         }
+        removeDuplicate();
         mAccountAdapter.SetData(listAccount);
     }
 
@@ -130,6 +134,16 @@ public class AccountManager extends AppCompatActivity {
 
             }
         });
+    }
 
+    void removeDuplicate(){
+        for(int i =0; i< listAccount.size() -1 ; i++){
+            for(int j=i+1; j< listAccount.size(); j++){
+                if(listAccount.get(i).getEmail().equals(listAccount.get(j).getEmail())){
+                    listAccount.remove(j);
+                    j--;
+                }
+            }
+        }
     }
 }
