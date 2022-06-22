@@ -1,6 +1,7 @@
 package com.example.zendi_application.ActivityAccount;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.zendi_application.ActivityAccount.ConfirmEmail.ConfirmPasswordDialog;
@@ -23,6 +24,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.opengl.Visibility;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -37,6 +39,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Random;
+import java.util.Base64;
 
 public class RegisterActivity extends AppCompatActivity {
     //view
@@ -88,6 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     void setData() {
         int mGender = 0;
 
@@ -99,11 +103,13 @@ public class RegisterActivity extends AppCompatActivity {
         String address = "";
         String birthday = "";
 
+        String encodePassword = Base64.getEncoder().encodeToString(etPassword.getText().toString().getBytes());
+
         user = new User(
                 address,
                 birthday,
                 etEmail.getText().toString(),
-                etPassword.getText().toString(),
+                encodePassword,
                 mGender,
                 id,
                 etName.getText().toString(),

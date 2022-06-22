@@ -1,6 +1,7 @@
 package com.example.zendi_application.ActivityAccount;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -9,8 +10,10 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import java.util.Base64;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -127,6 +130,7 @@ public class Account_Activity extends AppCompatActivity {
         });
 
         btnLoginEmail.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 refreshVisible();
@@ -135,7 +139,8 @@ public class Account_Activity extends AppCompatActivity {
                     for (int i = 0; i < listUsers.size(); i++) {
                         User u = listUsers.get(i);
                         if (u.getEmail().equals(etEmail.getText().toString())) {
-                            if (!u.getPassword().equals(etPassword.getText().toString())) {
+                            String encodePassword = Base64.getEncoder().encodeToString(etPassword.getText().toString().getBytes());
+                            if (!u.getPassword().equals(encodePassword)) {
                                 tvPasswordNote.setVisibility(View.VISIBLE);
                                 tvPasswordNote.setText("Incorrect password!");
                                 signInSuccessfully = false;
