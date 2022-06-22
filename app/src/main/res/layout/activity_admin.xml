@@ -8,35 +8,37 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/profileInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/profileInfo"
-        android:layout_marginTop="4dp"
-        android:layout_margin="10dp">
+        android:padding="5dp"
+        android:background="@color/gold">
+
         <View
-            android:id="@+id/turnBack_admin"
+            android:id="@+id/turnBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/ic_baseline_arrow_back_24"
-            />
+            android:background="@drawable/ic_baseline_arrow_back_24" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="ADMINISTRATOR"
-            android:textSize="22dp"
-            android:textStyle="bold"
-            android:layout_toRightOf="@+id/arrowLeft"
             android:layout_gravity="center_vertical"
-            />
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/arrowLeft"
+            android:text="DATA MANAGER"
+            android:textSize="22dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/staff_manager_btn"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_margin="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/custom_black_stroke"
         >
 
@@ -62,7 +64,9 @@
         android:id="@+id/shoe_manager_btn"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_margin="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/custom_black_stroke"
         >
 
@@ -88,7 +92,9 @@
         android:id="@+id/statistics_btn"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_margin="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/custom_black_stroke"
         >
 

@@ -39,7 +39,7 @@
         <activity android:name=".ActivityAccount.Admin.Statistic.StatisticActivity" />
         <activity android:name=".ActivityAccount.Admin.AdminActivity" />
         <activity android:name=".Location.Location" />
-        <activity android:name=".ActivityAccount.Admin.StaffManager.StaffManager" /> <!-- <activity android:name=".searchfragment.MyDetailProduct" /> -->
+        <activity android:name=".ActivityAccount.Admin.AccountManager.AccountManager" /> <!-- <activity android:name=".searchfragment.MyDetailProduct" /> -->
         <!-- <activity android:name=".Location.Location" android:screenOrientation="portrait"></activity> -->
         <activity
             android:name=".searchfragment.MyDetailProduct"
