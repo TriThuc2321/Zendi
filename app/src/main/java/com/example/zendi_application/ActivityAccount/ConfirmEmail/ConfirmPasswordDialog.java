@@ -124,19 +124,5 @@ public class ConfirmPasswordDialog extends Dialog {
         });
         sender.start();
     }
-    public boolean isValidEmail(String email)
-    {
-        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
 
-    public boolean existEmail(String email){
-        for(int i =0; i< listUsers.size(); i++){
-            String a = listUsers.get(i).getEmail();
-            if(a == null) continue;
-            if(a.compareTo(email) == 0){
-                return true;
-            }
-        }
-        return false;
-    }
 }

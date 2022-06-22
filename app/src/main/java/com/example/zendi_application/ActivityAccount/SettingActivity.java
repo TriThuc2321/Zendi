@@ -574,7 +574,6 @@ public class SettingActivity extends AppCompatActivity {
        else{
             setUser(DataManager.host.getId());
        }
-
     }
 
     void setUser(String id){
@@ -718,7 +717,6 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
         sender.start();
-        ConfirmPasswordDialog confirmPasswordDialog = new ConfirmPasswordDialog(SettingActivity.this, emailTxt.getText().toString(), randomCode);
-        confirmPasswordDialog.show();
+
     }
 }

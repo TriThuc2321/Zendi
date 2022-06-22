@@ -1,15 +1,18 @@
 package com.example.zendi_application.ActivityAccount.Admin.AccountManager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.zendi_application.ActivityAccount.Admin.Statistic.DetailOrdered;
 import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.R;
 
@@ -51,6 +54,15 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
         if(user.getGender() == 0) holder.genderTxt.setText("Male");
         else if(user.getGender() == 1) holder.genderTxt.setText("Female");
         else holder.genderTxt.setText("Other");
+
+        holder.edtBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, EditAccountActivity.class);
+                intent.putExtra("id",user.getId());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -67,6 +79,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
         TextView birthdayTxt;
         TextView genderTxt;
         LinearLayout infoLayout;
+        Button edtBtn;
 
         boolean flag=true;
 
@@ -80,6 +93,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
             genderTxt = itemView.findViewById(R.id.genderStaffTxt);
             phoneNumberTxt = itemView.findViewById(R.id.phoneNumberStaffTxt);
             infoLayout = itemView.findViewById(R.id.infoStaffLayout);
+            edtBtn = itemView.findViewById(R.id.edit_account);
 
             nameTxt.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -94,6 +108,8 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
                     }
                 }
             });
+
+
         }
     }
 }

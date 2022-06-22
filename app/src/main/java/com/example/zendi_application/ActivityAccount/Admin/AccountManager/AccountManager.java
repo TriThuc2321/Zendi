@@ -1,14 +1,18 @@
 package com.example.zendi_application.ActivityAccount.Admin.AccountManager;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.zendi_application.ActivityAccount.User;
@@ -20,13 +24,13 @@ import java.util.List;
 import static com.example.zendi_application.DataManager.listUsers;
 
 public class AccountManager extends AppCompatActivity {
-
     public static List<User> listAccount = new ArrayList<>();
 
     private RecyclerView mRecyclerAccount;
     private AccountAdapter mAccountAdapter ;
 
     private View turnBackBtn;
+    private Button newAccountBtn;
     Spinner orderBySpinner;
     List<String> listSp = new ArrayList<>();
 
@@ -37,18 +41,9 @@ public class AccountManager extends AppCompatActivity {
         setContentView(R.layout.activity_staff_manager);
 
         Init();
+        setOnClickListener();
         createListSpinner();
         setAdapterSpinner();
-
-        turnBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setResult(RESULT_CANCELED);
-                listAccount.clear();
-                mAccountAdapter.SetData(listAccount);
-                finish();
-            }
-        });
 
     }
     void Init(){
@@ -60,8 +55,28 @@ public class AccountManager extends AppCompatActivity {
         mRecyclerAccount.setAdapter(mAccountAdapter);
         mRecyclerAccount.setLayoutManager(new LinearLayoutManager(this));
 
+        newAccountBtn = findViewById(R.id.new_account_btn);
     }
 
+    void setOnClickListener(){
+        turnBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_CANCELED);
+                listAccount.clear();
+                mAccountAdapter.SetData(listAccount);
+                finish();
+            }
+        });
+
+        newAccountBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AccountManager.this, NewAccountActivity.class));
+            }
+        });
+    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     void getList(String type){
         listAccount.clear();
         switch (type){
@@ -92,6 +107,7 @@ public class AccountManager extends AppCompatActivity {
                 break;
             default: break;
         }
+        removeDuplicate();
         mAccountAdapter.SetData(listAccount);
     }
 
@@ -118,6 +134,16 @@ public class AccountManager extends AppCompatActivity {
 
             }
         });
+    }
 
+    void removeDuplicate(){
+        for(int i =0; i< listAccount.size() -1 ; i++){
+            for(int j=i+1; j< listAccount.size(); j++){
+                if(listAccount.get(i).getEmail().equals(listAccount.get(j).getEmail())){
+                    listAccount.remove(j);
+                    j--;
+                }
+            }
+        }
     }
 }
