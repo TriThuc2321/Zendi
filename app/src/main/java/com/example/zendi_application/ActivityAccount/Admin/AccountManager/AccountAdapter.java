@@ -63,6 +63,14 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
                 mContext.startActivity(intent);
             }
         });
+
+        holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ConfirmDeleteDialog confirmDialog = new ConfirmDeleteDialog(mContext, user.getId());
+                confirmDialog.show();
+            }
+        });
     }
 
     @Override
@@ -80,6 +88,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
         TextView genderTxt;
         LinearLayout infoLayout;
         Button edtBtn;
+        Button deleteBtn;
 
         boolean flag=true;
 
@@ -94,6 +103,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
             phoneNumberTxt = itemView.findViewById(R.id.phoneNumberStaffTxt);
             infoLayout = itemView.findViewById(R.id.infoStaffLayout);
             edtBtn = itemView.findViewById(R.id.edit_account);
+            deleteBtn = itemView.findViewById(R.id.delete_account);
 
             nameTxt.setOnClickListener(new View.OnClickListener() {
                 @Override

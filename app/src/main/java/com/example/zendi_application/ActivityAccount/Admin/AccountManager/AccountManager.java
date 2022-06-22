@@ -77,7 +77,7 @@ public class AccountManager extends AppCompatActivity {
         });
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
-    void getList(String type){
+    public void getList(String type){
         listAccount.clear();
         switch (type){
             case "Show all":
@@ -145,5 +145,13 @@ public class AccountManager extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    protected void onResume() {
+        super.onResume();
+        orderBySpinner.setSelection(0);
+        getList("Show all");
     }
 }

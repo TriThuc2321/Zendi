@@ -3,11 +3,13 @@ package com.example.zendi_application.ActivityAccount.Admin.AccountManager;
 import static com.example.zendi_application.ActivityAccount.SettingActivity.isConfirm;
 import static com.example.zendi_application.ActivityAccount.SettingActivity.lockEmailIcon;
 import static com.example.zendi_application.ActivityAccount.SettingActivity.openConfirmDialogBtn;
+import static com.example.zendi_application.DataManager.listUsers;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.example.zendi_application.ActivityAccount.ConfirmEmail.GmailSender;
 import com.example.zendi_application.ActivityAccount.User;
@@ -55,11 +58,12 @@ public class ConfirmDeleteDialog extends Dialog {
         cancelBtn = findViewById(R.id.cancel_btn);
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
 
                 FirebaseDatabase.getInstance().getReference().child("Users").child(id).removeValue();
-                ((Activity) mContext).finish();
+                listUsers.removeIf(e -> e.getId().equals(id));
                 dismiss();
             }
         });

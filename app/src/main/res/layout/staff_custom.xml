@@ -18,8 +18,17 @@
         android:id="@+id/edit_account"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_alignParentEnd="true"
+        android:layout_toLeftOf="@+id/delete_account"
         android:background="@drawable/ic_outline_edit_24"
+        android:layout_marginRight="5dp"
+        />
+
+    <Button
+        android:id="@+id/delete_account"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/ic_baseline_delete_outline_24"
         />
 
     <LinearLayout

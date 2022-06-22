@@ -45,6 +45,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zendi_application.ActivityAccount.Admin.AccountManager.ConfirmDeleteDialog;
+import com.example.zendi_application.ActivityAccount.Admin.AccountManager.EditAccountActivity;
 import com.example.zendi_application.ActivityAccount.ConfirmEmail.ConfirmPasswordDialog;
 import com.example.zendi_application.ActivityAccount.ConfirmEmail.GmailSender;
 import com.example.zendi_application.DataManager;
@@ -594,10 +596,8 @@ public class SettingActivity extends AppCompatActivity {
                 }
 
                 DataManager.host = user;
-                String string = user.getEmail().toString();
-                String[] parts = string.split("@");
-                DataManager.getShoeInBagFromFirestone("InBag/" + parts[0] + "/ShoeList",DataManager.list);
-                DataManager.getShoeInWishFromFirestone("InWish/" + parts[0] + "/ShoeList",DataManager.shoeInWish);
+                DataManager.getShoeInBagFromFirestone("InBag/" + user.getId() + "/ShoeList",DataManager.list);
+                DataManager.getShoeInWishFromFirestone("InWish/" + user.getId() + "/ShoeList",DataManager.shoeInWish);
 
                 nameTxt.setText(user.getName()+"");
                 emailTxt.setText(user.getEmail());
@@ -697,11 +697,11 @@ public class SettingActivity extends AppCompatActivity {
         dialog.setTitle("Sending Email");
         dialog.setMessage("Please wait");
         dialog.show();
+        randomCode = new Random().nextInt(900000) + 100000;
         Thread sender = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    randomCode = new Random().nextInt(900000) + 100000;
 
                     GmailSender sender = new GmailSender("zendiapplication@gmail.com", "yovmsjtkpwwfgbbv");
                     sender.sendMail("Verify code",
@@ -710,7 +710,6 @@ public class SettingActivity extends AppCompatActivity {
                             emailTxt.getText().toString());
                     dialog.dismiss();
 
-
                 } catch (Exception e) {
                     Log.e("mylog", "Error: " + e.getMessage());
                 }
@@ -718,5 +717,7 @@ public class SettingActivity extends AppCompatActivity {
         });
         sender.start();
 
+        ConfirmPasswordDialog confirmPasswordDialog = new ConfirmPasswordDialog(SettingActivity.this, emailTxt.getText().toString(), randomCode);
+        confirmPasswordDialog.show();
     }
 }
