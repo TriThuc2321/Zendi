@@ -11,8 +11,8 @@
             android:id="@+id/profileInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:background="@color/gold">
+            android:background="@color/gold"
+            android:padding="5dp">
 
                 <View
                     android:id="@+id/turnBack"
@@ -353,31 +353,30 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/total"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/total"
-                            android:layout_marginTop="30dp"
                             android:layout_below="@+id/size"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginRight="15dp"
                             android:background="@drawable/custom_black_stroke"
                             android:orientation="vertical"
-                            android:padding="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="15dp">
+                            android:padding="15dp">
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="TOTAL ($)"
                                     android:textSize="15dp"
-                                    android:textStyle="bold"
-                                    />
+                                    android:textStyle="bold" />
+
                                 <TextView
                                     android:id="@+id/totalTxt"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Total"
-                                    android:textSize="15dp"
-                                    />
+                                    android:textSize="15dp" />
                         </LinearLayout>
 
                         <Button
@@ -396,10 +395,23 @@
                             />
 
                         <Button
+                            android:id="@+id/btnSettingChangePass"
+                            android:layout_width="match_parent"
+                            android:layout_height="25sp"
+                            android:layout_below="@id/saveBtn"
+                            android:layout_marginLeft="10sp"
+                            android:background="@drawable/white_background_login_register"
+                            android:gravity="left"
+                            android:layout_marginBottom="10sp"
+                            android:text="Change password"
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
+
+                        <Button
                             android:id="@+id/logOutBtn"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/saveBtn"
+                            android:layout_below="@id/btnSettingChangePass"
                             android:backgroundTint="@color/black"
                             android:text="LOG OUT"
                             android:textSize="25dp"

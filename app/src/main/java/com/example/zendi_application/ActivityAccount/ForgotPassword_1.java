@@ -85,6 +85,13 @@ public class ForgotPassword_1 extends AppCompatActivity {
                         number4.getText().toString() +
                         number5.getText().toString() +
                         number6.getText().toString();
+
+                if (b.equals("")){
+                    tvCodeNote.setVisibility(View.VISIBLE);
+                    tvCodeNote.setText("Please enter the code");
+                    return;
+                }
+
                 Log.d("ConfirmRegister userentercode", b);
                 int c = Integer.parseInt(b);
                 String a = randomCode + "";

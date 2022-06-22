@@ -88,6 +88,12 @@ public class ConfirmRegister extends Dialog {
                         number4.getText().toString() +
                         number5.getText().toString() +
                         number6.getText().toString();
+
+                if (b.equals("")){
+                    note.setVisibility(View.VISIBLE);
+                    note.setText("Please enter the code");
+                    return;
+                }
                 Log.d("ConfirmRegister userentercode", b);
                 int c = Integer.parseInt(b);
                 String a = verifyCode + "";

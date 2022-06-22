@@ -27,13 +27,15 @@
             android:name=".notificationPackage.notificationPlace"
             android:exported="true" />
         <activity
+
+            android:name=".ActivityAccount.ChangePassword"
+            android:exported="false" />
+
+        <activity
             android:name=".ActivityAccount.ForgotPassword_2"
             android:exported="false" />
         <activity
             android:name=".ActivityAccount.ForgotPassword_1"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityAccount.ConfirmRegister"
             android:exported="false" />
         <activity
             android:name=".ActivityAccount.RegisterActivity"
