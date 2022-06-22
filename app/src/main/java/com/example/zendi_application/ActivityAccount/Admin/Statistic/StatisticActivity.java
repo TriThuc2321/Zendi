@@ -40,6 +40,7 @@ public class StatisticActivity extends AppCompatActivity {
     Spinner orderBySpinner;
     Spinner monthSpinner;
     Spinner yearSpinner;
+    TextView totalTxt;
 
     LinearLayout monthSpinnerLayout;
     LinearLayout yearSpinnerLayout;
@@ -48,6 +49,8 @@ public class StatisticActivity extends AppCompatActivity {
     List<String> listSp = new ArrayList<>();
     List<String> listMonthSp = new ArrayList<>();
     List<String> listYearSp = new ArrayList<>();
+
+    int total = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,14 @@ public class StatisticActivity extends AppCompatActivity {
                         monthSpinnerLayout.setVisibility(View.GONE);
                         yearSpinnerLayout.setVisibility(View.GONE);
                         dateShowLayout.setVisibility(View.GONE);
+
+                        total = 0;
+                        for (int i =0; i<orderedList.size(); i++){
+                            String priceString = orderedList.get(i).getTotal().substring(1);
+                            int price = Integer.parseInt(priceString);
+                            total += price;
+                        }
+                        totalTxt.setText("$" + total);
 
                         mRecyclerStatistic.setLayoutAnimation(leftToRight);
                         mStatisticAdapter.SetData(orderedList);
@@ -235,16 +246,17 @@ public class StatisticActivity extends AppCompatActivity {
     }
 
     void loadList(){
-        if(orderBySpinner.getSelectedItem().toString() == "Date") {
+        if(orderBySpinner.getSelectedItem().toString().equals("Date")) {
             getListOrderedByDay(dateShow.getText().toString(), 0);
         }
-        else if(orderBySpinner.getSelectedItem().toString() == "Year"){
+        else if(orderBySpinner.getSelectedItem().toString().equals("Year")){
             getListOrderedByDay("01/01/" + yearSpinner.getSelectedItem().toString(), 1);
         }
-        else if(orderBySpinner.getSelectedItem().toString() == "Month"){
+        else if(orderBySpinner.getSelectedItem().toString().equals("Month")){
             getListOrderedByDay("01/" + monthSpinner.getSelectedItem().toString() + "/" + yearSpinner.getSelectedItem().toString(), 2);
         }
-        else if(orderBySpinner.getSelectedItem().toString() == "Show All"){
+        else if(orderBySpinner.getSelectedItem().toString().equals("Show All")){
+
             orderedListByDay = new ArrayList<>(orderedList);
             mStatisticAdapter.SetData(orderedListByDay);
 
@@ -253,10 +265,14 @@ public class StatisticActivity extends AppCompatActivity {
 
     public void getListOrderedByDay(String date, int type){
         orderedListByDay.clear();
+        total = 0;
         if(type == 0){
             for (int i =0; i<orderedList.size(); i++){
                 if(date.compareTo(orderedList.get(i).getBillDate()) == 0){
                     orderedListByDay.add(orderedList.get(i));
+                    String priceString = orderedList.get(i).getTotal().substring(1);
+                    int price = Integer.parseInt(priceString);
+                    total += price;
                 }
             }
         }
@@ -265,6 +281,9 @@ public class StatisticActivity extends AppCompatActivity {
                 String[] temp = orderedList.get(i).getBillDate().split("/");
                 if(temp[2].compareTo(yearSpinner.getSelectedItem().toString()) == 0) {
                     orderedListByDay.add(orderedList.get(i));
+                    String priceString = orderedList.get(i).getTotal().substring(1);
+                    int price = Integer.parseInt(priceString);
+                    total += price;
                 }
             }
         }
@@ -273,12 +292,16 @@ public class StatisticActivity extends AppCompatActivity {
                 String[] temp = orderedList.get(i).getBillDate().split("/");
                 if(temp[1].compareTo(monthSpinner.getSelectedItem().toString()) == 0 && temp[2].compareTo(yearSpinner.getSelectedItem().toString()) == 0) {
                     orderedListByDay.add(orderedList.get(i));
+                    String priceString = orderedList.get(i).getTotal().substring(1);
+                    int price = Integer.parseInt(priceString);
+                    total += price;
                 }
             }
         }
         mRecyclerStatistic.setLayoutAnimation(leftToRight);
         mStatisticAdapter.SetData(orderedListByDay);
 
+        totalTxt.setText("$" + total);
     }
 
     private void Init() {
@@ -289,6 +312,7 @@ public class StatisticActivity extends AppCompatActivity {
         orderBySpinner = findViewById(R.id.orderBy_spinner);
         monthSpinner = findViewById(R.id.month_spinner);
         yearSpinner = findViewById(R.id.year_spinner);
+        totalTxt = findViewById(R.id.total);
 
         monthSpinnerLayout = findViewById(R.id.month_spinner_layout);
         yearSpinnerLayout = findViewById(R.id.year_spinner_layout);
