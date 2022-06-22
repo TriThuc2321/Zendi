@@ -75,9 +75,9 @@ dependencies {
     implementation  'com.google.android.gms:play-services-auth:9.8.0'
     compileOnly 'com.google.android.wearable:wearable:2.6.0'
     //send email
-    compile files('libs/activation.jar')
-    compile files('libs/additional.jar')
-    compile files('libs/mail.jar')
+    implementation files('libs/activation.jar')
+    implementation files('libs/additional.jar')
+    implementation files('libs/mail.jar')
     // location
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'pub.devrel:easypermissions:3.0.0'

@@ -45,69 +45,19 @@
         android:id="@+id/edit_receiver"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:hint="Address"-->
-<!--        android:textColorHint="@color/gold"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:helperText="*Require"-->
-<!--        app:helperTextTextColor="#FF0000">-->
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/edit_address"-->
-<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
+        android:hint="Address"
+        android:textColorHint="@color/gold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textview_province"
-        android:text="Province"
-        android:textColor="@color/gold"
-        android:layout_marginLeft="15dp"
-        />
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner_province"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textview_district"
-        android:text="District"
-        android:textColor="@color/gold"
-        android:layout_marginLeft="15dp"
-        />
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner_district"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textview_commune"
-        android:text="Commune"
-        android:textColor="@color/gold"
-        android:layout_marginLeft="15dp"
-        />
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner_commune"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        />
+        app:helperText="*Require"
+        app:helperTextTextColor="#FF0000">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_address"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

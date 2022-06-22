@@ -52,6 +52,7 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
     public static Button settle;
     RecyclerView recyclerView;
     TextView emptyNotify;
+    Button deleteBtn;
     @Override
     public void onResume() {
         super.onResume();
@@ -63,7 +64,17 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         emptyNotify = view.findViewById(R.id.emptyNotifyBag_text);
-        DataManager.shoeInBagAdapter = new ShoeInBagAdapter(emptyNotify);
+        deleteBtn = view.findViewById(R.id.delete_btn);
+        DataManager.shoeInBagAdapter = new ShoeInBagAdapter(emptyNotify, deleteBtn, DataManager.list, new ShoeInBagAdapter.DeleteShopListener() {
+            @Override
+            public void onDeleteShopBtnClick(ShoeInBag shoe) {
+                deleteItem(shoe);
+                DataManager.list.remove(shoe);
+                DataManager.shoeInBagAdapter.notifyDataSetChanged();
+                settle.setText(total());
+                Toast.makeText(getContext(), "You have just dragged this shoe out of bag", LENGTH_LONG).show();
+            }
+        });
         settle = view.findViewById(R.id.settle_place);
         settle.setText(total());
         recyclerView = view.findViewById(R.id.shop_fragment_rcv);
@@ -76,12 +87,12 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(DataManager.shoeInBagAdapter);
-        settle.setOnClickListener(this);
+        settle.setOnClickListener(this::onClick);
         return view;
     }
-    String increaseAmount = "One more or swipe down to delete";
+    String increaseAmount = "One more";
     String decreaseAmount = "One less";
-    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT| ItemTouchHelper.DOWN)
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT)
     {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -113,12 +124,12 @@ public class ShopFragment extends Fragment implements RecyclerViewClickInterface
                      settle.setText(total());
                      upAmount(DataManager.list.get(position),DataManager.list.get(position).getShoeAmount());
                     break;
-                case ItemTouchHelper.DOWN:
-                    deleteItem(DataManager.list.get(position));
-                    DataManager.list.remove(DataManager.list.get(position));
-                    DataManager.shoeInBagAdapter.notifyDataSetChanged();
-                    settle.setText(total());
-                    Toast.makeText(getContext(), "You have just dragged this shoe out of bag", LENGTH_LONG).show();
+//                case ItemTouchHelper.DOWN:
+//                    deleteItem(DataManager.list.get(position));
+//                    DataManager.list.remove(DataManager.list.get(position));
+//                    DataManager.shoeInBagAdapter.notifyDataSetChanged();
+//                    settle.setText(total());
+//                    Toast.makeText(getContext(), "You have just dragged this shoe out of bag", LENGTH_LONG).show();
             }
         }
         @Override

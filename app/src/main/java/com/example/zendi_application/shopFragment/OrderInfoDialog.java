@@ -50,16 +50,12 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
     private TextInputEditText editName;
     public String add;
     public String con;
-    public String reciever;
+    public String reciever, selectedProvince,selectedDistrict,selectedCommune;
     public String total = total();
     public String ss = ListShoeBought();
     public String totalHost = addTotalToHost();
     public static List<String> ChangedProductID = new ArrayList<>();
     TextView totaltv;
-    private String selectedProvince, selectedDistrict, selectedCommune;
-    private TextView tvtProvinceSpinner, tvtDistrictSpinner, tvtCommuneSpinner;
-    private Spinner provinceSpinner, districtSpinner, communeSpinner;
-    private ArrayAdapter<CharSequence> provinceAdapter, districtAdapter, communeAdapter;
 
     @NonNull
     @Override
@@ -101,12 +97,13 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                 });
         totaltv = view.findViewById(R.id.totaltxt);
         totaltv.setText(total());
-//        editaddress = view.findViewById(R.id.edit_address);
+        editaddress = view.findViewById(R.id.edit_address);
         editaddress.setText(DataManager.host.getAddress());
         editcontact = view.findViewById(R.id.edit_contact);
         editcontact.setText(DataManager.host.getPhoneNumber());
         editName = view.findViewById(R.id.edit_receiver);
         editName.setText(DataManager.host.getName());
+
 
         AlertDialog dialog = builder.create();
         Window window = dialog.getWindow();

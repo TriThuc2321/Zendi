@@ -39,9 +39,11 @@ import static android.widget.Toast.LENGTH_LONG;
 
 public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.ShoeInBagViewHolder> {
 
-    Context context;
+//    Context context;
     List<ShoeInBag> shoeInBagList;
     TextView emptyNotify;
+    Button deleteBtn;
+    DeleteShopListener deleteShopListener;
 
     public void setData(List<ShoeInBag> list) {
         this.shoeInBagList = list;
@@ -50,16 +52,19 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
 
     public ShoeInBagAdapter() {
     }
-    public ShoeInBagAdapter(TextView emptyNotify)
+    public ShoeInBagAdapter(TextView emptyNotify, Button deleteBtn, List<ShoeInBag> shoeInBagList, DeleteShopListener deleteShopListener)
     {
         this.emptyNotify = emptyNotify;
+        this.deleteBtn = deleteBtn;
+        this.shoeInBagList = shoeInBagList;
+        this.deleteShopListener = deleteShopListener;
     }
     ;
 
-    public ShoeInBagAdapter(Context context, List<ShoeInBag> shoeInBagList) {
-        this.context = context;
-        this.shoeInBagList = shoeInBagList;
-    }
+//    public ShoeInBagAdapter(Context context, List<ShoeInBag> shoeInBagList) {
+//        this.context = context;
+//        this.shoeInBagList = shoeInBagList;
+//    }
 
     @NonNull
     @Override
@@ -76,6 +81,9 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
         holder.size.setText(shoeInBagList.get(position).getShoeSize());
         holder.price.setText(new StringBuilder("Price: $").append(shoeInBagList.get(position).getProductPrice()));
         holder.amount.setText(shoeInBagList.get(position).getShoeAmount());
+        holder.deletebtn.setOnClickListener(view -> {
+            deleteShopListener.onDeleteShopBtnClick(shoeInBagList.get(position));
+        });
     }
     @Override
     public int getItemCount() {
@@ -89,10 +97,14 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
         return 0;
     }
 
+    public interface DeleteShopListener {
+        void onDeleteShopBtnClick(ShoeInBag shoe);
+    }
+
 
     public class ShoeInBagViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView shoeimg;
-        Button wishbtn;
+        Button wishbtn, deletebtn;
         TextView name, size, amount, price;
 
         public ShoeInBagViewHolder(@NonNull View itemView) {
@@ -104,6 +116,7 @@ public class ShoeInBagAdapter extends RecyclerView.Adapter<ShoeInBagAdapter.Shoe
             amount = itemView.findViewById(R.id.shoe_amount);
             wishbtn = itemView.findViewById(R.id.wish_btn);
             wishbtn.setOnClickListener(this);
+            deletebtn = itemView.findViewById(R.id.delete_btn);
         }
 
         @Override
