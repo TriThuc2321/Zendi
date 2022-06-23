@@ -40,29 +40,18 @@
         <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_for_detailproduct.xml" value="0.22982456140350876" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_imageview.xml" value="0.22982456140350876" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_account.xml" value="0.14649122807017545" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_admin.xml" value="0.18157894736842106" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_edit.xml" value="0.16359649122807018" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_edit_account.xml" value="0.1824561403508772" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_login_register.xml" value="0.1" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_new_account.xml" value="0.264" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_register.xml" value="0.2" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_setting.xml" value="0.2" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/button_clicked.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_chevron_right_24.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_close_delete.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_delete_forever_24.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_exposure_neg_1_24.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_format_list_bulleted_24.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_24_back_detail_drop.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_black.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_priority_high_24.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/drawable/ic_baseline_social_distance_24.xml" value="0.161328125" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_collection_drop.xml" value="0.14921875" />
-        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_home_screen.xml" value="0.1" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_staff_manager.xml" value="0.264" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/activity_statistic.xml" value="0.19473684210526315" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/confirm_password_layout.xml" value="0.1824561403508772" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/fragment_confirm_alert.xml" value="0.1824561403508772" />
+        <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/staff_custom.xml" value="0.19473684210526315" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_main.xml" value="0.8" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_notification_place.xml" value="0.176" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_statistic.xml" value="0.205859375" />

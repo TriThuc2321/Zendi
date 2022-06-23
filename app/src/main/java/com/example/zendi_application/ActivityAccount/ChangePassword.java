@@ -3,9 +3,11 @@ package com.example.zendi_application.ActivityAccount;
 import static com.example.zendi_application.ActivityAccount.SettingActivity.isConfirm;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.zendi_application.ActivityAccount.ConfirmEmail.GmailSender;
+import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -16,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,6 +31,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
+import static com.example.zendi_application.DataManager.listUsers;
+import java.util.Base64;
 
 public class ChangePassword extends AppCompatActivity {
     View turnBack;
@@ -78,6 +83,7 @@ public class ChangePassword extends AppCompatActivity {
         });
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 setVisibleGone();
@@ -87,19 +93,33 @@ public class ChangePassword extends AppCompatActivity {
                         number4.getText().toString() +
                         number5.getText().toString() +
                         number6.getText().toString();
+                if (b.equals("")){
+                    tvCodeNote.setVisibility(View.VISIBLE);
+                    tvCodeNote.setText("Please enter the code");
+                    return;
+                }
                 Log.d("ConfirmRegister userentercode", b);
                 int c = Integer.parseInt(b);
                 String a = randomCode + "";
 
                 if (c == randomCode) {
                     isConfirm = true;
-                    currentUser.setPassword(etPass1.getText().toString());
+
+                    String newEncodePassword = Base64.getEncoder().encodeToString(etPass1.getText().toString().getBytes());
+                    currentUser.setPassword(newEncodePassword);
                     Log.d("ConfirmRegister", "correct code");
                     dataBase.child("Users").child(currentUser.getId()).setValue(currentUser)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(ChangePassword.this, "Change password successfully!", Toast.LENGTH_LONG).show();
+
+                                    for (int i = 0; i< listUsers.size(); i++){
+                                        if (listUsers.get(i).getEmail().equals(email)){
+                                            listUsers.get(i).setPassword(newEncodePassword);
+                                            break;
+                                        }
+                                    }
                                     onBackPressed();
                                 }
                             });
@@ -139,6 +159,9 @@ public class ChangePassword extends AppCompatActivity {
         number5 = findViewById(R.id.et_number_5);
         number6 = findViewById(R.id.et_number_6);
 
+        btnSend = findViewById(R.id.btnChangePassSend);
+        btnConfirm = findViewById(R.id.btnChangePassConfirm);
+
         setTextChangedListener();
 
         setVisibleGone();
@@ -170,16 +193,19 @@ public class ChangePassword extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     boolean validatePassword() {
         boolean checkEmptyPass = false;
         boolean checkEmptyConfirmPass = false;
         boolean check = true;
 
+        String encodeOldPassword = Base64.getEncoder().encodeToString(etPass0.getText().toString().getBytes());
+
         if (etPass0.getText().toString().equals("") || etPass0.getText().toString().equals(null) || etPass0.getText().toString().equals(" ")) {
             tvNotePass0.setText("Please enter your password!");
             tvNotePass0.setVisibility(View.VISIBLE);
             check = false;
-        } else if (!etPass0.getText().toString().equals(currentUser.getPassword())) {
+        } else if (!encodeOldPassword.equals(currentUser.getPassword())) {
             tvNotePass0.setText("Incorrect password!");
             tvNotePass0.setVisibility(View.VISIBLE);
             check = false;

@@ -8,9 +8,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.example.zendi_application.ActivityAccount.Admin.StaffManager.StaffManager;
+import com.example.zendi_application.ActivityAccount.Admin.AccountManager.AccountManager;
 import com.example.zendi_application.ActivityAccount.Admin.Statistic.StatisticActivity;
-import com.example.zendi_application.HomeScreen;
 import com.example.zendi_application.R;
 import com.example.zendi_application.addProductPackage.uploadData;
 
@@ -34,7 +33,7 @@ public class AdminActivity extends AppCompatActivity {
         staffManagerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AdminActivity.this, StaffManager.class));
+                startActivity(new Intent(AdminActivity.this, AccountManager.class));
                 overridePendingTransition(R.anim.slide_from_right_account,R.anim.slide_to_left_account);
             }
         });
@@ -66,7 +65,7 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     private void init() {
-        turnBack = findViewById(R.id.turnBack_admin);
+        turnBack = findViewById(R.id.turnBack);
         staffManagerBtn = findViewById(R.id.staff_manager_btn);
         statisticBtn = findViewById(R.id.statistics_btn);
         shoeManagerBtn = findViewById(R.id.shoe_manager_btn);
