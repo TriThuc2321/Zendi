@@ -284,8 +284,12 @@ public class DataManager {
             }
         }
         String a = new_amount.toString();
-        documentReference.update("shoeAmount",a);
-        Toast.makeText(mContext,"Product is Added !!",Toast.LENGTH_SHORT).show();
+        documentReference.update("shoeAmount",a).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(mContext,"Product is Added !!",Toast.LENGTH_SHORT).show();
+            }
+        });
         /// Update admount
        //Update_Amount(selectedShoe);
     }
@@ -545,7 +549,7 @@ public class DataManager {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        DataManager.list.clear();
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

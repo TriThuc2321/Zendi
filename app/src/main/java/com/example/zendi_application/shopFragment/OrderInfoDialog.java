@@ -87,6 +87,13 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                             reciever = editName.getText().toString();
                             sendEmail(DataManager.host.getEmail());
                             DataManager.host.setTotal(totalHost);
+                            Bill newBill = new Bill(
+                                    DataManager.list,
+                                    total(),
+                                    add,
+                                    con
+                            );
+                            DataManager.push_Notification(newBill);
                             DataManager.LoadProductInformation_CheckremaningShoe(getContext(), "Product", DataManager.listProduct, DataManager.list, add, con, DataManager.host.getEmail(), reciever, totalHost);
 //                            upTotalToFirebase(totalHost);
 //                            upBilltoFireStore(add, con, DataManager.host.getEmail(), reciever);
@@ -135,13 +142,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         db.collection("Ordered").document(docName).set(s1).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Bill newBill = new Bill(
-                        DataManager.list,
-                        total(),
-                        address,
-                        contact
-                );
-                DataManager.push_Notification(newBill);
+
             }
         });
         for (ShoeInBag ite : DataManager.list) {
@@ -167,6 +168,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
             db.collection("InBag/" + DataManager.host.getId() + "/ShoeList").document(doc1).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
+                    DataManager.list.clear();
                 }
             });
         }
