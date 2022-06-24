@@ -154,6 +154,7 @@ public class uploadData extends AppCompatActivity {
                         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                         builder.setMessage("Here already have product with the same ID. Are you sure you want to change, the process of changing may cause data loss?").setPositiveButton("Yes", dialogClickListener)
                                 .setNegativeButton("No", dialogClickListener).show();
+                        break;
                     }
                 }
                 if(i == DataManager.listProduct.size()) PushProduct();
