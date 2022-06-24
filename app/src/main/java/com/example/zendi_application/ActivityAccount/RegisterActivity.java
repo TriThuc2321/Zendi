@@ -192,6 +192,7 @@ public class RegisterActivity extends AppCompatActivity {
             String note = checkPassword(etPassword.getText().toString());
             if (!note.equals("")) {
                 tvPasswordNote.setText(note);
+                tvPasswordNote.setVisibility(View.VISIBLE);
                 check = false;
             }
         }

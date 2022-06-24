@@ -10,7 +10,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-
+import static com.example.zendi_application.DataManager.listUsers;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -57,6 +57,12 @@ public class ForgotPassword_2 extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    for (int i = 0; i< listUsers.size(); i++){
+                                        if (listUsers.get(i).getEmail().equals(currentUser.getEmail())){
+                                            listUsers.get(i).setPassword(currentUser.getPassword());
+                                            break;
+                                        }
+                                    }
                                     Toast.makeText(ForgotPassword_2.this,"Change password successfully!",Toast.LENGTH_LONG).show();
                                     Intent newIntent = new Intent(ForgotPassword_2.this, Account_Activity.class);
                                     startActivity(newIntent);
