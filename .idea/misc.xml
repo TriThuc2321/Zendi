@@ -14,6 +14,27 @@
         <entry key="..\:/Android/Zendi/app/src/main/res/layout/activity_setting.xml" value="0.29880478087649404" />
         <entry key="..\:/Android/Zendi/app/src/main/res/layout/confirm_password_layout.xml" value="0.18" />
         <entry key="..\:/Android/Zendi/app/src/main/res/menu/menu_appbar_top.xml" value="0.15" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/drawable/account_custom_button.xml" value="0.156" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/drawable/button_clicked.xml" value="0.156" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/drawable/button_state.xml" value="0.156" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/drawable/button_unclick.xml" value="0.156" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/drawable/circle_background.xml" value="0.156" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/drawable/ic_baseline_face_24.xml" value="0.156" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.156" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/layout/activity_home_screen.xml" value="0.2740036231884058" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/layout/choosesizee_fragment.xml" value="0.2740036231884058" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/layout/detail_product_item.xml" value="0.2740036231884058" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/layout/fragment_detail_product.xml" value="0.2740036231884058" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/layout/fragment_shop.xml" value="0.2740036231884058" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/layout/fragment_wishlist.xml" value="0.18072916666666666" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/layout/item_newimageofproduct.xml" value="0.2740036231884058" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/layout/item_newimageofproduct2.xml" value="0.2740036231884058" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/layout/item_newimageofproduct_adddrop.xml" value="0.2740036231884058" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/layout/order_info_dialog.xml" value="0.2740036231884058" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/layout/order_product.xml" value="0.2740036231884058" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/layout/product_item_editdrop.xml" value="0.2740036231884058" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/layout/shop_item.xml" value="0.4" />
+        <entry key="..\:/BTjava/GIT/Zendi/app/src/main/res/layout/wish_item.xml" value="0.264" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_black_stroke.xml" value="0.22982456140350876" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_button.xml" value="0.22982456140350876" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/drawable/custom_for_detailproduct.xml" value="0.22982456140350876" />
@@ -31,11 +52,13 @@
         <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/confirm_password_layout.xml" value="0.1824561403508772" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/fragment_confirm_alert.xml" value="0.1824561403508772" />
         <entry key="..\:/GitHub/Zendi/app/src/main/res/layout/staff_custom.xml" value="0.19473684210526315" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_home_screen.xml" value="0.205859375" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_main.xml" value="0.8" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_notification_place.xml" value="0.176" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_statistic.xml" value="0.205859375" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_transaction_history.xml" value="0.205859375" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_transaction_history2.xml" value="0.205859375" />
+        <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/activity_upload_data.xml" value="0.205859375" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/collection_item_type1.xml" value="0.264" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/detail_product_item.xml" value="0.162890625" />
         <entry key="..\:/Users/Modern 15/Documents/GitHub/Zendi/app/src/main/res/layout/drop_category.xml" value="0.205859375" />

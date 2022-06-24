@@ -13,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +50,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
     private TextInputEditText editName;
     public String add;
     public String con;
-    public String reciever;
+    public String reciever, selectedProvince,selectedDistrict,selectedCommune;
     public String total = total();
     public String ss = ListShoeBought();
     public String totalHost = addTotalToHost();
@@ -85,6 +87,13 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                             reciever = editName.getText().toString();
                             sendEmail(DataManager.host.getEmail());
                             DataManager.host.setTotal(totalHost);
+                            Bill newBill = new Bill(
+                                    DataManager.list,
+                                    total(),
+                                    add,
+                                    con
+                            );
+                            DataManager.push_Notification(newBill);
                             DataManager.LoadProductInformation_CheckremaningShoe(getContext(), "Product", DataManager.listProduct, DataManager.list, add, con, DataManager.host.getEmail(), reciever, totalHost);
 //                            upTotalToFirebase(totalHost);
 //                            upBilltoFireStore(add, con, DataManager.host.getEmail(), reciever);
@@ -101,6 +110,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         editcontact.setText(DataManager.host.getPhoneNumber());
         editName = view.findViewById(R.id.edit_receiver);
         editName.setText(DataManager.host.getName());
+
 
         AlertDialog dialog = builder.create();
         Window window = dialog.getWindow();
@@ -132,13 +142,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
         db.collection("Ordered").document(docName).set(s1).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Bill newBill = new Bill(
-                        DataManager.list,
-                        total(),
-                        address,
-                        contact
-                );
-                DataManager.push_Notification(newBill);
+
             }
         });
         for (ShoeInBag ite : DataManager.list) {
@@ -164,6 +168,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
             db.collection("InBag/" + DataManager.host.getId() + "/ShoeList").document(doc1).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
+                    DataManager.list.clear();
                 }
             });
         }

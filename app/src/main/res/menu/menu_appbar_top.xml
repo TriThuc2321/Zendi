@@ -5,8 +5,8 @@
     <item
         android:id="@+id/transactionHistory_item"
         android:icon="@drawable/ic_baseline_history_24"
-        android:title="Notification"
-        android:contentDescription="Your Notification"
+        android:title="Transaction History"
+        android:contentDescription="Transaction History"
         app:showAsAction="ifRoom"
         android:visible="true"
         />
@@ -28,7 +28,7 @@
     <item
         android:id="@+id/staff_manager_item"
         android:icon="@drawable/ic_outline_settings_24"
-        android:title="Staff manager"
+        android:title="Manager"
         android:contentDescription="Setting For Your Account"
         app:showAsAction="ifRoom"
         android:visible="false"
