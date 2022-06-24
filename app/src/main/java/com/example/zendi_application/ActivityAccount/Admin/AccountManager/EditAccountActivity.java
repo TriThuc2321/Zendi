@@ -55,7 +55,6 @@ public class EditAccountActivity extends AppCompatActivity {
     private RadioButton staffRad;
 
     private Button saveBtn;
-    private Button deleteBtn;
 
 
     private DatabaseReference dataBase;
@@ -87,7 +86,6 @@ public class EditAccountActivity extends AppCompatActivity {
         adminRad.setChecked(true);
         staffRad = findViewById(R.id.radioButton_staff);
         saveBtn = findViewById(R.id.saveBtn);
-        deleteBtn = findViewById(R.id.deleteBtn);
 
         birthdayTxt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,13 +120,6 @@ public class EditAccountActivity extends AppCompatActivity {
                 if(checkData()){
                     pushData();
                 }
-            }
-        });
-
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteHandle();
             }
         });
 
@@ -221,7 +212,7 @@ public class EditAccountActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(getApplicationContext(),"Add new account successfully!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Edit account successfully!",Toast.LENGTH_LONG).show();
                         finish();
                     }
                 });
