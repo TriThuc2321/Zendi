@@ -466,12 +466,13 @@ public class SettingActivity extends AppCompatActivity {
                         mGender = 2;
                     }
                     String [] parts = emailTxt.getText().toString().split("@");
-                    setData(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(),DataManager.host.getPassword(), mGender, parts[0], nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
+                    setData(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(),DataManager.host.getPassword(), mGender, DataManager.host.getId(), nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
 
                     for (int i = 0; i < listUsers.size(); i++) {
                         if(listUsers.get(i).getId() == user.getId()) {
                             user = new User(locationTxt.getText().toString(), birthdayTxt.getText().toString(), emailTxt.getText().toString(),DataManager.host.getPassword(), mGender, parts[0], nameTxt.getText().toString(), phoneNumberTxt.getText().toString(), "ImageUri", sizeTxt.getText().toString(), totalTxt.getText().toString(), isShopOwner);
                             listUsers.set(i, user);
+                            break;
                         }
                     }
                 }
