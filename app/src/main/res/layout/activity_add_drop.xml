@@ -60,8 +60,8 @@
 
         <ImageView
             android:id="@+id/load_dropimage"
-            android:layout_width="100dp"
-            android:layout_height="110dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:src="@drawable/airjodan1">
         </ImageView>
     <ProgressBar
@@ -70,31 +70,35 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         ></ProgressBar>
+
         <Button
+            android:id="@+id/adddropimagebtn_adddrop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="  ADD DROP IMAGE  "
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/custom_black_stroke"
-            android:id="@+id/adddropimagebtn_adddrop"></Button>
+            android:text="  ADD DROP IMAGE  "></Button>
     </LinearLayout>
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="491dp"
         android:orientation="vertical"
         android:padding="5dp">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleview_productIndrop_adddrop"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:id="@+id/recycleview_productIndrop_adddrop">
+            android:layout_height="120dp">
 
         </androidx.recyclerview.widget.RecyclerView>
+
         <Spinner
+            android:id="@+id/spinner_productlist"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_productlist">
-        </Spinner>
+            android:layout_height="wrap_content"></Spinner>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,58 +113,62 @@
                 android:text=" ADD PRODUCT "></Button>
 
             <Button
+                android:id="@+id/delete_adddrop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" DELETE PRODUCT "
                 android:layout_margin="5dp"
                 android:background="@drawable/custom_black_stroke"
-                android:id="@+id/delete_adddrop"></Button>
+                android:text=" DELETE PRODUCT "></Button>
 
 
         </LinearLayout>
 
         <EditText
             android:id="@+id/dropcaption_adddrop"
-            android:hint="Caption"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:hint="Caption" />
+
         <EditText
             android:id="@+id/dropstatus_adddrop"
-            android:hint="Status"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:hint="Status" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <EditText
-            android:id="@+id/droptype_adddrop"
-            android:hint="Type"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"/>
-        <EditText
-            android:id="@+id/categoryordinal_adddrop"
-            android:hint="C.O"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"/>
-        <EditText
-            android:id="@+id/dropordinal_adddrop"
-            android:hint="D.O"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/droptype_adddrop"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:hint="Type" />
+
+            <EditText
+                android:id="@+id/categoryordinal_adddrop"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:hint="C.O" />
+
+            <EditText
+                android:id="@+id/dropordinal_adddrop"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="D.O" />
         </LinearLayout>
 
         <Button
+            android:id="@+id/pushdropbtn_adddrop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Push"
             android:layout_margin="5dp"
             android:background="@color/black"
-            android:textColor="@color/white"
-            android:id="@+id/pushdropbtn_adddrop">
-        </Button>
+            android:text="Push"
+            android:textColor="@color/white"></Button>
 
     </LinearLayout>
 

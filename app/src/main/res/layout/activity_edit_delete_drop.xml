@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"></Toolbar>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="700dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toorbar_editdrop">
         <androidx.constraintlayout.widget.ConstraintLayout
