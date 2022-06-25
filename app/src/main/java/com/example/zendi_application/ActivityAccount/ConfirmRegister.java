@@ -110,6 +110,8 @@ public class ConfirmRegister extends Dialog {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(mContext,"Sign up successfully!",Toast.LENGTH_LONG).show();
+
+                                    DataManager.listUsers.add((currentUser));
                                     Intent newIntent = new Intent(mContext, Account_Activity.class);
                                     mContext.startActivity(newIntent);
                                 }

@@ -211,18 +211,21 @@ public class ChangePassword extends AppCompatActivity {
             check = false;
         }
 
+
+        String encodeNewPassword = Base64.getEncoder().encodeToString(etPass1.getText().toString().getBytes());
         if (etPass1.getText().toString().equals("") || etPass1.getText().toString().equals(null) || etPass1.getText().toString().equals(" ")) {
             tvNotePass1.setText("Please enter your password!");
             tvNotePass1.setVisibility(View.VISIBLE);
             check = false;
             checkEmptyPass = true;
-        } else if (etPass1.getText().toString().equals(currentUser.getPassword())) {
+        } else if (encodeNewPassword.equals(currentUser.getPassword())) {
             tvNotePass1.setText("New password must be not similar to old password");
             tvNotePass1.setVisibility(View.VISIBLE);
         } else {
             String note = checkPassword(etPass1.getText().toString());
             if (!note.equals("")) {
                 tvNotePass1.setText(note);
+                tvNotePass1.setVisibility(View.VISIBLE);
                 check = false;
             }
         }
