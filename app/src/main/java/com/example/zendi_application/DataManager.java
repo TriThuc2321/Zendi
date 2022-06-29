@@ -178,7 +178,7 @@ public class DataManager {
                                 break;
                             }
                             }
-                            Toast.makeText(parent, "Selected product has been in drop !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(parent, "Edit drop successfuly!", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

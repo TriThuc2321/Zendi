@@ -348,7 +348,7 @@ public class edit_deleteProduct extends AppCompatActivity {
                                         DataManager.Delete_product_to_Firestone((edit_deleteProduct) v.getContext(), temp);
                                         DataManager.Edit_Product_ShoeinBag(temp,"delete");
                                         DataManager.Edit_Product_InWish(temp,"delete");
-
+                                        Toast.makeText(v.getContext(), "Delete product successfuly!", Toast.LENGTH_SHORT).show();
                                         processedList.remove(temp);
                                         break;
                                     }
