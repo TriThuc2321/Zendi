@@ -57,6 +57,7 @@ public class ConfirmDeleteDialog extends Dialog {
         confirmBtn = findViewById(R.id.confirm_button);
         cancelBtn = findViewById(R.id.cancel_btn);
 
+
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -64,6 +65,16 @@ public class ConfirmDeleteDialog extends Dialog {
 
                 FirebaseDatabase.getInstance().getReference().child("Users").child(id).removeValue();
                 listUsers.removeIf(e -> e.getId().equals(id));
+                for(int i =0; i< listUsers.size() -1 ; i++){
+                    for(int j=i+1; j< listUsers.size(); j++){
+                        if(listUsers.get(i).getEmail().equals(listUsers.get(j).getEmail())){
+                            listUsers.remove(j);
+                            j--;
+                        }
+                    }
+                }
+                DataManager.mAccountAdapter.SetData(listUsers);
+                DataManager.mAccountAdapter.notifyDataSetChanged();
                 dismiss();
             }
         });

@@ -95,9 +95,9 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
                             );
                             DataManager.push_Notification(newBill);
                             DataManager.LoadProductInformation_CheckremaningShoe(getContext(), "Product", DataManager.listProduct, DataManager.list, add, con, DataManager.host.getEmail(), reciever, totalHost);
-//                            upTotalToFirebase(totalHost);
-//                            upBilltoFireStore(add, con, DataManager.host.getEmail(), reciever);
-                            //Toast.makeText(getContext(), "Ordered successfully.", Toast.LENGTH_SHORT).show();
+                            upTotalToFirebase(totalHost);
+                            upBilltoFireStore(add, con, DataManager.host.getEmail(), reciever);
+                            Toast.makeText(getContext(), "Ordered successfully.", Toast.LENGTH_SHORT).show();
                             ShopFragment.settle.setText(ShopFragment.total());
                         }
                     }
@@ -190,7 +190,7 @@ public class OrderInfoDialog extends AppCompatDialogFragment {
             @Override
             public void run() {
                 try {
-                    GmailSender sender = new GmailSender("zendiapplication@gmail.com", "ThucThienThangHuynh123");
+                    GmailSender sender = new GmailSender("zendiapplication@gmail.com", "yovmsjtkpwwfgbbv");
                     sender.sendMail("Order in Zendi",
                             "Dear " + reciever + ";\n" +
                                     "Thanks for ordering our product and choosing Zendi as your best Shoe Shop.\n" +

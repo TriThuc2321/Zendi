@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.zendi_application.ActivityAccount.User;
+import com.example.zendi_application.DataManager;
 import com.example.zendi_application.R;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class AccountManager extends AppCompatActivity {
     public static List<User> listAccount = new ArrayList<>();
 
     private RecyclerView mRecyclerAccount;
-    private AccountAdapter mAccountAdapter ;
+//    private AccountAdapter mAccountAdapter ;
 
     private View turnBackBtn;
     private Button newAccountBtn;
@@ -51,8 +52,8 @@ public class AccountManager extends AppCompatActivity {
         mRecyclerAccount = findViewById(R.id.list_account_recyclerView);
         orderBySpinner = findViewById(R.id.filter_account_spinner);
 
-        mAccountAdapter = new AccountAdapter(this);
-        mRecyclerAccount.setAdapter(mAccountAdapter);
+        DataManager.mAccountAdapter = new AccountAdapter(this);
+        mRecyclerAccount.setAdapter(DataManager.mAccountAdapter);
         mRecyclerAccount.setLayoutManager(new LinearLayoutManager(this));
 
         newAccountBtn = findViewById(R.id.new_account_btn);
@@ -64,7 +65,7 @@ public class AccountManager extends AppCompatActivity {
             public void onClick(View v) {
                 setResult(RESULT_CANCELED);
                 listAccount.clear();
-                mAccountAdapter.SetData(listAccount);
+                DataManager.mAccountAdapter.SetData(listAccount);
                 finish();
             }
         });
@@ -108,7 +109,7 @@ public class AccountManager extends AppCompatActivity {
             default: break;
         }
         removeDuplicate();
-        mAccountAdapter.SetData(listAccount);
+        DataManager.mAccountAdapter.SetData(listAccount);
     }
 
     private void createListSpinner() {
@@ -124,6 +125,7 @@ public class AccountManager extends AppCompatActivity {
         orderBySpinner.setAdapter(arrayAdapter);
         orderBySpinner.setSelection(0);
         orderBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 getList(orderBySpinner.getSelectedItem().toString());

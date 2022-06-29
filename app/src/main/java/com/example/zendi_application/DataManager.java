@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.zendi_application.ActivityAccount.Admin.AccountManager.AccountAdapter;
 import com.example.zendi_application.ActivityAccount.Admin.Statistic.Ordered;
 import com.example.zendi_application.ActivityAccount.User;
 import com.example.zendi_application.ActivityAccount.edit_deleteDropPackage.edit_deleteDrop;
@@ -68,6 +69,7 @@ public class DataManager {
     // Instance
     public static ShoeInBagAdapter shoeInBagAdapter;
     public static ShoeInWishAdapter shoeInWishAdapter;
+    public static AccountAdapter mAccountAdapter;
     public static DataManager instance;
     public static List<notification> listNoti = new ArrayList<>(); // All notis
     public static List<product2> listProduct = new ArrayList<>(); // All products
