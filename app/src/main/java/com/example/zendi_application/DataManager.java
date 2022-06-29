@@ -178,6 +178,7 @@ public class DataManager {
                                 break;
                             }
                             }
+                            Toast.makeText(parent, "Selected product has been in drop !", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
